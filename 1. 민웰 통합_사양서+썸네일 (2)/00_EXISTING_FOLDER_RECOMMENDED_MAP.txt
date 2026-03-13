@@ -1,0 +1,72 @@
+﻿Generated: 2026-03-10 13:23:14
+Target: C:\Users\PC\OneDrive\문서\GitHub\mwpower\1. 민웰 통합_사양서+썸네일 (2)
+
+기존 시리즈 폴더 추천 이동 경로 (자동 매핑)
+==========================================
+
+[1] 유일 매칭 (26개)
+- CSP => 01_AC_DC\\02_Programmable Power\\02_CSP Series
+- DDR => 02_DC_DC\\01_DIN Rail\\01_DDR Series
+- DRA => 01_AC_DC\\03_DIN Rail\\06_DRA Series
+- DRS => 01_AC_DC\\05_Security & Specific\\02_Security - DRS Series
+- EDR => 01_AC_DC\\03_DIN Rail\\07_EDR Series
+- HDR => 01_AC_DC\\03_DIN Rail\\04_HDR Series
+- HRP => 01_AC_DC\\01_Enclosed Type\\08_HRP Series
+- HVGC => 01_AC_DC\\08_LED Driver\\10_HVG(C) Series
+- LRS => 01_AC_DC\\01_Enclosed Type\\02_LRS Series
+- MDR => 01_AC_DC\\03_DIN Rail\\05_MDR Series
+- MSP => 01_AC_DC\\01_Enclosed Type\\07_MSP Series
+- NCP => 01_AC_DC\\06_Rack Power\\02_NCP Series
+- NDR => 01_AC_DC\\03_DIN Rail\\08_NDR Series
+- NSP => 01_AC_DC\\01_Enclosed Type\\05_NSP Series
+- PSP => 01_AC_DC\\01_Enclosed Type\\09_PSP_QP Series
+- RCP => 01_AC_DC\\06_Rack Power\\01_RCP Series
+- RSD => 02_DC_DC\\05_Enclosed Type\\02_RSD Series - Railway_ITE
+- RST => 01_AC_DC\\02_Programmable Power\\06_RST Series
+- SD => 02_DC_DC\\05_Enclosed Type\\03_SD Series
+- SDR => 01_AC_DC\\03_DIN Rail\\09_SDR Series
+- SE => 01_AC_DC\\01_Enclosed Type\\03_SE Series
+- TDR => 01_AC_DC\\03_DIN Rail\\10_TDR Series
+- UHP => 01_AC_DC\\01_Enclosed Type\\04_UHP Series
+- WDR => 01_AC_DC\\03_DIN Rail\\11_WDR Series
+- XLG => 01_AC_DC\\08_LED Driver\\11_XLG Series
+- XTR => 01_AC_DC\\03_DIN Rail\\03_XTR Series
+
+[2] 다중 후보 (4개)
+- ELG => 다중 후보: 01_AC_DC\\08_LED Driver\\02_ELG Series | 01_AC_DC\\08_LED Driver\\03_ELG-C Series
+- HLG => 다중 후보: 01_AC_DC\\08_LED Driver\\05_HLG Series | 01_AC_DC\\08_LED Driver\\06_HLG-C Series
+- RSP => 다중 후보: 01_AC_DC\\01_Enclosed Type\\06_RSP-75~500 Series | 01_AC_DC\\02_Programmable Power\\07_RSP-750~3000 Series
+- XDR => 다중 후보: 01_AC_DC\\03_DIN Rail\\01_XDR-E Series | 01_AC_DC\\03_DIN Rail\\02_XDR Series
+
+[3] 매칭 없음 (29개)
+- DBU => (매칭 없음)
+- DRDN => (매칭 없음)
+- DUPS => (매칭 없음)
+- ELP => (매칭 없음)
+- EPP => (매칭 없음)
+- EPS => (매칭 없음)
+- ERDN => (매칭 없음)
+- GST => (매칭 없음)
+- HRPG => (매칭 없음)
+- IRM => (매칭 없음)
+- LOP => (매칭 없음)
+- LPH => (매칭 없음)
+- MFM => (매칭 없음)
+- NPB => (매칭 없음)
+- NPP => (매칭 없음)
+- PD => (매칭 없음)
+- PT => (매칭 없음)
+- RD => (매칭 없음)
+- RKP => (매칭 없음)
+- RPD => (매칭 없음)
+- RPS => (매칭 없음)
+- RQ => (매칭 없음)
+- RS => (매칭 없음)
+- RSDW => (매칭 없음)
+- RT => (매칭 없음)
+- SBTN01 => (매칭 없음)
+- SPAN02,DPAN02 => (매칭 없음)
+- SPRN => (매칭 없음)
+- SPUN02, DPUN02 => (매칭 없음)
+
+* 참고: 이 파일은 이동 기준표만 만들며, 실제 폴더 이동은 수행하지 않습니다.

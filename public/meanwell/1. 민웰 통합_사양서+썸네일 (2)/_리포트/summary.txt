@@ -1,0 +1,5 @@
+﻿OutputFolder=C:\Users\PC\OneDrive\문서\Downloads\meanwell_product\1. 민웰 통합_사양서+썸네일 (2)
+SpecCount=380
+ThumbnailCount=589
+MatchedThumbnailUniqueCount=588
+UnmatchedThumbnailCount=1
