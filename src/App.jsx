@@ -40,19 +40,6 @@ export default function App() {
           {firebaseStatus}
         </section>
 
-        <aside className="fixed inset-x-0 bottom-0 z-50 flex min-h-[34px] items-center gap-2 bg-[#544d55] px-2.5 py-1.5 text-white max-[640px]:flex-wrap">
-          <p className="m-0 text-[clamp(12px,0.8vw,29px)]">
-            We use cookies to enhance your experience. By continuing to visit this site
-            you agree to our use of cookies.
-            <a className="text-[#e6cd3d]" href="#">
-              {' '}
-              More info
-            </a>
-          </p>
-          <button type="button" className="ml-auto min-w-[98px] rounded bg-[#e6cd3d] px-2.5 py-1.5 text-[clamp(12px,0.82vw,22px)] text-black max-[640px]:ml-0">
-            Got it!
-          </button>
-        </aside>
       </div>
     </>
   )

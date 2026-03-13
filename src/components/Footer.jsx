@@ -8,19 +8,6 @@ export function Footer() {
           </strong>
           <span className="text-[clamp(18px,1.1vw,24px)] font-medium text-slate-600 max-[640px]:text-base">Korea</span>
         </div>
-        <label className="w-auto max-[980px]:w-full">
-          <span className="sr-only">관련 사이트</span>
-          <select
-            className="h-[52px] min-w-[282px] rounded-full border border-slate-300 bg-slate-50 px-4 text-base text-slate-600 max-[980px]:h-[46px] max-[980px]:max-w-[380px] max-[980px]:min-w-0 max-[980px]:w-full"
-            aria-label="관련 사이트"
-          >
-            <option>관련 사이트</option>
-            <option>MEAN WELL GUANGZHOU</option>
-            <option>MEAN WELL SUZHOU</option>
-            <option>MEAN WELL USA, INC.</option>
-            <option>MEAN WELL EUROPE N.V.</option>
-          </select>
-        </label>
       </div>
 
       <div className="mx-auto mt-3 flex max-w-[1240px] items-start justify-between gap-6 max-[980px]:flex-col max-[980px]:items-start">

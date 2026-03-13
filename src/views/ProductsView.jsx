@@ -5,7 +5,6 @@ import {
   findSearchResults,
   getLeafChips,
   getModelAssetByModel,
-  getLeafModelHints,
   getLeafView,
   iconByMajor,
   loadLeafModelTreeMap,
@@ -13,10 +12,21 @@ import {
   normalizeLabel,
 } from '../features/productCatalogService'
 
+function withPdfViewerParams(url = '') {
+  const text = String(url ?? '').trim()
+  if (!text) return ''
+
+  const [base, hash = ''] = text.split('#')
+  const params = new URLSearchParams(hash)
+  if (!params.has('page')) params.set('page', '1')
+  if (!params.has('zoom')) params.set('zoom', 'page-fit')
+
+  return `${base}#${params.toString()}`
+}
+
 export function ProductsView({ isActive, onStatusChange }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
-  const [sourceInfo, setSourceInfo] = useState({ major: 'default', leafTree: 'fallback' })
 
   const [activeMajorId, setActiveMajorId] = useState(defaultMajorCategories[0]?.id ?? '')
   const [activeSubcategory, setActiveSubcategory] = useState(null)
@@ -24,11 +34,6 @@ export function ProductsView({ isActive, onStatusChange }) {
   const [activeGroup, setActiveGroup] = useState(null)
   const [activeModel, setActiveModel] = useState(null)
   const [search, setSearch] = useState('')
-  const [sidebarOpen, setSidebarOpen] = useState({
-    major: true,
-    subcategory: true,
-    series: true,
-  })
 
   useEffect(() => {
     let alive = true
@@ -40,7 +45,6 @@ export function ProductsView({ isActive, onStatusChange }) {
       const categories = majorResult.categories.length > 0 ? majorResult.categories : defaultMajorCategories
       setMajorCategories(categories)
       setLeafTreeMap(treeResult.treeMap)
-      setSourceInfo({ major: majorResult.source, leafTree: treeResult.source })
       setActiveMajorId((prev) => (categories.some((item) => item.id === prev) ? prev : categories[0]?.id ?? ''))
 
       onStatusChange?.(
@@ -71,11 +75,6 @@ export function ProductsView({ isActive, onStatusChange }) {
       setActiveSubcategory(subcategories[0] ?? null)
     }
   }, [search, activeSubcategory, subcategories, subcategoriesKey])
-
-  const sidebarLeafChips = useMemo(
-    () => getLeafChips(activeMajor?.name, activeSubcategory, { includeFallback: false }),
-    [activeMajor?.name, activeSubcategory]
-  )
 
   const selectableLeafChips = useMemo(
     () => getLeafChips(activeMajor?.name, activeSubcategory, { includeFallback: true }),
@@ -136,6 +135,7 @@ export function ProductsView({ isActive, onStatusChange }) {
     const groupNames = leafView.groups.map((group) => group.name)
     return findMatchingLabel(groupNames, activeGroup) ?? leafView.groups[0]?.name ?? null
   }, [leafView, activeGroup])
+  const groupOptions = useMemo(() => (leafView?.groups.length > 1 ? leafView.groups.map((group) => group.name) : []), [leafView])
 
   const visibleModels = useMemo(() => {
     if (!leafView) return []
@@ -178,15 +178,11 @@ export function ProductsView({ isActive, onStatusChange }) {
   const pageDescription = hasSearch
     ? '카테고리, 시리즈, 그룹, 모델 검색 결과입니다.'
     : activeLeaf
-      ? `${activeMajor?.name ?? ''} / ${activeSubcategory ?? ''} 시리즈 하위 카테고리와 모델입니다.`
+      ? ''
       : `${activeMajor?.name ?? 'Products'} 카테고리의 소분류와 시리즈 탐색 화면입니다.`
-
-  const breadcrumbMajor = hasSearch ? 'Products' : activeMajor?.name || 'Products'
-  const breadcrumbLeaf = hasSearch ? 'Search Results' : activeLeaf || activeSubcategory || activeMajor?.name || 'Category'
 
   const majorTitle = hasSearch ? 'Search Results' : activeLeaf || activeSubcategory || activeMajor?.name || 'Category'
   const showMajorTitle = normalizeLabel(majorTitle) !== normalizeLabel(pageHeading)
-  const showLeafPanelTitle = !activeLeaf || normalizeLabel(activeLeaf) !== normalizeLabel(pageHeading)
 
   const searchMetaText = hasSearch
     ? searchResults.length > 0
@@ -196,7 +192,7 @@ export function ProductsView({ isActive, onStatusChange }) {
       ? leafView && leafView.totalModelCount > 0
         ? `총 ${leafView.totalModelCount}개 모델이 등록되어 있습니다.`
         : '해당 시리즈 모델 데이터가 아직 없습니다.'
-      : '좌측 소분류 선택 -> 좌측 시리즈 선택 -> 우측 그룹/모델 확인'
+      : '상단 카테고리 바에서 대분류 -> 소분류 -> 시리즈 -> 그룹 -> 모델 순서로 선택하세요.'
 
   const handleMajorClick = (majorId) => {
     setActiveMajorId(majorId)
@@ -218,6 +214,16 @@ export function ProductsView({ isActive, onStatusChange }) {
     if (hasSearch) setSearch('')
   }
 
+  const handleGroupClick = (groupName) => {
+    setActiveGroup(groupName || null)
+    if (hasSearch) setSearch('')
+  }
+
+  const handleModelClick = (modelName) => {
+    setActiveModel(modelName || null)
+    if (hasSearch) setSearch('')
+  }
+
   const handleSearchResultClick = (result) => {
     setActiveMajorId(result.majorId)
     setActiveSubcategory(result.subcategory || null)
@@ -226,144 +232,114 @@ export function ProductsView({ isActive, onStatusChange }) {
     setSearch('')
   }
 
-  const toggleSidebarSection = (sectionKey) => {
-    setSidebarOpen((prev) => ({ ...prev, [sectionKey]: !prev[sectionKey] }))
-  }
-
   return (
     <section className={`${isActive ? '' : 'is-hidden'} min-h-[1200px] bg-slate-100 pb-16`} id="product-page">
       <div className="h-[168px] bg-[linear-gradient(rgba(53,53,53,0.36),rgba(53,53,53,0.36)),url('/meanwell/image/product_banner.jpg')] bg-cover bg-center bg-no-repeat max-[980px]:h-[150px] max-[640px]:h-[120px]"></div>
 
       <div className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex h-[56px] max-w-[1320px] items-center px-3">
-          <span className="grid h-full w-[56px] place-items-center border-r border-slate-200 bg-[#d42a2a] text-white">
-            <i className="fa-solid fa-house text-xs"></i>
-          </span>
-          <span className="flex h-full min-w-[160px] items-center border-r border-slate-200 px-4 text-[13px] text-slate-500">{breadcrumbMajor}</span>
-          <span className="flex h-full min-w-[180px] items-center border-r border-slate-200 px-4 text-[13px] text-slate-500">{breadcrumbLeaf}</span>
+        <div className="mx-auto max-w-[1320px] px-3 py-3">
+          <div className="flex min-h-[64px] items-end gap-2 overflow-x-auto rounded-2xl border border-[#e9b7b7] bg-[linear-gradient(180deg,#fff,#fdf5f5)] p-2.5 shadow-[0_6px_18px_rgba(151,29,29,0.08)]">
+            <span className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-lg bg-[#d42a2a] text-white shadow-sm">
+              <i className="fa-solid fa-house text-xs"></i>
+            </span>
+            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
+
+            <label className="grid shrink-0 gap-1">
+              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">대분류</span>
+              <select
+                className="h-[38px] min-w-[170px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8]"
+                value={activeMajor?.id ?? ''}
+                onChange={(event) => handleMajorClick(event.target.value)}
+              >
+                {majorCategories.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
+
+            <label className="grid shrink-0 gap-1">
+              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">소분류</span>
+              <select
+                className="h-[38px] min-w-[200px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:cursor-not-allowed disabled:bg-slate-100"
+                value={activeSubcategory ?? ''}
+                onChange={(event) => handleSubcategoryClick(event.target.value)}
+                disabled={subcategories.length === 0}
+              >
+                {subcategories.length === 0 ? <option value="">소분류 없음</option> : null}
+                {subcategories.map((subcategory) => (
+                  <option key={subcategory} value={subcategory}>
+                    {subcategory}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
+
+            <label className="grid shrink-0 gap-1">
+              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">시리즈</span>
+              <select
+                className="h-[38px] min-w-[200px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:cursor-not-allowed disabled:bg-slate-100"
+                value={activeLeaf ?? ''}
+                onChange={(event) => handleLeafClick(event.target.value)}
+                disabled={!activeSubcategory || selectableLeafChips.length === 0}
+              >
+                <option value="">시리즈 선택</option>
+                {selectableLeafChips.map((chip) => (
+                  <option key={chip} value={chip}>
+                    {chip}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
+
+            <label className="grid shrink-0 gap-1">
+              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">그룹</span>
+              <select
+                className="h-[38px] min-w-[170px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:cursor-not-allowed disabled:bg-slate-100"
+                value={selectedGroupName ?? ''}
+                onChange={(event) => handleGroupClick(event.target.value)}
+                disabled={groupOptions.length === 0}
+              >
+                <option value="">{groupOptions.length > 0 ? '그룹 선택' : '그룹 없음'}</option>
+                {groupOptions.map((groupName) => (
+                  <option key={groupName} value={groupName}>
+                    {groupName}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
+
+            <label className="grid shrink-0 gap-1">
+              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">모델</span>
+              <select
+                className="h-[38px] min-w-[190px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:cursor-not-allowed disabled:bg-slate-100"
+                value={activeModel ?? ''}
+                onChange={(event) => handleModelClick(event.target.value)}
+                disabled={!activeLeaf || visibleModels.length === 0}
+              >
+                <option value="">{visibleModels.length > 0 ? '모델 선택' : '모델 없음'}</option>
+                {visibleModels.map((modelName) => (
+                  <option key={modelName} value={modelName}>
+                    {modelName}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
       </div>
 
-      <div className="mx-auto mt-8 grid max-w-[1160px] grid-cols-[220px_minmax(0,1fr)] gap-5 px-3 max-[980px]:mt-6 max-[980px]:grid-cols-1 max-[980px]:gap-4">
-        <aside className="product-side grid content-start gap-2.5 max-[980px]:order-2">
-          <div className="rounded-xl border border-slate-300 bg-white">
-            <button
-              type="button"
-              className="flex w-full items-center justify-between border-b border-slate-200 px-3.5 py-3 text-left text-[12px] font-bold text-slate-700"
-              onClick={() => toggleSidebarSection('major')}
-            >
-              <span>카테고리 전체</span>
-              <i className={`fa-solid ${sidebarOpen.major ? 'fa-chevron-up' : 'fa-chevron-down'} text-[11px] text-slate-500`}></i>
-            </button>
-            {sidebarOpen.major ? (
-              <div className="grid gap-1 p-2.5 max-[980px]:grid-cols-4 max-[640px]:grid-cols-2">
-                {majorCategories.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`w-full rounded-md border px-2.5 py-2 text-left text-[12px] font-semibold transition ${
-                      item.id === activeMajor?.id
-                        ? 'border-[#c83a3a] bg-[#c83a3a] text-white'
-                        : 'border-slate-300 bg-white text-slate-700 hover:border-[#c83a3a] hover:text-[#c83a3a]'
-                    }`}
-                    onClick={() => handleMajorClick(item.id)}
-                  >
-                    {item.name}
-                  </button>
-                ))}
-              </div>
-            ) : null}
-          </div>
-
-          <div className="rounded-xl border border-slate-300 bg-white">
-            <button
-              type="button"
-              className="flex w-full items-center justify-between border-b border-slate-200 px-3.5 py-3 text-left text-[12px] font-bold text-slate-700"
-              onClick={() => toggleSidebarSection('subcategory')}
-            >
-              <span>소분류</span>
-              <i className={`fa-solid ${sidebarOpen.subcategory ? 'fa-chevron-up' : 'fa-chevron-down'} text-[11px] text-slate-500`}></i>
-            </button>
-            {sidebarOpen.subcategory ? (
-              <div className="grid gap-1 p-2.5">
-                {subcategories.length === 0 ? (
-                  <p className="m-0 rounded-md border border-dashed border-slate-300 px-2.5 py-3 text-center text-xs text-slate-500">등록된 소분류가 없습니다.</p>
-                ) : (
-                  subcategories.map((subcategory) => {
-                    const isActive = normalizeLabel(subcategory) === normalizeLabel(activeSubcategory)
-                    return (
-                      <button
-                        key={subcategory}
-                        type="button"
-                        className={`w-full rounded-md border px-2.5 py-2 text-left text-xs font-semibold transition ${
-                          isActive
-                            ? 'border-[#c83a3a] bg-[#c83a3a] text-white'
-                            : 'border-slate-300 bg-white text-slate-700 hover:border-[#c83a3a] hover:text-[#c83a3a]'
-                        }`}
-                        onClick={() => handleSubcategoryClick(subcategory)}
-                      >
-                        {subcategory}
-                      </button>
-                    )
-                  })
-                )}
-              </div>
-            ) : null}
-          </div>
-
-          <div className="rounded-xl border border-slate-300 bg-white">
-            <button
-              type="button"
-              className="flex w-full items-center justify-between border-b border-slate-200 px-3.5 py-3 text-left text-[12px] font-bold text-slate-700"
-              onClick={() => toggleSidebarSection('series')}
-            >
-              <span>시리즈</span>
-              <i className={`fa-solid ${sidebarOpen.series ? 'fa-chevron-up' : 'fa-chevron-down'} text-[11px] text-slate-500`}></i>
-            </button>
-            {sidebarOpen.series ? (
-              <div className="grid gap-1 p-2.5">
-                {hasSearch ? (
-                  <p className="m-0 rounded-md border border-dashed border-slate-300 px-2.5 py-3 text-center text-xs text-slate-500">검색 화면에서는 시리즈를 숨깁니다.</p>
-                ) : !activeSubcategory ? (
-                  <p className="m-0 rounded-md border border-dashed border-slate-300 px-2.5 py-3 text-center text-xs text-slate-500">소분류를 먼저 선택해주세요.</p>
-                ) : sidebarLeafChips.length === 0 ? (
-                  <p className="m-0 rounded-md border border-dashed border-slate-300 px-2.5 py-3 text-center text-xs text-slate-500">등록된 시리즈가 없습니다.</p>
-                ) : (
-                  sidebarLeafChips.map((leaf) => {
-                    const isActive = normalizeLabel(leaf) === normalizeLabel(activeLeaf)
-                    const modelHints = getLeafModelHints({
-                      majorName: activeMajor?.name,
-                      subcategoryName: activeSubcategory,
-                      leafName: leaf,
-                      treeMap: leafTreeMap,
-                      limit: 2,
-                    })
-
-                    return (
-                      <button
-                        key={leaf}
-                        type="button"
-                        className={`w-full rounded-md border px-2.5 py-2 text-left transition ${
-                          isActive
-                            ? 'border-[#c83a3a] bg-[#c83a3a] text-white'
-                            : 'border-slate-300 bg-white text-slate-700 hover:border-[#c83a3a] hover:text-[#c83a3a]'
-                        }`}
-                        onClick={() => handleLeafClick(leaf)}
-                      >
-                        <span className="block text-xs font-semibold">{leaf}</span>
-                        {modelHints.length > 0 ? (
-                          <span className={`mt-0.5 block text-[11px] ${isActive ? 'text-[#fbe4e4]' : 'text-slate-500'}`}>{modelHints.join(' / ')}</span>
-                        ) : null}
-                      </button>
-                    )
-                  })
-                )}
-              </div>
-            ) : null}
-          </div>
-        </aside>
-
-        <div className="product-main min-w-0 max-[980px]:order-1">
+      <div className="mx-auto mt-8 max-w-[1160px] px-3 max-[980px]:mt-6">
+        <div className="product-main min-w-0">
           <div className="rounded-xl border border-slate-300 bg-white px-5 py-5 max-[640px]:px-3.5">
             <h1 className="mb-0 mt-0 text-[clamp(34px,2.3vw,44px)] font-black leading-tight tracking-[-0.02em] text-slate-800 max-[980px]:text-[32px] max-[640px]:text-[26px]">
               Product Information
@@ -406,7 +382,7 @@ export function ProductsView({ isActive, onStatusChange }) {
                 </div>
                 <div className="grid content-start gap-2.5">
                   <span className="inline-flex w-fit items-center rounded-full bg-[#d71f2b] px-2 py-0.5 text-[10px] font-bold text-white">NEW</span>
-                  <h2 className="m-0 text-[clamp(30px,2vw,42px)] font-black tracking-[-0.01em] text-slate-900">{activeLeaf}</h2>
+                  <h2 className="m-0 text-[clamp(30px,2vw,42px)] font-black tracking-[-0.01em] text-slate-900">{selectedModelCard?.modelName ?? activeLeaf}</h2>
                   <p className="m-0 text-sm text-slate-500">{selectedModelCard ? `${selectedModelCard.modelName} 기준 상세 정보입니다.` : '모델을 선택하면 상세 정보를 확인할 수 있습니다.'}</p>
                 </div>
               </div>
@@ -451,7 +427,7 @@ export function ProductsView({ isActive, onStatusChange }) {
             ) : !activeLeaf ? (
               !activeSubcategory ? (
                 <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-6">
-                  <p className="m-0 text-center text-sm text-slate-500">좌측 소분류를 선택하면 우측에 시리즈 결과가 표시됩니다.</p>
+                  <p className="m-0 text-center text-sm text-slate-500">상단 카테고리 바에서 소분류를 선택하면 시리즈 결과가 표시됩니다.</p>
                 </div>
               ) : selectableLeafChips.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-6">
@@ -459,30 +435,6 @@ export function ProductsView({ isActive, onStatusChange }) {
                 </div>
               ) : (
                 <>
-                  <section className="grid gap-3 rounded-xl border border-slate-300 bg-white p-4">
-                    <h3 className="m-0 text-[34px] font-black leading-tight text-slate-800 max-[640px]:text-[28px]">{activeMajor?.name}</h3>
-                    <div className="grid gap-2 sm:grid-cols-2">
-                      {subcategories.map((subcategory) => {
-                        const isActive = normalizeLabel(subcategory) === normalizeLabel(activeSubcategory)
-                        return (
-                          <button
-                            key={subcategory}
-                            type="button"
-                            className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-left text-[15px] font-bold transition ${
-                              isActive
-                                ? 'border-[#c83a3a] bg-[#fff5f5] text-[#b33131]'
-                                : 'border-slate-300 bg-white text-slate-700 hover:border-[#c83a3a] hover:text-[#c83a3a]'
-                            }`}
-                            onClick={() => handleSubcategoryClick(subcategory)}
-                          >
-                            <i className="fa-solid fa-microchip text-[12px]"></i>
-                            <span>{subcategory}</span>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </section>
-
                   <section className="overflow-hidden rounded-xl border border-[#c83a3a]">
                     <header className="flex items-center justify-between bg-[#d13636] px-4 py-3 text-white">
                       <h3 className="m-0 text-[36px] font-black leading-none max-[640px]:text-[28px]">{activeSubcategory}</h3>
@@ -515,146 +467,28 @@ export function ProductsView({ isActive, onStatusChange }) {
                   </section>
                 </>
               )
-            ) : (
-              <section className="grid gap-3.5">
-                <header className="rounded-2xl border border-slate-300 bg-white px-5 py-4">
-                  <p className="m-0 text-[11px] font-bold uppercase tracking-[0.05em] text-[#c83a3a]">{activeMajor?.name} / {activeSubcategory}</p>
-                  {showLeafPanelTitle ? (
-                    <h3 className="mb-1 mt-1.5 text-[clamp(28px,2vw,36px)] font-black leading-tight tracking-[-0.01em] text-slate-900">{activeLeaf}</h3>
-                  ) : null}
-                  <p className="m-0 text-[13px] text-slate-500">
-                    {leafView?.groups.length > 1 ? `${leafView.groups.length}개 그룹 / 모델 ${leafView.totalModelCount}개` : `모델 ${leafView?.totalModelCount ?? 0}개`}
+            ) : selectedModelCard ? (
+              <article className="grid min-h-[980px] gap-4 rounded-xl border border-slate-300 bg-slate-50 p-4">
+                <div className="grid gap-2.5">
+                  <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
+                    {activeMajor?.name} / {activeSubcategory} / {activeLeaf}
                   </p>
-                </header>
-
-                <section className="grid gap-2.5 overflow-hidden rounded-xl border border-[#c83a3a] bg-white p-0">
-                  <div className="flex items-center justify-between bg-[#d13636] px-4 py-3 text-white">
-                    <p className="m-0 text-base font-black">Series Category</p>
-                    <button
-                      type="button"
-                      className="rounded-md border border-white/70 px-2.5 py-1 text-[11px] font-bold text-white/90"
-                      onClick={() => {
-                        setActiveLeaf(null)
-                        setActiveGroup(null)
-                      }}
-                    >
-                      소분류 선택으로
-                    </button>
+                  <h4 className="m-0 text-[clamp(32px,2.8vw,46px)] font-black leading-tight tracking-[-0.01em] text-slate-900">{selectedModelCard.modelName}</h4>
+                </div>
+                {selectedModelCard.asset?.pdfUrl ? (
+                  <div className="h-[860px] overflow-hidden rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[700px] max-[640px]:h-[540px]">
+                    <iframe title={`${selectedModelCard.modelName} PDF`} src={withPdfViewerParams(selectedModelCard.asset.pdfUrl)} className="h-full w-full border-0 bg-white"></iframe>
                   </div>
-                  <div className="grid gap-2.5 bg-[#efefef] p-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-slate-500">시리즈 선택</p>
-                  </div>
-                  <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                    {selectableLeafChips.map((chip) => {
-                      const view = getLeafView({
-                        majorName: activeMajor?.name,
-                        subcategoryName: activeSubcategory,
-                        leafName: chip,
-                        treeMap: leafTreeMap,
-                      })
-                      const isActive = normalizeLabel(chip) === normalizeLabel(activeLeaf)
-                      const hint = view.groups.length > 1 ? `${view.groups.length}개 그룹 / 모델 ${view.totalModelCount}개` : `모델 ${view.totalModelCount}개`
-
-                      return (
-                        <button
-                          key={chip}
-                          type="button"
-                          className={`grid gap-1 rounded-xl border px-3 py-2.5 text-left transition ${
-                            isActive
-                              ? 'border-[#c83a3a] bg-[#c83a3a] text-white'
-                              : 'border-slate-300 bg-slate-50 text-slate-700 hover:border-[#c83a3a] hover:text-[#c83a3a]'
-                          }`}
-                          onClick={() => {
-                            setActiveLeaf(chip)
-                            setActiveGroup(null)
-                          }}
-                        >
-                          <span className="text-sm font-bold">{chip}</span>
-                          <span className={`text-[11px] ${isActive ? 'text-[#fbe4e4]' : 'text-slate-500'}`}>{hint}</span>
-                        </button>
-                      )
-                    })}
-                  </div>
-                  </div>
-                </section>
-
-                {leafView && leafView.groups.length > 1 ? (
-                  <section className="grid gap-2.5 overflow-hidden rounded-xl border border-[#c83a3a] bg-white p-0">
-                    <div className="flex items-center justify-between bg-[#d13636] px-4 py-3 text-white">
-                      <p className="m-0 text-base font-black">하위 카테고리</p>
-                    </div>
-                    <div className="grid gap-2.5 bg-[#efefef] p-4 sm:grid-cols-2 lg:grid-cols-4">
-                      {leafView.groups.map((group) => {
-                        const isActive = normalizeLabel(group.name) === normalizeLabel(selectedGroupName)
-                        return (
-                          <button
-                            key={group.name}
-                            type="button"
-                            className={`rounded-xl border px-3 py-2 text-left transition ${
-                              isActive
-                                ? 'border-[#c83a3a] bg-[#c83a3a] text-white'
-                                : 'border-slate-300 bg-white text-slate-700 hover:border-[#c83a3a] hover:text-[#c83a3a]'
-                            }`}
-                            onClick={() => setActiveGroup(group.name)}
-                          >
-                            <span className="block text-sm font-bold">{group.name}</span>
-                            <span className={`block text-[11px] ${isActive ? 'text-[#fbe4e4]' : 'text-slate-500'}`}>{group.models.length}개 모델</span>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </section>
-                ) : null}
-
-                {visibleModels.length > 0 ? (
-                  <section className="grid gap-2.5">
-                    <section className="grid gap-2.5 overflow-hidden rounded-xl border border-[#c83a3a] bg-white p-0">
-                      <div className="flex items-center justify-between bg-[#d13636] px-4 py-3 text-white">
-                        <p className="m-0 text-base font-black">모델 카테고리</p>
-                      </div>
-                      <div className="grid gap-2.5 bg-[#efefef] p-4 sm:grid-cols-2 lg:grid-cols-3">
-                        {visibleModelCards.map(({ modelName }) => {
-                          const isActive = normalizeLabel(activeModel) === normalizeLabel(modelName)
-                          return (
-                            <button
-                              key={modelName}
-                              type="button"
-                              className={`rounded-xl border px-3 py-2 text-left transition ${
-                                isActive
-                                  ? 'border-[#c83a3a] bg-[#c83a3a] text-white'
-                                  : 'border-slate-300 bg-white text-slate-700 hover:border-[#c83a3a] hover:text-[#c83a3a]'
-                              }`}
-                              onClick={() => setActiveModel(modelName)}
-                            >
-                              <span className="block text-sm font-bold leading-tight tracking-[-0.01em]">{modelName}</span>
-                            </button>
-                          )
-                        })}
-                      </div>
-                    </section>
-
-                    {selectedModelCard ? (
-                      <article className="grid gap-3 rounded-xl border border-slate-300 bg-slate-50 p-3.5">
-                        <div className="grid gap-2.5">
-                          <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">{activeLeaf}</p>
-                          <h4 className="m-0 text-[clamp(32px,2.8vw,46px)] font-black leading-tight tracking-[-0.01em] text-slate-900">{selectedModelCard.modelName}</h4>
-                          <p className="m-0 text-sm text-slate-500">선택한 모델의 상세 정보를 확인할 수 있습니다.</p>
-                        </div>
-                        {selectedModelCard.asset?.pdfUrl ? (
-                          <div className="h-[760px] overflow-hidden rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[620px] max-[640px]:h-[480px]">
-                            <iframe title={`${selectedModelCard.modelName} PDF`} src={selectedModelCard.asset.pdfUrl} className="h-full w-full border-0 bg-white"></iframe>
-                          </div>
-                        ) : null}
-                      </article>
-                    ) : null}
-                  </section>
                 ) : (
-                  <div className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-6">
-                    <p className="m-0 text-center text-sm text-slate-500">해당 시리즈의 하위 모델 데이터가 없습니다.</p>
+                  <div className="rounded-lg border border-dashed border-slate-300 bg-white px-4 py-8">
+                    <p className="m-0 text-center text-sm text-slate-500">선택한 모델의 PDF 자료가 없습니다.</p>
                   </div>
                 )}
-              </section>
+              </article>
+            ) : (
+              <div className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-6">
+                <p className="m-0 text-center text-sm text-slate-500">상단 카테고리에서 모델을 선택해주세요.</p>
+              </div>
             )}
           </div>
 
@@ -674,7 +508,6 @@ export function ProductsView({ isActive, onStatusChange }) {
             </article>
           </div>
 
-          <p className="mt-4 text-[11px] text-slate-400">data source: categories={sourceInfo.major}, leafTree={sourceInfo.leafTree}</p>
         </div>
       </div>
     </section>
