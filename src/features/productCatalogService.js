@@ -1,10 +1,6 @@
-﻿import { collection, getDocs, orderBy, query } from 'firebase/firestore'
-import { db } from '../firebase'
-import { defaultMajorCategories } from '../data/defaultMajorCategories'
+﻿import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import { folderCatalogManifest } from '../data/folderCatalogManifest'
 import { leafModelTreeFallback } from '../data/leafModelTreeFallback'
-
-const LEAF_TREE_COLLECTION = 'leafModelTrees'
 
 export const iconByMajor = {
   'AC/DC': 'fa-bolt',
@@ -20,28 +16,7 @@ export const iconByMajor = {
 const leafChipIndex = buildLeafChipIndex(folderCatalogManifest)
 
 export async function loadMajorCategories() {
-  try {
-    const q = query(collection(db, 'majorCategories'), orderBy('order', 'asc'))
-    const snap = await getDocs(q)
-    const categories = snap.docs
-      .map((record) => {
-        const data = record.data()
-        return {
-          id: data.id || record.id,
-          name: data.name,
-          subcategories: Array.isArray(data.subcategories) ? data.subcategories : [],
-        }
-      })
-      .filter((item) => item.name && item.subcategories.length > 0)
-
-    if (categories.length > 0) {
-      return { categories, source: 'firestore' }
-    }
-  } catch (error) {
-    // fallback
-  }
-
-  return { categories: defaultMajorCategories, source: 'default' }
+  return { categories: defaultMajorCategories, source: 'local' }
 }
 
 export async function loadLeafModelTreeMap() {
@@ -56,24 +31,7 @@ export async function loadLeafModelTreeMap() {
       if (!byLeaf[normalizeLabel(record.leaf)]) byLeaf[normalizeLabel(record.leaf)] = record
     })
 
-  try {
-    const snap = await getDocs(collection(db, LEAF_TREE_COLLECTION))
-    const firestoreRecords = snap.docs
-      .map((docSnap) => normalizeLeafTreeRecord(docSnap.data()))
-      .filter(Boolean)
-
-    if (firestoreRecords.length > 0) {
-      firestoreRecords.forEach((record) => {
-        byKey[record.key] = record
-        byLeaf[normalizeLabel(record.leaf)] = record
-      })
-      return { treeMap: { byKey, byLeaf }, source: 'firestore+fallback' }
-    }
-  } catch (error) {
-    // fallback
-  }
-
-  return { treeMap: { byKey, byLeaf }, source: 'fallback' }
+  return { treeMap: { byKey, byLeaf }, source: 'local' }
 }
 
 export function getLeafChips(majorName, subcategoryName, { includeFallback = true } = {}) {

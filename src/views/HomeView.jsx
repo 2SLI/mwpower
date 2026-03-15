@@ -1,5 +1,7 @@
 ﻿import { Fragment, useEffect, useMemo, useState } from 'react'
 
+const BLOG_URL = 'https://blog.naver.com/meanwell_power'
+
 const newsItems = [
   {
     date: '2026-03-02',
@@ -99,8 +101,8 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
           {bannerImages.map((banner, index) => (
             <div
               key={banner.src ?? `${index}`}
-              className={`banner-slide absolute inset-0 opacity-0 transition-opacity duration-500 ease-out before:absolute before:inset-0 before:bg-[linear-gradient(100deg,rgba(15,20,28,0.72)_0%,rgba(15,20,28,0.4)_42%,rgba(15,20,28,0.12)_72%)] before:content-[''] ${
-                currentSlide === index ? 'is-active' : ''
+              className={`banner-slide pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-out before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(100deg,rgba(15,20,28,0.72)_0%,rgba(15,20,28,0.4)_42%,rgba(15,20,28,0.12)_72%)] before:content-[''] ${
+                currentSlide === index ? 'is-active pointer-events-auto' : ''
               }`}
               style={{ '--banner-image': `url('${banner.src}')` }}
             >
@@ -179,7 +181,9 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
               <span className="text-[#e5332a]">News</span> Update
             </h2>
             <a
-              href="#"
+              href={BLOG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
             >
               View More
@@ -198,7 +202,9 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
                 핵심 요구 조건을 카테고리 중심으로 점검해 프로젝트 초기 리스크를 줄이는 방법을 안내합니다.
               </p>
               <a
-                href="#"
+                href={BLOG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-5 inline-flex h-10 items-center rounded-full border border-white/40 bg-white/10 px-4 text-xs font-bold text-white backdrop-blur-sm"
               >
                 Read Story

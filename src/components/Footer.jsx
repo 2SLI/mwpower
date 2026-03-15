@@ -38,7 +38,7 @@ export function Footer() {
         </p>
         <div className="flex gap-2.5">
           <a
-            className="grid h-[38px] w-[38px] place-items-center rounded-full bg-slate-300 text-base text-slate-500 max-[640px]:h-8 max-[640px]:w-8 max-[640px]:text-sm"
+            className="grid h-[38px] w-[38px] place-items-center rounded-full bg-[#f4d7d7] text-base text-[#c62828] max-[640px]:h-8 max-[640px]:w-8 max-[640px]:text-sm"
             href="https://smartstore.naver.com/meanwellpower"
             target="_blank"
             rel="noopener noreferrer"
@@ -48,7 +48,7 @@ export function Footer() {
             <i className="fa-solid fa-shop"></i>
           </a>
           <a
-            className="grid h-[38px] w-[38px] place-items-center rounded-full bg-slate-300 text-base text-slate-500 max-[640px]:h-8 max-[640px]:w-8 max-[640px]:text-sm"
+            className="grid h-[38px] w-[38px] place-items-center rounded-full bg-[#f4d7d7] text-base text-[#c62828] max-[640px]:h-8 max-[640px]:w-8 max-[640px]:text-sm"
             href="https://blog.naver.com/meanwell_power"
             target="_blank"
             rel="noopener noreferrer"

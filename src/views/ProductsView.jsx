@@ -6,7 +6,6 @@ import {
   getLeafChips,
   getModelAssetByModel,
   getLeafView,
-  iconByMajor,
   loadLeafModelTreeMap,
   loadMajorCategories,
   normalizeLabel,
@@ -22,6 +21,16 @@ function withPdfViewerParams(url = '') {
   if (!params.has('zoom')) params.set('zoom', 'page-fit')
 
   return `${base}#${params.toString()}`
+}
+
+function decodeAssetUrl(url = '') {
+  const text = String(url ?? '').trim()
+  if (!text) return ''
+  try {
+    return decodeURIComponent(text)
+  } catch {
+    return text
+  }
 }
 
 export function ProductsView({ isActive, onStatusChange }) {
@@ -48,7 +57,7 @@ export function ProductsView({ isActive, onStatusChange }) {
       setActiveMajorId((prev) => (categories.some((item) => item.id === prev) ? prev : categories[0]?.id ?? ''))
 
       onStatusChange?.(
-        `Firebase initialized: App/Auth/Firestore connected. Categories: ${majorResult.source}. Leaf tree: ${treeResult.source}.`
+        `Product catalog loaded from local data. Categories: ${majorResult.source}. Leaf tree: ${treeResult.source}.`
       )
     })()
 
@@ -80,6 +89,20 @@ export function ProductsView({ isActive, onStatusChange }) {
     () => getLeafChips(activeMajor?.name, activeSubcategory, { includeFallback: true }),
     [activeMajor?.name, activeSubcategory]
   )
+
+  useEffect(() => {
+    if (!activeSubcategory) {
+      if (activeLeaf) setActiveLeaf(null)
+      if (activeGroup) setActiveGroup(null)
+      return
+    }
+
+    const matchedLeaf = findMatchingLabel(selectableLeafChips, activeSubcategory) ?? activeSubcategory
+    if (normalizeLabel(activeLeaf) !== normalizeLabel(matchedLeaf)) {
+      setActiveLeaf(matchedLeaf)
+    }
+    if (activeGroup) setActiveGroup(null)
+  }, [activeSubcategory, selectableLeafChips, activeLeaf, activeGroup])
 
   const leafKey = useMemo(() => selectableLeafChips.join('|'), [selectableLeafChips])
 
@@ -135,7 +158,6 @@ export function ProductsView({ isActive, onStatusChange }) {
     const groupNames = leafView.groups.map((group) => group.name)
     return findMatchingLabel(groupNames, activeGroup) ?? leafView.groups[0]?.name ?? null
   }, [leafView, activeGroup])
-  const groupOptions = useMemo(() => (leafView?.groups.length > 1 ? leafView.groups.map((group) => group.name) : []), [leafView])
 
   const visibleModels = useMemo(() => {
     if (!leafView) return []
@@ -192,7 +214,7 @@ export function ProductsView({ isActive, onStatusChange }) {
       ? leafView && leafView.totalModelCount > 0
         ? `총 ${leafView.totalModelCount}개 모델이 등록되어 있습니다.`
         : '해당 시리즈 모델 데이터가 아직 없습니다.'
-      : '상단 카테고리 바에서 대분류 -> 소분류 -> 시리즈 -> 그룹 -> 모델 순서로 선택하세요.'
+      : '상단 카테고리 바에서 대분류 -> 소분류 순서로 선택하세요.'
 
   const handleMajorClick = (majorId) => {
     setActiveMajorId(majorId)
@@ -204,23 +226,13 @@ export function ProductsView({ isActive, onStatusChange }) {
 
   const handleSubcategoryClick = (subcategory) => {
     setActiveSubcategory(subcategory)
-    setActiveLeaf(null)
+    setActiveLeaf(subcategory || null)
     setActiveGroup(null)
   }
 
   const handleLeafClick = (leafName) => {
     setActiveLeaf(leafName)
     setActiveGroup(null)
-    if (hasSearch) setSearch('')
-  }
-
-  const handleGroupClick = (groupName) => {
-    setActiveGroup(groupName || null)
-    if (hasSearch) setSearch('')
-  }
-
-  const handleModelClick = (modelName) => {
-    setActiveModel(modelName || null)
     if (hasSearch) setSearch('')
   }
 
@@ -277,63 +289,6 @@ export function ProductsView({ isActive, onStatusChange }) {
                 ))}
               </select>
             </label>
-
-            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
-
-            <label className="grid shrink-0 gap-1">
-              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">시리즈</span>
-              <select
-                className="h-[38px] min-w-[200px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:cursor-not-allowed disabled:bg-slate-100"
-                value={activeLeaf ?? ''}
-                onChange={(event) => handleLeafClick(event.target.value)}
-                disabled={!activeSubcategory || selectableLeafChips.length === 0}
-              >
-                <option value="">시리즈 선택</option>
-                {selectableLeafChips.map((chip) => (
-                  <option key={chip} value={chip}>
-                    {chip}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
-
-            <label className="grid shrink-0 gap-1">
-              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">그룹</span>
-              <select
-                className="h-[38px] min-w-[170px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:cursor-not-allowed disabled:bg-slate-100"
-                value={selectedGroupName ?? ''}
-                onChange={(event) => handleGroupClick(event.target.value)}
-                disabled={groupOptions.length === 0}
-              >
-                <option value="">{groupOptions.length > 0 ? '그룹 선택' : '그룹 없음'}</option>
-                {groupOptions.map((groupName) => (
-                  <option key={groupName} value={groupName}>
-                    {groupName}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
-
-            <label className="grid shrink-0 gap-1">
-              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">모델</span>
-              <select
-                className="h-[38px] min-w-[190px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:cursor-not-allowed disabled:bg-slate-100"
-                value={activeModel ?? ''}
-                onChange={(event) => handleModelClick(event.target.value)}
-                disabled={!activeLeaf || visibleModels.length === 0}
-              >
-                <option value="">{visibleModels.length > 0 ? '모델 선택' : '모델 없음'}</option>
-                {visibleModels.map((modelName) => (
-                  <option key={modelName} value={modelName}>
-                    {modelName}
-                  </option>
-                ))}
-              </select>
-            </label>
           </div>
         </div>
       </div>
@@ -375,7 +330,12 @@ export function ProductsView({ isActive, onStatusChange }) {
               <div className="grid gap-4 [grid-template-columns:280px_minmax(0,1fr)] max-[980px]:grid-cols-1">
                 <div className="grid h-[250px] place-items-center rounded-lg border border-slate-200 bg-slate-50 p-3">
                   {selectedModelCard?.asset?.imageUrl ? (
-                    <img src={selectedModelCard.asset.imageUrl} alt={selectedModelCard.modelName} className="max-h-full w-full object-contain" loading="lazy" />
+                    <img
+                      src={decodeAssetUrl(selectedModelCard.asset.imageUrl)}
+                      alt={selectedModelCard.modelName}
+                      className="max-h-full w-full object-contain"
+                      loading="lazy"
+                    />
                   ) : (
                     <span className="text-xs text-slate-500">이미지 없음</span>
                   )}
@@ -477,7 +437,11 @@ export function ProductsView({ isActive, onStatusChange }) {
                 </div>
                 {selectedModelCard.asset?.pdfUrl ? (
                   <div className="h-[860px] overflow-hidden rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[700px] max-[640px]:h-[540px]">
-                    <iframe title={`${selectedModelCard.modelName} PDF`} src={withPdfViewerParams(selectedModelCard.asset.pdfUrl)} className="h-full w-full border-0 bg-white"></iframe>
+                    <iframe
+                      title={`${selectedModelCard.modelName} PDF`}
+                      src={withPdfViewerParams(decodeAssetUrl(selectedModelCard.asset.pdfUrl))}
+                      className="h-full w-full border-0 bg-white"
+                    ></iframe>
                   </div>
                 ) : (
                   <div className="rounded-lg border border-dashed border-slate-300 bg-white px-4 py-8">

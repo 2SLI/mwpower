@@ -1,19 +1,28 @@
+const BLOG_URL = 'https://blog.naver.com/meanwell_power'
+const SHOP_URL = 'https://smartstore.naver.com/meanwellpower'
+
 const navItems = [
   { key: 'home', label: 'Profile', view: 'home' },
   { key: 'products', label: 'Products', view: 'products' },
-  { key: null, label: 'News', view: 'home' },
+  { key: null, label: 'News', href: BLOG_URL },
   { key: 'service', label: 'Service', view: 'service' },
+  { key: null, label: 'Shop', href: SHOP_URL },
   { key: 'contact', label: 'Contact Us', view: 'contact' },
 ]
 
 function NavLink({ item, isActive, onNavigate }) {
+  const isExternal = Boolean(item.href)
+
   return (
     <a
-      href="#"
+      href={item.href ?? '#'}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
       className={`main-nav-link relative px-2.5 text-[clamp(14px,0.95vw,31px)] leading-[92px] text-white after:absolute after:-right-0.5 after:top-0 after:content-['|'] after:opacity-40 last:after:hidden max-[1280px]:text-sm max-[1280px]:leading-[62px] ${
         isActive ? 'active' : ''
       }`}
       onClick={(event) => {
+        if (isExternal) return
         event.preventDefault()
         onNavigate(item.view)
       }}
@@ -48,11 +57,6 @@ export function Header({ activeView, onNavigate }) {
           ))}
         </nav>
 
-        <div className="ml-auto flex gap-2.5 text-[clamp(13px,0.85vw,26px)] text-white max-[980px]:hidden">
-          <a href="#">Group Links</a>
-          <a href="#">Partners</a>
-          <a href="#">Login</a>
-        </div>
       </div>
     </header>
   )

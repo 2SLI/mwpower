@@ -2,8 +2,8 @@ import { promises as fs } from 'node:fs'
 import path from 'node:path'
 
 const projectRoot = process.cwd()
-const sourceDir = path.join(projectRoot, '1. 민웰 통합_사양서+썸네일 (2)')
-const targetDir = path.join(projectRoot, 'dist', '1. 민웰 통합_사양서+썸네일 (2)')
+const sourceDir = path.join(projectRoot, 'public', 'catalog', 'meanwell')
+const targetDir = path.join(projectRoot, 'dist', 'catalog', 'meanwell')
 
 async function exists(targetPath) {
   try {

@@ -1,4 +1,65 @@
+import { useState } from 'react'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { db } from '../firebase'
+
+const initialForm = {
+  name: '',
+  email: '',
+  phone: '',
+  message: '',
+}
+
+function normalizeForm(form) {
+  return {
+    name: String(form.name ?? '').trim(),
+    email: String(form.email ?? '').trim(),
+    phone: String(form.phone ?? '').trim(),
+    message: String(form.message ?? '').trim(),
+  }
+}
+
 export function ContactView({ isActive }) {
+  const [form, setForm] = useState(initialForm)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState('')
+  const [submitError, setSubmitError] = useState('')
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setForm((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    if (isSubmitting) return
+
+    const payload = normalizeForm(form)
+    if (!payload.name || !payload.email || !payload.phone) {
+      setSubmitError('이름, 이메일, 번호는 필수 입력입니다.')
+      setSubmitMessage('')
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitError('')
+    setSubmitMessage('')
+
+    try {
+      await addDoc(collection(db, 'contactInquiries'), {
+        ...payload,
+        source: 'contact-us',
+        createdAt: serverTimestamp(),
+        createdAtClient: new Date().toISOString(),
+      })
+      setForm(initialForm)
+      setSubmitMessage('문의가 정상적으로 접수되었습니다. 빠르게 연락드리겠습니다.')
+    } catch (error) {
+      setSubmitError('문의 저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <section className={`contact-page ${isActive ? '' : 'is-hidden'} bg-zinc-100 px-4 pb-9 pt-[clamp(36px,4.6vw,62px)] max-[640px]:px-3.5 max-[640px]:pb-7 max-[640px]:pt-[30px]`} id="contact-page">
       <div className="mx-auto max-w-[1160px]">
@@ -33,7 +94,7 @@ export function ContactView({ isActive }) {
             </ul>
           </div>
 
-          <form className="grid gap-2.5" action="#" method="post" noValidate>
+          <form className="grid gap-2.5" onSubmit={handleSubmit} noValidate>
             <label className="relative block">
               <span className="pointer-events-none absolute left-4 top-[13px] text-[15px] text-slate-600 max-[640px]:left-3.5 max-[640px]:top-3 max-[640px]:text-sm">
                 이름 <em className="not-italic text-[#e72e25]">*</em>
@@ -43,6 +104,8 @@ export function ContactView({ isActive }) {
                 type="text"
                 name="name"
                 autoComplete="name"
+                value={form.name}
+                onChange={handleChange}
               />
             </label>
 
@@ -55,6 +118,8 @@ export function ContactView({ isActive }) {
                 type="email"
                 name="email"
                 autoComplete="email"
+                value={form.email}
+                onChange={handleChange}
               />
             </label>
 
@@ -67,6 +132,8 @@ export function ContactView({ isActive }) {
                 type="tel"
                 name="phone"
                 autoComplete="tel"
+                value={form.phone}
+                onChange={handleChange}
               />
             </label>
 
@@ -75,12 +142,20 @@ export function ContactView({ isActive }) {
               <textarea
                 className="h-[150px] min-h-[132px] w-full resize-y rounded-lg border border-slate-300 bg-white px-3.5 pb-3 pt-[38px] text-base text-slate-800 focus:border-[#c93f3f] focus:shadow-[0_0_0_2px_#f2caca] focus:outline-none max-[640px]:h-32 max-[640px]:pt-[34px]"
                 name="message"
+                value={form.message}
+                onChange={handleChange}
               ></textarea>
             </label>
 
-            <button className="mt-0.5 rounded-md bg-gradient-to-r from-[#e2443b] to-[#b82727] px-[18px] py-4 text-[22px] font-medium text-white max-[640px]:px-4 max-[640px]:py-[13px] max-[640px]:text-lg" type="button">
-              문의 보내기
+            <button
+              className="mt-0.5 rounded-md bg-gradient-to-r from-[#e2443b] to-[#b82727] px-[18px] py-4 text-[22px] font-medium text-white disabled:cursor-not-allowed disabled:opacity-60 max-[640px]:px-4 max-[640px]:py-[13px] max-[640px]:text-lg"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? '전송 중...' : '문의 보내기'}
             </button>
+            {submitMessage ? <p className="m-0 text-sm font-medium text-green-700">{submitMessage}</p> : null}
+            {submitError ? <p className="m-0 text-sm font-medium text-red-600">{submitError}</p> : null}
           </form>
         </div>
       </div>

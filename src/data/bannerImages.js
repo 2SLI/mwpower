@@ -21,6 +21,6 @@
     title: '현장 요구에 맞춘\n맞춤형 라인업 제안',
     description: '국내 기술 지원과 인증 문서 대응으로 실제 도입까지 빠르게 이어집니다.',
     cta: '서비스 보기',
-    view: 'service',
+    view: 'contact',
   },
 ]
