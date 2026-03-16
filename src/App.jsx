@@ -73,7 +73,15 @@ export default function App() {
 
   return (
     <>
-      <a href="#" className={`inquiry-fab fixed right-2.5 top-1/2 z-40 grid h-[46px] w-[46px] -translate-y-1/2 place-items-center rounded-full bg-[#ea332d] max-[640px]:right-2 max-[640px]:h-10 max-[640px]:w-10 ${activeView === 'contact' ? 'is-hidden' : ''}`} aria-label="Sales inquiry">
+      <a
+        href="#"
+        className={`inquiry-fab fixed right-2.5 top-1/2 z-40 grid h-[46px] w-[46px] -translate-y-1/2 place-items-center rounded-full bg-[#ea332d] max-[640px]:right-2 max-[640px]:h-10 max-[640px]:w-10 ${activeView === 'contact' ? 'is-hidden' : ''}`}
+        aria-label="Sales inquiry"
+        onClick={(event) => {
+          event.preventDefault()
+          handleNavigate('contact')
+        }}
+      >
         <i className="fa-solid fa-envelope text-[18px] text-white" aria-hidden="true"></i>
       </a>
 
