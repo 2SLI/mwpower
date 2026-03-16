@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ProductSearchModal } from './ProductSearchModal'
 
 const BLOG_URL = 'https://blog.naver.com/meanwell_power'
@@ -38,7 +38,6 @@ function NavLink({ item, isActive, onNavigate }) {
 export function Header({ activeView, onNavigate, onProductSearch }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const utilityMenuRef = useRef(null)
 
   useEffect(() => {
     const handleEscape = (event) => {
@@ -47,20 +46,20 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
       setIsMenuOpen(false)
     }
 
-    const handleClickOutside = (event) => {
-      if (!utilityMenuRef.current) return
-      if (!utilityMenuRef.current.contains(event.target)) {
-        setIsMenuOpen(false)
-      }
-    }
-
     document.addEventListener('keydown', handleEscape)
-    document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('keydown', handleEscape)
-      document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
+
+  useEffect(() => {
+    if (!isMenuOpen) return undefined
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prevOverflow
+    }
+  }, [isMenuOpen])
 
   const handleInternalMenuClick = (view) => {
     onNavigate(view)
@@ -91,7 +90,7 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           ))}
         </nav>
 
-        <div className="absolute right-6 top-1/2 flex -translate-y-1/2 items-center gap-1.5 text-white max-[980px]:right-4" ref={utilityMenuRef}>
+        <div className="absolute right-6 top-1/2 flex -translate-y-1/2 items-center gap-1.5 text-white max-[980px]:right-4">
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-white/85 focus-visible:outline focus-visible:outline-1 focus-visible:outline-white/70"
@@ -119,56 +118,25 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           </button>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-white/85 focus-visible:outline focus-visible:outline-1 focus-visible:outline-white/70"
+            className="relative inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-white/85 focus-visible:outline focus-visible:outline-1 focus-visible:outline-white/70"
             aria-label="메뉴"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-header-menu"
             onClick={() => setIsMenuOpen((prev) => !prev)}
           >
-            <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
-              <line x1="3.5" y1="6.5" x2="20.5" y2="6.5"></line>
-              <line x1="3.5" y1="12" x2="20.5" y2="12"></line>
-              <line x1="3.5" y1="17.5" x2="20.5" y2="17.5"></line>
-            </svg>
+            <span
+              className={`absolute h-[2px] w-[18px] rounded-full bg-current transition ${isMenuOpen ? 'translate-y-0 rotate-45' : '-translate-y-[6px]'}`}
+              aria-hidden="true"
+            ></span>
+            <span
+              className={`absolute h-[2px] w-[18px] rounded-full bg-current transition ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}
+              aria-hidden="true"
+            ></span>
+            <span
+              className={`absolute h-[2px] w-[18px] rounded-full bg-current transition ${isMenuOpen ? 'translate-y-0 -rotate-45' : 'translate-y-[6px]'}`}
+              aria-hidden="true"
+            ></span>
           </button>
-
-          {isMenuOpen ? (
-            <nav
-              id="mobile-header-menu"
-              className="absolute right-0 top-[calc(100%+10px)] z-[60] w-[220px] overflow-hidden rounded-lg border border-slate-200 bg-white text-slate-800 shadow-[0_14px_38px_rgba(15,23,42,0.28)]"
-              aria-label="Header menu"
-            >
-              <ul className="m-0 list-none p-1.5">
-                {navItems.map((item) =>
-                  item.href ? (
-                    <li key={`menu-${item.label}`}>
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block rounded-md px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {item.label}
-                      </a>
-                    </li>
-                  ) : (
-                    <li key={`menu-${item.view ?? item.label}`}>
-                      <button
-                        type="button"
-                        className={`block w-full rounded-md px-3 py-2 text-left text-sm font-semibold hover:bg-slate-100 ${
-                          item.key === activeView ? 'text-[#c83a3a]' : 'text-slate-700'
-                        }`}
-                        onClick={() => handleInternalMenuClick(item.view)}
-                      >
-                        {item.label}
-                      </button>
-                    </li>
-                  )
-                )}
-              </ul>
-            </nav>
-          ) : null}
         </div>
 
       </div>
@@ -180,6 +148,82 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           onProductSearch?.(keyword)
         }}
       />
+
+      {isMenuOpen ? (
+        <div className="fixed inset-0 z-[70]">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/55 backdrop-blur-[1px]"
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="메뉴 닫기"
+          ></button>
+
+          <aside
+            id="mobile-header-menu"
+            className="absolute right-0 top-0 flex h-full w-[min(88vw,360px)] flex-col border-l border-slate-200 bg-white shadow-[0_18px_40px_rgba(2,8,23,0.35)]"
+            aria-label="Header menu"
+          >
+            <header className="relative overflow-hidden bg-[linear-gradient(135deg,#e53a33_0%,#c6252e_55%,#8d161f_100%)] px-5 pb-5 pt-6 text-white">
+              <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-white/12"></div>
+              <p className="m-0 text-[10px] font-black tracking-[0.14em] text-rose-100">MENU</p>
+              <h2 className="m-0 mt-1 text-[22px] font-black leading-tight tracking-[-0.02em]">meanwellpower</h2>
+              <p className="mb-0 mt-2 text-xs font-semibold text-rose-100">제품/서비스 메뉴를 빠르게 이동하세요.</p>
+            </header>
+
+            <div className="flex-1 overflow-y-auto px-3 py-3.5">
+              <ul className="m-0 list-none space-y-1.5 p-0">
+                {navItems.map((item) => {
+                  const baseClass =
+                    'flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left text-sm font-bold text-slate-700 transition hover:border-[#d45252] hover:bg-[#fff5f5] hover:text-[#c83434]'
+
+                  if (item.href) {
+                    return (
+                      <li key={`drawer-${item.label}`}>
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={baseClass}
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <span>{item.label}</span>
+                          <span aria-hidden="true">↗</span>
+                        </a>
+                      </li>
+                    )
+                  }
+
+                  return (
+                    <li key={`drawer-${item.view ?? item.label}`}>
+                      <button
+                        type="button"
+                        className={`${baseClass} ${item.key === activeView ? 'border-[#d94a4a] bg-[#fff0f0] text-[#c42f2f]' : ''}`}
+                        onClick={() => handleInternalMenuClick(item.view)}
+                      >
+                        <span>{item.label}</span>
+                        <span aria-hidden="true">›</span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+
+            <footer className="border-t border-slate-200 bg-slate-50 p-3">
+              <button
+                type="button"
+                className="w-full rounded-xl bg-[linear-gradient(135deg,#e63c35_0%,#c3272f_100%)] px-4 py-3 text-sm font-extrabold text-white shadow-[0_10px_22px_rgba(195,39,47,0.28)]"
+                onClick={() => {
+                  setIsMenuOpen(false)
+                  setIsSearchOpen(true)
+                }}
+              >
+                상품 바로 찾기
+              </button>
+            </footer>
+          </aside>
+        </div>
+      ) : null}
     </header>
   )
 }

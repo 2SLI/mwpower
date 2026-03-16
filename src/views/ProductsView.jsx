@@ -11,14 +11,14 @@ import {
   normalizeLabel,
 } from '../features/productCatalogService'
 
-function withPdfViewerParams(url = '') {
+function withPdfViewerParams(url = '', { mobile = false } = {}) {
   const text = String(url ?? '').trim()
   if (!text) return ''
 
   const [base, hash = ''] = text.split('#')
   const params = new URLSearchParams(hash)
   if (!params.has('page')) params.set('page', '1')
-  if (!params.has('zoom')) params.set('zoom', 'page-fit')
+  params.set('zoom', mobile ? 'page-width' : 'page-fit')
 
   return `${base}#${params.toString()}`
 }
@@ -45,6 +45,7 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest }
   const [search, setSearch] = useState('')
   const [isMajorPanelOpen, setIsMajorPanelOpen] = useState(false)
   const [isSubPanelOpen, setIsSubPanelOpen] = useState(false)
+  const [isMobileViewport, setIsMobileViewport] = useState(false)
   const categoryCrumbRef = useRef(null)
 
   useEffect(() => {
@@ -74,6 +75,22 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest }
     if (!externalKeyword) return
     setSearch(externalKeyword)
   }, [externalSearchRequest])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+    const query = window.matchMedia('(max-width: 640px)')
+
+    const sync = () => setIsMobileViewport(query.matches)
+    sync()
+
+    if (typeof query.addEventListener === 'function') {
+      query.addEventListener('change', sync)
+      return () => query.removeEventListener('change', sync)
+    }
+
+    query.addListener(sync)
+    return () => query.removeListener(sync)
+  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -280,7 +297,7 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest }
   }
 
   return (
-    <section className={`${isActive ? '' : 'is-hidden'} min-h-[1200px] bg-slate-100 pb-16 max-[640px]:min-h-0 max-[640px]:pb-10`} id="product-page">
+    <section className={`${isActive ? '' : 'is-hidden'} min-h-[1200px] overflow-x-hidden bg-slate-100 pb-16 max-[640px]:min-h-0 max-[640px]:pb-10`} id="product-page">
       <div className="h-[168px] bg-[linear-gradient(rgba(53,53,53,0.36),rgba(53,53,53,0.36)),url('/meanwell/image/product_banner.jpg')] bg-cover bg-center bg-no-repeat max-[980px]:h-[150px] max-[640px]:h-[120px]"></div>
 
       <div className="border-b border-slate-200 bg-white">
@@ -474,8 +491,8 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest }
                   <div className="h-[1290px] overflow-hidden rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100vh-170px)] max-[640px]:min-h-[560px]">
                     <iframe
                       title={`${selectedModelCard.modelName} PDF`}
-                      src={withPdfViewerParams(decodeAssetUrl(selectedModelCard.asset.pdfUrl))}
-                      className="h-full w-full border-0 bg-white"
+                      src={withPdfViewerParams(decodeAssetUrl(selectedModelCard.asset.pdfUrl), { mobile: isMobileViewport })}
+                      className="h-full w-full border-0 bg-white max-[640px]:h-[128%] max-[640px]:w-[128%] max-[640px]:origin-top-left max-[640px]:scale-[0.78]"
                     ></iframe>
                   </div>
                 ) : (
