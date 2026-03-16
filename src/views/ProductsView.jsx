@@ -33,7 +33,7 @@ function decodeAssetUrl(url = '') {
   }
 }
 
-export function ProductsView({ isActive, onStatusChange }) {
+export function ProductsView({ isActive, onStatusChange, externalSearchRequest }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
 
@@ -68,6 +68,12 @@ export function ProductsView({ isActive, onStatusChange }) {
       alive = false
     }
   }, [onStatusChange])
+
+  useEffect(() => {
+    const externalKeyword = String(externalSearchRequest?.keyword ?? '').trim()
+    if (!externalKeyword) return
+    setSearch(externalKeyword)
+  }, [externalSearchRequest])
 
   useEffect(() => {
     const handleClickOutside = (event) => {

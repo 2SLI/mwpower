@@ -37,6 +37,7 @@ function setMetaByProperty(property, content) {
 export default function App() {
   const [activeView, setActiveView] = useState('home')
   const [firebaseStatus, setFirebaseStatus] = useState('Firebase initialized: App/Auth/Firestore connected.')
+  const [productSearchRequest, setProductSearchRequest] = useState(null)
 
   useEffect(() => {
     const pageMeta = {
@@ -71,6 +72,13 @@ export default function App() {
     setActiveView(normalizeView(view))
   }
 
+  function handleProductSearch(keyword) {
+    const term = String(keyword ?? '').trim()
+    if (!term) return
+    setProductSearchRequest({ keyword: term, at: Date.now() })
+    setActiveView('products')
+  }
+
   return (
     <>
       <a
@@ -86,10 +94,10 @@ export default function App() {
       </a>
 
       <div className="min-h-screen bg-slate-100 text-slate-600">
-        <Header activeView={activeView} onNavigate={handleNavigate} />
+        <Header activeView={activeView} onNavigate={handleNavigate} onProductSearch={handleProductSearch} />
         <main className="pt-[92px] max-[1280px]:pt-[62px]">
           <HomeView isActive={activeView === 'home'} bannerImages={bannerImages} onNavigate={handleNavigate} />
-          <ProductsView isActive={activeView === 'products'} onStatusChange={setFirebaseStatus} />
+          <ProductsView isActive={activeView === 'products'} onStatusChange={setFirebaseStatus} externalSearchRequest={productSearchRequest} />
           <ServiceView isActive={activeView === 'service'} />
           <ContactView isActive={activeView === 'contact'} />
         </main>

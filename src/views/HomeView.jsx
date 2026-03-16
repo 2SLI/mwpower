@@ -257,7 +257,7 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
             <div className="grid min-h-[200px] place-items-center bg-[linear-gradient(135deg,#f1f5f9_0%,#dbe5ef_100%)] px-6 py-8 text-center">
               <div>
                 <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">CATEGORY FIRST</p>
-                <h3 className="mt-3 text-[clamp(1.35rem,1.8vw,2rem)] font-black leading-tight tracking-tight text-slate-900">이미지 없이도 구조적으로 탐색 가능한 제품 카테고리</h3>
+                <h3 className="mt-3 text-[clamp(1.35rem,1.8vw,2rem)] font-black leading-tight tracking-tight text-slate-900">MEANWELLPOWER</h3>
               </div>
             </div>
             <div className="p-6 lg:p-8">
