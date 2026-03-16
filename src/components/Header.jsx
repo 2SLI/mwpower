@@ -57,6 +57,28 @@ export function Header({ activeView, onNavigate }) {
           ))}
         </nav>
 
+        <div className="absolute right-3 top-1.5 hidden items-center gap-3 rounded-md bg-white/92 px-2.5 py-1.5 text-slate-800 shadow-sm max-[980px]:flex">
+          <button type="button" className="grid h-7 w-7 place-items-center" aria-label="검색">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="2"></circle>
+              <line x1="16.65" y1="16.65" x2="21" y2="21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"></line>
+            </svg>
+          </button>
+          <button type="button" className="grid h-7 w-7 place-items-center" aria-label="사용자">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+              <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" strokeWidth="2"></circle>
+              <path d="M5 20c0-3.3 3.1-5 7-5s7 1.7 7 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"></path>
+            </svg>
+          </button>
+          <button type="button" className="grid h-7 w-7 place-items-center" aria-label="메뉴">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+              <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"></line>
+              <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"></line>
+              <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"></line>
+            </svg>
+          </button>
+        </div>
+
       </div>
     </header>
   )

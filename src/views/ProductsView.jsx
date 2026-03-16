@@ -274,7 +274,7 @@ export function ProductsView({ isActive, onStatusChange }) {
   }
 
   return (
-    <section className={`${isActive ? '' : 'is-hidden'} min-h-[1200px] bg-slate-100 pb-16`} id="product-page">
+    <section className={`${isActive ? '' : 'is-hidden'} min-h-[1200px] bg-slate-100 pb-16 max-[640px]:min-h-0 max-[640px]:pb-10`} id="product-page">
       <div className="h-[168px] bg-[linear-gradient(rgba(53,53,53,0.36),rgba(53,53,53,0.36)),url('/meanwell/image/product_banner.jpg')] bg-cover bg-center bg-no-repeat max-[980px]:h-[150px] max-[640px]:h-[120px]"></div>
 
       <div className="border-b border-slate-200 bg-white">
@@ -388,40 +388,6 @@ export function ProductsView({ isActive, onStatusChange }) {
           </div>
           <p className="mb-8 min-h-[18px] text-[13px] text-slate-500 max-[980px]:mb-6" aria-live="polite">{searchMetaText}</p>
 
-          {activeLeaf && !hasSearch ? (
-            <section className="mb-5 grid gap-4 rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
-              <div className="grid gap-4 [grid-template-columns:280px_minmax(0,1fr)] max-[980px]:grid-cols-1">
-                <div className="grid h-[250px] place-items-center rounded-lg border border-slate-200 bg-slate-50 p-3">
-                  {selectedModelCard?.asset?.imageUrl ? (
-                    <img
-                      src={decodeAssetUrl(selectedModelCard.asset.imageUrl)}
-                      alt={selectedModelCard.modelName}
-                      className="max-h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span className="text-xs text-slate-500">이미지 없음</span>
-                  )}
-                </div>
-                <div className="grid content-start gap-2.5">
-                  <span className="inline-flex w-fit items-center rounded-full bg-[#d71f2b] px-2 py-0.5 text-[10px] font-bold text-white">NEW</span>
-                  <h2 className="m-0 text-[clamp(30px,2vw,42px)] font-black tracking-[-0.01em] text-slate-900">{selectedModelCard?.modelName ?? activeLeaf}</h2>
-                  <p className="m-0 text-sm text-slate-500">{selectedModelCard ? `${selectedModelCard.modelName} 기준 상세 정보입니다.` : '모델을 선택하면 상세 정보를 확인할 수 있습니다.'}</p>
-                </div>
-              </div>
-              <div className="overflow-x-auto border-t border-slate-200 pt-2">
-                <div className="flex min-w-[620px] items-center gap-5 text-[12px] font-semibold text-slate-500">
-                  <span className="border-b-2 border-[#c83a3a] pb-2 text-[#c83a3a]">특징</span>
-                  <span className="pb-2">종류</span>
-                  <span className="pb-2">상세사양</span>
-                  <span className="pb-2">회로도</span>
-                  <span className="pb-2">자료 다운로드</span>
-                  <span className="pb-2">유사상품</span>
-                </div>
-              </div>
-            </section>
-          ) : null}
-
           {showMajorTitle ? (
             <h2 className="mb-4 mt-0 text-[clamp(38px,2.2vw,46px)] font-black leading-tight tracking-[-0.02em] text-slate-900 max-[980px]:text-[32px] max-[640px]:text-[26px]">{majorTitle}</h2>
           ) : null}
@@ -491,7 +457,7 @@ export function ProductsView({ isActive, onStatusChange }) {
                 </>
               )
             ) : selectedModelCard ? (
-              <article className="grid min-h-[980px] gap-4 rounded-xl border border-slate-300 bg-slate-50 p-4">
+              <article className="grid min-h-[980px] gap-4 rounded-xl border border-slate-300 bg-slate-50 p-4 max-[640px]:min-h-0 max-[640px]:gap-3 max-[640px]:p-3">
                 <div className="grid gap-2.5">
                   <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
                     {activeMajor?.name} / {activeSubcategory} / {activeLeaf}
@@ -499,7 +465,7 @@ export function ProductsView({ isActive, onStatusChange }) {
                   <h4 className="m-0 text-[clamp(32px,2.8vw,46px)] font-black leading-tight tracking-[-0.01em] text-slate-900">{selectedModelCard.modelName}</h4>
                 </div>
                 {selectedModelCard.asset?.pdfUrl ? (
-                  <div className="h-[860px] overflow-hidden rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[700px] max-[640px]:h-[540px]">
+                  <div className="h-[1290px] overflow-hidden rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100vh-170px)] max-[640px]:min-h-[560px]">
                     <iframe
                       title={`${selectedModelCard.modelName} PDF`}
                       src={withPdfViewerParams(decodeAssetUrl(selectedModelCard.asset.pdfUrl))}
