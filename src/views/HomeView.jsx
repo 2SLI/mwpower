@@ -96,6 +96,7 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
 
   return (
     <div id="home-sections" className={isActive ? '' : 'is-hidden'}>
+      <h1 className="sr-only">민웰파워 MEAN WELL 전원공급장치 정품 공급업체</h1>
       <section className="relative h-[580px] overflow-hidden max-[1280px]:h-[430px] max-[980px]:h-[300px] max-[640px]:h-[220px]" aria-label="Main banners">
         <div className="banner-track relative h-full">
           {bannerImages.map((banner, index) => (

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://meanwellpower-103ae.web.app/sitemap.xml
+
