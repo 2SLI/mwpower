@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import {
   findMatchingLabel,
@@ -43,6 +43,9 @@ export function ProductsView({ isActive, onStatusChange }) {
   const [activeGroup, setActiveGroup] = useState(null)
   const [activeModel, setActiveModel] = useState(null)
   const [search, setSearch] = useState('')
+  const [isMajorPanelOpen, setIsMajorPanelOpen] = useState(false)
+  const [isSubPanelOpen, setIsSubPanelOpen] = useState(false)
+  const categoryCrumbRef = useRef(null)
 
   useEffect(() => {
     let alive = true
@@ -65,6 +68,30 @@ export function ProductsView({ isActive, onStatusChange }) {
       alive = false
     }
   }, [onStatusChange])
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!categoryCrumbRef.current) return
+      if (!categoryCrumbRef.current.contains(event.target)) {
+        setIsMajorPanelOpen(false)
+        setIsSubPanelOpen(false)
+      }
+    }
+
+    const handleEscape = (event) => {
+      if (event.key !== 'Escape') return
+      setIsMajorPanelOpen(false)
+      setIsSubPanelOpen(false)
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleEscape)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [])
 
   const activeMajor = useMemo(
     () => majorCategories.find((item) => item.id === activeMajorId) ?? majorCategories[0] ?? null,
@@ -221,6 +248,7 @@ export function ProductsView({ isActive, onStatusChange }) {
     setActiveSubcategory(null)
     setActiveLeaf(null)
     setActiveGroup(null)
+    setIsMajorPanelOpen(false)
     if (hasSearch) setSearch('')
   }
 
@@ -228,6 +256,7 @@ export function ProductsView({ isActive, onStatusChange }) {
     setActiveSubcategory(subcategory)
     setActiveLeaf(subcategory || null)
     setActiveGroup(null)
+    setIsSubPanelOpen(false)
   }
 
   const handleLeafClick = (leafName) => {
@@ -249,46 +278,80 @@ export function ProductsView({ isActive, onStatusChange }) {
       <div className="h-[168px] bg-[linear-gradient(rgba(53,53,53,0.36),rgba(53,53,53,0.36)),url('/meanwell/image/product_banner.jpg')] bg-cover bg-center bg-no-repeat max-[980px]:h-[150px] max-[640px]:h-[120px]"></div>
 
       <div className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-[1320px] px-3 py-3">
-          <div className="flex min-h-[64px] items-end gap-2 overflow-x-auto rounded-2xl border border-[#e9b7b7] bg-[linear-gradient(180deg,#fff,#fdf5f5)] p-2.5 shadow-[0_6px_18px_rgba(151,29,29,0.08)]">
-            <span className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-lg bg-[#d42a2a] text-white shadow-sm">
-              <i className="fa-solid fa-house text-xs"></i>
-            </span>
-            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
+        <div className="mx-auto max-w-[1320px] px-3">
+          <div className="product-category-crumb" ref={categoryCrumbRef}>
+            <div className="inner">
+              <a className="home" href="/" aria-label="홈으로">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    fill="currentColor"
+                    d="M12 3.2 3 10.6V21h6.2v-5.4h5.6V21H21V10.6L12 3.2Zm7 15.8h-2.2v-5.4H7.2V19H5v-7.4l7-5.8 7 5.8V19Z"
+                  />
+                </svg>
+              </a>
 
-            <label className="grid shrink-0 gap-1">
-              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">대분류</span>
-              <select
-                className="h-[38px] min-w-[170px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8]"
-                value={activeMajor?.id ?? ''}
-                onChange={(event) => handleMajorClick(event.target.value)}
-              >
-                {majorCategories.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+              <dl className={`g ${isMajorPanelOpen ? 'open' : ''}`}>
+                <dt>
+                  <button
+                    type="button"
+                    aria-expanded={isMajorPanelOpen}
+                    aria-controls="aside-g-panel"
+                    onClick={() => {
+                      setIsMajorPanelOpen((prev) => !prev)
+                      setIsSubPanelOpen(false)
+                    }}
+                  >
+                    {activeMajor?.name ?? '상품'}
+                  </button>
+                </dt>
+                <dd id="aside-g-panel" aria-hidden={!isMajorPanelOpen}>
+                  <div>
+                    {majorCategories.map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className={item.id === activeMajor?.id ? 'on' : ''}
+                        onClick={() => handleMajorClick(item.id)}
+                      >
+                        {item.name}
+                      </button>
+                    ))}
+                  </div>
+                </dd>
+              </dl>
 
-            <span className="shrink-0 pb-2 text-[11px] font-black text-[#c83a3a]">-&gt;</span>
-
-            <label className="grid shrink-0 gap-1">
-              <span className="text-[11px] font-black uppercase tracking-[0.05em] text-[#ab2b2b]">소분류</span>
-              <select
-                className="h-[38px] min-w-[200px] rounded-lg border border-[#dba3a3] bg-white px-3 text-[13px] font-semibold text-slate-700 outline-none transition focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:cursor-not-allowed disabled:bg-slate-100"
-                value={activeSubcategory ?? ''}
-                onChange={(event) => handleSubcategoryClick(event.target.value)}
-                disabled={subcategories.length === 0}
-              >
-                {subcategories.length === 0 ? <option value="">소분류 없음</option> : null}
-                {subcategories.map((subcategory) => (
-                  <option key={subcategory} value={subcategory}>
-                    {subcategory}
-                  </option>
-                ))}
-              </select>
-            </label>
+              <dl className={`s ${isSubPanelOpen ? 'open' : ''}`}>
+                <dt>
+                  <button
+                    type="button"
+                    aria-expanded={isSubPanelOpen}
+                    aria-controls="aside-s-panel"
+                    onClick={() => {
+                      if (subcategories.length === 0) return
+                      setIsSubPanelOpen((prev) => !prev)
+                      setIsMajorPanelOpen(false)
+                    }}
+                    disabled={subcategories.length === 0}
+                  >
+                    {activeSubcategory ?? '상품'}
+                  </button>
+                </dt>
+                <dd id="aside-s-panel" aria-hidden={!isSubPanelOpen}>
+                  <div>
+                    {subcategories.map((subcategory) => (
+                      <button
+                        key={subcategory}
+                        type="button"
+                        className={normalizeLabel(subcategory) === normalizeLabel(activeSubcategory) ? 'on' : ''}
+                        onClick={() => handleSubcategoryClick(subcategory)}
+                      >
+                        {subcategory}
+                      </button>
+                    ))}
+                  </div>
+                </dd>
+              </dl>
+            </div>
           </div>
         </div>
       </div>
@@ -477,3 +540,4 @@ export function ProductsView({ isActive, onStatusChange }) {
     </section>
   )
 }
+
