@@ -1,4 +1,55 @@
-export function Footer() {
+const footerColumns = [
+  {
+    title: '회사소개',
+    items: ['민웰에 대하여', '창립자의 말', '제품과 서비스', '브랜드 스토리', '기업 히스토리', '개인정보보호정책'],
+  },
+  {
+    title: '제품소개',
+    items: ['시리즈 검색', '빠른 검색', '다운로드'],
+  },
+  {
+    title: '온라인서비스',
+    items: ['판매 문의', '기술 서비스', 'QC 리포트', '제품 보증서', '제품 책임 면책'],
+  },
+  {
+    title: '그룹 링크',
+    items: ['MEAN WELL GUANGZHOU', 'MEAN WELL SUZHOU', 'MEAN WELL USA,INC.', 'MEAN WELL EUROPE N.V.'],
+  },
+]
+
+export function Footer({ activeView = 'home' }) {
+  if (activeView === 'news') {
+    return (
+      <footer className="border-t border-[#d8d8d8] bg-[#efefef]">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-[240px_repeat(4,minmax(0,1fr))] gap-8 px-[15px] py-8 max-[980px]:grid-cols-2">
+          <div className="pt-2">
+            <div className="flex gap-2 text-[#e5332a]">
+              <i className="fa-brands fa-youtube text-[22px]"></i>
+              <i className="fa-brands fa-facebook-square text-[22px]"></i>
+              <i className="fa-brands fa-linkedin text-[22px]"></i>
+            </div>
+            <div className="mt-3 inline-block bg-[#e5332a] px-3 py-1 text-[12px] font-bold text-white">E-NEWS SUBSCRIBE</div>
+          </div>
+
+          {footerColumns.map((column) => (
+            <div key={column.title}>
+              <h3 className="m-0 text-[16px] font-bold text-[#444]">{column.title}</h3>
+              <ul className="m-0 mt-3 list-none space-y-1.5 p-0">
+                {column.items.map((item) => (
+                  <li key={item} className="text-[13px] text-[#555]">
+                    <span className="mr-1.5 text-[#e5332a]">›</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div className="bg-[#1f1f1f] py-2 text-center text-[12px] text-white">Copyright © MEAN WELL Enterprises Co., Ltd. All rights reserved.</div>
+      </footer>
+    )
+  }
+
   return (
     <footer className="border-t border-slate-300 bg-slate-100 px-4 py-6 max-[980px]:px-4 max-[980px]:py-5">
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 max-[980px]:flex-col max-[980px]:items-start">

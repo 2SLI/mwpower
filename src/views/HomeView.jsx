@@ -1,44 +1,20 @@
 ﻿import { Fragment, useEffect, useMemo, useState } from 'react'
-
-const BLOG_URL = 'https://blog.naver.com/meanwell_power'
-
-const newsItems = [
-  {
-    date: '2026-03-02',
-    title: '공장 자동화 라인용 고효율 전원 공급 솔루션 가이드 공개',
-    summary: '설계 단계에서 자주 발생하는 발열/공간/인증 이슈를 줄일 수 있는 구성 예시를 정리했습니다.',
-  },
-  {
-    date: '2026-02-25',
-    title: 'DX1 Controller 대응 전원 아키텍처 제안서 업데이트',
-    summary: '고속 제어 환경에서 필요한 안정성 확보 포인트와 추천 제품군을 추가했습니다.',
-  },
-  {
-    date: '2026-02-11',
-    title: '의료/산업용 라인업 납기 및 공급 정책 안내',
-    summary: '프로젝트 일정 관리를 위한 표준 리드타임과 대체 모델 제안 프로세스를 제공합니다.',
-  },
-  {
-    date: '2026-01-30',
-    title: '단종 예정 모델 및 후속 제품 전환 일정 공지',
-    summary: 'EOL 대상 SKU와 권장 전환 모델을 확인할 수 있습니다.',
-  },
-]
+import { NEWS_ALL_CATEGORY, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
 
 const solutionCards = [
-  { title: 'DC/DC Converter Power Solutions', image: '/meanwell/index_1.jpg', alt: 'DC/DC' },
-  { title: 'LED Power Solution', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED' },
-  { title: 'Medical Power Solution', image: '/meanwell/index-solutions-pic6.jpg', alt: 'Medical' },
-  { title: 'LED Display Solution', image: '/meanwell/index-solutions-pic4.jpg', alt: 'Display' },
-  { title: 'Configurable Power Solution', image: '/meanwell/index-solutions-pic3.jpg', alt: 'Configurable' },
-  { title: 'Building Power Solution', image: '/meanwell/index-solutions-pic5.jpg', alt: 'Building' },
+  { title: 'DC/DC Converter Power Solutions', image: '/meanwell/index_1.jpg', alt: 'DC/DC', productPreset: { majorId: 'ddr' } },
+  { title: 'LED Power Solution', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED', productPreset: { majorId: 'elg' } },
+  { title: 'Medical Power Solution', image: '/meanwell/index-solutions-pic6.jpg', alt: 'Medical', productPreset: { majorId: 'rsp' } },
+  { title: 'LED Display Solution', image: '/meanwell/index-solutions-pic4.jpg', alt: 'Display', productPreset: { majorId: 'lrs' } },
+  { title: 'Configurable Power Solution', image: '/meanwell/index-solutions-pic3.jpg', alt: 'Configurable', productPreset: { majorId: 'rcp' } },
+  { title: 'Building Power Solution', image: '/meanwell/index-solutions-pic5.jpg', alt: 'Building', productPreset: { majorId: 'hdr' } },
 ]
 
 const productCards = [
-  { name: 'DX1 Series', type: 'Data Flow Controller', desc: '라인 데이터 흐름을 단순화하는 컨트롤러 시리즈' },
-  { name: 'KM-PM', type: 'Power Monitor', desc: '전력 상태를 실시간으로 모니터링하는 계측 라인업' },
-  { name: 'LRS Family', type: 'AC/DC Enclosed', desc: '현장에서 검증된 표준형 AC/DC 시리즈' },
-  { name: 'BIC-5K', type: 'Bidirectional Power', desc: '충방전 양방향 운용을 지원하는 전원 플랫폼' },
+  { name: 'DC/DC Converter Power Solutions', type: 'DDR Series', desc: '고효율 DC/DC 전원 구성으로 제어반과 산업 장비의 안정적인 전압 변환을 지원합니다.' },
+  { name: 'LED Power Solution', type: 'ELG Series', desc: 'LED 조명 환경에 최적화된 정전류/정전압 전원으로 장기 운용 안정성을 확보합니다.' },
+  { name: 'Medical Power Solution', type: 'RSP Series', desc: '의료 및 정밀 장비 적용을 위한 고신뢰 전원 라인업으로 시스템 가동 리스크를 줄입니다.' },
+  { name: 'LED Display Solution', type: 'LRS Series', desc: '디스플레이 구동 환경에 맞춘 표준형 전원 구성을 통해 설치와 유지보수를 단순화합니다.' },
 ]
 
 const serviceCards = [
@@ -68,7 +44,7 @@ function normalizeIndex(index, length) {
   return (index + length) % length
 }
 
-export function HomeView({ isActive, bannerImages, onNavigate }) {
+export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPreset, onOpenNewsArticle }) {
   const totalSlides = bannerImages.length
   const [currentSlide, setCurrentSlide] = useState(0)
 
@@ -93,6 +69,18 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
       ),
     [bannerImages]
   )
+
+  const allNewsItems = useMemo(() => getAllNewsSorted(), [])
+  const featuredNews = allNewsItems[0] ?? null
+  const latestNews = allNewsItems.slice(1, 5)
+
+  function openNews(articleId) {
+    if (!articleId) {
+      onNavigate('news')
+      return
+    }
+    onOpenNewsArticle?.(articleId, NEWS_ALL_CATEGORY)
+  }
 
   return (
     <div id="home-sections" className={isActive ? '' : 'is-hidden'}>
@@ -168,10 +156,22 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
 
       <section className="grid w-full grid-cols-6 max-[1280px]:grid-cols-3 max-[980px]:grid-cols-3 max-[640px]:grid-cols-2 max-[480px]:grid-cols-1">
         {solutionCards.map((item) => (
-          <article className="relative min-h-[284px] overflow-hidden border-r border-slate-300 bg-white max-[640px]:min-h-[258px] max-[480px]:border-r-0 max-[480px]:border-t max-[480px]:border-slate-300" key={item.title}>
+          <a
+            href="#"
+            key={item.title}
+            className="relative block min-h-[284px] overflow-hidden border-r border-slate-300 bg-white transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#d13d3d] max-[640px]:min-h-[258px] max-[480px]:border-r-0 max-[480px]:border-t max-[480px]:border-slate-300"
+            onClick={(event) => {
+              event.preventDefault()
+              if (item.productPreset) {
+                onOpenProductPreset?.(item.productPreset)
+                return
+              }
+              onNavigate('products')
+            }}
+          >
             <img className="block h-60 w-full object-cover" src={item.image} alt={item.alt} />
             <h3 className="m-0 min-h-[84px] px-4 pt-5 text-center text-[clamp(13px,0.84vw,17px)] font-normal text-neutral-700">{item.title}</h3>
-          </article>
+          </a>
         ))}
       </section>
 
@@ -182,10 +182,12 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
               <span className="text-[#e5332a]">News</span> Update
             </h2>
             <a
-              href={BLOG_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
               className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+              onClick={(event) => {
+                event.preventDefault()
+                onNavigate('news')
+              }}
             >
               View More
             </a>
@@ -195,29 +197,39 @@ export function HomeView({ isActive, bannerImages, onNavigate }) {
             <article className="relative min-h-[300px] overflow-hidden rounded-[26px] border border-slate-200 bg-[linear-gradient(145deg,#111827_0%,#1e293b_58%,#364152_100%)] p-6 shadow-[0_22px_45px_-28px_rgba(15,23,42,.9)] md:min-h-[370px]">
               <p className="text-xs font-bold tracking-[0.12em] text-amber-300">FEATURE STORY</p>
               <h3 className="mt-3 text-[clamp(1.6rem,2.25vw,2.55rem)] font-extrabold leading-tight tracking-tight text-white">
-                생산 라인의 전원 안정성을 높이는
-                <br />
-                설계 체크 포인트
+                {featuredNews?.title ?? '업데이트된 뉴스가 없습니다.'}
               </h3>
               <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-slate-200">
-                핵심 요구 조건을 카테고리 중심으로 점검해 프로젝트 초기 리스크를 줄이는 방법을 안내합니다.
+                {featuredNews?.summary ?? '뉴스가 등록되면 이 영역에 최신 소식이 자동으로 표시됩니다.'}
               </p>
+              <p className="mt-2 text-xs font-bold text-slate-300">{featuredNews ? `${formatNewsDate(featuredNews.date)} · ${featuredNews.category}` : ''}</p>
               <a
-                href={BLOG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#"
                 className="mt-5 inline-flex h-10 items-center rounded-full border border-white/40 bg-white/10 px-4 text-xs font-bold text-white backdrop-blur-sm"
+                onClick={(event) => {
+                  event.preventDefault()
+                  openNews(featuredNews?.id)
+                }}
               >
                 Read Story
               </a>
             </article>
 
             <ul className="m-0 grid list-none gap-3 p-0">
-              {newsItems.map((item) => (
-                <li key={item.date + item.title} className="rounded-2xl border border-slate-200 bg-white px-4 py-3.5 shadow-sm transition hover:border-slate-300 hover:shadow-md">
-                  <time className="text-xs font-bold text-[#d7322a]">{item.date}</time>
-                  <strong className="mt-1 block text-base font-extrabold leading-snug text-slate-800">{item.title}</strong>
-                  <p className="mt-2 text-[13px] leading-relaxed text-slate-500">{item.summary}</p>
+              {latestNews.map((item) => (
+                <li key={item.id} className="rounded-2xl border border-slate-200 bg-white px-4 py-3.5 shadow-sm transition hover:border-slate-300 hover:shadow-md">
+                  <a
+                    href="#"
+                    className="block"
+                    onClick={(event) => {
+                      event.preventDefault()
+                      openNews(item.id)
+                    }}
+                  >
+                    <time className="text-xs font-bold text-[#d7322a]">{formatNewsDate(item.date)}</time>
+                    <strong className="mt-1 block text-base font-extrabold leading-snug text-slate-800">{item.title}</strong>
+                    <p className="mt-2 text-[13px] leading-relaxed text-slate-500">{item.summary}</p>
+                  </a>
                 </li>
               ))}
             </ul>

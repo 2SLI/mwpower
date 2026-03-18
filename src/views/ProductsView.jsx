@@ -33,7 +33,7 @@ function decodeAssetUrl(url = '') {
   }
 }
 
-export function ProductsView({ isActive, onStatusChange, externalSearchRequest }) {
+export function ProductsView({ isActive, onStatusChange, externalSearchRequest, externalPresetRequest }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
 
@@ -75,6 +75,17 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest }
     if (!externalKeyword) return
     setSearch(externalKeyword)
   }, [externalSearchRequest])
+
+  useEffect(() => {
+    const majorId = String(externalPresetRequest?.majorId ?? '').trim()
+    if (!majorId) return
+
+    setSearch('')
+    setActiveMajorId(majorId)
+    setActiveSubcategory(null)
+    setActiveLeaf(null)
+    setActiveGroup(null)
+  }, [externalPresetRequest])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -529,4 +540,3 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest }
     </section>
   )
 }
-

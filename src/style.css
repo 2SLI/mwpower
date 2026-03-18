@@ -53,9 +53,10 @@
 
   .banner-slide {
     background-image: var(--banner-image);
-    background-size: cover;
-    background-position: center;
+    background-size: contain;
+    background-position: right center;
     background-repeat: no-repeat;
+    background-color: #000;
     will-change: opacity;
   }
 
@@ -169,6 +170,7 @@
   #product-page .product-category-crumb dl.open dd {
     max-height: 320px;
     border-color: #d9d9d9;
+    overflow-y: auto;
   }
 
   #product-page .product-category-crumb dd > div {

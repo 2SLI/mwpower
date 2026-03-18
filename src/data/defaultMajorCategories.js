@@ -45,6 +45,11 @@ export const defaultMajorCategories = [
     subcategories: ['HDR-15', 'HDR-30', 'HDR-60', 'HDR-100', 'HDR-150'],
   },
   {
+    id: 'elg',
+    name: 'ELG 시리즈',
+    subcategories: ['ELG-75', 'ELG-100', 'ELG-150', 'ELG-300'],
+  },
+  {
     id: 'hlg',
     name: 'HLG 시리즈',
     subcategories: [
@@ -99,6 +104,11 @@ export const defaultMajorCategories = [
       'RSP-2400',
       'RSP-3000',
     ],
+  },
+  {
+    id: 'rcp',
+    name: 'RCP 시리즈',
+    subcategories: ['RCP-1000', 'RCP-1600', 'RCP-2000'],
   },
   {
     id: 'rd',

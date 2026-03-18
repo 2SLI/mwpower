@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react'
 import { ProductSearchModal } from './ProductSearchModal'
 
-const BLOG_URL = 'https://blog.naver.com/meanwell_power'
-const SHOP_URL = 'https://smartstore.naver.com/meanwellpower'
-
 const navItems = [
   { key: 'home', label: 'Profile', view: 'home' },
   { key: 'products', label: 'Products', view: 'products' },
-  { key: null, label: 'News', href: BLOG_URL },
+  { key: 'news', label: 'News', view: 'news' },
   { key: 'service', label: 'Service', view: 'service' },
-  { key: null, label: 'Shop', href: SHOP_URL },
-  { key: 'contact', label: 'Contact Us', view: 'contact' },
+  { key: 'contact-product', label: '제품문의', view: 'contact-product' },
+  { key: 'contact-tech', label: '기술문의', view: 'contact-tech' },
 ]
 
 function NavLink({ item, isActive, onNavigate }) {
@@ -109,7 +106,7 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-white/85 focus-visible:outline focus-visible:outline-1 focus-visible:outline-white/70"
             aria-label="사용자"
-            onClick={() => onNavigate('contact')}
+            onClick={() => onNavigate('contact-product')}
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="8" r="3.5"></circle>

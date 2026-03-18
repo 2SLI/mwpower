@@ -1176,6 +1176,102 @@ export const leafModelTreeFallback = [
     }
   },
   {
+    "key": "ELG 시리즈|ELG-75|ELG-75",
+    "major": "ELG 시리즈",
+    "subcategory": "ELG-75",
+    "leaf": "ELG-75",
+    "groups": [],
+    "models": [
+      "ELG-75"
+    ],
+    "modelAssets": [
+      {
+        "model": "ELG-75",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/elg/ELG-75/ELG-75-SPEC.PDF"
+      }
+    ],
+    "modelAssetsByKey": {
+      "elg-75": {
+        "model": "ELG-75",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/elg/ELG-75/ELG-75-SPEC.PDF"
+      }
+    }
+  },
+  {
+    "key": "ELG 시리즈|ELG-100|ELG-100",
+    "major": "ELG 시리즈",
+    "subcategory": "ELG-100",
+    "leaf": "ELG-100",
+    "groups": [],
+    "models": [
+      "ELG-100"
+    ],
+    "modelAssets": [
+      {
+        "model": "ELG-100",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/elg/ELG-100/ELG-100-SPEC.PDF"
+      }
+    ],
+    "modelAssetsByKey": {
+      "elg-100": {
+        "model": "ELG-100",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/elg/ELG-100/ELG-100-SPEC.PDF"
+      }
+    }
+  },
+  {
+    "key": "ELG 시리즈|ELG-150|ELG-150",
+    "major": "ELG 시리즈",
+    "subcategory": "ELG-150",
+    "leaf": "ELG-150",
+    "groups": [],
+    "models": [
+      "ELG-150"
+    ],
+    "modelAssets": [
+      {
+        "model": "ELG-150",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/elg/ELG-150/ELG-150-SPEC.PDF"
+      }
+    ],
+    "modelAssetsByKey": {
+      "elg-150": {
+        "model": "ELG-150",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/elg/ELG-150/ELG-150-SPEC.PDF"
+      }
+    }
+  },
+  {
+    "key": "ELG 시리즈|ELG-300|ELG-300",
+    "major": "ELG 시리즈",
+    "subcategory": "ELG-300",
+    "leaf": "ELG-300",
+    "groups": [],
+    "models": [
+      "ELG-300"
+    ],
+    "modelAssets": [
+      {
+        "model": "ELG-300",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/elg/ELG-300/ELG-300-spec.pdf"
+      }
+    ],
+    "modelAssetsByKey": {
+      "elg-300": {
+        "model": "ELG-300",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/elg/ELG-300/ELG-300-spec.pdf"
+      }
+    }
+  },
+  {
     "key": "HLG 시리즈|HLG-40H|HLG-40H",
     "major": "HLG 시리즈",
     "subcategory": "HLG-40H",
@@ -2228,6 +2324,78 @@ export const leafModelTreeFallback = [
         "model": "RSP-3000",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/rsp/RSP-3000/spec.pdf"
+      }
+    }
+  },
+  {
+    "key": "RCP 시리즈|RCP-1000|RCP-1000",
+    "major": "RCP 시리즈",
+    "subcategory": "RCP-1000",
+    "leaf": "RCP-1000",
+    "groups": [],
+    "models": [
+      "RCP-1000"
+    ],
+    "modelAssets": [
+      {
+        "model": "RCP-1000",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/rcp/RCP-1000/spec.pdf"
+      }
+    ],
+    "modelAssetsByKey": {
+      "rcp-1000": {
+        "model": "RCP-1000",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/rcp/RCP-1000/spec.pdf"
+      }
+    }
+  },
+  {
+    "key": "RCP 시리즈|RCP-1600|RCP-1600",
+    "major": "RCP 시리즈",
+    "subcategory": "RCP-1600",
+    "leaf": "RCP-1600",
+    "groups": [],
+    "models": [
+      "RCP-1600"
+    ],
+    "modelAssets": [
+      {
+        "model": "RCP-1600",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/rcp/RCP-1600/spec.pdf"
+      }
+    ],
+    "modelAssetsByKey": {
+      "rcp-1600": {
+        "model": "RCP-1600",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/rcp/RCP-1600/spec.pdf"
+      }
+    }
+  },
+  {
+    "key": "RCP 시리즈|RCP-2000|RCP-2000",
+    "major": "RCP 시리즈",
+    "subcategory": "RCP-2000",
+    "leaf": "RCP-2000",
+    "groups": [],
+    "models": [
+      "RCP-2000"
+    ],
+    "modelAssets": [
+      {
+        "model": "RCP-2000",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/rcp/RCP-2000/spec.pdf"
+      }
+    ],
+    "modelAssetsByKey": {
+      "rcp-2000": {
+        "model": "RCP-2000",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/rcp/RCP-2000/spec.pdf"
       }
     }
   },

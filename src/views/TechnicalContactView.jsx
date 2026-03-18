@@ -18,7 +18,7 @@ function normalizeForm(form) {
   }
 }
 
-export function ContactView({ isActive }) {
+export function TechnicalContactView({ isActive }) {
   const [form, setForm] = useState(initialForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
@@ -47,8 +47,8 @@ export function ContactView({ isActive }) {
     try {
       await addDoc(collection(db, 'contactInquiries'), {
         ...payload,
-        source: 'product-inquiry',
-        inquiryType: 'product',
+        source: 'technical-inquiry',
+        inquiryType: 'technical',
         createdAt: serverTimestamp(),
         createdAtClient: new Date().toISOString(),
       })
@@ -62,13 +62,13 @@ export function ContactView({ isActive }) {
   }
 
   return (
-    <section className={`contact-page ${isActive ? '' : 'is-hidden'} bg-zinc-100 px-4 pb-9 pt-[clamp(36px,4.6vw,62px)] max-[640px]:px-3.5 max-[640px]:pb-7 max-[640px]:pt-[30px]`} id="contact-product-page">
+    <section className={`contact-page ${isActive ? '' : 'is-hidden'} bg-zinc-100 px-4 pb-9 pt-[clamp(36px,4.6vw,62px)] max-[640px]:px-3.5 max-[640px]:pb-7 max-[640px]:pt-[30px]`} id="contact-tech-page">
       <div className="mx-auto max-w-[1160px]">
         <div className="grid items-start gap-[46px] [grid-template-columns:minmax(0,1fr)_minmax(0,420px)] max-[980px]:grid-cols-1 max-[980px]:gap-[34px]">
           <div>
-            <h1 className="mb-3.5 mt-0 text-[clamp(42px,3.2vw,56px)] font-semibold tracking-[-0.8px] text-slate-900">제품문의</h1>
+            <h1 className="mb-3.5 mt-0 text-[clamp(42px,3.2vw,56px)] font-semibold tracking-[-0.8px] text-slate-900">기술문의</h1>
             <p className="m-0 max-w-[440px] text-[clamp(16px,1.1vw,20px)] leading-[1.4] text-slate-500">
-              제품 사양, 견적, 공급 일정 문의를 남겨주시면 입력하신 정보를 바탕으로
+              제품 적용 검토, 대체 모델, 기술 지원 문의를 남겨주시면 입력하신 정보를 바탕으로
               <br />
               빠르게 연락드리겠습니다.
             </p>
