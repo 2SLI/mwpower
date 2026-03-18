@@ -142,7 +142,7 @@ export default function App() {
           <ContactView isActive={activeView === 'contact-product'} />
           <TechnicalContactView isActive={activeView === 'contact-tech'} />
         </main>
-        <Footer activeView={activeView} />
+        <Footer />
 
         <section className="px-4 pb-16 pt-3 text-xs text-neutral-500" id="firebase-status">
           {firebaseStatus}
