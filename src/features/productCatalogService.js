@@ -13,7 +13,7 @@ export const iconByMajor = {
   'Smart Building Solutions': 'fa-building',
 }
 
-const leafChipIndex = buildLeafChipIndex(folderCatalogManifest)
+const leafChipIndexFromLeafTree = buildLeafChipIndexFromLeafTree(leafModelTreeFallback)
 
 export async function loadMajorCategories() {
   return { categories: defaultMajorCategories, source: 'local' }
@@ -38,17 +38,22 @@ export function getLeafChips(majorName, subcategoryName, { includeFallback = tru
   if (!subcategoryName) return []
 
   const key = [majorName, subcategoryName].map((value) => normalizeLabel(value)).join('|')
-  const fromManifest = leafChipIndex[key] ?? []
+  const fromLeafTree = leafChipIndexFromLeafTree[key] ?? []
 
-  if (fromManifest.length > 0) return fromManifest
+  if (fromLeafTree.length > 0) return fromLeafTree
   if (!includeFallback) return []
-  return [subcategoryName]
+  return []
 }
 
 export function getLeafView({ majorName, subcategoryName, leafName, treeMap }) {
   const treeRecord = getLeafTreeRecord({ majorName, subcategoryName, leafName, treeMap })
   const catalogModels = getCatalogModels(getLeafCatalog(majorName, subcategoryName, leafName).entries)
   const modelAssetsByKey = treeRecord?.modelAssetsByKey ?? {}
+  const leafMeta = {
+    wattage: String(treeRecord?.wattage ?? '').trim(),
+    features: Array.isArray(treeRecord?.features) ? treeRecord.features : [],
+    thumbnailUrl: String(treeRecord?.thumbnailUrl ?? '').trim(),
+  }
 
   if (treeRecord?.groups?.length > 1) {
     const totalModelCount = treeRecord.groups.reduce((sum, group) => sum + group.models.length, 0)
@@ -57,6 +62,7 @@ export function getLeafView({ majorName, subcategoryName, leafName, treeMap }) {
       models: [],
       totalModelCount,
       modelAssetsByKey,
+      ...leafMeta,
     }
   }
 
@@ -67,6 +73,7 @@ export function getLeafView({ majorName, subcategoryName, leafName, treeMap }) {
     models,
     totalModelCount: models.length,
     modelAssetsByKey,
+    ...leafMeta,
   }
 }
 
@@ -186,6 +193,9 @@ export function findSearchResults(categories, queryText, treeMap, limit = 120) {
         })
 
         leafView.models.forEach((modelName) => {
+          const modelAsset = getModelAssetByModel(leafView.modelAssetsByKey, modelName)
+          if (!modelAsset?.pdfUrl) return
+
           pushSearchResult({
             results,
             seen,
@@ -298,6 +308,9 @@ function normalizeLeafTreeRecord(record) {
 
   const models = uniqueModels(Array.isArray(record.models) ? record.models : [])
   const modelAssetsByKey = normalizeModelAssetsByKey(record)
+  const wattage = String(record.wattage ?? '').trim()
+  const features = normalizeFeatures(record.features)
+  const thumbnailUrl = String(record.thumbnailUrl ?? '').trim()
 
   if (groups.length <= 1) {
     return {
@@ -308,10 +321,13 @@ function normalizeLeafTreeRecord(record) {
       groups: [],
       models: uniqueModels([...models, ...groups.flatMap((group) => group.models)]),
       modelAssetsByKey,
+      wattage,
+      features,
+      thumbnailUrl,
     }
   }
 
-  return { key, major, subcategory, leaf, groups, models, modelAssetsByKey }
+  return { key, major, subcategory, leaf, groups, models, modelAssetsByKey, wattage, features, thumbnailUrl }
 }
 
 function normalizeLeafTreeKey(key) {
@@ -334,6 +350,23 @@ function uniqueModels(values) {
   })
 
   return unique
+}
+
+function normalizeFeatures(values) {
+  if (!Array.isArray(values)) return []
+
+  const output = []
+  const seen = new Set()
+
+  values.forEach((value) => {
+    const text = String(value ?? '').trim()
+    const key = normalizeLabel(text)
+    if (!text || !key || seen.has(key)) return
+    seen.add(key)
+    output.push(text)
+  })
+
+  return output
 }
 
 function matchesSearch(value, normalizedQuery) {
@@ -380,19 +413,40 @@ function normalizeModelAssetsByKey(record) {
   return output
 }
 
-function buildLeafChipIndex(manifest) {
+function buildLeafChipIndexFromLeafTree(records) {
   const index = {}
 
-  Object.values(manifest).forEach((record) => {
-    const labels = record?.labels
-    if (!labels?.major || !labels?.subcategory || !labels?.leaf) return
+  records.forEach((record) => {
+    if (!recordHasPdf(record)) return
 
-    const key = [labels.major, labels.subcategory].map((value) => normalizeLabel(value)).join('|')
+    const major = String(record?.major ?? '').trim()
+    const subcategory = String(record?.subcategory ?? '').trim()
+    const leaf = String(record?.leaf ?? '').trim()
+    if (!major || !subcategory || !leaf) return
+
+    const key = [major, subcategory].map((value) => normalizeLabel(value)).join('|')
     if (!index[key]) index[key] = []
 
-    const alreadyExists = index[key].some((chip) => normalizeLabel(chip) === normalizeLabel(labels.leaf))
-    if (!alreadyExists) index[key].push(labels.leaf)
+    const alreadyExists = index[key].some((chip) => normalizeLabel(chip) === normalizeLabel(leaf))
+    if (!alreadyExists) index[key].push(leaf)
   })
 
   return index
+}
+
+function recordHasPdf(record) {
+  if (!record || typeof record !== 'object') return false
+
+  if (record.modelAssetsByKey && typeof record.modelAssetsByKey === 'object') {
+    const byKeyHasPdf = Object.values(record.modelAssetsByKey).some(
+      (asset) => String(asset?.pdfUrl ?? '').trim().length > 0
+    )
+    if (byKeyHasPdf) return true
+  }
+
+  if (Array.isArray(record.modelAssets)) {
+    return record.modelAssets.some((asset) => String(asset?.pdfUrl ?? '').trim().length > 0)
+  }
+
+  return false
 }

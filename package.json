@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "catalog:generate": "node scripts/generate-folder-catalog-manifest.mjs",
     "catalog:copy": "node scripts/copy-catalog-assets.mjs",
+    "catalog:flatten": "node scripts/flatten-catalog-assets.mjs",
     "catalog:local:rebuild": "node scripts/generate-local-leaf-tree-fallback.mjs",
     "catalog:seed:leaf-trees": "node scripts/seed-leaf-model-trees.mjs",
     "catalog:seed:model-assets": "node scripts/seed-model-assets.mjs",

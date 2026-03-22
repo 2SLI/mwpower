@@ -45,6 +45,8 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
   const [search, setSearch] = useState('')
   const [isMajorPanelOpen, setIsMajorPanelOpen] = useState(false)
   const [isSubPanelOpen, setIsSubPanelOpen] = useState(false)
+  const [isLeafPanelOpen, setIsLeafPanelOpen] = useState(false)
+  const [isModelPanelOpen, setIsModelPanelOpen] = useState(false)
   const [isMobileViewport, setIsMobileViewport] = useState(false)
   const categoryCrumbRef = useRef(null)
 
@@ -80,11 +82,17 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
     const majorId = String(externalPresetRequest?.majorId ?? '').trim()
     if (!majorId) return
 
+    const subcategory = String(externalPresetRequest?.subcategory ?? '').trim()
+    const leaf = String(externalPresetRequest?.leaf ?? '').trim()
+    const group = String(externalPresetRequest?.groupName ?? '').trim()
+    const model = String(externalPresetRequest?.model ?? '').trim()
+
     setSearch('')
     setActiveMajorId(majorId)
-    setActiveSubcategory(null)
-    setActiveLeaf(null)
-    setActiveGroup(null)
+    setActiveSubcategory(subcategory || null)
+    setActiveLeaf(leaf || subcategory || null)
+    setActiveGroup(group || null)
+    setActiveModel(model || null)
   }, [externalPresetRequest])
 
   useEffect(() => {
@@ -109,6 +117,8 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
       if (!categoryCrumbRef.current.contains(event.target)) {
         setIsMajorPanelOpen(false)
         setIsSubPanelOpen(false)
+        setIsLeafPanelOpen(false)
+        setIsModelPanelOpen(false)
       }
     }
 
@@ -116,6 +126,8 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
       if (event.key !== 'Escape') return
       setIsMajorPanelOpen(false)
       setIsSubPanelOpen(false)
+      setIsLeafPanelOpen(false)
+      setIsModelPanelOpen(false)
     }
 
     document.addEventListener('mousedown', handleClickOutside)
@@ -155,15 +167,36 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
     if (!activeSubcategory) {
       if (activeLeaf) setActiveLeaf(null)
       if (activeGroup) setActiveGroup(null)
+      if (activeModel) setActiveModel(null)
       return
     }
 
-    const matchedLeaf = findMatchingLabel(selectableLeafChips, activeSubcategory) ?? activeSubcategory
+    if (selectableLeafChips.length === 0) {
+      if (activeLeaf) setActiveLeaf(null)
+      if (activeGroup) setActiveGroup(null)
+      if (activeModel) setActiveModel(null)
+      return
+    }
+
+    if (!activeLeaf) {
+      setActiveLeaf(selectableLeafChips[0] ?? null)
+      if (activeGroup) setActiveGroup(null)
+      if (activeModel) setActiveModel(null)
+      return
+    }
+
+    const matchedLeaf = findMatchingLabel(selectableLeafChips, activeLeaf)
+    if (!matchedLeaf) {
+      setActiveLeaf(selectableLeafChips[0] ?? null)
+      setActiveGroup(null)
+      if (activeModel) setActiveModel(null)
+      return
+    }
+
     if (normalizeLabel(activeLeaf) !== normalizeLabel(matchedLeaf)) {
       setActiveLeaf(matchedLeaf)
     }
-    if (activeGroup) setActiveGroup(null)
-  }, [activeSubcategory, selectableLeafChips, activeLeaf, activeGroup])
+  }, [activeSubcategory, selectableLeafChips, activeLeaf, activeGroup, activeModel])
 
   const leafKey = useMemo(() => selectableLeafChips.join('|'), [selectableLeafChips])
 
@@ -238,22 +271,27 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
     [visibleModels, leafView]
   )
 
+  const selectableModelCards = useMemo(
+    () => visibleModelCards.filter((item) => String(item.asset?.pdfUrl ?? '').trim().length > 0),
+    [visibleModelCards]
+  )
+
   const selectedModelCard = useMemo(
-    () => visibleModelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? visibleModelCards[0] ?? null,
-    [visibleModelCards, activeModel]
+    () => selectableModelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
+    [selectableModelCards, activeModel]
   )
 
   useEffect(() => {
-    if (visibleModelCards.length === 0) {
-      setActiveModel(null)
+    if (selectableModelCards.length === 0) {
+      if (activeModel) setActiveModel(null)
       return
     }
 
-    const exists = visibleModelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel))
-    if (!exists) {
-      setActiveModel(visibleModelCards[0].modelName)
-    }
-  }, [visibleModelCards, activeModel])
+    if (!activeModel) return
+
+    const exists = selectableModelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel))
+    if (!exists) setActiveModel(null)
+  }, [selectableModelCards, activeModel])
 
   const showNewProducts = !hasSearch && !activeLeaf
 
@@ -264,38 +302,88 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
       ? ''
       : `${activeMajor?.name ?? 'Products'} 카테고리의 소분류와 시리즈 탐색 화면입니다.`
 
-  const majorTitle = hasSearch ? 'Search Results' : activeLeaf || activeSubcategory || activeMajor?.name || 'Category'
-  const showMajorTitle = normalizeLabel(majorTitle) !== normalizeLabel(pageHeading)
+  const majorTitle = hasSearch ? 'Search Results' : activeLeaf || ''
+  const showMajorTitle = Boolean(majorTitle) && normalizeLabel(majorTitle) !== normalizeLabel(pageHeading)
 
   const searchMetaText = hasSearch
     ? searchResults.length > 0
       ? `${searchResults.length}개의 결과가 있습니다. 클릭하면 해당 카테고리로 이동합니다.`
       : '일치하는 검색 결과가 없습니다.'
     : activeLeaf
-      ? leafView && leafView.totalModelCount > 0
-        ? `총 ${leafView.totalModelCount}개 모델이 등록되어 있습니다.`
-        : '해당 시리즈 모델 데이터가 아직 없습니다.'
-      : '상단 카테고리 바에서 대분류 -> 소분류 순서로 선택하세요.'
+      ? selectableModelCards.length > 0
+        ? `총 ${selectableModelCards.length}개 모델(PDF 제공)만 선택할 수 있습니다.`
+        : '준비중입니다.'
+      : '상단 카테고리 바에서 대분류 -> 중분류 -> 소분류 -> 모델 순서로 선택하세요.'
+
+  const canGoBack = hasSearch || Boolean(activeModel) || Boolean(activeLeaf) || Boolean(activeSubcategory)
 
   const handleMajorClick = (majorId) => {
     setActiveMajorId(majorId)
     setActiveSubcategory(null)
     setActiveLeaf(null)
     setActiveGroup(null)
+    setActiveModel(null)
     setIsMajorPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
     if (hasSearch) setSearch('')
   }
 
   const handleSubcategoryClick = (subcategory) => {
     setActiveSubcategory(subcategory)
-    setActiveLeaf(subcategory || null)
+    setActiveLeaf(null)
     setActiveGroup(null)
+    setActiveModel(null)
     setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+  }
+
+  const handleBack = () => {
+    setIsMajorPanelOpen(false)
+    setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+
+    if (hasSearch) {
+      setSearch('')
+      return
+    }
+
+    if (activeModel) {
+      setActiveModel(null)
+      return
+    }
+
+    if (activeLeaf) {
+      setActiveLeaf(null)
+      setActiveGroup(null)
+      setActiveModel(null)
+      return
+    }
+
+    if (activeSubcategory) {
+      setActiveSubcategory(null)
+      setActiveLeaf(null)
+      setActiveGroup(null)
+      setActiveModel(null)
+    }
   }
 
   const handleLeafClick = (leafName) => {
     setActiveLeaf(leafName)
     setActiveGroup(null)
+    setActiveModel(null)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+    if (hasSearch) setSearch('')
+  }
+
+  const handleModelClick = (modelName) => {
+    const exists = selectableModelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(modelName))
+    if (!exists) return
+    setActiveModel(modelName)
+    setIsModelPanelOpen(false)
     if (hasSearch) setSearch('')
   }
 
@@ -305,6 +393,10 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
     setActiveLeaf(result.leafChip || null)
     setActiveGroup(result.groupName || null)
     setSearch('')
+    setIsMajorPanelOpen(false)
+    setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
   }
 
   return (
@@ -324,6 +416,17 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                 </svg>
               </a>
 
+              {canGoBack ? (
+                <button
+                  type="button"
+                  className="inline-flex h-[58px] items-center gap-2 border-r border-slate-300 bg-white px-4 text-[14px] font-semibold text-slate-700 transition hover:bg-slate-50 max-[640px]:h-[52px] max-[640px]:px-3 max-[640px]:text-[13px]"
+                  onClick={handleBack}
+                >
+                  <span aria-hidden="true">←</span>
+                  뒤로가기
+                </button>
+              ) : null}
+
               <dl className={`g ${isMajorPanelOpen ? 'open' : ''}`}>
                 <dt>
                   <button
@@ -333,6 +436,8 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                     onClick={() => {
                       setIsMajorPanelOpen((prev) => !prev)
                       setIsSubPanelOpen(false)
+                      setIsLeafPanelOpen(false)
+                      setIsModelPanelOpen(false)
                     }}
                   >
                     {activeMajor?.name ?? '상품'}
@@ -364,6 +469,8 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                       if (subcategories.length === 0) return
                       setIsSubPanelOpen((prev) => !prev)
                       setIsMajorPanelOpen(false)
+                      setIsLeafPanelOpen(false)
+                      setIsModelPanelOpen(false)
                     }}
                     disabled={subcategories.length === 0}
                   >
@@ -380,6 +487,74 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                         onClick={() => handleSubcategoryClick(subcategory)}
                       >
                         {subcategory}
+                      </button>
+                    ))}
+                  </div>
+                </dd>
+              </dl>
+
+              <dl className={`l ${isLeafPanelOpen ? 'open' : ''}`}>
+                <dt>
+                  <button
+                    type="button"
+                    aria-expanded={isLeafPanelOpen}
+                    aria-controls="aside-l-panel"
+                    onClick={() => {
+                      if (selectableLeafChips.length === 0) return
+                      setIsLeafPanelOpen((prev) => !prev)
+                      setIsMajorPanelOpen(false)
+                      setIsSubPanelOpen(false)
+                      setIsModelPanelOpen(false)
+                    }}
+                    disabled={selectableLeafChips.length === 0}
+                  >
+                    {activeLeaf ?? '소분류 선택'}
+                  </button>
+                </dt>
+                <dd id="aside-l-panel" aria-hidden={!isLeafPanelOpen}>
+                  <div>
+                    {selectableLeafChips.map((leafChip) => (
+                      <button
+                        key={leafChip}
+                        type="button"
+                        className={normalizeLabel(leafChip) === normalizeLabel(activeLeaf) ? 'on' : ''}
+                        onClick={() => handleLeafClick(leafChip)}
+                      >
+                        {leafChip}
+                      </button>
+                    ))}
+                  </div>
+                </dd>
+              </dl>
+
+              <dl className={`m ${isModelPanelOpen ? 'open' : ''}`}>
+                <dt>
+                  <button
+                    type="button"
+                    aria-expanded={isModelPanelOpen}
+                    aria-controls="aside-m-panel"
+                    onClick={() => {
+                      if (selectableModelCards.length === 0) return
+                      setIsModelPanelOpen((prev) => !prev)
+                      setIsMajorPanelOpen(false)
+                      setIsSubPanelOpen(false)
+                      setIsLeafPanelOpen(false)
+                    }}
+                    disabled={selectableModelCards.length === 0}
+                  >
+                    {activeModel ?? '모델 선택'}
+                  </button>
+                </dt>
+                <dd id="aside-m-panel" aria-hidden={!isModelPanelOpen}>
+                  <div>
+                    {selectableModelCards.map((item) => (
+                      <button
+                        key={item.modelName}
+                        type="button"
+                        className={normalizeLabel(item.modelName) === normalizeLabel(activeModel) ? 'on' : ''}
+                        onClick={() => handleModelClick(item.modelName)}
+                      >
+                        {item.modelName}
                       </button>
                     ))}
                   </div>
@@ -457,47 +632,79 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                   <p className="m-0 text-center text-sm text-slate-500">선택한 소분류에 등록된 시리즈가 없습니다.</p>
                 </div>
               ) : (
-                <>
-                  <section className="overflow-hidden rounded-xl border border-[#c83a3a]">
-                    <header className="flex items-center justify-between bg-[#d13636] px-4 py-3 text-white">
-                      <h3 className="m-0 text-[36px] font-black leading-none max-[640px]:text-[28px]">{activeSubcategory}</h3>
-                      <button type="button" className="rounded-full border border-white/70 px-3 py-1 text-xs font-bold text-white/90">
-                        VIEW MORE +
-                      </button>
-                    </header>
-                    <div className="grid gap-2.5 bg-[#efefef] p-3 sm:grid-cols-2 lg:grid-cols-3">
-                      {selectableLeafChips.map((chip) => {
-                        const view = getLeafView({ majorName: activeMajor?.name, subcategoryName: activeSubcategory, leafName: chip, treeMap: leafTreeMap })
-                        const isActive = normalizeLabel(chip) === normalizeLabel(activeLeaf)
-                        const hint = view.groups.length > 1 ? `${view.groups.length}개 그룹 / 모델 ${view.totalModelCount}개` : `모델 ${view.totalModelCount}개`
-                        return (
-                          <button
-                            key={chip}
-                            type="button"
-                            className={`grid gap-1 rounded-md border px-3 py-2.5 text-left transition ${
-                              isActive
-                                ? 'border-[#c83a3a] bg-[#c83a3a] text-white'
-                                : 'border-slate-300 bg-white text-slate-700 hover:border-[#c83a3a] hover:text-[#c83a3a]'
-                            }`}
-                            onClick={() => handleLeafClick(chip)}
-                          >
-                            <span className="text-[14px] font-bold">{chip}</span>
-                            <span className={`text-[11px] ${isActive ? 'text-[#fbe4e4]' : 'text-slate-500'}`}>{hint}</span>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </section>
-                </>
-              )
-            ) : selectedModelCard ? (
-              <article className="grid min-h-[980px] gap-4 rounded-xl border border-slate-300 bg-slate-50 p-4 max-[640px]:min-h-0 max-[640px]:gap-3 max-[640px]:p-3">
-                <div className="grid gap-2.5">
-                  <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
-                    {activeMajor?.name} / {activeSubcategory} / {activeLeaf}
-                  </p>
-                  <h4 className="m-0 text-[clamp(32px,2.8vw,46px)] font-black leading-tight tracking-[-0.01em] text-slate-900">{selectedModelCard.modelName}</h4>
+                <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-6">
+                  <p className="m-0 text-center text-sm text-slate-500">상단 카테고리 바의 소분류 선택 메뉴에서 시리즈를 선택해주세요.</p>
                 </div>
+              )
+            ) : selectedModelCard && leafView ? (
+              <article className="grid min-h-[980px] gap-4 rounded-xl border border-slate-300 bg-slate-50 p-4 max-[640px]:min-h-0 max-[640px]:gap-3 max-[640px]:p-3">
+                <section className="rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
+                  <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
+                    {activeMajor?.name} / {activeSubcategory} / {selectedModelCard.modelName}
+                  </p>
+                  <div className="mt-3 grid gap-4 lg:grid-cols-[280px_1fr_320px]">
+                    <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+                      {leafView.thumbnailUrl ? (
+                        <img
+                          src={decodeAssetUrl(leafView.thumbnailUrl)}
+                          alt={activeLeaf}
+                          className="block h-[220px] w-full object-contain p-3"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 이미지 없음</div>
+                      )}
+                    </div>
+
+                    <div className="grid content-start gap-3">
+                      <h4 className="m-0 text-[34px] font-black leading-tight tracking-[-0.01em] text-slate-900 max-[640px]:text-[28px]">
+                        {selectedModelCard.modelName}
+                      </h4>
+                      <div className="grid gap-1.5 text-[15px] text-slate-700">
+                        <p className="m-0">
+                          <strong>Wattage:</strong> {leafView.wattage || '정보 없음'}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Features</p>
+                        {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
+                          <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
+                            {leafView.features.map((feature) => (
+                              <li key={feature}>{feature}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
+                      <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
+                      {selectableModelCards.length > 0 ? (
+                        <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
+                          {selectableModelCards.map((item, index) => (
+                            <button
+                              key={item.modelName}
+                              type="button"
+                              className={`underline-offset-2 hover:underline ${
+                                normalizeLabel(item.modelName) === normalizeLabel(activeModel) ? 'font-bold text-[#c83a3a]' : 'text-slate-700'
+                              }`}
+                              onClick={() => handleModelClick(item.modelName)}
+                            >
+                              {item.modelName}
+                              {index < selectableModelCards.length - 1 ? ' /' : ''}
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="m-0 text-[14px] text-slate-500">준비중입니다.</p>
+                      )}
+                    </div>
+                  </div>
+                </section>
+
                 {selectedModelCard.asset?.pdfUrl ? (
                   <div className="h-[1290px] overflow-hidden rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100vh-170px)] max-[640px]:min-h-[560px]">
                     <iframe
@@ -512,9 +719,74 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                   </div>
                 )}
               </article>
+            ) : activeLeaf && leafView ? (
+              <article className="rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
+                <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
+                  {activeMajor?.name} / {activeSubcategory} / {activeLeaf}
+                </p>
+                <div className="mt-3 grid gap-4 lg:grid-cols-[280px_1fr_320px]">
+                  <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+                    {leafView.thumbnailUrl ? (
+                      <img
+                        src={decodeAssetUrl(leafView.thumbnailUrl)}
+                        alt={activeLeaf}
+                        className="block h-[220px] w-full object-contain p-3"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 이미지 없음</div>
+                    )}
+                  </div>
+
+                  <div className="grid content-start gap-3">
+                    <h4 className="m-0 text-[34px] font-black leading-tight tracking-[-0.01em] text-slate-900 max-[640px]:text-[28px]">{activeLeaf}</h4>
+                    <div className="grid gap-1.5 text-[15px] text-slate-700">
+                      <p className="m-0">
+                        <strong>Wattage:</strong> {leafView.wattage || '정보 없음'}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Features</p>
+                      {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
+                        <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
+                          {leafView.features.map((feature) => (
+                            <li key={feature}>{feature}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
+                    <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
+                    {selectableModelCards.length > 0 ? (
+                      <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
+                        {selectableModelCards.map((item, index) => (
+                          <button
+                            key={item.modelName}
+                            type="button"
+                            className={`underline-offset-2 hover:underline ${
+                              normalizeLabel(item.modelName) === normalizeLabel(activeModel) ? 'font-bold text-[#c83a3a]' : 'text-slate-700'
+                            }`}
+                            onClick={() => handleModelClick(item.modelName)}
+                          >
+                            {item.modelName}
+                            {index < selectableModelCards.length - 1 ? ' /' : ''}
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="m-0 text-[14px] text-slate-500">준비중입니다.</p>
+                    )}
+                  </div>
+                </div>
+              </article>
             ) : (
               <div className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-6">
-                <p className="m-0 text-center text-sm text-slate-500">상단 카테고리에서 모델을 선택해주세요.</p>
+                <p className="m-0 text-center text-sm text-slate-500">상단 카테고리 바의 모델 선택 메뉴에서 모델을 선택해주세요.</p>
               </div>
             )}
           </div>

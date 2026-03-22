@@ -1,128 +1,104 @@
-export const defaultMajorCategories = [
-  {
-    id: 'rs',
-    name: 'RS 시리즈',
-    subcategories: ['RS-15', 'RS-25', 'RS-35', 'RS-50', 'RS-75', 'RS-100', 'RS-150'],
-  },
-  {
-    id: 'lrs',
-    name: 'LRS 시리즈',
-    subcategories: ['LRS-35', 'LRS-50', 'LRS-75', 'LRS-100', 'LRS-150', 'LRS-150F', 'LRS-200', 'LRS-350', 'LRS-450', 'LRS-600', 'LRS-1200'],
-  },
-  {
-    id: 'mdr',
-    name: 'MDR 시리즈',
-    subcategories: ['MDR-10', 'MDR-20', 'MDR-40', 'MDR-60', 'MDR-100'],
-  },
-  {
-    id: 'ndr',
-    name: 'NDR 시리즈',
-    subcategories: ['NDR-75', 'NDR-120', 'NDR-240', 'NDR-480'],
-  },
-  {
-    id: 'ddr',
-    name: 'DDR 시리즈',
-    subcategories: ['DDR-15', 'DDR-30', 'DDR-60', 'DDR-120', 'DDR-240', 'DDR-480'],
-  },
-  {
-    id: 'dups',
-    name: 'DUPS 시리즈',
-    subcategories: ['DUPS20'],
-  },
-  {
-    id: 'sdr',
-    name: 'SDR 시리즈',
-    subcategories: ['SDR-75', 'SDR-120', 'SDR-240', 'SDR-480', 'SDR-480P', 'SDR-960'],
-  },
-  {
-    id: 'se',
-    name: 'SE 시리즈',
-    subcategories: ['SE-450', 'SE-600', 'SE-1000', 'SE-1500'],
-  },
-  {
-    id: 'hdr',
-    name: 'HDR 시리즈',
-    subcategories: ['HDR-15', 'HDR-30', 'HDR-60', 'HDR-100', 'HDR-150'],
-  },
-  {
-    id: 'elg',
-    name: 'ELG 시리즈',
-    subcategories: ['ELG-75', 'ELG-100', 'ELG-150', 'ELG-300'],
-  },
-  {
-    id: 'hlg',
-    name: 'HLG 시리즈',
-    subcategories: [
-      'HLG-40H',
-      'HLG-60H',
-      'HLG-80H',
-      'HLG-100H',
-      'HLG-120H',
-      'HLG-150H',
-      'HLG-185H',
-      'HLG-240H',
-      'HLG-320H',
-      'HLG-480H',
-      'HLG-600H',
-    ],
-  },
-  {
-    id: 'epp',
-    name: 'EPP 시리즈',
-    subcategories: ['EPP-100', 'EPP-120S', 'EPP-150', 'EPP-200', 'EPP-300', 'EPP-400', 'EPP-500'],
-  },
-  {
-    id: 'hrp',
-    name: 'HRP 시리즈',
-    subcategories: ['HRP-75', 'HRP-100', 'HRP-150', 'HRP-200', 'HRP-300', 'HRP-450', 'HRP-600'],
-  },
-  {
-    id: 'lop',
-    name: 'LOP 시리즈',
-    subcategories: ['LOP-200', 'LOP-300', 'LOP-400', 'LOP-500', 'LOP-600'],
-  },
-  {
-    id: 'csp',
-    name: 'CSP 시리즈',
-    subcategories: ['CSP-3000'],
-  },
-  {
-    id: 'rsp',
-    name: 'RSP 시리즈',
-    subcategories: [
-      'RSP-75',
-      'RSP-100',
-      'RSP-150',
-      'RSP-200',
-      'RSP-320',
-      'RSP-500',
-      'RSP-750',
-      'RSP-1000',
-      'RSP-1500',
-      'RSP-1600',
-      'RSP-2000',
-      'RSP-2400',
-      'RSP-3000',
-    ],
-  },
-  {
-    id: 'rcp',
-    name: 'RCP 시리즈',
-    subcategories: ['RCP-1000', 'RCP-1600', 'RCP-2000'],
-  },
-  {
-    id: 'rd',
-    name: 'RD 시리즈',
-    subcategories: ['RD-35', 'RD-50', 'RD-65', 'RD-85', 'RD-125'],
-  },
-  {
-    id: 'rt',
-    name: 'RT 시리즈',
-    subcategories: ['RT-50', 'RT-65', 'RT-85', 'RT-125'],
-  },
-  {
-    id: 'edr',
-    name: 'EDR 시리즈',
-    subcategories: ['EDR-75', 'EDR-120', 'EDR-150'],
-  },
+import { leafModelTreeFallback } from './leafModelTreeFallback.js'
+import { folderCatalogManifest } from './folderCatalogManifest.js'
+
+const MAJOR_ORDER = [
+  'AC/DC',
+  'DC/DC',
+  'DC/AC',
+  'AC/AC',
+  'Peripheral Accessory',
+  'Automation',
+  'Green Energy Solutions',
+  'Smart Building Solutions',
 ]
+
+function normalizeKey(value = '') {
+  return String(value ?? '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+}
+
+function toId(value = '') {
+  return String(value ?? '')
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
+function buildMajorCategoriesFromRecords(records) {
+  const majorMap = new Map()
+
+  records.forEach((record) => {
+    if (!recordHasPdf(record)) return
+
+    const major = String(record?.major ?? '').trim()
+    const subcategory = String(record?.subcategory ?? '').trim()
+    if (!major || !subcategory) return
+
+    const majorKey = normalizeKey(major)
+    if (!majorMap.has(majorKey)) {
+      majorMap.set(majorKey, {
+        id: toId(major),
+        name: major,
+        subcategories: [],
+        subcategorySet: new Set(),
+      })
+    }
+
+    const majorItem = majorMap.get(majorKey)
+    const subKey = normalizeKey(subcategory)
+    if (majorItem.subcategorySet.has(subKey)) return
+
+    majorItem.subcategorySet.add(subKey)
+    majorItem.subcategories.push(subcategory)
+  })
+
+  const categories = Array.from(majorMap.values())
+    .filter((item) => item.subcategories.length > 0)
+    .map((item) => ({
+      id: item.id,
+      name: item.name,
+      subcategories: item.subcategories,
+    }))
+
+  categories.sort((a, b) => {
+    const aIndex = MAJOR_ORDER.findIndex((name) => normalizeKey(name) === normalizeKey(a.name))
+    const bIndex = MAJOR_ORDER.findIndex((name) => normalizeKey(name) === normalizeKey(b.name))
+    const aOrder = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex
+    const bOrder = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex
+    if (aOrder !== bOrder) return aOrder - bOrder
+    return a.name.localeCompare(b.name)
+  })
+
+  return categories
+}
+
+function recordHasPdf(record) {
+  if (!record || typeof record !== 'object') return false
+
+  if (Array.isArray(record.modelAssets)) {
+    return record.modelAssets.some((asset) => String(asset?.pdfUrl ?? '').trim().length > 0)
+  }
+
+  if (record.modelAssetsByKey && typeof record.modelAssetsByKey === 'object') {
+    return Object.values(record.modelAssetsByKey).some((asset) => String(asset?.pdfUrl ?? '').trim().length > 0)
+  }
+
+  return false
+}
+
+function buildRecordsFromManifest() {
+  return Object.values(folderCatalogManifest).map((record) => ({
+    major: record?.labels?.major,
+    subcategory: record?.labels?.subcategory,
+  }))
+}
+
+const fromLeafTree = buildMajorCategoriesFromRecords(leafModelTreeFallback)
+
+export const defaultMajorCategories =
+  fromLeafTree.length > 0 ? fromLeafTree : buildMajorCategoriesFromRecords(buildRecordsFromManifest())

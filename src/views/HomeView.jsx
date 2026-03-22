@@ -2,12 +2,12 @@
 import { NEWS_ALL_CATEGORY, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
 
 const solutionCards = [
-  { title: 'DC/DC Converter Power Solutions', image: '/meanwell/index_1.jpg', alt: 'DC/DC', productPreset: { majorId: 'ddr' } },
-  { title: 'LED Power Solution', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED', productPreset: { majorId: 'elg' } },
-  { title: 'Medical Power Solution', image: '/meanwell/index-solutions-pic6.jpg', alt: 'Medical', productPreset: { majorId: 'rsp' } },
-  { title: 'LED Display Solution', image: '/meanwell/index-solutions-pic4.jpg', alt: 'Display', productPreset: { majorId: 'lrs' } },
-  { title: 'Configurable Power Solution', image: '/meanwell/index-solutions-pic3.jpg', alt: 'Configurable', productPreset: { majorId: 'rcp' } },
-  { title: 'Building Power Solution', image: '/meanwell/index-solutions-pic5.jpg', alt: 'Building', productPreset: { majorId: 'hdr' } },
+  { title: 'DC/DC Converter Power Solutions', image: '/meanwell/index_1.jpg', alt: 'DC/DC', productPreset: { majorId: 'dc-dc' } },
+  { title: 'LED Power Solution', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED', productPreset: { majorId: 'ac-dc' } },
+  { title: 'Medical Power Solution', image: '/meanwell/index-solutions-pic6.jpg', alt: 'Medical', productPreset: { majorId: 'ac-dc' } },
+  { title: 'LED Display Solution', image: '/meanwell/index-solutions-pic4.jpg', alt: 'Display', productPreset: { majorId: 'ac-dc' } },
+  { title: 'Configurable Power Solution', image: '/meanwell/index-solutions-pic3.jpg', alt: 'Configurable', productPreset: { majorId: 'ac-dc' } },
+  { title: 'Building Power Solution', image: '/meanwell/index-solutions-pic5.jpg', alt: 'Building', productPreset: { majorId: 'smart-building-solutions' } },
 ]
 
 const productCards = [
