@@ -6,7 +6,7 @@ const REFERENCE_DIR = path.join(PROJECT_ROOT, '민웰 참고용')
 const REFERENCE_HTML_FILE = path.join(PROJECT_ROOT, '민웰 참고용', 'MEAN WELL Switching Power Supply Manufacturer.html')
 const REFERENCE_ASSET_DIR = path.join(REFERENCE_DIR, 'MEAN WELL Switching Power Supply Manufacturer_files')
 const PUBLIC_CATALOG_ROOT = path.join(PROJECT_ROOT, 'public', 'catalog', 'meanwell')
-const PUBLIC_REFERENCE_THUMB_ROOT = path.join(PROJECT_ROOT, 'public', 'reference', 'meanwell')
+const PUBLIC_CATALOG_THUMB_ROOT = path.join(PUBLIC_CATALOG_ROOT, 'thumbnails')
 const OUTPUT_FILE = path.join(PROJECT_ROOT, 'src', 'data', 'leafModelTreeFallback.js')
 
 const MAJOR_ORDER = ['ac/dc', 'dc/dc', 'dc/ac', 'ac/ac', 'peripheral accessory', 'automation', 'green energy solutions', 'smart building solutions']
@@ -29,6 +29,53 @@ function normalizeModelKey(value = '') {
     .replace(/_+\d+$/g, '')
     .replace(/-spec$/g, '')
     .replace(/[^a-z0-9-]+/g, '')
+}
+
+function toSlug(value = '') {
+  return String(value ?? '')
+    .normalize('NFKC')
+    .toLowerCase()
+    .replaceAll('⇄', '-')
+    .replaceAll('↔', '-')
+    .replaceAll('—', '-')
+    .replaceAll('–', '-')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function stemFromRecord(record = {}) {
+  const firstModel = String(Array.isArray(record.models) ? record.models[0] ?? '' : '').trim()
+  let stem = toSlug(firstModel).replace(/-spec$/g, '')
+
+  while (/-[a-z]*\d+[a-z]*$/.test(stem)) {
+    stem = stem.replace(/-[a-z]*\d+[a-z]*$/, '')
+  }
+
+  if (/-[a-z]$/.test(stem) && stem.split('-').length > 1) {
+    stem = stem.replace(/-[a-z]$/, '')
+  }
+
+  if (!stem) {
+    stem = toSlug(String(record.leaf ?? '').replace(/\bseries\b/gi, ''))
+  }
+
+  return stem || 'thumbnail'
+}
+
+function uniqueThumbnailName(preferredStem, ext, usedNames) {
+  const safeExt = ext ? ext.toLowerCase() : '.jpg'
+  const stem = preferredStem || 'thumbnail'
+  let index = 1
+  let candidate = `${stem}${safeExt}`
+
+  while (usedNames.has(candidate.toLowerCase())) {
+    index += 1
+    candidate = `${stem}-${index}${safeExt}`
+  }
+
+  usedNames.add(candidate.toLowerCase())
+  return candidate
 }
 
 function decodeHtml(text = '') {
@@ -91,6 +138,9 @@ async function buildAssetIndex() {
   }
 
   files.forEach((fullPath) => {
+    const relative = path.relative(PUBLIC_CATALOG_ROOT, fullPath).split(path.sep).join('/').toLowerCase()
+    if (relative.startsWith('thumbnails/')) return
+
     const ext = path.extname(fullPath).toLowerCase()
     if (!['.jpg', '.jpeg', '.png', '.webp', '.pdf'].includes(ext)) return
 
@@ -295,8 +345,9 @@ function resolveReferenceAssetPath(src = '') {
 }
 
 async function copyReferenceThumbnails(records) {
-  await fs.mkdir(PUBLIC_REFERENCE_THUMB_ROOT, { recursive: true })
-  const copied = new Set()
+  await fs.mkdir(PUBLIC_CATALOG_THUMB_ROOT, { recursive: true })
+  const sourceToUrl = new Map()
+  const usedNames = new Set()
   let copyCount = 0
 
   for (const record of records) {
@@ -306,21 +357,26 @@ async function copyReferenceThumbnails(records) {
       continue
     }
 
-    const fileName = path.basename(sourcePath)
-    const targetPath = path.join(PUBLIC_REFERENCE_THUMB_ROOT, fileName)
-
-    if (!copied.has(fileName)) {
-      try {
-        await fs.copyFile(sourcePath, targetPath)
-        copied.add(fileName)
-        copyCount += 1
-      } catch {
-        record.thumbnailUrl = ''
-        continue
-      }
+    if (sourceToUrl.has(sourcePath)) {
+      record.thumbnailUrl = sourceToUrl.get(sourcePath)
+      continue
     }
 
-    record.thumbnailUrl = `/reference/meanwell/${encodeURIComponent(fileName)}`
+    const ext = path.extname(sourcePath).toLowerCase() || '.jpg'
+    const fileName = uniqueThumbnailName(stemFromRecord(record), ext, usedNames)
+    const targetPath = path.join(PUBLIC_CATALOG_THUMB_ROOT, fileName)
+
+    try {
+      await fs.copyFile(sourcePath, targetPath)
+      copyCount += 1
+    } catch {
+      record.thumbnailUrl = ''
+      continue
+    }
+
+    const url = `/catalog/meanwell/thumbnails/${encodeURIComponent(fileName)}`
+    sourceToUrl.set(sourcePath, url)
+    record.thumbnailUrl = url
   }
 
   return copyCount
@@ -364,8 +420,10 @@ async function run() {
       modelAssetsByKey[key] = item
     })
 
+    const key = `${record.major}|${record.subcategory}|${record.leaf}`
+
     return {
-      key: `${record.major}|${record.subcategory}|${record.leaf}`,
+      key,
       major: record.major,
       subcategory: record.subcategory,
       leaf: record.leaf,

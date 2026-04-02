@@ -44,7 +44,7 @@ function toModelName(sourcePath) {
     return parentName.trim()
   }
 
-  return baseName.replace(/-spec$/i, '').trim()
+  return baseName.trim()
 }
 
 async function sameFileContent(pathA, pathB) {
@@ -100,14 +100,16 @@ async function run() {
     if (!allowedExt.has(ext)) continue
 
     const relative = path.relative(catalogRoot, sourcePath)
+    const normalizedRelative = relative.split(path.sep).join('/').toLowerCase()
+    if (normalizedRelative.startsWith('thumbnails/')) continue
+
     const segments = relative.split(path.sep).filter(Boolean)
-    const series = segments[0]
-    if (!series) continue
+    if (segments.length <= 1) continue
 
     const modelName = toModelName(sourcePath)
     if (!modelName) continue
 
-    const targetPath = path.join(catalogRoot, series, `${modelName}${ext}`)
+    const targetPath = path.join(catalogRoot, `${modelName}${ext}`)
     if (targetPath === sourcePath) continue
 
     await fs.mkdir(path.dirname(targetPath), { recursive: true })

@@ -16,7 +16,7 @@ const firebaseConfig = {
 const COLLECTION = 'leafModelTrees'
 const BATCH_LIMIT = 400
 const PROJECT_ROOT = process.cwd()
-const ASSET_ROOT = path.join(PROJECT_ROOT, 'public', 'meanwell', '1. 민웰 통합_사양서+썸네일 (2)')
+const ASSET_ROOT = path.join(PROJECT_ROOT, 'public', 'catalog', 'meanwell')
 const STORAGE_PREFIX = 'catalog-assets/meanwell'
 const UPLOAD_CONCURRENCY = 6
 
@@ -96,6 +96,11 @@ function makeStorageObjectPath(fullPath) {
   return `${STORAGE_PREFIX}/${relative}`
 }
 
+function isThumbnailAssetPath(fullPath) {
+  const relative = path.relative(ASSET_ROOT, fullPath).split(path.sep).join('/').toLowerCase()
+  return relative.startsWith('thumbnails/')
+}
+
 async function uploadAndGetDownloadUrl(storage, fullPath) {
   const objectPath = makeStorageObjectPath(fullPath)
   const storageRef = ref(storage, objectPath)
@@ -143,6 +148,7 @@ function pickPreferredFilesByModelKey(modelKeys, allFiles) {
   const byModelKey = new Map()
 
   allFiles.forEach((fullPath) => {
+    if (isThumbnailAssetPath(fullPath)) return
     const ext = path.extname(fullPath).toLowerCase()
     if (ext !== '.jpg' && ext !== '.pdf') return
     const base = path.basename(fullPath, ext)
@@ -199,6 +205,7 @@ async function run() {
   const storage = getStorage(app)
 
   const allFiles = (await walkFiles(ASSET_ROOT)).filter((fullPath) => {
+    if (isThumbnailAssetPath(fullPath)) return false
     const ext = path.extname(fullPath).toLowerCase()
     return ext === '.jpg' || ext === '.pdf'
   })

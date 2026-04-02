@@ -193,9 +193,6 @@ export function findSearchResults(categories, queryText, treeMap, limit = 120) {
         })
 
         leafView.models.forEach((modelName) => {
-          const modelAsset = getModelAssetByModel(leafView.modelAssetsByKey, modelName)
-          if (!modelAsset?.pdfUrl) return
-
           pushSearchResult({
             results,
             seen,
@@ -417,8 +414,6 @@ function buildLeafChipIndexFromLeafTree(records) {
   const index = {}
 
   records.forEach((record) => {
-    if (!recordHasPdf(record)) return
-
     const major = String(record?.major ?? '').trim()
     const subcategory = String(record?.subcategory ?? '').trim()
     const leaf = String(record?.leaf ?? '').trim()
@@ -432,21 +427,4 @@ function buildLeafChipIndexFromLeafTree(records) {
   })
 
   return index
-}
-
-function recordHasPdf(record) {
-  if (!record || typeof record !== 'object') return false
-
-  if (record.modelAssetsByKey && typeof record.modelAssetsByKey === 'object') {
-    const byKeyHasPdf = Object.values(record.modelAssetsByKey).some(
-      (asset) => String(asset?.pdfUrl ?? '').trim().length > 0
-    )
-    if (byKeyHasPdf) return true
-  }
-
-  if (Array.isArray(record.modelAssets)) {
-    return record.modelAssets.some((asset) => String(asset?.pdfUrl ?? '').trim().length > 0)
-  }
-
-  return false
 }

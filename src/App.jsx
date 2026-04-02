@@ -39,7 +39,7 @@ function setMetaByProperty(property, content) {
 
 export default function App() {
   const [activeView, setActiveView] = useState('home')
-  const [firebaseStatus, setFirebaseStatus] = useState('Firebase initialized: App/Auth/Firestore connected.')
+  const [firebaseStatus] = useState('Firebase initialized: App/Auth/Firestore connected.')
   const [productSearchRequest, setProductSearchRequest] = useState(null)
   const [productPresetRequest, setProductPresetRequest] = useState(null)
   const [newsRequest, setNewsRequest] = useState(null)
@@ -134,7 +134,6 @@ export default function App() {
           <NewsView isActive={activeView === 'news'} onNavigate={handleNavigate} externalNewsRequest={newsRequest} />
           <ProductsView
             isActive={activeView === 'products'}
-            onStatusChange={setFirebaseStatus}
             externalSearchRequest={productSearchRequest}
             externalPresetRequest={productPresetRequest}
           />

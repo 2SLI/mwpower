@@ -85,7 +85,10 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
   return (
     <div id="home-sections" className={isActive ? '' : 'is-hidden'}>
       <h1 className="sr-only">민웰파워 MEAN WELL 전원공급장치 정품 공급업체</h1>
-      <section className="relative h-[580px] overflow-hidden max-[1280px]:h-[430px] max-[980px]:h-[300px] max-[640px]:h-[220px]" aria-label="Main banners">
+      <section
+        className="relative h-[clamp(370px,54vh,560px)] overflow-hidden max-[1280px]:h-[clamp(320px,47vh,460px)] max-[980px]:h-[300px] max-[640px]:h-[220px]"
+        aria-label="Main banners"
+      >
         <div className="banner-track relative h-full">
           {bannerImages.map((banner, index) => (
             <div
@@ -100,7 +103,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                 <p className="mb-2.5 text-[clamp(11px,0.95vw,15px)] font-bold tracking-[1.4px] text-rose-200 max-[640px]:mb-2 max-[640px]:text-[10px]">
                   {banner.eyebrow ?? ''}
                 </p>
-                <h2 className="m-0 text-[clamp(30px,3.25vw,56px)] leading-[1.18] tracking-[-0.6px] text-white max-[980px]:text-[clamp(24px,6vw,34px)] max-[640px]:text-[clamp(19px,6.8vw,24px)] max-[640px]:leading-[1.24]">
+                <h2 className="m-0 text-[clamp(30px,3.2vw,56px)] leading-[1.17] tracking-[-0.6px] text-white max-[980px]:text-[clamp(24px,6vw,36px)] max-[640px]:text-[clamp(19px,6.6vw,24px)] max-[640px]:leading-[1.23]">
                   {bannerTitleLines[index].map((line, lineIndex) => (
                     <Fragment key={`${banner.src ?? index}-${lineIndex}`}>
                       {line}
@@ -108,7 +111,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                     </Fragment>
                   ))}
                 </h2>
-                <p className="mt-3.5 max-w-[52ch] text-[clamp(14px,1.12vw,20px)] leading-[1.55] text-slate-100 max-[980px]:mt-2.5 max-[980px]:text-sm max-[640px]:hidden">
+                <p className="mt-3.5 max-w-[52ch] text-[clamp(14px,1.1vw,20px)] leading-[1.55] text-slate-100 max-[980px]:mt-2.5 max-[980px]:text-sm max-[640px]:hidden">
                   {banner.description ?? ''}
                 </p>
                 <a
@@ -126,7 +129,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
           ))}
         </div>
         <button
-          className="banner-arrow prev absolute left-3.5 top-1/2 z-20 h-[42px] w-[42px] -translate-y-1/2 rounded-full border-0 bg-black/45 text-[28px] leading-none text-white"
+          className="banner-arrow prev absolute left-3.5 top-1/2 z-20 h-[44px] w-[44px] -translate-y-1/2 rounded-full border-0 bg-black/45 text-[30px] leading-none text-white"
           type="button"
           aria-label="Previous banner"
           onClick={() => setCurrentSlide((prev) => normalizeIndex(prev - 1, totalSlides))}
@@ -134,7 +137,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
           ‹
         </button>
         <button
-          className="banner-arrow next absolute right-3.5 top-1/2 z-20 h-[42px] w-[42px] -translate-y-1/2 rounded-full border-0 bg-black/45 text-[28px] leading-none text-white"
+          className="banner-arrow next absolute right-3.5 top-1/2 z-20 h-[44px] w-[44px] -translate-y-1/2 rounded-full border-0 bg-black/45 text-[30px] leading-none text-white"
           type="button"
           aria-label="Next banner"
           onClick={() => setCurrentSlide((prev) => normalizeIndex(prev + 1, totalSlides))}
@@ -159,7 +162,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
           <a
             href="#"
             key={item.title}
-            className="relative block min-h-[284px] overflow-hidden border-r border-slate-300 bg-white transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#d13d3d] max-[640px]:min-h-[258px] max-[480px]:border-r-0 max-[480px]:border-t max-[480px]:border-slate-300"
+            className="relative block min-h-[252px] overflow-hidden border-r border-slate-300 bg-white transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#d13d3d] max-[640px]:min-h-[224px] max-[480px]:border-r-0 max-[480px]:border-t max-[480px]:border-slate-300"
             onClick={(event) => {
               event.preventDefault()
               if (item.productPreset) {
@@ -169,8 +172,8 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               onNavigate('products')
             }}
           >
-            <img className="block h-60 w-full object-cover" src={item.image} alt={item.alt} />
-            <h3 className="m-0 min-h-[84px] px-4 pt-5 text-center text-[clamp(13px,0.84vw,17px)] font-normal text-neutral-700">{item.title}</h3>
+            <img className="block h-48 w-full object-cover max-[640px]:h-40" src={item.image} alt={item.alt} />
+            <h3 className="m-0 min-h-[70px] px-4 pt-4 text-center text-[clamp(13px,0.84vw,17px)] leading-[1.35] text-neutral-700">{item.title}</h3>
           </a>
         ))}
       </section>

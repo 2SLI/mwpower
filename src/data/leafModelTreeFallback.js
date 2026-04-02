@@ -18,7 +18,7 @@ export const leafModelTreeFallback = [
       "Complete protections: Anti - islanding protection, AC fail protection, DC OVP, OLP, OCP, OTP",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/f1fbdcab-f7d5-4292-98d5-2796915b5743.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/bic.jpg",
     "models": [
       "BIC-2200",
       "BIC-5K"
@@ -27,24 +27,24 @@ export const leafModelTreeFallback = [
       {
         "model": "BIC-2200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/BIC-2200-spec.pdf"
       },
       {
         "model": "BIC-5K",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/BIC-5K-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "bic-2200": {
         "model": "BIC-2200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/BIC-2200-spec.pdf"
       },
       "bic-5k": {
         "model": "BIC-5K",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/BIC-5K-spec.pdf"
       }
     }
   },
@@ -66,7 +66,7 @@ export const leafModelTreeFallback = [
       "Protections: Over voltage, Under voltage, Over temperature, Over power, Grid fault, Over power no input, Communication error",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/8969e4c4-d37a-4ed1-9cdb-bc2ad450f3f0.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/erg-5000.jpg",
     "models": [
       "ERG-5000(H)"
     ],
@@ -74,14 +74,14 @@ export const leafModelTreeFallback = [
       {
         "model": "ERG-5000(H)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "erg-5000h": {
         "model": "ERG-5000(H)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
       }
     }
   },
@@ -102,7 +102,7 @@ export const leafModelTreeFallback = [
       "Protections: Over voltage/ Under voltage/ Over temperature/ Communication error",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/94a71698-e5ee-4aea-b5ff-69618eb204f3.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ers.jpg",
     "models": [
       "ERS-1400"
     ],
@@ -110,14 +110,14 @@ export const leafModelTreeFallback = [
       {
         "model": "ERS-1400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ers-1400": {
         "model": "ERS-1400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
       }
     }
   },
@@ -137,7 +137,7 @@ export const leafModelTreeFallback = [
       "Various DC Plug Converter available",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/e2c37b65-c666-4bb9-967d-09f3c7911ab4.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/gst18a.jpg",
     "models": [
       "GST18A",
       "GST25A",
@@ -161,174 +161,174 @@ export const leafModelTreeFallback = [
       {
         "model": "GST18A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST18A-SPEC.pdf"
       },
       {
         "model": "GST25A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST25A-SPEC.pdf"
       },
       {
         "model": "GST40A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST40A-SPEC.pdf"
       },
       {
         "model": "GST60A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST60A-SPEC.pdf"
       },
       {
         "model": "GST90A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST90A-SPEC.pdf"
       },
       {
         "model": "GST120A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST120A-SPEC.pdf"
       },
       {
         "model": "GST160A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST160A-SPEC.pdf"
       },
       {
         "model": "GST220A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST220A-SPEC.pdf"
       },
       {
         "model": "GST280A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST280A-SPEC.pdf"
       },
       {
         "model": "GST360A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST360A-spec.pdf"
       },
       {
         "model": "GST18B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST18B-SPEC.pdf"
       },
       {
         "model": "GST25B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST25B-SPEC.pdf"
       },
       {
         "model": "GST36B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST36B-SPEC.pdf"
       },
       {
         "model": "GST360B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST360B-spec.pdf"
       },
       {
         "model": "GP25A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GP25A-spec.pdf"
       },
       {
         "model": "GP25B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GP25B-spec.pdf"
       },
       {
         "model": "GP50A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GP50A-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "gst18a": {
         "model": "GST18A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST18A-SPEC.pdf"
       },
       "gst25a": {
         "model": "GST25A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST25A-SPEC.pdf"
       },
       "gst40a": {
         "model": "GST40A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST40A-SPEC.pdf"
       },
       "gst60a": {
         "model": "GST60A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST60A-SPEC.pdf"
       },
       "gst90a": {
         "model": "GST90A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST90A-SPEC.pdf"
       },
       "gst120a": {
         "model": "GST120A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST120A-SPEC.pdf"
       },
       "gst160a": {
         "model": "GST160A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST160A-SPEC.pdf"
       },
       "gst220a": {
         "model": "GST220A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST220A-SPEC.pdf"
       },
       "gst280a": {
         "model": "GST280A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST280A-SPEC.pdf"
       },
       "gst360a": {
         "model": "GST360A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST360A-spec.pdf"
       },
       "gst18b": {
         "model": "GST18B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST18B-SPEC.pdf"
       },
       "gst25b": {
         "model": "GST25B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST25B-SPEC.pdf"
       },
       "gst36b": {
         "model": "GST36B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST36B-SPEC.pdf"
       },
       "gst360b": {
         "model": "GST360B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST360B-spec.pdf"
       },
       "gp25a": {
         "model": "GP25A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GP25A-spec.pdf"
       },
       "gp25b": {
         "model": "GP25B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GP25B-spec.pdf"
       },
       "gp50a": {
         "model": "GP50A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GP50A-spec.pdf"
       }
     }
   },
@@ -350,7 +350,7 @@ export const leafModelTreeFallback = [
       "Various DC Plug Converter available",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/01fab754-68be-47a3-bf5d-dd2385e7ca01.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/gsm40a.jpg",
     "models": [
       "GSM40A",
       "GSM60A",
@@ -372,154 +372,154 @@ export const leafModelTreeFallback = [
       {
         "model": "GSM40A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM40A-SPEC.pdf"
       },
       {
         "model": "GSM60A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM60A-SPEC.pdf"
       },
       {
         "model": "GSM90A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM90A-SPEC.pdf"
       },
       {
         "model": "GSM120A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM120A-SPEC.pdf"
       },
       {
         "model": "GSM160A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM160A-SPEC.pdf"
       },
       {
         "model": "GSM220A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM220A-SPEC.pdf"
       },
       {
         "model": "GSM18B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM18B-SPEC.pdf"
       },
       {
         "model": "GSM25B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM25B-SPEC.pdf"
       },
       {
         "model": "GSM36B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM36B-SPEC.pdf"
       },
       {
         "model": "GSM40B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM40B-SPEC.pdf"
       },
       {
         "model": "GSM60B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM60B-SPEC.pdf"
       },
       {
         "model": "GSM90B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM90B-SPEC.pdf"
       },
       {
         "model": "GSM120B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM120B-SPEC.pdf"
       },
       {
         "model": "GSM160B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM160B-SPEC.pdf"
       },
       {
         "model": "GSM220B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM220B-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "gsm40a": {
         "model": "GSM40A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM40A-SPEC.pdf"
       },
       "gsm60a": {
         "model": "GSM60A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM60A-SPEC.pdf"
       },
       "gsm90a": {
         "model": "GSM90A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM90A-SPEC.pdf"
       },
       "gsm120a": {
         "model": "GSM120A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM120A-SPEC.pdf"
       },
       "gsm160a": {
         "model": "GSM160A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM160A-SPEC.pdf"
       },
       "gsm220a": {
         "model": "GSM220A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM220A-SPEC.pdf"
       },
       "gsm18b": {
         "model": "GSM18B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM18B-SPEC.pdf"
       },
       "gsm25b": {
         "model": "GSM25B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM25B-SPEC.pdf"
       },
       "gsm36b": {
         "model": "GSM36B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM36B-SPEC.pdf"
       },
       "gsm40b": {
         "model": "GSM40B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM40B-SPEC.pdf"
       },
       "gsm60b": {
         "model": "GSM60B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM60B-SPEC.pdf"
       },
       "gsm90b": {
         "model": "GSM90B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM90B-SPEC.pdf"
       },
       "gsm120b": {
         "model": "GSM120B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM120B-SPEC.pdf"
       },
       "gsm160b": {
         "model": "GSM160B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM160B-SPEC.pdf"
       },
       "gsm220b": {
         "model": "GSM220B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM220B-SPEC.pdf"
       }
     }
   },
@@ -539,7 +539,7 @@ export const leafModelTreeFallback = [
       "Various DC Plug Converter available",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/8a0e4e90-888b-4a53-8f6d-bc7d4f2ff63b.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/owa.jpg",
     "models": [
       "OWA-60U",
       "OWA-90U",
@@ -554,84 +554,84 @@ export const leafModelTreeFallback = [
       {
         "model": "OWA-60U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-60U-SPEC.pdf"
       },
       {
         "model": "OWA-90U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-90U-SPEC.pdf"
       },
       {
         "model": "OWA-120U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-120U-SPEC.pdf"
       },
       {
         "model": "OWA-200U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-200U-spec.pdf"
       },
       {
         "model": "OWA-60E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-60E-spec.pdf"
       },
       {
         "model": "OWA-90E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-90E-spec.pdf"
       },
       {
         "model": "OWA-120E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-120E-SPEC.pdf"
       },
       {
         "model": "OWA-200E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-200E-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "owa-60u": {
         "model": "OWA-60U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-60U-SPEC.pdf"
       },
       "owa-90u": {
         "model": "OWA-90U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-90U-SPEC.pdf"
       },
       "owa-120u": {
         "model": "OWA-120U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-120U-SPEC.pdf"
       },
       "owa-200u": {
         "model": "OWA-200U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-200U-spec.pdf"
       },
       "owa-60e": {
         "model": "OWA-60E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-60E-spec.pdf"
       },
       "owa-90e": {
         "model": "OWA-90E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-90E-spec.pdf"
       },
       "owa-120e": {
         "model": "OWA-120E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-120E-SPEC.pdf"
       },
       "owa-200e": {
         "model": "OWA-200E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/OWA-200E-spec.pdf"
       }
     }
   },
@@ -653,7 +653,7 @@ export const leafModelTreeFallback = [
       "Various DC Plug Converter available",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/3aa64064-e0e3-48e9-9451-4408d5a75d7c.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/gst18u.jpg",
     "models": [
       "GST18U",
       "GST25U",
@@ -666,64 +666,64 @@ export const leafModelTreeFallback = [
       {
         "model": "GST18U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST18U-SPEC.pdf"
       },
       {
         "model": "GST25U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST25U-SPEC.pdf"
       },
       {
         "model": "GST36U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST36U-SPEC.pdf"
       },
       {
         "model": "GST18E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST18E-SPEC.pdf"
       },
       {
         "model": "GST25E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST25E-SPEC.pdf"
       },
       {
         "model": "GST36E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST36E-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "gst18u": {
         "model": "GST18U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST18U-SPEC.pdf"
       },
       "gst25u": {
         "model": "GST25U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST25U-SPEC.pdf"
       },
       "gst36u": {
         "model": "GST36U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST36U-SPEC.pdf"
       },
       "gst18e": {
         "model": "GST18E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST18E-SPEC.pdf"
       },
       "gst25e": {
         "model": "GST25E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST25E-SPEC.pdf"
       },
       "gst36e": {
         "model": "GST36E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GST36E-SPEC.pdf"
       }
     }
   },
@@ -750,7 +750,7 @@ export const leafModelTreeFallback = [
       "Various DC Plug Converter available",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/32f7dd70-84a8-4750-a8b4-fd2c157b2743.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nge12.jpg",
     "models": [
       "NGE12",
       "NGE18",
@@ -841,7 +841,7 @@ export const leafModelTreeFallback = [
       "Various DC Plug Converter available",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/a66d9d11-63a8-4496-a16a-c690c0d62f4c.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/gsm18u.jpg",
     "models": [
       "GSM18U",
       "GSM25U",
@@ -927,7 +927,7 @@ export const leafModelTreeFallback = [
       "No need of battery or AC power",
       "Simple connection and configuration"
     ],
-    "thumbnailUrl": "/reference/meanwell/292fae56-bd02-4d66-9214-5adc2a8eb024.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/sbp.png",
     "models": [
       "SBP-001"
     ],
@@ -961,7 +961,7 @@ export const leafModelTreeFallback = [
       "Standard DC output plug (Optional plugs are available)",
       "2 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/9ccc9ca4-7195-4a60-ac8b-da35953a9fb6.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/gc30b.jpg",
     "models": [
       "GC30B",
       "GC30E",
@@ -1062,7 +1062,7 @@ export const leafModelTreeFallback = [
       "Multiple DC output plugs selectable: Anderson, terminal block and 4 pin power pin",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/ce5a1ca8-3fa5-4307-ab5f-dfd0a73a63dd.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/npb.jpg",
     "models": [
       "NPB-120",
       "NPB-240",
@@ -1119,7 +1119,7 @@ export const leafModelTreeFallback = [
       "Suitable for lead - acid batteries",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/18d296d2-fe0e-4062-9c84-0054ebba4f06.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/enp.png",
     "models": [
       "ENP-120",
       "ENP-180",
@@ -1233,7 +1233,7 @@ export const leafModelTreeFallback = [
       "Comply with UL/EN 62368 - 1 and IEC/EN62368 - 1/ - 2 - 29 dual certifications",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/9d23472b-2f69-4e06-add4-dc58800eb96f.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/npp.jpg",
     "models": [
       "NPP-450",
       "NPP-750",
@@ -1302,7 +1302,7 @@ export const leafModelTreeFallback = [
       "Protections: Short circuit, over voltage, over temperature",
       "6 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/aeaa564a-33eb-4185-889a-bbdd270fc89a.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hep.jpg",
     "models": [
       "HEP-600C"
     ],
@@ -1345,7 +1345,7 @@ export const leafModelTreeFallback = [
       "Optional hand carry handle (Order No.: Carry Handle)",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/35ac2edd-a491-4bb6-8474-887dade5af95.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/npb-2.jpg",
     "models": [
       "NPB-450",
       "NPB-750",
@@ -1417,7 +1417,7 @@ export const leafModelTreeFallback = [
       "Suitable for lead - acid and lithium batteries",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/6f217634-633c-4cdc-bd9f-ad14aaf0e894.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rpb.jpg",
     "models": [
       "RPB-1600",
       "RCB-1600",
@@ -1491,7 +1491,7 @@ export const leafModelTreeFallback = [
       "Type - C cable with charging and data transmission included (100cm)",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/72ee4d8d-58f6-4495-a330-b702d3507514.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nge100.jpg",
     "models": [
       "NGE100"
     ],
@@ -1523,7 +1523,7 @@ export const leafModelTreeFallback = [
       "5 slot output for MP450/650, 7 slot output for MP1k0",
       "75W/100W/150W/210W/300W/360W module available"
     ],
-    "thumbnailUrl": "/reference/meanwell/228127dd-b3e4-448c-8c74-cf021766821a.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/mp450.jpg",
     "models": [
       "MP450",
       "MP650",
@@ -1579,7 +1579,7 @@ export const leafModelTreeFallback = [
       "Cooling by thermostatically controlled fan with fan alarm function",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/82ed6a51-3af3-40d8-ad8f-74e3c6290296.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nmp650.png",
     "models": [
       "NMP650",
       "NMP1K2"
@@ -1624,7 +1624,7 @@ export const leafModelTreeFallback = [
       "Meet OVC III requirements",
       "Meet 2x MOPP isolation requirements, ideal for BF rated medical equipment"
     ],
-    "thumbnailUrl": "/reference/meanwell/5cbf2014-0690-4dc7-939a-5534ce4702ca.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ump.png",
     "models": [
       "UMP-400"
     ],
@@ -1657,7 +1657,7 @@ export const leafModelTreeFallback = [
       "Assemble on industrial rail TS - 35 / 7.5 or 15",
       "Suitable for machine vision inspection system and plant cultivation applications"
     ],
-    "thumbnailUrl": "/reference/meanwell/DRA.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dra.png",
     "models": [
       "DRA-40",
       "DRA-60"
@@ -1702,7 +1702,7 @@ export const leafModelTreeFallback = [
       "Assemble on industrial rail TS - 35 / 7.5 or 15",
       "2 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/68a82ecb-87be-4f75-b546-526f24ec5bdd.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/edr.png",
     "models": [
       "EDR-75",
       "EDR-120",
@@ -1711,35 +1711,35 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "EDR-75",
-        "imageUrl": "/catalog/meanwell/edr/EDR-75.jpg",
-        "pdfUrl": "/catalog/meanwell/edr/EDR-75.pdf"
+        "imageUrl": "/catalog/meanwell/EDR-75.jpg",
+        "pdfUrl": "/catalog/meanwell/EDR-75.pdf"
       },
       {
         "model": "EDR-120",
-        "imageUrl": "/catalog/meanwell/edr/EDR-120.jpg",
-        "pdfUrl": "/catalog/meanwell/edr/EDR-120.pdf"
+        "imageUrl": "/catalog/meanwell/EDR-120.jpg",
+        "pdfUrl": "/catalog/meanwell/EDR-120.pdf"
       },
       {
         "model": "EDR-150",
-        "imageUrl": "/catalog/meanwell/edr/EDR-150.jpg",
-        "pdfUrl": "/catalog/meanwell/edr/EDR-150.pdf"
+        "imageUrl": "/catalog/meanwell/EDR-150.jpg",
+        "pdfUrl": "/catalog/meanwell/EDR-150.pdf"
       }
     ],
     "modelAssetsByKey": {
       "edr-75": {
         "model": "EDR-75",
-        "imageUrl": "/catalog/meanwell/edr/EDR-75.jpg",
-        "pdfUrl": "/catalog/meanwell/edr/EDR-75.pdf"
+        "imageUrl": "/catalog/meanwell/EDR-75.jpg",
+        "pdfUrl": "/catalog/meanwell/EDR-75.pdf"
       },
       "edr-120": {
         "model": "EDR-120",
-        "imageUrl": "/catalog/meanwell/edr/EDR-120.jpg",
-        "pdfUrl": "/catalog/meanwell/edr/EDR-120.pdf"
+        "imageUrl": "/catalog/meanwell/EDR-120.jpg",
+        "pdfUrl": "/catalog/meanwell/EDR-120.pdf"
       },
       "edr-150": {
         "model": "EDR-150",
-        "imageUrl": "/catalog/meanwell/edr/EDR-150.jpg",
-        "pdfUrl": "/catalog/meanwell/edr/EDR-150.pdf"
+        "imageUrl": "/catalog/meanwell/EDR-150.jpg",
+        "pdfUrl": "/catalog/meanwell/EDR-150.pdf"
       }
     }
   },
@@ -1760,7 +1760,7 @@ export const leafModelTreeFallback = [
       "Assemble on industrial rail TS - 35 / 7.5 or 15",
       "Suitable for building automation and control of household appliance"
     ],
-    "thumbnailUrl": "/reference/meanwell/1cd2b777-db60-4b8b-8ba5-fe588fb5bf69.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hdr.png",
     "models": [
       "HDR-15",
       "HDR-30",
@@ -1771,55 +1771,55 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "HDR-15",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-15.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-15.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-15.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-15.pdf"
       },
       {
         "model": "HDR-30",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-30.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-30.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-30.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-30.pdf"
       },
       {
         "model": "HDR-60",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-60.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-60.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-60.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-60.pdf"
       },
       {
         "model": "HDR-100",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-100.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-100.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-100.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-100.pdf"
       },
       {
         "model": "HDR-150",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-150.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-150.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-150.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-150.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hdr-15": {
         "model": "HDR-15",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-15.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-15.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-15.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-15.pdf"
       },
       "hdr-30": {
         "model": "HDR-30",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-30.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-30.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-30.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-30.pdf"
       },
       "hdr-60": {
         "model": "HDR-60",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-60.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-60.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-60.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-60.pdf"
       },
       "hdr-100": {
         "model": "HDR-100",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-100.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-100.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-100.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-100.pdf"
       },
       "hdr-150": {
         "model": "HDR-150",
-        "imageUrl": "/catalog/meanwell/hdr/HDR-150.jpg",
-        "pdfUrl": "/catalog/meanwell/hdr/HDR-150.pdf"
+        "imageUrl": "/catalog/meanwell/HDR-150.jpg",
+        "pdfUrl": "/catalog/meanwell/HDR-150.pdf"
       }
     }
   },
@@ -1840,7 +1840,7 @@ export const leafModelTreeFallback = [
       "DC OK relay contact (MDR - 40/60/100)",
       "Class I, Div 2 Hazardous Locations T4 (MDR - 40/60)"
     ],
-    "thumbnailUrl": "/reference/meanwell/MDR.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/mdr.png",
     "models": [
       "MDR-10",
       "MDR-20",
@@ -1851,55 +1851,55 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "MDR-10",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-10.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-10.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-10.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-10.pdf"
       },
       {
         "model": "MDR-20",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-20.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-20.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-20.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-20.pdf"
       },
       {
         "model": "MDR-40",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-40.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-40.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-40.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-40.pdf"
       },
       {
         "model": "MDR-60",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-60.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-60.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-60.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-60.pdf"
       },
       {
         "model": "MDR-100",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-100.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-100.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-100.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-100.pdf"
       }
     ],
     "modelAssetsByKey": {
       "mdr-10": {
         "model": "MDR-10",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-10.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-10.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-10.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-10.pdf"
       },
       "mdr-20": {
         "model": "MDR-20",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-20.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-20.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-20.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-20.pdf"
       },
       "mdr-40": {
         "model": "MDR-40",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-40.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-40.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-40.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-40.pdf"
       },
       "mdr-60": {
         "model": "MDR-60",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-60.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-60.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-60.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-60.pdf"
       },
       "mdr-100": {
         "model": "MDR-100",
-        "imageUrl": "/catalog/meanwell/mdr/MDR-100.jpg",
-        "pdfUrl": "/catalog/meanwell/mdr/MDR-100.pdf"
+        "imageUrl": "/catalog/meanwell/MDR-100.jpg",
+        "pdfUrl": "/catalog/meanwell/MDR-100.pdf"
       }
     }
   },
@@ -1918,7 +1918,7 @@ export const leafModelTreeFallback = [
       "Assemble on industrial rail TS - 35 / 7.5 or 15",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/f846563c-6009-449c-97d3-d69dc0ff1db2.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ndr.png",
     "models": [
       "NDR-75",
       "NDR-120",
@@ -1928,45 +1928,45 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "NDR-75",
-        "imageUrl": "/catalog/meanwell/ndr/NDR-75.jpg",
-        "pdfUrl": "/catalog/meanwell/ndr/NDR-75.pdf"
+        "imageUrl": "/catalog/meanwell/NDR-75.jpg",
+        "pdfUrl": "/catalog/meanwell/NDR-75.pdf"
       },
       {
         "model": "NDR-120",
-        "imageUrl": "/catalog/meanwell/ndr/NDR-120.jpg",
-        "pdfUrl": "/catalog/meanwell/ndr/NDR-120.pdf"
+        "imageUrl": "/catalog/meanwell/NDR-120.jpg",
+        "pdfUrl": "/catalog/meanwell/NDR-120.pdf"
       },
       {
         "model": "NDR-240",
-        "imageUrl": "/catalog/meanwell/ndr/NDR-240.jpg",
-        "pdfUrl": "/catalog/meanwell/ndr/NDR-240.pdf"
+        "imageUrl": "/catalog/meanwell/NDR-240.jpg",
+        "pdfUrl": "/catalog/meanwell/NDR-240.pdf"
       },
       {
         "model": "NDR-480",
-        "imageUrl": "/catalog/meanwell/ndr/NDR-480.jpg",
-        "pdfUrl": "/catalog/meanwell/ndr/NDR-480.pdf"
+        "imageUrl": "/catalog/meanwell/NDR-480.jpg",
+        "pdfUrl": "/catalog/meanwell/NDR-480.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ndr-75": {
         "model": "NDR-75",
-        "imageUrl": "/catalog/meanwell/ndr/NDR-75.jpg",
-        "pdfUrl": "/catalog/meanwell/ndr/NDR-75.pdf"
+        "imageUrl": "/catalog/meanwell/NDR-75.jpg",
+        "pdfUrl": "/catalog/meanwell/NDR-75.pdf"
       },
       "ndr-120": {
         "model": "NDR-120",
-        "imageUrl": "/catalog/meanwell/ndr/NDR-120.jpg",
-        "pdfUrl": "/catalog/meanwell/ndr/NDR-120.pdf"
+        "imageUrl": "/catalog/meanwell/NDR-120.jpg",
+        "pdfUrl": "/catalog/meanwell/NDR-120.pdf"
       },
       "ndr-240": {
         "model": "NDR-240",
-        "imageUrl": "/catalog/meanwell/ndr/NDR-240.jpg",
-        "pdfUrl": "/catalog/meanwell/ndr/NDR-240.pdf"
+        "imageUrl": "/catalog/meanwell/NDR-240.jpg",
+        "pdfUrl": "/catalog/meanwell/NDR-240.pdf"
       },
       "ndr-480": {
         "model": "NDR-480",
-        "imageUrl": "/catalog/meanwell/ndr/NDR-480.jpg",
-        "pdfUrl": "/catalog/meanwell/ndr/NDR-480.pdf"
+        "imageUrl": "/catalog/meanwell/NDR-480.jpg",
+        "pdfUrl": "/catalog/meanwell/NDR-480.pdf"
       }
     }
   },
@@ -1983,7 +1983,7 @@ export const leafModelTreeFallback = [
       "20A/40A DC UPS module",
       "AC Inrush Current Limiter"
     ],
-    "thumbnailUrl": "/reference/meanwell/0ef4eb62-5550-4801-82bc-059443b93467.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/drdn40.jpg",
     "models": [
       "DRDN40",
       "DBUF20",
@@ -2039,8 +2039,8 @@ export const leafModelTreeFallback = [
       },
       {
         "model": "DUPS20",
-        "imageUrl": "/catalog/meanwell/dups/DUPS20.jpg",
-        "pdfUrl": "/catalog/meanwell/dups/DUPS20.pdf"
+        "imageUrl": "/catalog/meanwell/DUPS20.jpg",
+        "pdfUrl": "/catalog/meanwell/DUPS20.pdf"
       },
       {
         "model": "DUPS40",
@@ -2091,8 +2091,8 @@ export const leafModelTreeFallback = [
       },
       "dups20": {
         "model": "DUPS20",
-        "imageUrl": "/catalog/meanwell/dups/DUPS20.jpg",
-        "pdfUrl": "/catalog/meanwell/dups/DUPS20.pdf"
+        "imageUrl": "/catalog/meanwell/DUPS20.jpg",
+        "pdfUrl": "/catalog/meanwell/DUPS20.pdf"
       },
       "dups40": {
         "model": "DUPS40",
@@ -2118,7 +2118,7 @@ export const leafModelTreeFallback = [
       "130%~150% peak load capability by models",
       "Current sharing function (SDR - 480P/960)"
     ],
-    "thumbnailUrl": "/reference/meanwell/cd0aabd7-c369-4e0b-8f61-9f338b7ad91b.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/sdr.png",
     "models": [
       "SDR-75",
       "SDR-120",
@@ -2131,64 +2131,64 @@ export const leafModelTreeFallback = [
       {
         "model": "SDR-75",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-75.pdf"
+        "pdfUrl": "/catalog/meanwell/SDR-75.pdf"
       },
       {
         "model": "SDR-120",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-120.pdf"
+        "pdfUrl": "/catalog/meanwell/SDR-120.pdf"
       },
       {
         "model": "SDR-240",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-240.pdf"
+        "pdfUrl": "/catalog/meanwell/SDR-240.pdf"
       },
       {
         "model": "SDR-480",
-        "imageUrl": "/catalog/meanwell/sdr/SDR-480.jpg",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-480.pdf"
+        "imageUrl": "/catalog/meanwell/SDR-480.jpg",
+        "pdfUrl": "/catalog/meanwell/SDR-480.pdf"
       },
       {
         "model": "SDR-480P",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-480P.pdf"
+        "pdfUrl": "/catalog/meanwell/SDR-480P.pdf"
       },
       {
         "model": "SDR-960",
-        "imageUrl": "/catalog/meanwell/sdr/SDR-960.jpg",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-960.pdf"
+        "imageUrl": "/catalog/meanwell/SDR-960.jpg",
+        "pdfUrl": "/catalog/meanwell/SDR-960.pdf"
       }
     ],
     "modelAssetsByKey": {
       "sdr-75": {
         "model": "SDR-75",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-75.pdf"
+        "pdfUrl": "/catalog/meanwell/SDR-75.pdf"
       },
       "sdr-120": {
         "model": "SDR-120",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-120.pdf"
+        "pdfUrl": "/catalog/meanwell/SDR-120.pdf"
       },
       "sdr-240": {
         "model": "SDR-240",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-240.pdf"
+        "pdfUrl": "/catalog/meanwell/SDR-240.pdf"
       },
       "sdr-480": {
         "model": "SDR-480",
-        "imageUrl": "/catalog/meanwell/sdr/SDR-480.jpg",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-480.pdf"
+        "imageUrl": "/catalog/meanwell/SDR-480.jpg",
+        "pdfUrl": "/catalog/meanwell/SDR-480.pdf"
       },
       "sdr-480p": {
         "model": "SDR-480P",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-480P.pdf"
+        "pdfUrl": "/catalog/meanwell/SDR-480P.pdf"
       },
       "sdr-960": {
         "model": "SDR-960",
-        "imageUrl": "/catalog/meanwell/sdr/SDR-960.jpg",
-        "pdfUrl": "/catalog/meanwell/sdr/SDR-960.pdf"
+        "imageUrl": "/catalog/meanwell/SDR-960.jpg",
+        "pdfUrl": "/catalog/meanwell/SDR-960.pdf"
       }
     }
   },
@@ -2207,7 +2207,7 @@ export const leafModelTreeFallback = [
       "Assemble on industrial rail TS - 35 / 7.5 or 15",
       "Built - in DC OK relay contact"
     ],
-    "thumbnailUrl": "/reference/meanwell/7225d0b0-6d3d-41ff-999e-107c29ab1b17.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/tdr.png",
     "models": [
       "TDR-240",
       "TDR-480",
@@ -2263,7 +2263,7 @@ export const leafModelTreeFallback = [
       "Assemble on industrial rail TS - 35 / 7.5 or 15",
       "Built - in DC OK relay contact"
     ],
-    "thumbnailUrl": "/reference/meanwell/b78477ce-3052-4bc9-99c6-dbfa9b47e7c3.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/wdr.png",
     "models": [
       "WDR-60",
       "WDR-120",
@@ -2333,7 +2333,7 @@ export const leafModelTreeFallback = [
       "- 40~+85oC wide range operation temperature (> +60oC derating)",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/dbd64707-4121-4fec-96cb-a21a226bb5c7.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xdr.jpg",
     "models": [
       "XDR-75",
       "XDR-120",
@@ -2414,7 +2414,7 @@ export const leafModelTreeFallback = [
       "Can be installed on DIN Rail TS - 35/7.5 or 15",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/1d0675d6-1088-45fb-9374-f9973db25ea6.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xdr.png",
     "models": [
       "XDR-75E",
       "XDR-120E",
@@ -2510,7 +2510,7 @@ export const leafModelTreeFallback = [
       "Can be installed on DIN Rail TS - 35/7.5 or 15",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/54e5c6cd-2810-46c3-9f77-0a2a946b4949.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xtr.png",
     "models": [
       "XTR-240",
       "XTR-480",
@@ -2565,7 +2565,7 @@ export const leafModelTreeFallback = [
       "Suitable for critical applications",
       "2 outputs are isolated for RID series"
     ],
-    "thumbnailUrl": "/reference/meanwell/89b7d8f6-aad8-45ca-ba3f-30b5b8c4f0dd.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rs.png",
     "models": [
       "RS-15",
       "RS-25",
@@ -2595,245 +2595,245 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "RS-15",
-        "imageUrl": "/catalog/meanwell/rs/RS-15.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-15.pdf"
+        "imageUrl": "/catalog/meanwell/RS-15.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-15-SPEC.pdf"
       },
       {
         "model": "RS-25",
-        "imageUrl": "/catalog/meanwell/rs/RS-25.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-25.pdf"
+        "imageUrl": "/catalog/meanwell/RS-25.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-25.pdf"
       },
       {
         "model": "RS-35",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rs/RS-35.pdf"
+        "pdfUrl": "/catalog/meanwell/RS-35.pdf"
       },
       {
         "model": "RS-50",
-        "imageUrl": "/catalog/meanwell/rs/RS-50.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-50.pdf"
+        "imageUrl": "/catalog/meanwell/RS-50.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-50.pdf"
       },
       {
         "model": "RS-75",
-        "imageUrl": "/catalog/meanwell/rs/RS-75.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-75.pdf"
+        "imageUrl": "/catalog/meanwell/RS-75.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-75.pdf"
       },
       {
         "model": "RS-100",
-        "imageUrl": "/catalog/meanwell/rs/RS-100.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-100.pdf"
+        "imageUrl": "/catalog/meanwell/RS-100.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-100.pdf"
       },
       {
         "model": "RS-150",
-        "imageUrl": "/catalog/meanwell/rs/RS-150.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-150.pdf"
+        "imageUrl": "/catalog/meanwell/RS-150.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-150.pdf"
       },
       {
         "model": "RD-35",
-        "imageUrl": "/catalog/meanwell/rd/RD-35.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-35.pdf"
+        "imageUrl": "/catalog/meanwell/RD-35.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-35.pdf"
       },
       {
         "model": "RD-50",
-        "imageUrl": "/catalog/meanwell/rd/RD-50.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-50.pdf"
+        "imageUrl": "/catalog/meanwell/RD-50.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-50.pdf"
       },
       {
         "model": "RD-65",
-        "imageUrl": "/catalog/meanwell/rd/RD-65.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-65.pdf"
+        "imageUrl": "/catalog/meanwell/RD-65.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-65.pdf"
       },
       {
         "model": "RD-85",
-        "imageUrl": "/catalog/meanwell/rd/RD-85.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-85.pdf"
+        "imageUrl": "/catalog/meanwell/RD-85.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-85.pdf"
       },
       {
         "model": "RD-125",
-        "imageUrl": "/catalog/meanwell/rd/RD-125.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-125.pdf"
+        "imageUrl": "/catalog/meanwell/RD-125.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-125.pdf"
       },
       {
         "model": "RID-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RID-50-spec.pdf"
       },
       {
         "model": "RID-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RID-65-SPEC.pdf"
       },
       {
         "model": "RID-85",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RID-85-SPEC.pdf"
       },
       {
         "model": "RID-125",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RID-125-SPEC.pdf"
       },
       {
         "model": "RT-50",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rt/RT-50.pdf"
+        "pdfUrl": "/catalog/meanwell/RT-50.pdf"
       },
       {
         "model": "RT-65",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rt/RT-65.pdf"
+        "pdfUrl": "/catalog/meanwell/RT-65.pdf"
       },
       {
         "model": "RT-85",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rt/RT-85.pdf"
+        "pdfUrl": "/catalog/meanwell/RT-85.pdf"
       },
       {
         "model": "RT-125",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rt/RT-125.pdf"
+        "pdfUrl": "/catalog/meanwell/RT-125.pdf"
       },
       {
         "model": "RQ-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQ-50-spec.pdf"
       },
       {
         "model": "RQ-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQ-65-SPEC.pdf"
       },
       {
         "model": "RQ-85",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQ-85-SPEC.pdf"
       },
       {
         "model": "RQ-125",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQ-125-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rs-15": {
         "model": "RS-15",
-        "imageUrl": "/catalog/meanwell/rs/RS-15.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-15.pdf"
+        "imageUrl": "/catalog/meanwell/RS-15.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-15-SPEC.pdf"
       },
       "rs-25": {
         "model": "RS-25",
-        "imageUrl": "/catalog/meanwell/rs/RS-25.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-25.pdf"
+        "imageUrl": "/catalog/meanwell/RS-25.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-25.pdf"
       },
       "rs-35": {
         "model": "RS-35",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rs/RS-35.pdf"
+        "pdfUrl": "/catalog/meanwell/RS-35.pdf"
       },
       "rs-50": {
         "model": "RS-50",
-        "imageUrl": "/catalog/meanwell/rs/RS-50.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-50.pdf"
+        "imageUrl": "/catalog/meanwell/RS-50.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-50.pdf"
       },
       "rs-75": {
         "model": "RS-75",
-        "imageUrl": "/catalog/meanwell/rs/RS-75.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-75.pdf"
+        "imageUrl": "/catalog/meanwell/RS-75.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-75.pdf"
       },
       "rs-100": {
         "model": "RS-100",
-        "imageUrl": "/catalog/meanwell/rs/RS-100.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-100.pdf"
+        "imageUrl": "/catalog/meanwell/RS-100.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-100.pdf"
       },
       "rs-150": {
         "model": "RS-150",
-        "imageUrl": "/catalog/meanwell/rs/RS-150.jpg",
-        "pdfUrl": "/catalog/meanwell/rs/RS-150.pdf"
+        "imageUrl": "/catalog/meanwell/RS-150.jpg",
+        "pdfUrl": "/catalog/meanwell/RS-150.pdf"
       },
       "rd-35": {
         "model": "RD-35",
-        "imageUrl": "/catalog/meanwell/rd/RD-35.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-35.pdf"
+        "imageUrl": "/catalog/meanwell/RD-35.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-35.pdf"
       },
       "rd-50": {
         "model": "RD-50",
-        "imageUrl": "/catalog/meanwell/rd/RD-50.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-50.pdf"
+        "imageUrl": "/catalog/meanwell/RD-50.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-50.pdf"
       },
       "rd-65": {
         "model": "RD-65",
-        "imageUrl": "/catalog/meanwell/rd/RD-65.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-65.pdf"
+        "imageUrl": "/catalog/meanwell/RD-65.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-65.pdf"
       },
       "rd-85": {
         "model": "RD-85",
-        "imageUrl": "/catalog/meanwell/rd/RD-85.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-85.pdf"
+        "imageUrl": "/catalog/meanwell/RD-85.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-85.pdf"
       },
       "rd-125": {
         "model": "RD-125",
-        "imageUrl": "/catalog/meanwell/rd/RD-125.jpg",
-        "pdfUrl": "/catalog/meanwell/rd/RD-125.pdf"
+        "imageUrl": "/catalog/meanwell/RD-125.jpg",
+        "pdfUrl": "/catalog/meanwell/RD-125.pdf"
       },
       "rid-50": {
         "model": "RID-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RID-50-spec.pdf"
       },
       "rid-65": {
         "model": "RID-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RID-65-SPEC.pdf"
       },
       "rid-85": {
         "model": "RID-85",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RID-85-SPEC.pdf"
       },
       "rid-125": {
         "model": "RID-125",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RID-125-SPEC.pdf"
       },
       "rt-50": {
         "model": "RT-50",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rt/RT-50.pdf"
+        "pdfUrl": "/catalog/meanwell/RT-50.pdf"
       },
       "rt-65": {
         "model": "RT-65",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rt/RT-65.pdf"
+        "pdfUrl": "/catalog/meanwell/RT-65.pdf"
       },
       "rt-85": {
         "model": "RT-85",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rt/RT-85.pdf"
+        "pdfUrl": "/catalog/meanwell/RT-85.pdf"
       },
       "rt-125": {
         "model": "RT-125",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rt/RT-125.pdf"
+        "pdfUrl": "/catalog/meanwell/RT-125.pdf"
       },
       "rq-50": {
         "model": "RQ-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQ-50-spec.pdf"
       },
       "rq-65": {
         "model": "RQ-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQ-65-SPEC.pdf"
       },
       "rq-85": {
         "model": "RQ-85",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQ-85-SPEC.pdf"
       },
       "rq-125": {
         "model": "RQ-125",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQ-125-SPEC.pdf"
       }
     }
   },
@@ -2849,7 +2849,7 @@ export const leafModelTreeFallback = [
       "High efficiency, no load power consumption <0.5W~0.75W",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/55d63a24-cfe7-4ddb-8755-10f7b713fcb3.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hrp.png",
     "models": [
       "HRP-75",
       "HRP-100",
@@ -2872,175 +2872,175 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "HRP-75",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-75.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-75.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-75.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-75.pdf"
       },
       {
         "model": "HRP-100",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-100.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-100.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-100.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-100.pdf"
       },
       {
         "model": "HRP-150",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-150.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-150.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-150.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-150.pdf"
       },
       {
         "model": "HRPG-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-150-SPEC.pdf"
       },
       {
         "model": "HRP-200",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-200.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-200.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-200.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-200.pdf"
       },
       {
         "model": "HRPG-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-200-SPEC.pdf"
       },
       {
         "model": "HRP-300",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-300.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-300.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-300.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-300.pdf"
       },
       {
         "model": "HRPG-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-300-SPEC.pdf"
       },
       {
         "model": "HRP-450",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-450.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-450.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-450.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-450.pdf"
       },
       {
         "model": "HRPG-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-450-SPEC.pdf"
       },
       {
         "model": "HRP-600",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-600.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-600.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-600.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-600.pdf"
       },
       {
         "model": "HRPG-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-600-SPEC.pdf"
       },
       {
         "model": "HRPG-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-1000-spec.pdf"
       },
       {
         "model": "HRP-150N3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRP-150N3-spec.pdf"
       },
       {
         "model": "HRP-300N3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRP-300N3-spec.pdf"
       },
       {
         "model": "HRP-600N3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRP-600N3-spec.pdf"
       },
       {
         "model": "HRPG-1000N3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-1000N3-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hrp-75": {
         "model": "HRP-75",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-75.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-75.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-75.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-75.pdf"
       },
       "hrp-100": {
         "model": "HRP-100",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-100.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-100.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-100.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-100.pdf"
       },
       "hrp-150": {
         "model": "HRP-150",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-150.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-150.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-150.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-150.pdf"
       },
       "hrpg-150": {
         "model": "HRPG-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-150-SPEC.pdf"
       },
       "hrp-200": {
         "model": "HRP-200",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-200.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-200.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-200.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-200.pdf"
       },
       "hrpg-200": {
         "model": "HRPG-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-200-SPEC.pdf"
       },
       "hrp-300": {
         "model": "HRP-300",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-300.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-300.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-300.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-300.pdf"
       },
       "hrpg-300": {
         "model": "HRPG-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-300-SPEC.pdf"
       },
       "hrp-450": {
         "model": "HRP-450",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-450.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-450.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-450.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-450.pdf"
       },
       "hrpg-450": {
         "model": "HRPG-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-450-SPEC.pdf"
       },
       "hrp-600": {
         "model": "HRP-600",
-        "imageUrl": "/catalog/meanwell/hrp/HRP-600.jpg",
-        "pdfUrl": "/catalog/meanwell/hrp/HRP-600.pdf"
+        "imageUrl": "/catalog/meanwell/HRP-600.jpg",
+        "pdfUrl": "/catalog/meanwell/HRP-600.pdf"
       },
       "hrpg-600": {
         "model": "HRPG-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-600-SPEC.pdf"
       },
       "hrpg-1000": {
         "model": "HRPG-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-1000-spec.pdf"
       },
       "hrp-150n3": {
         "model": "HRP-150N3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRP-150N3-spec.pdf"
       },
       "hrp-300n3": {
         "model": "HRP-300N3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRP-300N3-spec.pdf"
       },
       "hrp-600n3": {
         "model": "HRP-600N3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRP-600N3-spec.pdf"
       },
       "hrpg-1000n3": {
         "model": "HRPG-1000N3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HRPG-1000N3-spec.pdf"
       }
     }
   },
@@ -3060,7 +3060,7 @@ export const leafModelTreeFallback = [
       "Operating altitude up to 5000 meters",
       "Complete safety certificates: IEC/EN60335 - 1(PD3), IEC/EN61558 - 1, - 2 - 16; IEC/EN/UL62368 - 1 and GB4943"
     ],
-    "thumbnailUrl": "/reference/meanwell/LRS.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lrs.png",
     "models": [
       "LRS-35",
       "LRS-50",
@@ -3081,155 +3081,155 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "LRS-35",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-35.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-35.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-35.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-35.pdf"
       },
       {
         "model": "LRS-50",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-50.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-50.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-50.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-50.pdf"
       },
       {
         "model": "LRS-75",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-75.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-75.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-75.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-75.pdf"
       },
       {
         "model": "LRS-100",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-100.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-100.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-100.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-100.pdf"
       },
       {
         "model": "LRS-150",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-150.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-150.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-150.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-150.pdf"
       },
       {
         "model": "LRS-150F",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-150F.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-150F.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-150F.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-150F.pdf"
       },
       {
         "model": "LRS-200",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-200.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-200.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-200.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-200.pdf"
       },
       {
         "model": "LRS-350",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-350.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-350.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-350.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-350.pdf"
       },
       {
         "model": "LRS-450",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-450.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-450.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-450.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-450.pdf"
       },
       {
         "model": "LRS-600",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-600.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-600.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-600.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-600.pdf"
       },
       {
         "model": "LRS-1200",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-1200.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-1200.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-1200.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-1200.pdf"
       },
       {
         "model": "LRS-100N2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LRS-100N2-spec.pdf"
       },
       {
         "model": "LRS-200N2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LRS-200N2-spec.pdf"
       },
       {
         "model": "LRS-350N2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LRS-350N2-spec.pdf"
       },
       {
         "model": "LRS-600N2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LRS-600N2-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "lrs-35": {
         "model": "LRS-35",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-35.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-35.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-35.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-35.pdf"
       },
       "lrs-50": {
         "model": "LRS-50",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-50.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-50.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-50.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-50.pdf"
       },
       "lrs-75": {
         "model": "LRS-75",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-75.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-75.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-75.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-75.pdf"
       },
       "lrs-100": {
         "model": "LRS-100",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-100.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-100.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-100.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-100.pdf"
       },
       "lrs-150": {
         "model": "LRS-150",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-150.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-150.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-150.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-150.pdf"
       },
       "lrs-150f": {
         "model": "LRS-150F",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-150F.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-150F.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-150F.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-150F.pdf"
       },
       "lrs-200": {
         "model": "LRS-200",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-200.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-200.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-200.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-200.pdf"
       },
       "lrs-350": {
         "model": "LRS-350",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-350.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-350.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-350.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-350.pdf"
       },
       "lrs-450": {
         "model": "LRS-450",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-450.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-450.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-450.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-450.pdf"
       },
       "lrs-600": {
         "model": "LRS-600",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-600.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-600.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-600.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-600.pdf"
       },
       "lrs-1200": {
         "model": "LRS-1200",
-        "imageUrl": "/catalog/meanwell/lrs/LRS-1200.jpg",
-        "pdfUrl": "/catalog/meanwell/lrs/LRS-1200.pdf"
+        "imageUrl": "/catalog/meanwell/LRS-1200.jpg",
+        "pdfUrl": "/catalog/meanwell/LRS-1200.pdf"
       },
       "lrs-100n2": {
         "model": "LRS-100N2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LRS-100N2-spec.pdf"
       },
       "lrs-200n2": {
         "model": "LRS-200N2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LRS-200N2-spec.pdf"
       },
       "lrs-350n2": {
         "model": "LRS-350N2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LRS-350N2-spec.pdf"
       },
       "lrs-600n2": {
         "model": "LRS-600N2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LRS-600N2-spec.pdf"
       }
     }
   },
@@ -3246,7 +3246,7 @@ export const leafModelTreeFallback = [
       "Conformal coating (HSP, HDP, NEL, HSN series)",
       "Semi - potted and design against rain splash (ERP Series)"
     ],
-    "thumbnailUrl": "/reference/meanwell/1409bf7f-fe22-4bbe-a1ab-0c35a35891ab.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lsp.png",
     "models": [
       "LSP-160",
       "HSP-200",
@@ -3261,84 +3261,84 @@ export const leafModelTreeFallback = [
       {
         "model": "LSP-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LSP-160-spec.pdf"
       },
       {
         "model": "HSP-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HSP-200-SPEC.pdf"
       },
       {
         "model": "UHP-200A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-200A-spec.pdf"
       },
       {
         "model": "HSP-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HSP-300-SPEC.pdf"
       },
       {
         "model": "ERPF-400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERPF-400-spec.pdf"
       },
       {
         "model": "NEL-400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NEL-400-SPEC.pdf"
       },
       {
         "model": "ERP-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERP-200-spec.pdf"
       },
       {
         "model": "ERP-350",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERP-350-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "lsp-160": {
         "model": "LSP-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LSP-160-spec.pdf"
       },
       "hsp-200": {
         "model": "HSP-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HSP-200-SPEC.pdf"
       },
       "uhp-200a": {
         "model": "UHP-200A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-200A-spec.pdf"
       },
       "hsp-300": {
         "model": "HSP-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HSP-300-SPEC.pdf"
       },
       "erpf-400": {
         "model": "ERPF-400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERPF-400-spec.pdf"
       },
       "nel-400": {
         "model": "NEL-400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NEL-400-SPEC.pdf"
       },
       "erp-200": {
         "model": "ERP-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERP-200-spec.pdf"
       },
       "erp-350": {
         "model": "ERP-350",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERP-350-SPEC.pdf"
       }
     }
   },
@@ -3355,7 +3355,7 @@ export const leafModelTreeFallback = [
       "High efficiency, no load power consumption<0.5W~0.8W",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/MSP.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/msp.png",
     "models": [
       "MSP-100",
       "MSP-200",
@@ -3369,74 +3369,74 @@ export const leafModelTreeFallback = [
       {
         "model": "MSP-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-100-SPEC.pdf"
       },
       {
         "model": "MSP-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-200-SPEC.pdf"
       },
       {
         "model": "MSP-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-300-SPEC.pdf"
       },
       {
         "model": "MSP-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-450-SPEC.pdf"
       },
       {
         "model": "MSP-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-600-SPEC.pdf"
       },
       {
         "model": "MSP-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-1000-spec.pdf"
       },
       {
         "model": "MSP-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-1600-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "msp-100": {
         "model": "MSP-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-100-SPEC.pdf"
       },
       "msp-200": {
         "model": "MSP-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-200-SPEC.pdf"
       },
       "msp-300": {
         "model": "MSP-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-300-SPEC.pdf"
       },
       "msp-450": {
         "model": "MSP-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-450-SPEC.pdf"
       },
       "msp-600": {
         "model": "MSP-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-600-SPEC.pdf"
       },
       "msp-1000": {
         "model": "MSP-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-1000-spec.pdf"
       },
       "msp-1600": {
         "model": "MSP-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MSP-1600-spec.pdf"
       }
     }
   },
@@ -3455,7 +3455,7 @@ export const leafModelTreeFallback = [
       "Conformal coating",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/3126827f-62c4-465e-af67-c1e6f5be33a4.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nsp.jpg",
     "models": [
       "NSP-75",
       "NSP-100",
@@ -3471,94 +3471,94 @@ export const leafModelTreeFallback = [
       {
         "model": "NSP-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-75-spec.pdf"
       },
       {
         "model": "NSP-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-100-spec.pdf"
       },
       {
         "model": "NSP-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-150-spec.pdf"
       },
       {
         "model": "NSP-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-200-spec.pdf"
       },
       {
         "model": "NSP-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-320-spec.pdf"
       },
       {
         "model": "NSP-500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-500-spec.pdf"
       },
       {
         "model": "NSP-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-750-spec.pdf"
       },
       {
         "model": "NSP-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-1600-spec.pdf"
       },
       {
         "model": "NSP-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-3200-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "nsp-75": {
         "model": "NSP-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-75-spec.pdf"
       },
       "nsp-100": {
         "model": "NSP-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-100-spec.pdf"
       },
       "nsp-150": {
         "model": "NSP-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-150-spec.pdf"
       },
       "nsp-200": {
         "model": "NSP-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-200-spec.pdf"
       },
       "nsp-320": {
         "model": "NSP-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-320-spec.pdf"
       },
       "nsp-500": {
         "model": "NSP-500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-500-spec.pdf"
       },
       "nsp-750": {
         "model": "NSP-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-750-spec.pdf"
       },
       "nsp-1600": {
         "model": "NSP-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-1600-spec.pdf"
       },
       "nsp-3200": {
         "model": "NSP-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSP-3200-spec.pdf"
       }
     }
   },
@@ -3575,7 +3575,7 @@ export const leafModelTreeFallback = [
       "Two DC input contacts and single output",
       "Built - in two channels DC OK relay contacts for monitoring power status"
     ],
-    "thumbnailUrl": "/reference/meanwell/a9583baf-458d-46e6-a521-93ec78e18c86.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/erdn20.png",
     "models": [
       "ERDN20",
       "ERDN40"
@@ -3584,24 +3584,24 @@ export const leafModelTreeFallback = [
       {
         "model": "ERDN20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERDN20-spec.pdf"
       },
       {
         "model": "ERDN40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERDN40-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "erdn20": {
         "model": "ERDN20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERDN20-spec.pdf"
       },
       "erdn40": {
         "model": "ERDN40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERDN40-spec.pdf"
       }
     }
   },
@@ -3617,7 +3617,7 @@ export const leafModelTreeFallback = [
       "Built - in active PFC function",
       "Full range input, complete functions"
     ],
-    "thumbnailUrl": "/reference/meanwell/f8c3d81c-f577-42bd-97f9-9a0fd08ba3e5.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/psp.jpg",
     "models": [
       "PSP-600",
       "PSPA-1000",
@@ -3628,44 +3628,44 @@ export const leafModelTreeFallback = [
       {
         "model": "PSP-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSP-600-SPEC.pdf"
       },
       {
         "model": "PSPA-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSPA-1000-spec.pdf"
       },
       {
         "model": "QP-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/QP-150-SPEC.pdf"
       },
       {
         "model": "QP-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/QP-320-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "psp-600": {
         "model": "PSP-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSP-600-SPEC.pdf"
       },
       "pspa-1000": {
         "model": "PSPA-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSPA-1000-spec.pdf"
       },
       "qp-150": {
         "model": "QP-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/QP-150-SPEC.pdf"
       },
       "qp-320": {
         "model": "QP-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/QP-320-SPEC.pdf"
       }
     }
   },
@@ -3683,7 +3683,7 @@ export const leafModelTreeFallback = [
       "Built - in remote ON/OFF control (RSP - 75/100/150/500)",
       "Built - in remote sense (RSP - 500 only)"
     ],
-    "thumbnailUrl": "/reference/meanwell/RSP.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rsp.png",
     "models": [
       "RSP-75",
       "RSP-100",
@@ -3695,65 +3695,65 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "RSP-75",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-75.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-75.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-75.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-75.pdf"
       },
       {
         "model": "RSP-100",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-100.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-100.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-100.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-100.pdf"
       },
       {
         "model": "RSP-150",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-150.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-150.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-150.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-150.pdf"
       },
       {
         "model": "RSP-200",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-200.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-200.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-200.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-200.pdf"
       },
       {
         "model": "RSP-320",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-320.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-320.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-320.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-320.pdf"
       },
       {
         "model": "RSP-500",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-500.pdf"
+        "pdfUrl": "/catalog/meanwell/RSP-500.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rsp-75": {
         "model": "RSP-75",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-75.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-75.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-75.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-75.pdf"
       },
       "rsp-100": {
         "model": "RSP-100",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-100.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-100.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-100.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-100.pdf"
       },
       "rsp-150": {
         "model": "RSP-150",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-150.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-150.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-150.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-150.pdf"
       },
       "rsp-200": {
         "model": "RSP-200",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-200.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-200.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-200.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-200.pdf"
       },
       "rsp-320": {
         "model": "RSP-320",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-320.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-320.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-320.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-320.pdf"
       },
       "rsp-500": {
         "model": "RSP-500",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-500.pdf"
+        "pdfUrl": "/catalog/meanwell/RSP-500.pdf"
       }
     }
   },
@@ -3768,7 +3768,7 @@ export const leafModelTreeFallback = [
       "Non - PFC",
       "Economical medium to high power models"
     ],
-    "thumbnailUrl": "/reference/meanwell/2ab0bd9f-2025-4ff1-ae37-48fbcd5be4ef.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/se.png",
     "models": [
       "SE-450",
       "SE-600",
@@ -3779,44 +3779,44 @@ export const leafModelTreeFallback = [
       {
         "model": "SE-450",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/se/SE-450.pdf"
+        "pdfUrl": "/catalog/meanwell/SE-450.pdf"
       },
       {
         "model": "SE-600",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/se/SE-600.pdf"
+        "pdfUrl": "/catalog/meanwell/SE-600.pdf"
       },
       {
         "model": "SE-1000",
-        "imageUrl": "/catalog/meanwell/se/SE-1000.jpg",
-        "pdfUrl": "/catalog/meanwell/se/SE-1000.pdf"
+        "imageUrl": "/catalog/meanwell/SE-1000.jpg",
+        "pdfUrl": "/catalog/meanwell/SE-1000.pdf"
       },
       {
         "model": "SE-1500",
-        "imageUrl": "/catalog/meanwell/se/SE-1500.jpg",
-        "pdfUrl": "/catalog/meanwell/se/SE-1500.pdf"
+        "imageUrl": "/catalog/meanwell/SE-1500.jpg",
+        "pdfUrl": "/catalog/meanwell/SE-1500.pdf"
       }
     ],
     "modelAssetsByKey": {
       "se-450": {
         "model": "SE-450",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/se/SE-450.pdf"
+        "pdfUrl": "/catalog/meanwell/SE-450.pdf"
       },
       "se-600": {
         "model": "SE-600",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/se/SE-600.pdf"
+        "pdfUrl": "/catalog/meanwell/SE-600.pdf"
       },
       "se-1000": {
         "model": "SE-1000",
-        "imageUrl": "/catalog/meanwell/se/SE-1000.jpg",
-        "pdfUrl": "/catalog/meanwell/se/SE-1000.pdf"
+        "imageUrl": "/catalog/meanwell/SE-1000.jpg",
+        "pdfUrl": "/catalog/meanwell/SE-1000.pdf"
       },
       "se-1500": {
         "model": "SE-1500",
-        "imageUrl": "/catalog/meanwell/se/SE-1500.jpg",
-        "pdfUrl": "/catalog/meanwell/se/SE-1500.pdf"
+        "imageUrl": "/catalog/meanwell/SE-1500.jpg",
+        "pdfUrl": "/catalog/meanwell/SE-1500.pdf"
       }
     }
   },
@@ -3836,7 +3836,7 @@ export const leafModelTreeFallback = [
       "Operating altitude up to 5000 meter",
       "LED indicator for power on"
     ],
-    "thumbnailUrl": "/reference/meanwell/2ab27319-cbe9-40ab-9b1e-d4400880865f.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/uhp-200.jpg",
     "models": [
       "UHP-200(R)",
       "UHP-200A",
@@ -3852,94 +3852,94 @@ export const leafModelTreeFallback = [
       {
         "model": "UHP-200(R)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-200(R)-spec.pdf"
       },
       {
         "model": "UHP-200A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-200A-spec.pdf"
       },
       {
         "model": "UHP-350(R)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-350(R)-spec.pdf"
       },
       {
         "model": "UHP-500(R)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-500(R)-spec.pdf"
       },
       {
         "model": "UHP-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-750-spec.pdf"
       },
       {
         "model": "UHP-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-1000-spec.pdf"
       },
       {
         "model": "UHP-1500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-1500-spec.pdf"
       },
       {
         "model": "UHP-1500-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-1500-HV-spec.pdf"
       },
       {
         "model": "UHP-2500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-2500-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "uhp-200r": {
         "model": "UHP-200(R)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-200(R)-spec.pdf"
       },
       "uhp-200a": {
         "model": "UHP-200A",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-200A-spec.pdf"
       },
       "uhp-350r": {
         "model": "UHP-350(R)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-350(R)-spec.pdf"
       },
       "uhp-500r": {
         "model": "UHP-500(R)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-500(R)-spec.pdf"
       },
       "uhp-750": {
         "model": "UHP-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-750-spec.pdf"
       },
       "uhp-1000": {
         "model": "UHP-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-1000-spec.pdf"
       },
       "uhp-1500": {
         "model": "UHP-1500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-1500-spec.pdf"
       },
       "uhp-1500-hv": {
         "model": "UHP-1500-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-1500-HV-spec.pdf"
       },
       "uhp-2500": {
         "model": "UHP-2500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UHP-2500-spec.pdf"
       }
     }
   },
@@ -3960,7 +3960,7 @@ export const leafModelTreeFallback = [
       "Communication interface: RJ - 45 and KNX, for connection expansion with other building automation systems",
       "DIN - Rail mounting, compact design 8SU width (144x 90x 58.4mm)"
     ],
-    "thumbnailUrl": "/reference/meanwell/6d7f370d-ab25-4b42-9304-d04ec25c2852.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dlc-02-kn.jpg",
     "models": [
       "DLC-02-KN"
     ],
@@ -3994,7 +3994,7 @@ export const leafModelTreeFallback = [
       "Programmable various time and scene function",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/633fe810-3314-4a9d-9a7a-3933cd279856.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/kaa-4r4v.png",
     "models": [
       "KAA-4R4V-S"
     ],
@@ -4029,7 +4029,7 @@ export const leafModelTreeFallback = [
       "Programmable various time and scene function",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/249fd137-3757-4c64-9096-4e34c861137f.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/kaa-8r.png",
     "models": [
       "KAA-8R-S"
     ],
@@ -4064,7 +4064,7 @@ export const leafModelTreeFallback = [
       "Built - in web front - end page",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/f356164e-e95d-44e6-9264-f4047091c2e9.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ksr.png",
     "models": [
       "KSR-01IP"
     ],
@@ -4099,7 +4099,7 @@ export const leafModelTreeFallback = [
       "Synchronization up to 10 units",
       "Functions: Manual dim, operation hours, power consumption feedback, log/linear curve selection…etc"
     ],
-    "thumbnailUrl": "/reference/meanwell/b5860fff-bee5-40ed-87d5-949e88a41c3c.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lcm.png",
     "models": [
       "LCM-25KN",
       "LCM-40KN",
@@ -4156,7 +4156,7 @@ export const leafModelTreeFallback = [
       "Manual function",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/9e6bfc0e-33dc-4c6c-9176-e22991bd27d1.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ksc.png",
     "models": [
       "KSC-01L"
     ],
@@ -4188,7 +4188,7 @@ export const leafModelTreeFallback = [
       "No load power consumption <0.5W",
       "Assemble on industrial rail TS - 35 / 7.5 or 15"
     ],
-    "thumbnailUrl": "/reference/meanwell/ef4cc790-c811-4cb0-bb9e-aa863b593651.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/knx.jpg",
     "models": [
       "KNX-20E-640",
       "KNX-40E-1280"
@@ -4234,7 +4234,7 @@ export const leafModelTreeFallback = [
       "Long messages up to 220 byte APDU",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/9b500b05-0d7d-4bf1-a152-b0741004ae4a.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ksi.png",
     "models": [
       "KSI-01U"
     ],
@@ -4267,7 +4267,7 @@ export const leafModelTreeFallback = [
       "Integrated KNX control protocol",
       "No need KNX - DALI gateway"
     ],
-    "thumbnailUrl": "/reference/meanwell/0285ccc0-625c-4d87-8548-d8579bbc8a29.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/pwm-60-kn.jpg",
     "models": [
       "PWM-60-KN",
       "PWM-120-KN",
@@ -4326,7 +4326,7 @@ export const leafModelTreeFallback = [
       "Functions: operation hours, power consumption feedback, log/linear curve selection, etc.",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/84d13e7e-a85a-41e3-a512-55e948142ddd.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xlc-25-kn.jpg",
     "models": [
       "XLC-25-KN",
       "XLC-40-KN",
@@ -4383,7 +4383,7 @@ export const leafModelTreeFallback = [
       "CE/BIS certification",
       "2 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/922f62aa-1ca8-40be-a495-a2b8abcb03bf.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/cfa320a4.png",
     "models": [
       "CFA320A4-BN01",
       "CFA320A4-BT01",
@@ -4473,7 +4473,7 @@ export const leafModelTreeFallback = [
       "Built - in daylight sensor",
       "5 - year warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/0363a520-44fb-46dc-8cd5-2e2f0e5c8975.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dlc.jpg",
     "models": [
       "DLC-02",
       "DLS-203-P",
@@ -4527,7 +4527,7 @@ export const leafModelTreeFallback = [
       "Powered by DALI Bus",
       "Each Button with multiple trigger modes: Short Press/ Double press/ Long press"
     ],
-    "thumbnailUrl": "/reference/meanwell/1df0c8ef-1a39-4cfb-9198-d88a4be73bb4.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dtp-206.jpg",
     "models": [
       "DTP-206-U",
       "DTP-204-U",
@@ -4593,7 +4593,7 @@ export const leafModelTreeFallback = [
       "Meet DALI standards(IEC62386 - 101,102,207)",
       "Suitable to use along with MEAN WELL's AC/DC LED PSU with 3 in 1 dimming function"
     ],
-    "thumbnailUrl": "/reference/meanwell/ac2ab98e-00c7-4a0f-a16c-b7ecf49f577c.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dap.jpg",
     "models": [
       "DAP-04"
     ],
@@ -4622,7 +4622,7 @@ export const leafModelTreeFallback = [
     "features": [
       "Smart timer dimming programmer"
     ],
-    "thumbnailUrl": "/reference/meanwell/4e28815b-784f-4df0-a415-f4287456c4e1.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/sdp.jpg",
     "models": [
       "SDP-001"
     ],
@@ -4654,7 +4654,7 @@ export const leafModelTreeFallback = [
       "Suitable for surge protection of LED drivers",
       "IP66/67 design for indoor or outdoor installations"
     ],
-    "thumbnailUrl": "/reference/meanwell/SPD.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/spd.png",
     "models": [
       "SPD-20",
       "SPD-20HP",
@@ -4711,7 +4711,7 @@ export const leafModelTreeFallback = [
       "Constant current mode for APC series",
       "Suitable for indoor LED lighting and moving sign applications"
     ],
-    "thumbnailUrl": "/reference/meanwell/5120ca04-5bc2-49f6-a5d9-b7650be042b3.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/apv.jpg",
     "models": [
       "APV-8",
       "APV-12",
@@ -4846,7 +4846,7 @@ export const leafModelTreeFallback = [
       "Communication interface: RJ - 45 and KNX, for connection expansion with other building automation systems",
       "DIN - Rail mounting, compact design 8SU width (144x 90x 58.4mm)"
     ],
-    "thumbnailUrl": "/reference/meanwell/e0bb3b14-ed4d-4108-96c3-3d1d2a9924c0.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dlc-2.jpg",
     "models": [
       "DLC-02",
       "DLC-02-KN"
@@ -4894,7 +4894,7 @@ export const leafModelTreeFallback = [
       "Dimension: DLP - 04R: 35*90*54.5 mm(W*H*D) DLP - 04L: 145*38*22 mm (L*W*H)",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/e2d32188-7a94-471b-8996-10c655e9791a.JPG",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dlp.jpg",
     "models": [
       "DLP-04R",
       "DLP-04L"
@@ -4939,7 +4939,7 @@ export const leafModelTreeFallback = [
       "Suitable for LED street lighting and outdoor LED lighting",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/83dda2fa-414f-48c7-9536-5dcb47613f61.PNG",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/elg.png",
     "models": [
       "ELG-75",
       "ELG-100",
@@ -4954,17 +4954,17 @@ export const leafModelTreeFallback = [
       {
         "model": "ELG-75",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/elg/ELG-75.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-75.pdf"
       },
       {
         "model": "ELG-100",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/elg/ELG-100.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-100.pdf"
       },
       {
         "model": "ELG-150",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/elg/ELG-150.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-150.pdf"
       },
       {
         "model": "ELG-200",
@@ -4979,7 +4979,7 @@ export const leafModelTreeFallback = [
       {
         "model": "ELG-300",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/elg/ELG-300.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-300.pdf"
       },
       {
         "model": "ELG-100U",
@@ -4996,17 +4996,17 @@ export const leafModelTreeFallback = [
       "elg-75": {
         "model": "ELG-75",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/elg/ELG-75.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-75.pdf"
       },
       "elg-100": {
         "model": "ELG-100",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/elg/ELG-100.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-100.pdf"
       },
       "elg-150": {
         "model": "ELG-150",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/elg/ELG-150.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-150.pdf"
       },
       "elg-200": {
         "model": "ELG-200",
@@ -5021,7 +5021,7 @@ export const leafModelTreeFallback = [
       "elg-300": {
         "model": "ELG-300",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/elg/ELG-300.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-300.pdf"
       },
       "elg-100u": {
         "model": "ELG-100U",
@@ -5055,7 +5055,7 @@ export const leafModelTreeFallback = [
       "Suitable for LED street lighting and outdoor LED lighting",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/644a8f58-5203-4c55-b801-72ec4b0445d6.PNG",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/elg-75.png",
     "models": [
       "ELG-75-C",
       "ELG-100-C",
@@ -5143,7 +5143,7 @@ export const leafModelTreeFallback = [
       "Built - in active PFC function with EN61347 - 1 regulation",
       "No load power consumption<0.5W"
     ],
-    "thumbnailUrl": "/reference/meanwell/a8d3b1b9-74ba-42c5-92f3-bf18f4de9a7c.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/gsv30.png",
     "models": [
       "GSV30",
       "GSV60"
@@ -5190,7 +5190,7 @@ export const leafModelTreeFallback = [
       "Suitable for LED high/low bay lighting, stage lighting and spot lighting",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/HBG.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hbg.png",
     "models": [
       "HBG-60",
       "HBG-100(DA)",
@@ -5325,7 +5325,7 @@ export const leafModelTreeFallback = [
       "IP68/ - 55℃ startup/10G vibration options available (Please contact MEAN WELL for details)",
       "7 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/410ef892-e157-42c4-a578-9282e17d85c3.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hlg.jpg",
     "models": [
       "HLG-40H",
       "HLG-60H",
@@ -5342,115 +5342,115 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "HLG-40H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-40H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-40H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-40H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-40H.pdf"
       },
       {
         "model": "HLG-60H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-60H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-60H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-60H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-60H.pdf"
       },
       {
         "model": "HLG-80H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-80H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-80H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-80H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-80H.pdf"
       },
       {
         "model": "HLG-100H",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-100H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-100H.pdf"
       },
       {
         "model": "HLG-120H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-120H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-120H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-120H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-120H.pdf"
       },
       {
         "model": "HLG-150H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-150H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-150H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-150H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-150H.pdf"
       },
       {
         "model": "HLG-185H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-185H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-185H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-185H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-185H.pdf"
       },
       {
         "model": "HLG-240H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-240H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-240H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-240H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-240H.pdf"
       },
       {
         "model": "HLG-320H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-320H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-320H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-320H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-320H.pdf"
       },
       {
         "model": "HLG-480H",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-480H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-480H.pdf"
       },
       {
         "model": "HLG-600H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-600H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-600H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-600H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-600H.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hlg-40h": {
         "model": "HLG-40H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-40H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-40H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-40H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-40H.pdf"
       },
       "hlg-60h": {
         "model": "HLG-60H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-60H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-60H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-60H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-60H.pdf"
       },
       "hlg-80h": {
         "model": "HLG-80H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-80H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-80H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-80H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-80H.pdf"
       },
       "hlg-100h": {
         "model": "HLG-100H",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-100H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-100H.pdf"
       },
       "hlg-120h": {
         "model": "HLG-120H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-120H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-120H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-120H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-120H.pdf"
       },
       "hlg-150h": {
         "model": "HLG-150H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-150H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-150H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-150H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-150H.pdf"
       },
       "hlg-185h": {
         "model": "HLG-185H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-185H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-185H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-185H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-185H.pdf"
       },
       "hlg-240h": {
         "model": "HLG-240H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-240H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-240H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-240H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-240H.pdf"
       },
       "hlg-320h": {
         "model": "HLG-320H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-320H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-320H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-320H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-320H.pdf"
       },
       "hlg-480h": {
         "model": "HLG-480H",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-480H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-480H.pdf"
       },
       "hlg-600h": {
         "model": "HLG-600H",
-        "imageUrl": "/catalog/meanwell/hlg/HLG-600H.jpg",
-        "pdfUrl": "/catalog/meanwell/hlg/HLG-600H.pdf"
+        "imageUrl": "/catalog/meanwell/HLG-600H.jpg",
+        "pdfUrl": "/catalog/meanwell/HLG-600H.pdf"
       }
     }
   },
@@ -5470,7 +5470,7 @@ export const leafModelTreeFallback = [
       "Suitable for LED street lighting and outdoor LED lighting",
       "7 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/9540897e-79ab-4d05-a03d-c6224357ece9.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hlg-60h.jpg",
     "models": [
       "HLG-60H-C",
       "HLG-80H-C",
@@ -5569,7 +5569,7 @@ export const leafModelTreeFallback = [
       "User adjustable output voltage and current level for A type",
       "Suitable for indoor LED lighting and moving sign applications"
     ],
-    "thumbnailUrl": "/reference/meanwell/0264f345-4b36-4e3b-b38c-0d86f2530169.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hln.jpg",
     "models": [
       "HLN-40H",
       "HLN-60H",
@@ -5622,7 +5622,7 @@ export const leafModelTreeFallback = [
       "Built - in 3 in 1 dimming function (1~10VDC, PWM signal or resistance)",
       "Suitable for built - in LED lighting systems"
     ],
-    "thumbnailUrl": "/reference/meanwell/HLP.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hlp.png",
     "models": [
       "HLP-60H",
       "HLP-80H"
@@ -5668,7 +5668,7 @@ export const leafModelTreeFallback = [
       "Suitable for LED street lighting and outdoor LED lighting applications",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/f257486b-6a2b-4e0e-b2d7-dee40be29a28.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hvg.jpg",
     "models": [
       "HVG-65",
       "HVG-100",
@@ -5836,7 +5836,7 @@ export const leafModelTreeFallback = [
       "DALI device type 6 (DT6) and device type 8 (DT8) available for LCM - 40TW",
       "Suitable for indoor LED lighting applications"
     ],
-    "thumbnailUrl": "/reference/meanwell/34cdca87-4852-46f1-ad38-eda4413b4edc.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lcm.jpg",
     "models": [
       "LCM-25",
       "LCM-40(EO)",
@@ -5937,7 +5937,7 @@ export const leafModelTreeFallback = [
       "Built - in DALI interface and push dimming function for DA type",
       "Suitable for indoor LED lighting applications"
     ],
-    "thumbnailUrl": "/reference/meanwell/da9d70ca-46c6-4284-af76-47d01aa51f9f.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lcm-40u-eo.jpg",
     "models": [
       "LCM-40U(EO)",
       "LCM-60U(EO)",
@@ -6004,7 +6004,7 @@ export const leafModelTreeFallback = [
       "Suitable for buck - boost type lighting systems (additional mother board is required)",
       "Pin, wire style for choice"
     ],
-    "thumbnailUrl": "/reference/meanwell/7a4f7072-4ecc-4546-9a54-17212cc35052.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ldb.jpg",
     "models": [
       "LDB-L"
     ],
@@ -6041,7 +6041,7 @@ export const leafModelTreeFallback = [
       "UL/ ENEC/ TUV/ CCC/ CB/ CE certified",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/ab747208-e566-4319-be31-ff2f38395431.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ldc.jpg",
     "models": [
       "LDC-35",
       "LDC-55",
@@ -6097,7 +6097,7 @@ export const leafModelTreeFallback = [
       "Suitable for driving illumination LED",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/e84a605c-d21d-472c-b738-5149068c9aae.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ldd.jpg",
     "models": [
       "LDD-L",
       "LDDS-H",
@@ -6153,7 +6153,7 @@ export const leafModelTreeFallback = [
       "Suitable for boost type lighting systems (Additional mother board is required)",
       "Pin, wire style for choice"
     ],
-    "thumbnailUrl": "/reference/meanwell/LDH.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ldh.png",
     "models": [
       "LDH-25",
       "LDH-45(DA)",
@@ -6210,7 +6210,7 @@ export const leafModelTreeFallback = [
       "Suitable for economical LED lighting and moving sign applications",
       "Type \"HL\" LED drivers for use in Class I, Division 2 hazardous (Classified) location luminaries (LPVL - 150 only)"
     ],
-    "thumbnailUrl": "/reference/meanwell/b73a88a3-5bf8-4493-ba6e-1b8ca04fe9e5.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lph.jpg",
     "models": [
       "LPH-18",
       "LPV-20",
@@ -6377,7 +6377,7 @@ export const leafModelTreeFallback = [
       "Suitable for LED lighting and moving sign applications",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/2baf7bb7-4238-4f9a-8ca9-7d58c2d1ff48.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lpf.jpg",
     "models": [
       "LPF-16",
       "LPF-25",
@@ -6510,7 +6510,7 @@ export const leafModelTreeFallback = [
       "Protections: Short circuit / Over temperature",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/3f9e2364-4704-44a2-b85c-3ed0e93f39ad.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nhdd.png",
     "models": [
       "NHDD-40"
     ],
@@ -6546,7 +6546,7 @@ export const leafModelTreeFallback = [
       "Suitable for LED lighting and moving sign applications",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/3b5f0efe-c7ae-48e0-8b25-c245e57c0146.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/npf.jpg",
     "models": [
       "NPF-40",
       "NPF-60",
@@ -6669,7 +6669,7 @@ export const leafModelTreeFallback = [
       "Constant current mode",
       "Suitable for indoor LED lighting"
     ],
-    "thumbnailUrl": "/reference/meanwell/2ce6bbcf-debd-4c17-95cc-ea2c2c7531f2.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/pcd.jpg",
     "models": [
       "PCD-16",
       "PCD-25",
@@ -6733,7 +6733,7 @@ export const leafModelTreeFallback = [
       "Fully isolated plastic case with screw terminal style of I/O",
       "Suitable for indoor LED lighting and moving sign applications"
     ],
-    "thumbnailUrl": "/reference/meanwell/0b49c85a-6754-4ad5-b915-4300b21c9314.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/plc.jpg",
     "models": [
       "PLC-30",
       "PLC-45",
@@ -6800,7 +6800,7 @@ export const leafModelTreeFallback = [
       "Constant current mode",
       "Suitable for indoor LED lighting"
     ],
-    "thumbnailUrl": "/reference/meanwell/00e6ec59-64a0-4fa0-a1d7-689965cfb6e4.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/pld.jpg",
     "models": [
       "PLD-25",
       "PLD-40",
@@ -6858,7 +6858,7 @@ export const leafModelTreeFallback = [
       "No load power consumption<0.5W",
       "Suitable for indoor LED lighting"
     ],
-    "thumbnailUrl": "/reference/meanwell/6abbf0c2-b91b-47a3-aa33-cd13721eda00.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/plm.jpg",
     "models": [
       "PLM-12",
       "PLM-25"
@@ -6900,7 +6900,7 @@ export const leafModelTreeFallback = [
       "Fully isolated plastic case with IP64 level",
       "Suitable for indoor LED lighting and moving sign applications"
     ],
-    "thumbnailUrl": "/reference/meanwell/22b25a68-9cfa-4421-a29e-542708c015ed.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/pln.jpg",
     "models": [
       "PLN-20",
       "PLN-30",
@@ -6974,7 +6974,7 @@ export const leafModelTreeFallback = [
       "90~264VAC input , built - in active PFC function",
       "Suitable for built - in LED lighting systems"
     ],
-    "thumbnailUrl": "/reference/meanwell/PLP.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/plp.png",
     "models": [
       "PLP-30",
       "PLP-60"
@@ -7021,7 +7021,7 @@ export const leafModelTreeFallback = [
       "Suitable for LED strip lighting",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/6cc5b5bf-efb9-4390-9c97-f25892f6b358.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/pwm.png",
     "models": [
       "PWM-40",
       "PWM-60(DA2)",
@@ -7099,7 +7099,7 @@ export const leafModelTreeFallback = [
       "Protections: Short circuit/ Over voltage/ Over temperature",
       "3 years warranty (5 years warranty for SLD - 150)"
     ],
-    "thumbnailUrl": "/reference/meanwell/7251b0f4-3324-4167-98b3-49acd7c6070b.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/sld.png",
     "models": [
       "SLD-50",
       "SLD-80",
@@ -7154,7 +7154,7 @@ export const leafModelTreeFallback = [
       "Function options: 3 in 1dimming/DALI - 2+PUSH Dimming",
       "Minimum dimming level 0.1%(DALI - 2)"
     ],
-    "thumbnailUrl": "/reference/meanwell/cc9b2f77-f886-4b61-bea6-d112708da93b.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/spwm.jpg",
     "models": [
       "SPWM-75",
       "SPWM-150",
@@ -7210,7 +7210,7 @@ export const leafModelTreeFallback = [
       "Protections: short circuit, over voltage, over temperature",
       "Life time >50,000 Hrs. and 5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/84e3c3ab-d4d5-44c8-9e3c-676bb8181c16.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xbg.png",
     "models": [
       "XBG-100",
       "XBG-160",
@@ -7272,7 +7272,7 @@ export const leafModelTreeFallback = [
       "Optional independent or built - in LED power supply",
       "5 years warranty and >50,000 hrs lifetime"
     ],
-    "thumbnailUrl": "/reference/meanwell/870a6982-e11c-48d0-a07a-13fe8b2cbdfa.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xlc.jpg",
     "models": [
       "XLC-25",
       "XLC-40",
@@ -7331,7 +7331,7 @@ export const leafModelTreeFallback = [
       "Built - in antenna design for easy installation",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/4f93768a-3625-455a-a872-3e785325d779.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xlc-25-ma.png",
     "models": [
       "XLC-25-MA",
       "XLC-40-MA",
@@ -7388,7 +7388,7 @@ export const leafModelTreeFallback = [
       "Surge protection with 6KV(L/N - FG)/4KV(L - N); 4KV(L/N - FG)/2KV(L - N) for XLG - 20",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/f347e051-c294-4f1e-b884-97c6aff93dba.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xlg.png",
     "models": [
       "XLG-20",
       "XLG-25",
@@ -7617,7 +7617,7 @@ export const leafModelTreeFallback = [
       "Optional independent or built - in LED power supply",
       "5 years warranty and >50,000 hrs lifetime"
     ],
-    "thumbnailUrl": "/reference/meanwell/bb32f57c-4a96-4bb8-9c23-9d15222ed9e1.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/xln.jpg",
     "models": [
       "XLN-25",
       "XLN-40",
@@ -7671,7 +7671,7 @@ export const leafModelTreeFallback = [
       "No load power consumption <0.1W~0.5W",
       "Suitable for ErP regulated end systems"
     ],
-    "thumbnailUrl": "/reference/meanwell/green_pcb.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/eps.png",
     "models": [
       "EPS-15",
       "EPS-25",
@@ -7719,7 +7719,7 @@ export const leafModelTreeFallback = [
       {
         "model": "EPP-120S",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-120S.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-120S.pdf"
       },
       {
         "model": "EPS-45",
@@ -7739,32 +7739,32 @@ export const leafModelTreeFallback = [
       {
         "model": "EPP-100",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-100.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-100.pdf"
       },
       {
         "model": "EPP-150",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-150.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-150.pdf"
       },
       {
         "model": "EPP-200",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-200.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-200.pdf"
       },
       {
         "model": "EPP-300",
-        "imageUrl": "/catalog/meanwell/epp/EPP-300.jpg",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-300.pdf"
+        "imageUrl": "/catalog/meanwell/EPP-300.jpg",
+        "pdfUrl": "/catalog/meanwell/EPP-300.pdf"
       },
       {
         "model": "EPP-400",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-400.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-400.pdf"
       },
       {
         "model": "EPP-500",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-500.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-500.pdf"
       },
       {
         "model": "ELP-75",
@@ -7801,7 +7801,7 @@ export const leafModelTreeFallback = [
       "epp-120s": {
         "model": "EPP-120S",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-120S.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-120S.pdf"
       },
       "eps-45": {
         "model": "EPS-45",
@@ -7821,32 +7821,32 @@ export const leafModelTreeFallback = [
       "epp-100": {
         "model": "EPP-100",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-100.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-100.pdf"
       },
       "epp-150": {
         "model": "EPP-150",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-150.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-150.pdf"
       },
       "epp-200": {
         "model": "EPP-200",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-200.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-200.pdf"
       },
       "epp-300": {
         "model": "EPP-300",
-        "imageUrl": "/catalog/meanwell/epp/EPP-300.jpg",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-300.pdf"
+        "imageUrl": "/catalog/meanwell/EPP-300.jpg",
+        "pdfUrl": "/catalog/meanwell/EPP-300.pdf"
       },
       "epp-400": {
         "model": "EPP-400",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-400.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-400.pdf"
       },
       "epp-500": {
         "model": "EPP-500",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/epp/EPP-500.pdf"
+        "pdfUrl": "/catalog/meanwell/EPP-500.pdf"
       },
       "elp-75": {
         "model": "ELP-75",
@@ -7874,7 +7874,7 @@ export const leafModelTreeFallback = [
       "- 40oC~85oC wide operating temperature",
       "Safety Class II"
     ],
-    "thumbnailUrl": "/reference/meanwell/2383ca35-baf0-4c15-a3a3-400b58acc54b.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/irm.jpg",
     "models": [
       "IRM-01",
       "IRM-02",
@@ -8036,7 +8036,7 @@ export const leafModelTreeFallback = [
       "Non - PFC for small wattage models",
       "Multiple form factors for different installations: 7\" x 4.25”, 5” x 3”, 4” x 2”, slim type"
     ],
-    "thumbnailUrl": "/reference/meanwell/general_pcb.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lps.png",
     "models": [
       "LPS-50",
       "LPS-75",
@@ -8225,7 +8225,7 @@ export const leafModelTreeFallback = [
       "Over voltage category III (OVC III)",
       "- 40℃ ~ +80℃ wide range operation temperature"
     ],
-    "thumbnailUrl": "/reference/meanwell/e723a272-73d2-465c-8197-c4e51664766e.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lop.jpg",
     "models": [
       "LOP-200",
       "LOP-300",
@@ -8236,55 +8236,55 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "LOP-200",
-        "imageUrl": "/catalog/meanwell/lop/LOP-200.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-200.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-200.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-200.pdf"
       },
       {
         "model": "LOP-300",
-        "imageUrl": "/catalog/meanwell/lop/LOP-300.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-300.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-300.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-300.pdf"
       },
       {
         "model": "LOP-400",
-        "imageUrl": "/catalog/meanwell/lop/LOP-400.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-400.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-400.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-400.pdf"
       },
       {
         "model": "LOP-500",
-        "imageUrl": "/catalog/meanwell/lop/LOP-500.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-500.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-500.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-500.pdf"
       },
       {
         "model": "LOP-600",
-        "imageUrl": "/catalog/meanwell/lop/LOP-600.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-600.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-600.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-600.pdf"
       }
     ],
     "modelAssetsByKey": {
       "lop-200": {
         "model": "LOP-200",
-        "imageUrl": "/catalog/meanwell/lop/LOP-200.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-200.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-200.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-200.pdf"
       },
       "lop-300": {
         "model": "LOP-300",
-        "imageUrl": "/catalog/meanwell/lop/LOP-300.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-300.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-300.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-300.pdf"
       },
       "lop-400": {
         "model": "LOP-400",
-        "imageUrl": "/catalog/meanwell/lop/LOP-400.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-400.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-400.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-400.pdf"
       },
       "lop-500": {
         "model": "LOP-500",
-        "imageUrl": "/catalog/meanwell/lop/LOP-500.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-500.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-500.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-500.pdf"
       },
       "lop-600": {
         "model": "LOP-600",
-        "imageUrl": "/catalog/meanwell/lop/LOP-600.jpg",
-        "pdfUrl": "/catalog/meanwell/lop/LOP-600.pdf"
+        "imageUrl": "/catalog/meanwell/LOP-600.jpg",
+        "pdfUrl": "/catalog/meanwell/LOP-600.pdf"
       }
     }
   },
@@ -8300,7 +8300,7 @@ export const leafModelTreeFallback = [
       "Medical safety approved (2xMOPP)",
       "Suitable for BF application with appropriate system consideration"
     ],
-    "thumbnailUrl": "/reference/meanwell/5e78f3ab-5b21-486e-b422-5b6a2fc6add7.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/mpm.png",
     "models": [
       "MPM-05",
       "MPM-10",
@@ -8465,7 +8465,7 @@ export const leafModelTreeFallback = [
       "Low leakage current",
       "Suitable for BF application with appropriate system consideration for selected models"
     ],
-    "thumbnailUrl": "/reference/meanwell/Medical_pcb.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rps.png",
     "models": [
       "RPS-30",
       "RPS-45",
@@ -8700,22 +8700,22 @@ export const leafModelTreeFallback = [
       "Protections: short circuit/over current/over voltage/over temperature/ fan failure",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/66259983-3b23-460f-9483-03eb4335fb21.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/csp.png",
     "models": [
       "CSP-3000"
     ],
     "modelAssets": [
       {
         "model": "CSP-3000",
-        "imageUrl": "/catalog/meanwell/csp/CSP-3000.jpg",
-        "pdfUrl": "/catalog/meanwell/csp/CSP-3000.pdf"
+        "imageUrl": "/catalog/meanwell/CSP-3000.jpg",
+        "pdfUrl": "/catalog/meanwell/CSP-3000.pdf"
       }
     ],
     "modelAssetsByKey": {
       "csp-3000": {
         "model": "CSP-3000",
-        "imageUrl": "/catalog/meanwell/csp/CSP-3000.jpg",
-        "pdfUrl": "/catalog/meanwell/csp/CSP-3000.pdf"
+        "imageUrl": "/catalog/meanwell/CSP-3000.jpg",
+        "pdfUrl": "/catalog/meanwell/CSP-3000.pdf"
       }
     }
   },
@@ -8738,7 +8738,7 @@ export const leafModelTreeFallback = [
       "Safety approval: UL/ TUV/ EAC/ CE/ CB",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/4ef464d7-c5b5-4284-99e6-9a453076c064.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dpu.jpg",
     "models": [
       "DPU-3200"
     ],
@@ -8773,7 +8773,7 @@ export const leafModelTreeFallback = [
       "Active current sharing, total system power up to 14000W (3+1)",
       "Optional cold plate for quick implementation,ordering no.: HS - 656"
     ],
-    "thumbnailUrl": "/reference/meanwell/49b7666a-3258-4d06-a44f-2ae39d335758.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/php.png",
     "models": [
       "PHP-3500",
       "PHP-3500-HV"
@@ -8818,7 +8818,7 @@ export const leafModelTreeFallback = [
       "Built - in current sharing (except RSP - 750)",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/RSP.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rsp.png",
     "models": [
       "RSP-750",
       "RSP-1000",
@@ -8831,75 +8831,75 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "RSP-750",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-750.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-750.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-750.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-750.pdf"
       },
       {
         "model": "RSP-1000",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-1000.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-1000.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-1000.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-1000.pdf"
       },
       {
         "model": "RSP-1500",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-1500.pdf"
+        "pdfUrl": "/catalog/meanwell/RSP-1500.pdf"
       },
       {
         "model": "RSP-1600",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-1600.pdf"
+        "pdfUrl": "/catalog/meanwell/RSP-1600.pdf"
       },
       {
         "model": "RSP-2000",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-2000.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-2000.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-2000.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-2000.pdf"
       },
       {
         "model": "RSP-2400",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-2400.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-2400.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-2400.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-2400.pdf"
       },
       {
         "model": "RSP-3000",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-3000.pdf"
+        "pdfUrl": "/catalog/meanwell/RSP-3000.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rsp-750": {
         "model": "RSP-750",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-750.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-750.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-750.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-750.pdf"
       },
       "rsp-1000": {
         "model": "RSP-1000",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-1000.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-1000.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-1000.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-1000.pdf"
       },
       "rsp-1500": {
         "model": "RSP-1500",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-1500.pdf"
+        "pdfUrl": "/catalog/meanwell/RSP-1500.pdf"
       },
       "rsp-1600": {
         "model": "RSP-1600",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-1600.pdf"
+        "pdfUrl": "/catalog/meanwell/RSP-1600.pdf"
       },
       "rsp-2000": {
         "model": "RSP-2000",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-2000.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-2000.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-2000.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-2000.pdf"
       },
       "rsp-2400": {
         "model": "RSP-2400",
-        "imageUrl": "/catalog/meanwell/rsp/RSP-2400.jpg",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-2400.pdf"
+        "imageUrl": "/catalog/meanwell/RSP-2400.jpg",
+        "pdfUrl": "/catalog/meanwell/RSP-2400.pdf"
       },
       "rsp-3000": {
         "model": "RSP-3000",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rsp/RSP-3000.pdf"
+        "pdfUrl": "/catalog/meanwell/RSP-3000.pdf"
       }
     }
   },
@@ -8919,7 +8919,7 @@ export const leafModelTreeFallback = [
       "Output voltage and constant current level programmable",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/5b017202-e6b1-4694-bc7a-fe55cc451f4e.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rst.png",
     "models": [
       "RST-5000",
       "RST-10000",
@@ -8987,7 +8987,7 @@ export const leafModelTreeFallback = [
       "Built - in remote ON - OFF control / Auxilary power / Alarm signal",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/d6e85abc-aa50-473b-9c9a-c7c0355d0c48.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/shp-10k-hv.jpg",
     "models": [
       "SHP-10K-HV",
       "SHP-30K-HV"
@@ -9028,7 +9028,7 @@ export const leafModelTreeFallback = [
       "Built - in active PFC function",
       "Output voltage programmable from 20~110%"
     ],
-    "thumbnailUrl": "/reference/meanwell/SPV.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/spv.png",
     "models": [
       "SPV-150",
       "SPV-300"
@@ -9074,7 +9074,7 @@ export const leafModelTreeFallback = [
       "Selectable PMBus, CANbus, RS - 485, and RS - 232 communication protocols",
       "Web - based monitor/control UI provided for various applications"
     ],
-    "thumbnailUrl": "/reference/meanwell/22f38899-2d51-4182-9533-740dadb983fd.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/cmu2.png",
     "models": [
       "CMU2"
     ],
@@ -9106,7 +9106,7 @@ export const leafModelTreeFallback = [
       "1U low profile",
       "19 inch rack shelf available"
     ],
-    "thumbnailUrl": "/reference/meanwell/c7c5cd69-0b8b-44fd-a3c9-04a9b9e9c9c5.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/drp.jpg",
     "models": [
       "DRP-3200",
       "DHP-1UT",
@@ -9174,7 +9174,7 @@ export const leafModelTreeFallback = [
       "Active current sharing up to 10 rack shelves(DHP - 1UT - B) and the maximum power supply that can be connected in parallel is 40 units",
       "Built - in I2C interface, support PMBus/CANBus protocol Built - in intelligent fan speed control"
     ],
-    "thumbnailUrl": "/reference/meanwell/850caf46-eb64-4966-ba80-f421c2b0e584.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ncp.png",
     "models": [
       "NCP-3200"
     ],
@@ -9205,7 +9205,7 @@ export const leafModelTreeFallback = [
       "1U low profile",
       "19 inch rack shelf available"
     ],
-    "thumbnailUrl": "/reference/meanwell/d8a918f1-8da8-406d-aead-1644bbe1c271.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rcp.jpg",
     "models": [
       "RCP-1000",
       "RCP-1600",
@@ -9221,17 +9221,17 @@ export const leafModelTreeFallback = [
       {
         "model": "RCP-1000",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rcp/RCP-1000.pdf"
+        "pdfUrl": "/catalog/meanwell/RCP-1000.pdf"
       },
       {
         "model": "RCP-1600",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rcp/RCP-1600.pdf"
+        "pdfUrl": "/catalog/meanwell/RCP-1600.pdf"
       },
       {
         "model": "RCP-2000",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rcp/RCP-2000.pdf"
+        "pdfUrl": "/catalog/meanwell/RCP-2000.pdf"
       },
       {
         "model": "RCB-1600",
@@ -9268,17 +9268,17 @@ export const leafModelTreeFallback = [
       "rcp-1000": {
         "model": "RCP-1000",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rcp/RCP-1000.pdf"
+        "pdfUrl": "/catalog/meanwell/RCP-1000.pdf"
       },
       "rcp-1600": {
         "model": "RCP-1600",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rcp/RCP-1600.pdf"
+        "pdfUrl": "/catalog/meanwell/RCP-1600.pdf"
       },
       "rcp-2000": {
         "model": "RCP-2000",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/rcp/RCP-2000.pdf"
+        "pdfUrl": "/catalog/meanwell/RCP-2000.pdf"
       },
       "rcb-1600": {
         "model": "RCB-1600",
@@ -9329,7 +9329,7 @@ export const leafModelTreeFallback = [
       "Suitable for high/low temperature, high dust, high moisture, high vibration, high salt outdoor or harsh environment",
       "6 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/29e2ce88-09c2-4a16-be6f-6c7492b7af57.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/hep-2.jpg",
     "models": [
       "HEP-100",
       "HEP-150",
@@ -9459,7 +9459,7 @@ export const leafModelTreeFallback = [
       "Suitable for security industry or battery backup systems",
       "Assemble on industrial rail TS - 35 / 7.5 or 15"
     ],
-    "thumbnailUrl": "/reference/meanwell/security_DIN.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/drc.png",
     "models": [
       "DRC-40",
       "DRC-60",
@@ -9526,7 +9526,7 @@ export const leafModelTreeFallback = [
       "Built - in MODBus protocol, CANBus optional",
       "Charging curve can be set with SBP - 001"
     ],
-    "thumbnailUrl": "/reference/meanwell/5ca67ef0-1923-4b5e-b892-1cac7cba0e88.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/sbp.jpg",
     "models": [
       "SBP-001",
       "DRS-240",
@@ -9580,7 +9580,7 @@ export const leafModelTreeFallback = [
       "Built - in active PFC function (PSC - 160)",
       "Case available"
     ],
-    "thumbnailUrl": "/reference/meanwell/security_pcb.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/psc.png",
     "models": [
       "PSC-35",
       "PSC-60",
@@ -9644,7 +9644,7 @@ export const leafModelTreeFallback = [
       "The LAD series has UART communication function, and posses AC and battery circuit switches with design refer to GB 17945 - 2010 safety regulations",
       "Suitable for security industry or battery backup systems"
     ],
-    "thumbnailUrl": "/reference/meanwell/security_enclosed.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/lad.png",
     "models": [
       "LAD-120",
       "LAD-240",
@@ -9812,7 +9812,7 @@ export const leafModelTreeFallback = [
       "Ultra slim dimensions",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/a8ec447b-1b9b-4e92-bcd8-19657a5922e3.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ddr.jpg",
     "models": [
       "DDR-15",
       "DDR-30",
@@ -9824,65 +9824,65 @@ export const leafModelTreeFallback = [
     "modelAssets": [
       {
         "model": "DDR-15",
-        "imageUrl": "/catalog/meanwell/ddr/DDR-15.jpg",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-15.pdf"
+        "imageUrl": "/catalog/meanwell/DDR-15.jpg",
+        "pdfUrl": "/catalog/meanwell/DDR-15.pdf"
       },
       {
         "model": "DDR-30",
-        "imageUrl": "/catalog/meanwell/ddr/DDR-30.jpg",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-30.pdf"
+        "imageUrl": "/catalog/meanwell/DDR-30.jpg",
+        "pdfUrl": "/catalog/meanwell/DDR-30.pdf"
       },
       {
         "model": "DDR-60",
-        "imageUrl": "/catalog/meanwell/ddr/DDR-60.jpg",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-60.pdf"
+        "imageUrl": "/catalog/meanwell/DDR-60.jpg",
+        "pdfUrl": "/catalog/meanwell/DDR-60.pdf"
       },
       {
         "model": "DDR-120",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-120.pdf"
+        "pdfUrl": "/catalog/meanwell/DDR-120.pdf"
       },
       {
         "model": "DDR-240",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-240.pdf"
+        "pdfUrl": "/catalog/meanwell/DDR-240.pdf"
       },
       {
         "model": "DDR-480",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-480.pdf"
+        "pdfUrl": "/catalog/meanwell/DDR-480.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ddr-15": {
         "model": "DDR-15",
-        "imageUrl": "/catalog/meanwell/ddr/DDR-15.jpg",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-15.pdf"
+        "imageUrl": "/catalog/meanwell/DDR-15.jpg",
+        "pdfUrl": "/catalog/meanwell/DDR-15.pdf"
       },
       "ddr-30": {
         "model": "DDR-30",
-        "imageUrl": "/catalog/meanwell/ddr/DDR-30.jpg",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-30.pdf"
+        "imageUrl": "/catalog/meanwell/DDR-30.jpg",
+        "pdfUrl": "/catalog/meanwell/DDR-30.pdf"
       },
       "ddr-60": {
         "model": "DDR-60",
-        "imageUrl": "/catalog/meanwell/ddr/DDR-60.jpg",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-60.pdf"
+        "imageUrl": "/catalog/meanwell/DDR-60.jpg",
+        "pdfUrl": "/catalog/meanwell/DDR-60.pdf"
       },
       "ddr-120": {
         "model": "DDR-120",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-120.pdf"
+        "pdfUrl": "/catalog/meanwell/DDR-120.pdf"
       },
       "ddr-240": {
         "model": "DDR-240",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-240.pdf"
+        "pdfUrl": "/catalog/meanwell/DDR-240.pdf"
       },
       "ddr-480": {
         "model": "DDR-480",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ddr/DDR-480.pdf"
+        "pdfUrl": "/catalog/meanwell/DDR-480.pdf"
       }
     }
   },
@@ -9901,7 +9901,7 @@ export const leafModelTreeFallback = [
       "Protections: Short circuit / Overload / Over voltage / DC input under voltage / DC input reverse polarity",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/e092198a-7e4a-4c4b-a688-5746a759c93d.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ddrh.jpg",
     "models": [
       "DDRH-15DR",
       "DDRH-30DR",
@@ -9989,7 +9989,7 @@ export const leafModelTreeFallback = [
       "1U low profile",
       "Half encapsulated"
     ],
-    "thumbnailUrl": "/reference/meanwell/41c766f6-9138-4852-98c9-886e86c56674.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rsd.png",
     "models": [
       "RSD-30",
       "RSD-60",
@@ -10088,7 +10088,7 @@ export const leafModelTreeFallback = [
       "- 40~+80oC ultra - wide operating temperature ( > +55oC derating)",
       "1U low profile (41mm)"
     ],
-    "thumbnailUrl": "/reference/meanwell/206ed18f-60db-44f4-a1aa-3a00228281fa.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rsdh.jpg",
     "models": [
       "RSDH-150",
       "RSDH-300"
@@ -10132,7 +10132,7 @@ export const leafModelTreeFallback = [
       "12V/0.25A auxiliary output for SD - 500/1000",
       "Built - in remote ON/OFF control and remote sense for SD - 500/1000"
     ],
-    "thumbnailUrl": "/reference/meanwell/3cad1bba-7f96-4bf4-8c07-c5742cc54d32.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/sd.png",
     "models": [
       "SD-15",
       "SD-25",
@@ -10255,7 +10255,7 @@ export const leafModelTreeFallback = [
       "2.5V / 3.3V / 15V output available",
       "Optional heat sink available"
     ],
-    "thumbnailUrl": "/reference/meanwell/8fa1ad93-68a6-48bd-b5cb-97c6cef4d56b.PNG",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/mhb75.png",
     "models": [
       "MHB75",
       "MHB100",
@@ -10312,7 +10312,7 @@ export const leafModelTreeFallback = [
       "No minimum load required",
       "Full encapsulated"
     ],
-    "thumbnailUrl": "/reference/meanwell/b93e6149-724f-4548-b0f1-86084d584704.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/rqb40w12.jpg",
     "models": [
       "RQB40W12",
       "RQB60W12",
@@ -10379,7 +10379,7 @@ export const leafModelTreeFallback = [
       "Protections: Short circuit / Overload / Over voltage / DC input under voltage / DC input reverse polarity",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/22767f14-dee9-4313-94b6-07aabce85343.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ddrh-2.jpg",
     "models": [
       "DDRH-15P",
       "DDRH-30P",
@@ -10467,7 +10467,7 @@ export const leafModelTreeFallback = [
       "Input/Output isolation: 1~1.5KVdc, 9~75Vdc (standard), 3KVdc (option)",
       "Single and dual output models"
     ],
-    "thumbnailUrl": "/reference/meanwell/2c2914e3-3790-4991-9976-ac6df159f5e2.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/scwn03.jpg",
     "models": [
       "SCWN03",
       "SCWN06",
@@ -10731,7 +10731,7 @@ export const leafModelTreeFallback = [
       "Single output models",
       "Remote ON/OFF control, remote sense, trimming output ±10% by models"
     ],
-    "thumbnailUrl": "/reference/meanwell/adcf0e6a-41e6-402d-affd-ba490ae5c948.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/si06w8.jpg",
     "models": [
       "SI06W8",
       "SKM10",
@@ -10886,7 +10886,7 @@ export const leafModelTreeFallback = [
       "Single and dual output models",
       "Remote ON/OFF control, remote sense, trimming output ±10% by models"
     ],
-    "thumbnailUrl": "/reference/meanwell/9da5b10c-7bac-4635-97d2-3cae67e77a8e.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/slw05.jpg",
     "models": [
       "SLW05",
       "SKE10",
@@ -11106,7 +11106,7 @@ export const leafModelTreeFallback = [
       "1~1.5KVDC isolation",
       "Single, dual and triple output models"
     ],
-    "thumbnailUrl": "/reference/meanwell/24a5fbbf-6817-4f79-a127-5e818f5a9665.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ske15.jpg",
     "models": [
       "SKE15",
       "SDM30",
@@ -11204,7 +11204,7 @@ export const leafModelTreeFallback = [
       "±10% input range",
       "On board module type, assemble on the main PCB of the system"
     ],
-    "thumbnailUrl": "/reference/meanwell/8be8f233-02b0-4859-bc9e-2643a3c1c063.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/srs.jpg",
     "models": [
       "SRS",
       "SLC03",
@@ -11283,7 +11283,7 @@ export const leafModelTreeFallback = [
       "Protection: Short circuit(3 second max.) / Overload (3~6W)",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/a36e99f2-aed4-4bb1-bd12-5916f2621293.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/mds01.png",
     "models": [
       "MDS01-N",
       "MDS02-N",
@@ -11394,7 +11394,7 @@ export const leafModelTreeFallback = [
       "Low patient leakage current <5 μA",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/dc1ae5ac-738f-4487-81aa-fe172e6a869f.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/mds15.png",
     "models": [
       "MDS15",
       "MDS20"
@@ -11441,7 +11441,7 @@ export const leafModelTreeFallback = [
       "Protection: Short circuit / Overload / Over temperature",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/775e564f-562b-4b3d-a268-c1ced54a1592.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/n78.png",
     "models": [
       "N78",
       "N78-2"
@@ -11484,7 +11484,7 @@ export const leafModelTreeFallback = [
       "±10% or 2: 1 wide input range",
       "On board module type, assemble on the main PCB of the system"
     ],
-    "thumbnailUrl": "/reference/meanwell/c3be20d0-999b-433a-8479-9c0628d587d2.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/spa01.png",
     "models": [
       "SPA01",
       "DPAN02",
@@ -11817,7 +11817,7 @@ export const leafModelTreeFallback = [
       "6.2KVdc or 4.3KVac high l/O isolation",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/bd9309c0-ff2f-45fa-8ac9-6b086f217283.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/gd2.png",
     "models": [
       "GD2"
     ],
@@ -11848,7 +11848,7 @@ export const leafModelTreeFallback = [
       "SMD type",
       "Single and dual output models"
     ],
-    "thumbnailUrl": "/reference/meanwell/7997e3cf-4890-4def-aef7-9cca7100bf1e.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/sbtn01.png",
     "models": [
       "SBTN01",
       "SFTN01",
@@ -11979,7 +11979,7 @@ export const leafModelTreeFallback = [
       "Built - in remote ON/OFF contro",
       "Low cost, high reliability"
     ],
-    "thumbnailUrl": "/reference/meanwell/DD_on_board.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nsd05.png",
     "models": [
       "NSD05-S",
       "NSD10-S",
@@ -12055,7 +12055,7 @@ export const leafModelTreeFallback = [
       "Built - in remote ON/OFF control",
       "Economical open frame design"
     ],
-    "thumbnailUrl": "/reference/meanwell/f8d85d2f-90e7-45b2-9c0d-4ee74c0acabe.PNG",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nid35.png",
     "models": [
       "NID35",
       "NID65",
@@ -12124,7 +12124,7 @@ export const leafModelTreeFallback = [
       "Ultra - wide working temperature(SPOL - 01: - 40~+82oC, SPOL - 12: - 40~+90oC)",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/5e8cec90-42e3-449d-975c-d635468e952a.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/spol.jpg",
     "models": [
       "SPOL-01",
       "SPOL-12"
@@ -12165,7 +12165,7 @@ export const leafModelTreeFallback = [
       "2: 1 wide input range",
       "1.5~2KVAC isolation by models"
     ],
-    "thumbnailUrl": "/reference/meanwell/DD_pcb.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/psd.png",
     "models": [
       "PSD-15",
       "PSD-30",
@@ -12225,7 +12225,7 @@ export const leafModelTreeFallback = [
       "Complete protections: Anti - islanding protection, AC fail protection, DC OVP, OLP, OCP, OTP",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/f1fbdcab-f7d5-4292-98d5-2796915b5743.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/bic.jpg",
     "models": [
       "BIC-2200",
       "BIC-5K"
@@ -12234,24 +12234,24 @@ export const leafModelTreeFallback = [
       {
         "model": "BIC-2200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/BIC-2200-spec.pdf"
       },
       {
         "model": "BIC-5K",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/BIC-5K-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "bic-2200": {
         "model": "BIC-2200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/BIC-2200-spec.pdf"
       },
       "bic-5k": {
         "model": "BIC-5K",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/BIC-5K-spec.pdf"
       }
     }
   },
@@ -12273,7 +12273,7 @@ export const leafModelTreeFallback = [
       "Protections: Over voltage, Under voltage, Over temperature, Over power, Grid fault, Over power no input, Communication error",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/ffafe825-c63e-47f8-84ec-d7345f99db76.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/erg-5000-2.jpg",
     "models": [
       "ERG-5000(H)"
     ],
@@ -12281,14 +12281,14 @@ export const leafModelTreeFallback = [
       {
         "model": "ERG-5000(H)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "erg-5000h": {
         "model": "ERG-5000(H)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
       }
     }
   },
@@ -12309,7 +12309,7 @@ export const leafModelTreeFallback = [
       "Protections: Over voltage/ Under voltage/ Over temperature/ Communication error",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/196bab4e-bbbf-4ca2-8273-7fd55625a0ce.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ers-2.jpg",
     "models": [
       "ERS-1400"
     ],
@@ -12317,14 +12317,14 @@ export const leafModelTreeFallback = [
       {
         "model": "ERS-1400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ers-1400": {
         "model": "ERS-1400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
       }
     }
   },
@@ -12340,7 +12340,7 @@ export const leafModelTreeFallback = [
       "Low cost",
       "1 year warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/DCAC_modified.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/a301.png",
     "models": [
       "A301,302-100",
       "A301,302-150",
@@ -12437,7 +12437,7 @@ export const leafModelTreeFallback = [
       "High surge power up to 200%",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/DCAC_solar.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/isi.png",
     "models": [
       "ISI-501"
     ],
@@ -12473,7 +12473,7 @@ export const leafModelTreeFallback = [
       "Automatic high temperature and fault warning",
       "IP67 protection level, and - 40oC~ 65oC operating temperature range"
     ],
-    "thumbnailUrl": "/reference/meanwell/99f4af07-2c5b-4f82-8b73-fe25eb9d5427.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/pv-smi.jpg",
     "models": [
       "PV-SMI-1000",
       "PV-SMI-2000"
@@ -12513,7 +12513,7 @@ export const leafModelTreeFallback = [
     "features": [
       "Remote controller for TS - 1500~3000 , TN - 1500~3000"
     ],
-    "thumbnailUrl": "/reference/meanwell/098de4bd-ea0b-4f5f-afed-1f04b86107cf.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/irc1.jpg",
     "models": [
       "IRC1",
       "IRC2",
@@ -12570,7 +12570,7 @@ export const leafModelTreeFallback = [
       "Built - in Modbus or CAN bus communication monitoring",
       "5 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/ace25d35-bab5-47dc-bb1b-db22cace8517.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ntn.png",
     "models": [
       "NTN-5K"
     ],
@@ -12602,7 +12602,7 @@ export const leafModelTreeFallback = [
       "Built - in DIP switches to adjust AC output voltage, frequency, and work mode",
       "Multiple intelligent protection functions: - DC input side: reverse polarity, under voltage, over voltage protections - AC output side: short circuit, overload, over temperature protections"
     ],
-    "thumbnailUrl": "/reference/meanwell/1bcbdf30-b199-4aa4-a4b6-5be128b41d06.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nts.png",
     "models": [
       "NTS-300",
       "NTS-450",
@@ -12701,7 +12701,7 @@ export const leafModelTreeFallback = [
       "Built - in DIP switches to adjust AC output voltage, frequency, and work mode",
       "Multiple intelligent protection functions: - DC input side：reverse polarity, under voltage, over voltage protections - AC output side：short circuit, overload, over temperature protections"
     ],
-    "thumbnailUrl": "/reference/meanwell/8c61bfb3-c7e8-402e-85f2-2c957da95169.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/nts-2.png",
     "models": [
       "NTS-250P",
       "NTS-400P"
@@ -12744,7 +12744,7 @@ export const leafModelTreeFallback = [
       "Remote controller(IRC1, IRC2, IRC3)",
       "Multiple intelligent protection functions: - DC input side: reverse polarity, under voltage, over voltage protection - AC output side: short circuit, overload, over temperature protection"
     ],
-    "thumbnailUrl": "/reference/meanwell/14c22bbd-dfb3-4057-91ed-20f2efeadf9b.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/ntu.png",
     "models": [
       "NTU-1200",
       "NTU-1700",
@@ -12811,7 +12811,7 @@ export const leafModelTreeFallback = [
       "Computer - based monitoring software, recommended for Windows 7 and Windows 8 Operating System (English and Chinese version)",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/c272f89a-d01f-45d0-add5-661b5d1206bd.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/tn.jpg",
     "models": [
       "TN-1500",
       "TN-3000"
@@ -12858,7 +12858,7 @@ export const leafModelTreeFallback = [
       "Suitable for three phase motor drive(BLDC, induction motor, SynRM)",
       "3 years warranty"
     ],
-    "thumbnailUrl": "/reference/meanwell/64bd69b2-0e04-402f-865a-9c7b88c16b5a.png",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/vfd.png",
     "models": [
       "VFD-150P-48",
       "VFD-250P-48",

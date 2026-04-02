@@ -33,7 +33,11 @@ function decodeAssetUrl(url = '') {
   }
 }
 
-export function ProductsView({ isActive, onStatusChange, externalSearchRequest, externalPresetRequest }) {
+function hasPdfAsset(asset) {
+  return String(asset?.pdfUrl ?? '').trim().length > 0
+}
+
+export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
 
@@ -62,15 +66,12 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
       setLeafTreeMap(treeResult.treeMap)
       setActiveMajorId((prev) => (categories.some((item) => item.id === prev) ? prev : categories[0]?.id ?? ''))
 
-      onStatusChange?.(
-        `Product catalog loaded from local data. Categories: ${majorResult.source}. Leaf tree: ${treeResult.source}.`
-      )
     })()
 
     return () => {
       alive = false
     }
-  }, [onStatusChange])
+  }, [])
 
   useEffect(() => {
     const externalKeyword = String(externalSearchRequest?.keyword ?? '').trim()
@@ -271,27 +272,26 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
     [visibleModels, leafView]
   )
 
-  const selectableModelCards = useMemo(
-    () => visibleModelCards.filter((item) => String(item.asset?.pdfUrl ?? '').trim().length > 0),
-    [visibleModelCards]
-  )
+  const modelCards = useMemo(() => visibleModelCards, [visibleModelCards])
+
+  const pdfReadyModelCount = useMemo(() => modelCards.filter((item) => hasPdfAsset(item.asset)).length, [modelCards])
 
   const selectedModelCard = useMemo(
-    () => selectableModelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
-    [selectableModelCards, activeModel]
+    () => modelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
+    [modelCards, activeModel]
   )
 
   useEffect(() => {
-    if (selectableModelCards.length === 0) {
+    if (modelCards.length === 0) {
       if (activeModel) setActiveModel(null)
       return
     }
 
     if (!activeModel) return
 
-    const exists = selectableModelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel))
+    const exists = modelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel))
     if (!exists) setActiveModel(null)
-  }, [selectableModelCards, activeModel])
+  }, [modelCards, activeModel])
 
   const showNewProducts = !hasSearch && !activeLeaf
 
@@ -310,9 +310,9 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
       ? `${searchResults.length}개의 결과가 있습니다. 클릭하면 해당 카테고리로 이동합니다.`
       : '일치하는 검색 결과가 없습니다.'
     : activeLeaf
-      ? selectableModelCards.length > 0
-        ? `총 ${selectableModelCards.length}개 모델(PDF 제공)만 선택할 수 있습니다.`
-        : '준비중입니다.'
+      ? modelCards.length > 0
+        ? `총 ${modelCards.length}개 모델 (PDF 제공 ${pdfReadyModelCount}개 / PDF 준비중 ${modelCards.length - pdfReadyModelCount}개)`
+        : '등록된 모델이 없습니다.'
       : '상단 카테고리 바에서 대분류 -> 중분류 -> 소분류 -> 모델 순서로 선택하세요.'
 
   const canGoBack = hasSearch || Boolean(activeModel) || Boolean(activeLeaf) || Boolean(activeSubcategory)
@@ -380,7 +380,7 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
   }
 
   const handleModelClick = (modelName) => {
-    const exists = selectableModelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(modelName))
+    const exists = modelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(modelName))
     if (!exists) return
     setActiveModel(modelName)
     setIsModelPanelOpen(false)
@@ -534,20 +534,20 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                     aria-expanded={isModelPanelOpen}
                     aria-controls="aside-m-panel"
                     onClick={() => {
-                      if (selectableModelCards.length === 0) return
+                      if (modelCards.length === 0) return
                       setIsModelPanelOpen((prev) => !prev)
                       setIsMajorPanelOpen(false)
                       setIsSubPanelOpen(false)
                       setIsLeafPanelOpen(false)
                     }}
-                    disabled={selectableModelCards.length === 0}
+                    disabled={modelCards.length === 0}
                   >
                     {activeModel ?? '모델 선택'}
                   </button>
                 </dt>
                 <dd id="aside-m-panel" aria-hidden={!isModelPanelOpen}>
                   <div>
-                    {selectableModelCards.map((item) => (
+                    {modelCards.map((item) => (
                       <button
                         key={item.modelName}
                         type="button"
@@ -555,6 +555,7 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                         onClick={() => handleModelClick(item.modelName)}
                       >
                         {item.modelName}
+                        {!hasPdfAsset(item.asset) ? ' · PDF 준비중' : ''}
                       </button>
                     ))}
                   </div>
@@ -652,7 +653,7 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                           loading="lazy"
                         />
                       ) : (
-                        <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 이미지 없음</div>
+                        <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
                       )}
                     </div>
 
@@ -682,9 +683,9 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
 
                     <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
                       <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
-                      {selectableModelCards.length > 0 ? (
+                      {modelCards.length > 0 ? (
                         <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
-                          {selectableModelCards.map((item, index) => (
+                          {modelCards.map((item, index) => (
                             <button
                               key={item.modelName}
                               type="button"
@@ -694,12 +695,13 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                               onClick={() => handleModelClick(item.modelName)}
                             >
                               {item.modelName}
-                              {index < selectableModelCards.length - 1 ? ' /' : ''}
+                              {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
+                              {index < modelCards.length - 1 ? ' /' : ''}
                             </button>
                           ))}
                         </div>
                       ) : (
-                        <p className="m-0 text-[14px] text-slate-500">준비중입니다.</p>
+                        <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
                       )}
                     </div>
                   </div>
@@ -715,7 +717,7 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                   </div>
                 ) : (
                   <div className="rounded-lg border border-dashed border-slate-300 bg-white px-4 py-8">
-                    <p className="m-0 text-center text-sm text-slate-500">선택한 모델의 PDF 자료가 없습니다.</p>
+                    <p className="m-0 text-center text-sm text-slate-500">PDF 준비중입니다.</p>
                   </div>
                 )}
               </article>
@@ -734,7 +736,7 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                         loading="lazy"
                       />
                     ) : (
-                      <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 이미지 없음</div>
+                      <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
                     )}
                   </div>
 
@@ -762,9 +764,9 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
 
                   <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
                     <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
-                    {selectableModelCards.length > 0 ? (
+                    {modelCards.length > 0 ? (
                       <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
-                        {selectableModelCards.map((item, index) => (
+                        {modelCards.map((item, index) => (
                           <button
                             key={item.modelName}
                             type="button"
@@ -774,12 +776,13 @@ export function ProductsView({ isActive, onStatusChange, externalSearchRequest, 
                             onClick={() => handleModelClick(item.modelName)}
                           >
                             {item.modelName}
-                            {index < selectableModelCards.length - 1 ? ' /' : ''}
+                            {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
+                            {index < modelCards.length - 1 ? ' /' : ''}
                           </button>
                         ))}
                       </div>
                     ) : (
-                      <p className="m-0 text-[14px] text-slate-500">준비중입니다.</p>
+                      <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
                     )}
                   </div>
                 </div>

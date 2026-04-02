@@ -33,8 +33,6 @@ function buildMajorCategoriesFromRecords(records) {
   const majorMap = new Map()
 
   records.forEach((record) => {
-    if (!recordHasPdf(record)) return
-
     const major = String(record?.major ?? '').trim()
     const subcategory = String(record?.subcategory ?? '').trim()
     if (!major || !subcategory) return
@@ -75,20 +73,6 @@ function buildMajorCategoriesFromRecords(records) {
   })
 
   return categories
-}
-
-function recordHasPdf(record) {
-  if (!record || typeof record !== 'object') return false
-
-  if (Array.isArray(record.modelAssets)) {
-    return record.modelAssets.some((asset) => String(asset?.pdfUrl ?? '').trim().length > 0)
-  }
-
-  if (record.modelAssetsByKey && typeof record.modelAssetsByKey === 'object') {
-    return Object.values(record.modelAssetsByKey).some((asset) => String(asset?.pdfUrl ?? '').trim().length > 0)
-  }
-
-  return false
 }
 
 function buildRecordsFromManifest() {
