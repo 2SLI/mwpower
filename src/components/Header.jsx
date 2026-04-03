@@ -64,18 +64,20 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
 
   return (
     <header className="absolute inset-x-0 top-0 z-20 border-b border-[#d6dbe2] bg-[#f2f3f5]">
-      <div className="flex h-[92px] w-full items-center justify-between pl-7 pr-6 max-[1280px]:h-[62px] max-[980px]:pl-4 max-[980px]:pr-4">
-        <div className="flex items-center gap-7 max-[1280px]:gap-3">
+      <div className="flex h-[92px] w-full items-center justify-between pl-7 pr-6 max-[1280px]:h-[62px] max-[980px]:pl-4 max-[980px]:pr-4 max-[640px]:pl-2.5 max-[640px]:pr-2.5">
+        <div className="flex min-w-0 items-center gap-7 max-[1280px]:gap-3">
           <a
             href="#"
-            className="flex h-[74px] w-auto shrink-0 items-center justify-center bg-transparent"
+            className="flex h-[74px] min-w-0 w-auto items-center justify-center bg-transparent"
             aria-label="MEAN WELL"
             onClick={(event) => {
               event.preventDefault()
               onNavigate('home')
             }}
           >
-            <span className="whitespace-nowrap text-[44px] font-black leading-none tracking-[-0.03em] text-[#d9252a] max-[1280px]:text-[30px]">MEANWELL POWER</span>
+            <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[44px] font-black leading-none tracking-[-0.03em] text-[#d9252a] max-[1280px]:text-[30px] max-[640px]:max-w-[calc(100vw-132px)] max-[640px]:text-[22px] max-[400px]:text-[19px]">
+              MEANWELL POWER
+            </span>
           </a>
 
           <nav className="main-nav ml-0 flex flex-wrap items-center max-[980px]:hidden">
@@ -85,7 +87,7 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           </nav>
         </div>
 
-        <div className="flex shrink-0 items-center gap-1.5 text-[#1a2433]">
+        <div className="flex shrink-0 items-center gap-1.5 text-[#1a2433] max-[640px]:gap-1">
           <a
             href="https://smartstore.naver.com/meanwellpower"
             target="_blank"
@@ -101,32 +103,32 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           </a>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70"
+            className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
             aria-label="검색"
             onClick={() => {
               setIsSearchOpen(true)
               setIsMenuOpen(false)
             }}
           >
-            <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 24 24" className="h-6 w-6 max-[640px]:h-5 max-[640px]:w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="7"></circle>
               <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
             </svg>
           </button>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70"
+            className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
             aria-label="사용자"
             onClick={() => onNavigate('contact-product')}
           >
-            <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 24 24" className="h-6 w-6 max-[640px]:h-5 max-[640px]:w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="8" r="3.5"></circle>
               <path d="M5 20c0-3.3 3.1-5 7-5s7 1.7 7 5"></path>
             </svg>
           </button>
           <button
             type="button"
-            className="relative inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70"
+            className="relative inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
             aria-label="메뉴"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-header-menu"
