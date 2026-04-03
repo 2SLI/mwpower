@@ -53,6 +53,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const [isModelPanelOpen, setIsModelPanelOpen] = useState(false)
   const [isMobileViewport, setIsMobileViewport] = useState(false)
   const categoryCrumbRef = useRef(null)
+  const wasActiveRef = useRef(isActive)
 
   useEffect(() => {
     let alive = true
@@ -72,6 +73,28 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       alive = false
     }
   }, [])
+
+  useEffect(() => {
+    const becameActive = isActive && !wasActiveRef.current
+    if (!becameActive) {
+      wasActiveRef.current = isActive
+      return
+    }
+
+    const defaultMajorId = majorCategories[0]?.id ?? defaultMajorCategories[0]?.id ?? ''
+    setActiveMajorId(defaultMajorId)
+    setActiveSubcategory(null)
+    setActiveLeaf(null)
+    setActiveGroup(null)
+    setActiveModel(null)
+    setSearch('')
+    setIsMajorPanelOpen(false)
+    setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+
+    wasActiveRef.current = isActive
+  }, [isActive, majorCategories])
 
   useEffect(() => {
     const externalKeyword = String(externalSearchRequest?.keyword ?? '').trim()
@@ -154,9 +177,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
   useEffect(() => {
     if (search.trim()) return
-    if (!activeSubcategory || !subcategories.includes(activeSubcategory)) {
-      setActiveSubcategory(subcategories[0] ?? null)
-    }
+    if (activeSubcategory && !subcategories.includes(activeSubcategory)) setActiveSubcategory(null)
   }, [search, activeSubcategory, subcategories, subcategoriesKey])
 
   const selectableLeafChips = useMemo(
@@ -178,17 +199,11 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       if (activeModel) setActiveModel(null)
       return
     }
-
-    if (!activeLeaf) {
-      setActiveLeaf(selectableLeafChips[0] ?? null)
-      if (activeGroup) setActiveGroup(null)
-      if (activeModel) setActiveModel(null)
-      return
-    }
+    if (!activeLeaf) return
 
     const matchedLeaf = findMatchingLabel(selectableLeafChips, activeLeaf)
     if (!matchedLeaf) {
-      setActiveLeaf(selectableLeafChips[0] ?? null)
+      setActiveLeaf(null)
       setActiveGroup(null)
       if (activeModel) setActiveModel(null)
       return
@@ -276,6 +291,60 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
   const pdfReadyModelCount = useMemo(() => modelCards.filter((item) => hasPdfAsset(item.asset)).length, [modelCards])
 
+  const majorAllLeafRecords = useMemo(() => {
+    if (!activeMajor || hasSearch || activeLeaf) return []
+
+    const records = Object.values(leafTreeMap?.byKey ?? {})
+      .filter((record) => {
+        const isMajorMatched = normalizeLabel(record?.major) === normalizeLabel(activeMajor.name)
+        if (!isMajorMatched) return false
+        if (!activeSubcategory) return true
+        return normalizeLabel(record?.subcategory) === normalizeLabel(activeSubcategory)
+      })
+      .sort((a, b) => {
+        const sub = String(a?.subcategory ?? '').localeCompare(String(b?.subcategory ?? ''))
+        if (sub !== 0) return sub
+        return String(a?.leaf ?? '').localeCompare(String(b?.leaf ?? ''))
+      })
+      .map((record) => {
+        const sourceModels =
+          Array.isArray(record?.groups) && record.groups.length > 1
+            ? record.groups.flatMap((group) => (Array.isArray(group?.models) ? group.models : []))
+            : Array.isArray(record?.models)
+              ? record.models
+              : []
+
+        const dedupedModels = []
+        const modelSeen = new Set()
+        sourceModels.forEach((modelName) => {
+          const model = String(modelName ?? '').trim()
+          const key = normalizeLabel(model)
+          if (!model || !key || modelSeen.has(key)) return
+          modelSeen.add(key)
+          dedupedModels.push(model)
+        })
+
+        const modelList = dedupedModels.map((modelName) => ({
+          modelName,
+          asset: getModelAssetByModel(record?.modelAssetsByKey, modelName),
+        }))
+
+        return {
+          key: record.key,
+          subcategory: String(record?.subcategory ?? ''),
+          leaf: String(record?.leaf ?? ''),
+          thumbnailUrl: String(record?.thumbnailUrl ?? '').trim(),
+          wattage: String(record?.wattage ?? '').trim(),
+          features: Array.isArray(record?.features) ? record.features : [],
+          modelList,
+          totalModels: modelList.length,
+          pdfReadyCount: modelList.filter((item) => hasPdfAsset(item.asset)).length,
+        }
+      })
+
+    return records
+  }, [activeMajor, hasSearch, activeSubcategory, activeLeaf, leafTreeMap])
+
   const selectedModelCard = useMemo(
     () => modelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
     [modelCards, activeModel]
@@ -293,7 +362,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     if (!exists) setActiveModel(null)
   }, [modelCards, activeModel])
 
-  const showNewProducts = !hasSearch && !activeLeaf
+  const showMajorAggregateView = !hasSearch && !activeLeaf && majorAllLeafRecords.length > 0
+  const showNewProducts = !hasSearch && !activeLeaf && !showMajorAggregateView
 
   const pageHeading = hasSearch ? 'Search Results' : activeLeaf || activeMajor?.name || 'Product Information'
   const pageDescription = hasSearch
@@ -313,9 +383,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       ? modelCards.length > 0
         ? `총 ${modelCards.length}개 모델 (PDF 제공 ${pdfReadyModelCount}개 / PDF 준비중 ${modelCards.length - pdfReadyModelCount}개)`
         : '등록된 모델이 없습니다.'
-      : '상단 카테고리 바에서 대분류 -> 중분류 -> 소분류 -> 모델 순서로 선택하세요.'
+      : showMajorAggregateView
+        ? `${activeMajor?.name ?? ''}${activeSubcategory ? ` / ${activeSubcategory}` : ''} 하위의 전체 품목을 표시중입니다. (${majorAllLeafRecords.length}개 시리즈)`
+        : '상단 카테고리 바에서 대분류 -> 중분류 -> 소분류 -> 모델 순서로 선택하세요.'
 
-  const canGoBack = hasSearch || Boolean(activeModel) || Boolean(activeLeaf) || Boolean(activeSubcategory)
   const mobilePathText = [activeMajor?.name, activeSubcategory, activeLeaf, activeModel].filter(Boolean).join(' / ') || '카테고리를 선택하세요'
 
   const handleMajorClick = (majorId) => {
@@ -338,37 +409,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setIsSubPanelOpen(false)
     setIsLeafPanelOpen(false)
     setIsModelPanelOpen(false)
-  }
-
-  const handleBack = () => {
-    setIsMajorPanelOpen(false)
-    setIsSubPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
-
-    if (hasSearch) {
-      setSearch('')
-      return
-    }
-
-    if (activeModel) {
-      setActiveModel(null)
-      return
-    }
-
-    if (activeLeaf) {
-      setActiveLeaf(null)
-      setActiveGroup(null)
-      setActiveModel(null)
-      return
-    }
-
-    if (activeSubcategory) {
-      setActiveSubcategory(null)
-      setActiveLeaf(null)
-      setActiveGroup(null)
-      setActiveModel(null)
-    }
   }
 
   const handleLeafClick = (leafName) => {
@@ -400,12 +440,27 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setIsModelPanelOpen(false)
   }
 
+  const handleMajorAggregateModelClick = (record, modelName) => {
+    const subcategory = String(record?.subcategory ?? '').trim()
+    const leaf = String(record?.leaf ?? '').trim()
+    const model = String(modelName ?? '').trim()
+    if (!subcategory || !leaf || !model) return
+
+    setActiveSubcategory(subcategory)
+    setActiveLeaf(leaf)
+    setActiveGroup(null)
+    setActiveModel(model)
+    setSearch('')
+    setIsMajorPanelOpen(false)
+    setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+  }
+
   return (
     <section className={`${isActive ? '' : 'is-hidden'} min-h-[1200px] overflow-x-hidden bg-slate-100 pb-16 max-[640px]:min-h-0 max-[640px]:pb-10`} id="product-page">
-      <div className="h-[168px] bg-[linear-gradient(rgba(53,53,53,0.36),rgba(53,53,53,0.36)),url('/meanwell/image/product_banner.jpg')] bg-cover bg-center bg-no-repeat max-[980px]:h-[150px] max-[640px]:h-[120px]"></div>
-
       <div className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-[1320px] px-3">
+        <div className="w-full">
           <div className="product-category-crumb" ref={categoryCrumbRef}>
             <div className="inner max-[640px]:hidden">
               <a className="home" href="/" aria-label="홈으로">
@@ -416,17 +471,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   />
                 </svg>
               </a>
-
-              {canGoBack ? (
-                <button
-                  type="button"
-                  className="inline-flex h-[58px] items-center gap-2 border-r border-slate-300 bg-white px-4 text-[14px] font-semibold text-slate-700 transition hover:bg-slate-50 max-[640px]:h-[52px] max-[640px]:px-3 max-[640px]:text-[13px]"
-                  onClick={handleBack}
-                >
-                  <span aria-hidden="true">←</span>
-                  뒤로가기
-                </button>
-              ) : null}
 
               <dl className={`g ${isMajorPanelOpen ? 'open' : ''}`}>
                 <dt>
@@ -475,7 +519,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     }}
                     disabled={subcategories.length === 0}
                   >
-                    {activeSubcategory ?? '상품'}
+                    {activeSubcategory ?? '중분류 선택'}
                   </button>
                 </dt>
                 <dd id="aside-s-panel" aria-hidden={!isSubPanelOpen}>
@@ -575,13 +619,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   </svg>
                 </a>
 
-                {canGoBack ? (
-                  <button type="button" className="mobile-back" onClick={handleBack}>
-                    <span aria-hidden="true">←</span>
-                    뒤로가기
-                  </button>
-                ) : null}
-
                 <p className="mobile-path" title={mobilePathText}>
                   {mobilePathText}
                 </p>
@@ -617,7 +654,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   }}
                   disabled={subcategories.length === 0}
                 >
-                  <span className="mobile-tab-text">{activeSubcategory ?? '중분류'}</span>
+                  <span className="mobile-tab-text">{activeSubcategory ?? '중분류 선택'}</span>
                 </button>
 
                 <button
@@ -634,7 +671,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   }}
                   disabled={selectableLeafChips.length === 0}
                 >
-                  <span className="mobile-tab-text">{activeLeaf ?? '소분류'}</span>
+                  <span className="mobile-tab-text">{activeLeaf ?? '소분류 선택'}</span>
                 </button>
 
                 <button
@@ -651,7 +688,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   }}
                   disabled={modelCards.length === 0}
                 >
-                  <span className="mobile-tab-text">{activeModel ?? '모델'}</span>
+                  <span className="mobile-tab-text">{activeModel ?? '모델 선택'}</span>
                 </button>
               </div>
 
@@ -777,6 +814,74 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   ))}
                 </div>
               )
+            ) : showMajorAggregateView ? (
+              <div className="grid gap-3">
+                {majorAllLeafRecords.map((record) => (
+                  <article key={record.key} className="rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
+                    <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
+                      {activeMajor?.name} / {record.subcategory} / {record.leaf}
+                    </p>
+                    <div className="mt-3 grid gap-4 lg:grid-cols-[280px_1fr_320px]">
+                      <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+                        {record.thumbnailUrl ? (
+                          <img
+                            src={decodeAssetUrl(record.thumbnailUrl)}
+                            alt={record.leaf}
+                            className="block h-[220px] w-full object-contain p-3"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
+                        )}
+                      </div>
+
+                      <div className="grid content-start gap-3">
+                        <h4 className="m-0 text-[34px] font-black leading-tight tracking-[-0.01em] text-slate-900 max-[640px]:text-[28px]">{record.leaf}</h4>
+                        <div className="grid gap-1.5 text-[15px] text-slate-700">
+                          <p className="m-0">
+                            <strong>Wattage:</strong> {record.wattage || '정보 없음'}
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Features</p>
+                          {Array.isArray(record.features) && record.features.length > 0 ? (
+                            <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
+                              {record.features.map((feature) => (
+                                <li key={`${record.key}-${feature}`}>{feature}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
+                        <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
+                        {record.modelList.length > 0 ? (
+                          <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
+                            {record.modelList.map((item, index) => (
+                              <button
+                                key={`${record.key}-${item.modelName}`}
+                                type="button"
+                                className="text-left text-slate-700 underline-offset-2 hover:text-[#c02f2f] hover:underline"
+                                onClick={() => handleMajorAggregateModelClick(record, item.modelName)}
+                              >
+                                {item.modelName}
+                                {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
+                                {index < record.modelList.length - 1 ? ' /' : ''}
+                              </button>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
             ) : !activeLeaf ? (
               !activeSubcategory ? (
                 <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-6">

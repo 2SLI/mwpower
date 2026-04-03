@@ -10,6 +10,7 @@ const PUBLIC_CATALOG_THUMB_ROOT = path.join(PUBLIC_CATALOG_ROOT, 'thumbnails')
 const OUTPUT_FILE = path.join(PROJECT_ROOT, 'src', 'data', 'leafModelTreeFallback.js')
 
 const MAJOR_ORDER = ['ac/dc', 'dc/dc', 'dc/ac', 'ac/ac', 'peripheral accessory', 'automation', 'green energy solutions', 'smart building solutions']
+const EXCLUDED_LEAFS = new Set(['cob led strips', 'dali-2 pir motion sensor', 'dali-2 touch panel', 'a301/302 series'])
 
 function normalizeLabel(value = '') {
   return String(value ?? '')
@@ -29,6 +30,10 @@ function normalizeModelKey(value = '') {
     .replace(/_+\d+$/g, '')
     .replace(/-spec$/g, '')
     .replace(/[^a-z0-9-]+/g, '')
+}
+
+function isExcludedRecord(record) {
+  return EXCLUDED_LEAFS.has(normalizeLabel(record?.leaf))
 }
 
 function toSlug(value = '') {
@@ -401,7 +406,7 @@ function sortRecords(records) {
 async function run() {
   const htmlText = await fs.readFile(REFERENCE_HTML_FILE, 'utf8')
   const parsed = parseReferenceRecords(htmlText)
-  const deduped = dedupeRecords(parsed)
+  const deduped = dedupeRecords(parsed).filter((record) => !isExcludedRecord(record))
   const sorted = sortRecords(deduped)
   const copiedThumbnailCount = await copyReferenceThumbnails(sorted)
   const assetIndex = await buildAssetIndex()

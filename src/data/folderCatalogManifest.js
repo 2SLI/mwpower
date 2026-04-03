@@ -919,22 +919,6 @@ export const folderCatalogManifest = {
     },
     "entries": []
   },
-  "ac/dc|led accessory|dali-2 touch panel": {
-    "labels": {
-      "major": "AC/DC",
-      "subcategory": "LED Accessory",
-      "leaf": "DALI-2 Touch Panel"
-    },
-    "entries": []
-  },
-  "ac/dc|led accessory|dali-2 pir motion sensor": {
-    "labels": {
-      "major": "AC/DC",
-      "subcategory": "LED Accessory",
-      "leaf": "DALI-2 PIR Motion Sensor"
-    },
-    "entries": []
-  },
   "ac/dc|led accessory|dap-04": {
     "labels": {
       "major": "AC/DC",

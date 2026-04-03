@@ -1,13 +1,13 @@
-﻿import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { NEWS_ALL_CATEGORY, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
 
 const solutionCards = [
-  { title: 'DC/DC Converter Power Solutions', image: '/meanwell/index_1.jpg', alt: 'DC/DC', productPreset: { majorId: 'dc-dc' } },
-  { title: 'LED Power Solution', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED', productPreset: { majorId: 'ac-dc' } },
-  { title: 'Medical Power Solution', image: '/meanwell/index-solutions-pic6.jpg', alt: 'Medical', productPreset: { majorId: 'ac-dc' } },
-  { title: 'LED Display Solution', image: '/meanwell/index-solutions-pic4.jpg', alt: 'Display', productPreset: { majorId: 'ac-dc' } },
-  { title: 'Configurable Power Solution', image: '/meanwell/index-solutions-pic3.jpg', alt: 'Configurable', productPreset: { majorId: 'ac-dc' } },
-  { title: 'Building Power Solution', image: '/meanwell/index-solutions-pic5.jpg', alt: 'Building', productPreset: { majorId: 'smart-building-solutions' } },
+  { title: 'DC/DC Converter 전원 솔루션', image: '/meanwell/index_1.jpg', alt: 'DC/DC', productPreset: { majorId: 'dc-dc' } },
+  { title: 'LED 전원 솔루션', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED', productPreset: { majorId: 'ac-dc' } },
+  { title: '의료 전원 솔루션', image: '/meanwell/index-solutions-pic6.jpg', alt: 'Medical', productPreset: { majorId: 'ac-dc' } },
+  { title: 'LED Display 솔루션', image: '/meanwell/index-solutions-pic4.jpg', alt: 'Display', productPreset: { majorId: 'ac-dc' } },
+  { title: '구성형 전원 솔루션', image: '/meanwell/index-solutions-pic3.jpg', alt: 'Configurable', productPreset: { majorId: 'ac-dc' } },
+  { title: '건물 전원 솔루션', image: '/meanwell/index-solutions-pic5.jpg', alt: 'Building', productPreset: { majorId: 'smart-building-solutions' } },
 ]
 
 const productCards = [

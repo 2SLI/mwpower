@@ -5,6 +5,7 @@ const projectRoot = process.cwd()
 const catalogRoot = path.join(projectRoot, '1. 민웰 통합_사양서+썸네일 (2)')
 const structureFile = path.join(catalogRoot, '00_CATEGORY_STRUCTURE.txt')
 const outputFile = path.join(projectRoot, 'src', 'data', 'folderCatalogManifest.js')
+const EXCLUDED_LEAFS = new Set(['cob led strips', 'dali-2 pir motion sensor', 'dali-2 touch panel', 'a301/302 series'])
 
 function normalizeLabel(value = '') {
   return String(value ?? '')
@@ -17,6 +18,10 @@ function normalizeLabel(value = '') {
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase()
+}
+
+function isExcludedLeaf(leafLabel = '') {
+  return EXCLUDED_LEAFS.has(normalizeLabel(leafLabel))
 }
 
 async function exists(targetPath) {
@@ -106,7 +111,7 @@ async function generate() {
   }
 
   const structureContent = await fs.readFile(structureFile, 'utf8')
-  const leafNodes = parseStructure(structureContent)
+  const leafNodes = parseStructure(structureContent).filter((leaf) => !isExcludedLeaf(leaf.leafLabel))
   const manifest = {}
 
   leafNodes.forEach((leaf) => {

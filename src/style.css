@@ -86,16 +86,15 @@
   #product-page .product-category-crumb .inner {
     display: flex;
     align-items: stretch;
-    min-height: 58px;
-    border-left: 1px solid #d9d9d9;
-    border-right: 1px solid #d9d9d9;
+    width: 100%;
+    min-height: 66px;
     background: #fff;
   }
 
   #product-page .product-category-crumb .home {
     display: grid;
     place-items: center;
-    width: 58px;
+    width: 66px;
     color: #fff;
     background: #d71f2b;
     border-right: 1px solid #be1b25;
@@ -110,7 +109,8 @@
   #product-page .product-category-crumb dl {
     position: relative;
     margin: 0;
-    min-width: 280px;
+    flex: 1 1 0;
+    min-width: 0;
     border-right: 1px solid #d9d9d9;
   }
 
@@ -120,14 +120,17 @@
     justify-content: space-between;
     gap: 12px;
     width: 100%;
-    height: 58px;
-    padding: 0 18px;
+    height: 66px;
+    padding: 0 20px;
     border: 0;
     color: #222;
     background: #fff;
     font-size: 16px;
     font-weight: 600;
     letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
   }
 
@@ -154,7 +157,7 @@
 
   #product-page .product-category-crumb dd {
     position: absolute;
-    top: 58px;
+    top: 66px;
     left: 0;
     z-index: 20;
     width: 100%;
@@ -246,8 +249,7 @@
       min-height: 42px;
     }
 
-    #product-page .product-category-crumb .mobile-home,
-    #product-page .product-category-crumb .mobile-back {
+    #product-page .product-category-crumb .mobile-home {
       flex: 0 0 auto;
       display: inline-flex;
       align-items: center;
@@ -273,12 +275,6 @@
       width: 14px;
       height: 14px;
       display: block;
-    }
-
-    #product-page .product-category-crumb .mobile-back {
-      gap: 6px;
-      padding: 0 12px;
-      color: #475569;
     }
 
     #product-page .product-category-crumb .mobile-path {

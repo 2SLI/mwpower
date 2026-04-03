@@ -854,64 +854,64 @@ export const leafModelTreeFallback = [
       {
         "model": "GSM18U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM18U-SPEC.PDF"
       },
       {
         "model": "GSM25U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM25U-SPEC.PDF"
       },
       {
         "model": "GSM36U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM36U-SPEC.PDF"
       },
       {
         "model": "GSM18E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM18E-SPEC.PDF"
       },
       {
         "model": "GSM25E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM25E-SPEC.PDF"
       },
       {
         "model": "GSM36E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM36E-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "gsm18u": {
         "model": "GSM18U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM18U-SPEC.PDF"
       },
       "gsm25u": {
         "model": "GSM25U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM25U-SPEC.PDF"
       },
       "gsm36u": {
         "model": "GSM36U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM36U-SPEC.PDF"
       },
       "gsm18e": {
         "model": "GSM18E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM18E-SPEC.PDF"
       },
       "gsm25e": {
         "model": "GSM25E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM25E-SPEC.PDF"
       },
       "gsm36e": {
         "model": "GSM36E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSM36E-SPEC.PDF"
       }
     }
   },
@@ -1072,34 +1072,34 @@ export const leafModelTreeFallback = [
       {
         "model": "NPB-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-120-spec.pdf"
       },
       {
         "model": "NPB-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-240-spec.pdf"
       },
       {
         "model": "NPB-360",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-360-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "npb-120": {
         "model": "NPB-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-120-spec.pdf"
       },
       "npb-240": {
         "model": "NPB-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-240-spec.pdf"
       },
       "npb-360": {
         "model": "NPB-360",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-360-spec.pdf"
       }
     }
   },
@@ -1134,84 +1134,84 @@ export const leafModelTreeFallback = [
       {
         "model": "ENP-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENP-120-spec.pdf"
       },
       {
         "model": "ENP-180",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENP-180-spec.pdf"
       },
       {
         "model": "ENP-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENP-240-spec.pdf"
       },
       {
         "model": "ENP-360",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENP-360-spec.pdf"
       },
       {
         "model": "ENC-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENC-120-spec.pdf"
       },
       {
         "model": "ENC-180",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENC-180-spec.pdf"
       },
       {
         "model": "ENC-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENC-240-spec.pdf"
       },
       {
         "model": "ENC-360",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENC-360-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "enp-120": {
         "model": "ENP-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENP-120-spec.pdf"
       },
       "enp-180": {
         "model": "ENP-180",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENP-180-spec.pdf"
       },
       "enp-240": {
         "model": "ENP-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENP-240-spec.pdf"
       },
       "enp-360": {
         "model": "ENP-360",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENP-360-spec.pdf"
       },
       "enc-120": {
         "model": "ENC-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENC-120-spec.pdf"
       },
       "enc-180": {
         "model": "ENC-180",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENC-180-spec.pdf"
       },
       "enc-240": {
         "model": "ENC-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENC-240-spec.pdf"
       },
       "enc-360": {
         "model": "ENC-360",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ENC-360-spec.pdf"
       }
     }
   },
@@ -1244,44 +1244,44 @@ export const leafModelTreeFallback = [
       {
         "model": "NPP-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPP-450-spec.pdf"
       },
       {
         "model": "NPP-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPP-750-spec.pdf"
       },
       {
         "model": "NPP-1200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPP-1200-spec.pdf"
       },
       {
         "model": "NPP-1700",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPP-1700-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "npp-450": {
         "model": "NPP-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPP-450-spec.pdf"
       },
       "npp-750": {
         "model": "NPP-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPP-750-spec.pdf"
       },
       "npp-1200": {
         "model": "NPP-1200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPP-1200-spec.pdf"
       },
       "npp-1700": {
         "model": "NPP-1700",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPP-1700-spec.pdf"
       }
     }
   },
@@ -1310,14 +1310,14 @@ export const leafModelTreeFallback = [
       {
         "model": "HEP-600C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-600C-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hep-600c": {
         "model": "HEP-600C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-600C-SPEC.pdf"
       }
     }
   },
@@ -1356,44 +1356,44 @@ export const leafModelTreeFallback = [
       {
         "model": "NPB-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-450-spec.pdf"
       },
       {
         "model": "NPB-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-750-spec.pdf"
       },
       {
         "model": "NPB-1200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-1200-spec.pdf"
       },
       {
         "model": "NPB-1700",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-1700-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "npb-450": {
         "model": "NPB-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-450-spec.pdf"
       },
       "npb-750": {
         "model": "NPB-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-750-spec.pdf"
       },
       "npb-1200": {
         "model": "NPB-1200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-1200-spec.pdf"
       },
       "npb-1700": {
         "model": "NPB-1700",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPB-1700-spec.pdf"
       }
     }
   },
@@ -1428,44 +1428,44 @@ export const leafModelTreeFallback = [
       {
         "model": "RPB-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPB-1600-SPEC.pdf"
       },
       {
         "model": "RCB-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RCB-1600-SPEC.pdf"
       },
       {
         "model": "DBU-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBU-3200-spec.pdf"
       },
       {
         "model": "DBR-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBR-3200-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rpb-1600": {
         "model": "RPB-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPB-1600-SPEC.pdf"
       },
       "rcb-1600": {
         "model": "RCB-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RCB-1600-SPEC.pdf"
       },
       "dbu-3200": {
         "model": "DBU-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBU-3200-spec.pdf"
       },
       "dbr-3200": {
         "model": "DBR-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBR-3200-spec.pdf"
       }
     }
   },
@@ -1499,14 +1499,14 @@ export const leafModelTreeFallback = [
       {
         "model": "NGE100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NGE100-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "nge100": {
         "model": "NGE100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NGE100-spec.pdf"
       }
     }
   },
@@ -1533,34 +1533,34 @@ export const leafModelTreeFallback = [
       {
         "model": "MP450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MP450-SPEC.PDF"
       },
       {
         "model": "MP650",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MP650-SPEC.PDF"
       },
       {
         "model": "MP1K0",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MP1K0-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "mp450": {
         "model": "MP450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MP450-SPEC.PDF"
       },
       "mp650": {
         "model": "MP650",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MP650-SPEC.PDF"
       },
       "mp1k0": {
         "model": "MP1K0",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MP1K0-SPEC.PDF"
       }
     }
   },
@@ -1588,24 +1588,24 @@ export const leafModelTreeFallback = [
       {
         "model": "NMP650",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NMP650-SPEC.PDF"
       },
       {
         "model": "NMP1K2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NMP1K2-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "nmp650": {
         "model": "NMP650",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NMP650-SPEC.PDF"
       },
       "nmp1k2": {
         "model": "NMP1K2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NMP1K2-SPEC.PDF"
       }
     }
   },
@@ -1632,14 +1632,14 @@ export const leafModelTreeFallback = [
       {
         "model": "UMP-400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UMP-400-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ump-400": {
         "model": "UMP-400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/UMP-400-spec.pdf"
       }
     }
   },
@@ -1666,24 +1666,24 @@ export const leafModelTreeFallback = [
       {
         "model": "DRA-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRA-40-SPEC.pdf"
       },
       {
         "model": "DRA-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRA-60-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "dra-40": {
         "model": "DRA-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRA-40-SPEC.pdf"
       },
       "dra-60": {
         "model": "DRA-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRA-60-SPEC.pdf"
       }
     }
   },
@@ -2000,104 +2000,104 @@ export const leafModelTreeFallback = [
       {
         "model": "DRDN40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRDN40-spec.pdf"
       },
       {
         "model": "DBUF20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBUF20-spec.pdf"
       },
       {
         "model": "DBUF40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBUF40-spec.pdf"
       },
       {
         "model": "ICL-16R",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ICL-16R-spec.pdf"
       },
       {
         "model": "ICL-28R",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ICL-28R-spec.pdf"
       },
       {
         "model": "ICL-16L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ICL-16L-spec.pdf"
       },
       {
         "model": "ICL-28L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ICL-28L-spec.pdf"
       },
       {
         "model": "DRDN20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRDN20-spec.pdf"
       },
       {
         "model": "DUPS20",
         "imageUrl": "/catalog/meanwell/DUPS20.jpg",
-        "pdfUrl": "/catalog/meanwell/DUPS20.pdf"
+        "pdfUrl": "/catalog/meanwell/DUPS20-spec.pdf"
       },
       {
         "model": "DUPS40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DUPS40-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "drdn40": {
         "model": "DRDN40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRDN40-spec.pdf"
       },
       "dbuf20": {
         "model": "DBUF20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBUF20-spec.pdf"
       },
       "dbuf40": {
         "model": "DBUF40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBUF40-spec.pdf"
       },
       "icl-16r": {
         "model": "ICL-16R",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ICL-16R-spec.pdf"
       },
       "icl-28r": {
         "model": "ICL-28R",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ICL-28R-spec.pdf"
       },
       "icl-16l": {
         "model": "ICL-16L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ICL-16L-spec.pdf"
       },
       "icl-28l": {
         "model": "ICL-28L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ICL-28L-spec.pdf"
       },
       "drdn20": {
         "model": "DRDN20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRDN20-spec.pdf"
       },
       "dups20": {
         "model": "DUPS20",
         "imageUrl": "/catalog/meanwell/DUPS20.jpg",
-        "pdfUrl": "/catalog/meanwell/DUPS20.pdf"
+        "pdfUrl": "/catalog/meanwell/DUPS20-spec.pdf"
       },
       "dups40": {
         "model": "DUPS40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DUPS40-spec.pdf"
       }
     }
   },
@@ -2217,34 +2217,34 @@ export const leafModelTreeFallback = [
       {
         "model": "TDR-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TDR-240-spec.pdf"
       },
       {
         "model": "TDR-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TDR-480-SPEC.pdf"
       },
       {
         "model": "TDR-960",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TDR-960-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "tdr-240": {
         "model": "TDR-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TDR-240-spec.pdf"
       },
       "tdr-480": {
         "model": "TDR-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TDR-480-SPEC.pdf"
       },
       "tdr-960": {
         "model": "TDR-960",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TDR-960-SPEC.pdf"
       }
     }
   },
@@ -2274,44 +2274,44 @@ export const leafModelTreeFallback = [
       {
         "model": "WDR-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/WDR-60-spec.pdf"
       },
       {
         "model": "WDR-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/WDR-120-SPEC.pdf"
       },
       {
         "model": "WDR-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/WDR-240-SPEC.pdf"
       },
       {
         "model": "WDR-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/WDR-480-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "wdr-60": {
         "model": "WDR-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/WDR-60-spec.pdf"
       },
       "wdr-120": {
         "model": "WDR-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/WDR-120-SPEC.pdf"
       },
       "wdr-240": {
         "model": "WDR-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/WDR-240-SPEC.pdf"
       },
       "wdr-480": {
         "model": "WDR-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/WDR-480-SPEC.pdf"
       }
     }
   },
@@ -2345,54 +2345,54 @@ export const leafModelTreeFallback = [
       {
         "model": "XDR-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-75-spec.pdf"
       },
       {
         "model": "XDR-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-120-spec.pdf"
       },
       {
         "model": "XDR-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-240-spec.pdf"
       },
       {
         "model": "XDR-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-480-spec.pdf"
       },
       {
         "model": "XDR-960",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-960-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xdr-75": {
         "model": "XDR-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-75-spec.pdf"
       },
       "xdr-120": {
         "model": "XDR-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-120-spec.pdf"
       },
       "xdr-240": {
         "model": "XDR-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-240-spec.pdf"
       },
       "xdr-480": {
         "model": "XDR-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-480-spec.pdf"
       },
       "xdr-960": {
         "model": "XDR-960",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-960-spec.pdf"
       }
     }
   },
@@ -2427,64 +2427,64 @@ export const leafModelTreeFallback = [
       {
         "model": "XDR-75E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-75E-spec.pdf"
       },
       {
         "model": "XDR-120E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-120E-spec.pdf"
       },
       {
         "model": "XDR-150E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-150E-spec.pdf"
       },
       {
         "model": "XDR-240E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-240E-spec.pdf"
       },
       {
         "model": "XDR-480E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-480E-spec.pdf"
       },
       {
         "model": "XDR-960E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-960E-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xdr-75e": {
         "model": "XDR-75E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-75E-spec.pdf"
       },
       "xdr-120e": {
         "model": "XDR-120E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-120E-spec.pdf"
       },
       "xdr-150e": {
         "model": "XDR-150E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-150E-spec.pdf"
       },
       "xdr-240e": {
         "model": "XDR-240E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-240E-spec.pdf"
       },
       "xdr-480e": {
         "model": "XDR-480E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-480E-spec.pdf"
       },
       "xdr-960e": {
         "model": "XDR-960E",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XDR-960E-spec.pdf"
       }
     }
   },
@@ -2520,34 +2520,34 @@ export const leafModelTreeFallback = [
       {
         "model": "XTR-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XTR-240-spec.pdf"
       },
       {
         "model": "XTR-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XTR-480-spec.pdf"
       },
       {
         "model": "XTR-960",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XTR-960-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xtr-240": {
         "model": "XTR-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XTR-240-spec.pdf"
       },
       "xtr-480": {
         "model": "XTR-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XTR-480-spec.pdf"
       },
       "xtr-960": {
         "model": "XTR-960",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XTR-960-spec.pdf"
       }
     }
   },
@@ -3968,14 +3968,14 @@ export const leafModelTreeFallback = [
       {
         "model": "DLC-02-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLC-02-KN-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "dlc-02-kn": {
         "model": "DLC-02-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLC-02-KN-spec.pdf"
       }
     }
   },
@@ -4002,14 +4002,14 @@ export const leafModelTreeFallback = [
       {
         "model": "KAA-4R4V-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KAA-4R4V-S-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "kaa-4r4v-s": {
         "model": "KAA-4R4V-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KAA-4R4V-S-spec.pdf"
       }
     }
   },
@@ -4037,14 +4037,14 @@ export const leafModelTreeFallback = [
       {
         "model": "KAA-8R-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KAA-8R-S-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "kaa-8r-s": {
         "model": "KAA-8R-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KAA-8R-S-spec.pdf"
       }
     }
   },
@@ -4072,14 +4072,14 @@ export const leafModelTreeFallback = [
       {
         "model": "KSR-01IP",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KSR-01IP-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ksr-01ip": {
         "model": "KSR-01IP",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KSR-01IP-spec.pdf"
       }
     }
   },
@@ -4109,34 +4109,34 @@ export const leafModelTreeFallback = [
       {
         "model": "LCM-25KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-25KN-spec.pdf"
       },
       {
         "model": "LCM-40KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40KN-spec.pdf"
       },
       {
         "model": "LCM-60KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60KN-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "lcm-25kn": {
         "model": "LCM-25KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-25KN-spec.pdf"
       },
       "lcm-40kn": {
         "model": "LCM-40KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40KN-spec.pdf"
       },
       "lcm-60kn": {
         "model": "LCM-60KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60KN-spec.pdf"
       }
     }
   },
@@ -4164,14 +4164,14 @@ export const leafModelTreeFallback = [
       {
         "model": "KSC-01L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KSC-01L-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ksc-01l": {
         "model": "KSC-01L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KSC-01L-spec.pdf"
       }
     }
   },
@@ -4197,24 +4197,24 @@ export const leafModelTreeFallback = [
       {
         "model": "KNX-20E-640",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KNX-20E-640-spec.pdf"
       },
       {
         "model": "KNX-40E-1280",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KNX-40E-1280-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "knx-20e-640": {
         "model": "KNX-20E-640",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KNX-20E-640-spec.pdf"
       },
       "knx-40e-1280": {
         "model": "KNX-40E-1280",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KNX-40E-1280-SPEC.pdf"
       }
     }
   },
@@ -4242,14 +4242,14 @@ export const leafModelTreeFallback = [
       {
         "model": "KSI-01U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KSI-01U-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ksi-01u": {
         "model": "KSI-01U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/KSI-01U-spec.pdf"
       }
     }
   },
@@ -4277,34 +4277,34 @@ export const leafModelTreeFallback = [
       {
         "model": "PWM-60-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-60-KN-spec.pdf"
       },
       {
         "model": "PWM-120-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-120-KN-spec.pdf"
       },
       {
         "model": "PWM-200-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-200-KN-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "pwm-60-kn": {
         "model": "PWM-60-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-60-KN-spec.pdf"
       },
       "pwm-120-kn": {
         "model": "PWM-120-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-120-KN-spec.pdf"
       },
       "pwm-200-kn": {
         "model": "PWM-200-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-200-KN-spec.pdf"
       }
     }
   },
@@ -4336,246 +4336,34 @@ export const leafModelTreeFallback = [
       {
         "model": "XLC-25-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-25-KN-spec.pdf"
       },
       {
         "model": "XLC-40-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-40-KN-spec.pdf"
       },
       {
         "model": "XLC-60-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-60-KN-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xlc-25-kn": {
         "model": "XLC-25-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-25-KN-spec.pdf"
       },
       "xlc-40-kn": {
         "model": "XLC-40-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-40-KN-spec.pdf"
       },
       "xlc-60-kn": {
         "model": "XLC-60-KN",
         "imageUrl": "",
-        "pdfUrl": ""
-      }
-    }
-  },
-  {
-    "key": "AC/DC|LED Accessory|COB LED Strips",
-    "major": "AC/DC",
-    "subcategory": "LED Accessory",
-    "leaf": "COB LED Strips",
-    "groups": [],
-    "wattage": "",
-    "features": [
-      "COB LED packaging, no light spots",
-      "CRI >90 and soft light",
-      "4KV ESD testing",
-      "Wide beam angle with 180°",
-      "5M per reel, can be cut and used every 5cm",
-      "CE/BIS certification",
-      "2 years warranty"
-    ],
-    "thumbnailUrl": "/catalog/meanwell/thumbnails/cfa320a4.png",
-    "models": [
-      "CFA320A4-BN01",
-      "CFA320A4-BT01",
-      "CFA320A4-BW01",
-      "CFC320A4-BN01",
-      "CFC320A4-BT01",
-      "CFC320A4-BW01"
-    ],
-    "modelAssets": [
-      {
-        "model": "CFA320A4-BN01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "CFA320A4-BT01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "CFA320A4-BW01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "CFC320A4-BN01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "CFC320A4-BT01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "CFC320A4-BW01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      }
-    ],
-    "modelAssetsByKey": {
-      "cfa320a4-bn01": {
-        "model": "CFA320A4-BN01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "cfa320a4-bt01": {
-        "model": "CFA320A4-BT01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "cfa320a4-bw01": {
-        "model": "CFA320A4-BW01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "cfc320a4-bn01": {
-        "model": "CFC320A4-BN01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "cfc320a4-bt01": {
-        "model": "CFC320A4-BT01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "cfc320a4-bw01": {
-        "model": "CFC320A4-BW01",
-        "imageUrl": "",
-        "pdfUrl": ""
-      }
-    }
-  },
-  {
-    "key": "AC/DC|LED Accessory|DALI-2 PIR Motion Sensor",
-    "major": "AC/DC",
-    "subcategory": "LED Accessory",
-    "leaf": "DALI-2 PIR Motion Sensor",
-    "groups": [],
-    "wattage": "NA",
-    "features": [
-      "DALI - 2 certified PIR motion sensor",
-      "Compliant with IEC - 62386 - 101/ 103/ 303/ 304 standards",
-      "Compatible with DALI - 2 controllers, such as MEAN WELL DLC - 02",
-      "Powered diredtly from DALI Bus",
-      "PIR sensing technology",
-      "Built - in daylight sensor",
-      "5 - year warranty"
-    ],
-    "thumbnailUrl": "/catalog/meanwell/thumbnails/dlc.jpg",
-    "models": [
-      "DLC-02",
-      "DLS-203-P",
-      "DLS-208-P"
-    ],
-    "modelAssets": [
-      {
-        "model": "DLC-02",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "DLS-203-P",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "DLS-208-P",
-        "imageUrl": "",
-        "pdfUrl": ""
-      }
-    ],
-    "modelAssetsByKey": {
-      "dlc-02": {
-        "model": "DLC-02",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "dls-203-p": {
-        "model": "DLS-203-P",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "dls-208-p": {
-        "model": "DLS-208-P",
-        "imageUrl": "",
-        "pdfUrl": ""
-      }
-    }
-  },
-  {
-    "key": "AC/DC|LED Accessory|DALI-2 Touch Panel",
-    "major": "AC/DC",
-    "subcategory": "LED Accessory",
-    "leaf": "DALI-2 Touch Panel",
-    "groups": [],
-    "wattage": "NA",
-    "features": [
-      "DALI - 2 certified Touch panel",
-      "Compliant with IEC - 62386 - 301 Push button",
-      "Powered by DALI Bus",
-      "Each Button with multiple trigger modes: Short Press/ Double press/ Long press"
-    ],
-    "thumbnailUrl": "/catalog/meanwell/thumbnails/dtp-206.jpg",
-    "models": [
-      "DTP-206-U",
-      "DTP-204-U",
-      "DTP-206-E",
-      "DTP-203-E"
-    ],
-    "modelAssets": [
-      {
-        "model": "DTP-206-U",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "DTP-204-U",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "DTP-206-E",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "DTP-203-E",
-        "imageUrl": "",
-        "pdfUrl": ""
-      }
-    ],
-    "modelAssetsByKey": {
-      "dtp-206-u": {
-        "model": "DTP-206-U",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "dtp-204-u": {
-        "model": "DTP-204-U",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "dtp-206-e": {
-        "model": "DTP-206-E",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "dtp-203-e": {
-        "model": "DTP-203-E",
-        "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-60-KN-spec.pdf"
       }
     }
   },
@@ -4601,14 +4389,14 @@ export const leafModelTreeFallback = [
       {
         "model": "DAP-04",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DAP-04-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "dap-04": {
         "model": "DAP-04",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DAP-04-SPEC.pdf"
       }
     }
   },
@@ -4630,14 +4418,14 @@ export const leafModelTreeFallback = [
       {
         "model": "SDP-001",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SDP-001-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "sdp-001": {
         "model": "SDP-001",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SDP-001-SPEC.pdf"
       }
     }
   },
@@ -4664,34 +4452,34 @@ export const leafModelTreeFallback = [
       {
         "model": "SPD-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPD-20-SPEC.pdf"
       },
       {
         "model": "SPD-20HP",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPD-20HP-spec.pdf"
       },
       {
         "model": "SPD-10S-277S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPD-10S-277S-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "spd-20": {
         "model": "SPD-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPD-20-SPEC.pdf"
       },
       "spd-20hp": {
         "model": "SPD-20HP",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPD-20HP-spec.pdf"
       },
       "spd-10s-277s": {
         "model": "SPD-10S-277S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPD-10S-277S-spec.pdf"
       }
     }
   },
@@ -4728,104 +4516,104 @@ export const leafModelTreeFallback = [
       {
         "model": "APV-8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-8-SPEC.pdf"
       },
       {
         "model": "APV-12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-12-SPEC.pdf"
       },
       {
         "model": "APV-16",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-16-SPEC.pdf"
       },
       {
         "model": "APV-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-25-SPEC.pdf"
       },
       {
         "model": "APV-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-35-SPEC.pdf"
       },
       {
         "model": "APC-8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-8-SPEC.pdf"
       },
       {
         "model": "APC-12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-12-SPEC.pdf"
       },
       {
         "model": "APC-16",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-16-SPEC.pdf"
       },
       {
         "model": "APC-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-25-SPEC.pdf"
       },
       {
         "model": "APC-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-35-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "apv-8": {
         "model": "APV-8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-8-SPEC.pdf"
       },
       "apv-12": {
         "model": "APV-12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-12-SPEC.pdf"
       },
       "apv-16": {
         "model": "APV-16",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-16-SPEC.pdf"
       },
       "apv-25": {
         "model": "APV-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-25-SPEC.pdf"
       },
       "apv-35": {
         "model": "APV-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APV-35-SPEC.pdf"
       },
       "apc-8": {
         "model": "APC-8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-8-SPEC.pdf"
       },
       "apc-12": {
         "model": "APC-12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-12-SPEC.pdf"
       },
       "apc-16": {
         "model": "APC-16",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-16-SPEC.pdf"
       },
       "apc-25": {
         "model": "APC-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-25-SPEC.pdf"
       },
       "apc-35": {
         "model": "APC-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/APC-35-SPEC.pdf"
       }
     }
   },
@@ -4846,7 +4634,7 @@ export const leafModelTreeFallback = [
       "Communication interface: RJ - 45 and KNX, for connection expansion with other building automation systems",
       "DIN - Rail mounting, compact design 8SU width (144x 90x 58.4mm)"
     ],
-    "thumbnailUrl": "/catalog/meanwell/thumbnails/dlc-2.jpg",
+    "thumbnailUrl": "/catalog/meanwell/thumbnails/dlc.jpg",
     "models": [
       "DLC-02",
       "DLC-02-KN"
@@ -4855,24 +4643,24 @@ export const leafModelTreeFallback = [
       {
         "model": "DLC-02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLC-02-SPEC.PDF"
       },
       {
         "model": "DLC-02-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLC-02-KN-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "dlc-02": {
         "model": "DLC-02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLC-02-SPEC.PDF"
       },
       "dlc-02-kn": {
         "model": "DLC-02-KN",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLC-02-KN-spec.pdf"
       }
     }
   },
@@ -4903,24 +4691,24 @@ export const leafModelTreeFallback = [
       {
         "model": "DLP-04R",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLP-04R-SPEC.PDF"
       },
       {
         "model": "DLP-04L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLP-04L-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "dlp-04r": {
         "model": "DLP-04R",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLP-04R-SPEC.PDF"
       },
       "dlp-04l": {
         "model": "DLP-04L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLP-04L-SPEC.PDF"
       }
     }
   },
@@ -4954,84 +4742,84 @@ export const leafModelTreeFallback = [
       {
         "model": "ELG-75",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ELG-75.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-75-SPEC.pdf"
       },
       {
         "model": "ELG-100",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ELG-100.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-100-SPEC.pdf"
       },
       {
         "model": "ELG-150",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ELG-150.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-150-SPEC.pdf"
       },
       {
         "model": "ELG-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-200-SPEC.pdf"
       },
       {
         "model": "ELG-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-240-SPEC.pdf"
       },
       {
         "model": "ELG-300",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ELG-300.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-300-spec.pdf"
       },
       {
         "model": "ELG-100U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-100U-SPEC.pdf"
       },
       {
         "model": "ELG-150U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-150U-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "elg-75": {
         "model": "ELG-75",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ELG-75.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-75-SPEC.pdf"
       },
       "elg-100": {
         "model": "ELG-100",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ELG-100.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-100-SPEC.pdf"
       },
       "elg-150": {
         "model": "ELG-150",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ELG-150.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-150-SPEC.pdf"
       },
       "elg-200": {
         "model": "ELG-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-200-SPEC.pdf"
       },
       "elg-240": {
         "model": "ELG-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-240-SPEC.pdf"
       },
       "elg-300": {
         "model": "ELG-300",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/ELG-300.pdf"
+        "pdfUrl": "/catalog/meanwell/ELG-300-spec.pdf"
       },
       "elg-100u": {
         "model": "ELG-100U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-100U-SPEC.pdf"
       },
       "elg-150u": {
         "model": "ELG-150U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-150U-SPEC.pdf"
       }
     }
   },
@@ -5068,64 +4856,64 @@ export const leafModelTreeFallback = [
       {
         "model": "ELG-75-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-75-C-SPEC.pdf"
       },
       {
         "model": "ELG-100-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-100-C-SPEC.pdf"
       },
       {
         "model": "ELG-150-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-150-C-SPEC.pdf"
       },
       {
         "model": "ELG-200-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-200-C-SPEC.pdf"
       },
       {
         "model": "ELG-240-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-240-C-SPEC.pdf"
       },
       {
         "model": "ELGC-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELGC-300-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "elg-75-c": {
         "model": "ELG-75-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-75-C-SPEC.pdf"
       },
       "elg-100-c": {
         "model": "ELG-100-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-100-C-SPEC.pdf"
       },
       "elg-150-c": {
         "model": "ELG-150-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-150-C-SPEC.pdf"
       },
       "elg-200-c": {
         "model": "ELG-200-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-200-C-SPEC.pdf"
       },
       "elg-240-c": {
         "model": "ELG-240-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELG-240-C-SPEC.pdf"
       },
       "elgc-300": {
         "model": "ELGC-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELGC-300-spec.pdf"
       }
     }
   },
@@ -5152,24 +4940,24 @@ export const leafModelTreeFallback = [
       {
         "model": "GSV30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSV30-spec.pdf"
       },
       {
         "model": "GSV60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSV60-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "gsv30": {
         "model": "GSV30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSV30-spec.pdf"
       },
       "gsv60": {
         "model": "GSV60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GSV60-spec.pdf"
       }
     }
   },
@@ -5207,104 +4995,104 @@ export const leafModelTreeFallback = [
       {
         "model": "HBG-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-60-SPEC.pdf"
       },
       {
         "model": "HBG-100(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-100(DA)-SPEC.PDF"
       },
       {
         "model": "HBG-160(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-160(DA)-SPEC.PDF"
       },
       {
         "model": "HBG-200(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-200(DA)-SPEC.PDF"
       },
       {
         "model": "HBG-240(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-240(DA)-SPEC.PDF"
       },
       {
         "model": "HBGC-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBGC-300-spec.pdf"
       },
       {
         "model": "HBG-60-P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-60-P-spec.pdf"
       },
       {
         "model": "HBG-100P(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-100P(DA)-SPEC.PDF"
       },
       {
         "model": "HBG-160P(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-160P(DA)-SPEC.PDF"
       },
       {
         "model": "HBG-240P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-240P-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hbg-60": {
         "model": "HBG-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-60-SPEC.pdf"
       },
       "hbg-100da": {
         "model": "HBG-100(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-100(DA)-SPEC.PDF"
       },
       "hbg-160da": {
         "model": "HBG-160(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-160(DA)-SPEC.PDF"
       },
       "hbg-200da": {
         "model": "HBG-200(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-200(DA)-SPEC.PDF"
       },
       "hbg-240da": {
         "model": "HBG-240(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-240(DA)-SPEC.PDF"
       },
       "hbgc-300": {
         "model": "HBGC-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBGC-300-spec.pdf"
       },
       "hbg-60-p": {
         "model": "HBG-60-P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-60-P-spec.pdf"
       },
       "hbg-100pda": {
         "model": "HBG-100P(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-100P(DA)-SPEC.PDF"
       },
       "hbg-160pda": {
         "model": "HBG-160P(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-160P(DA)-SPEC.PDF"
       },
       "hbg-240p": {
         "model": "HBG-240P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HBG-240P-SPEC.pdf"
       }
     }
   },
@@ -5343,114 +5131,114 @@ export const leafModelTreeFallback = [
       {
         "model": "HLG-40H",
         "imageUrl": "/catalog/meanwell/HLG-40H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-40H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-40H-SPEC.pdf"
       },
       {
         "model": "HLG-60H",
         "imageUrl": "/catalog/meanwell/HLG-60H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-60H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-60H-SPEC.pdf"
       },
       {
         "model": "HLG-80H",
         "imageUrl": "/catalog/meanwell/HLG-80H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-80H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-80H-SPEC.pdf"
       },
       {
         "model": "HLG-100H",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/HLG-100H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-100H-SPEC.pdf"
       },
       {
         "model": "HLG-120H",
         "imageUrl": "/catalog/meanwell/HLG-120H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-120H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-120H-SPEC.pdf"
       },
       {
         "model": "HLG-150H",
         "imageUrl": "/catalog/meanwell/HLG-150H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-150H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-150H-SPEC.pdf"
       },
       {
         "model": "HLG-185H",
         "imageUrl": "/catalog/meanwell/HLG-185H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-185H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-185H-SPEC.pdf"
       },
       {
         "model": "HLG-240H",
         "imageUrl": "/catalog/meanwell/HLG-240H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-240H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-240H-spec.pdf"
       },
       {
         "model": "HLG-320H",
         "imageUrl": "/catalog/meanwell/HLG-320H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-320H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-320H-SPEC.pdf"
       },
       {
         "model": "HLG-480H",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/HLG-480H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-480H-spec.pdf"
       },
       {
         "model": "HLG-600H",
         "imageUrl": "/catalog/meanwell/HLG-600H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-600H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-600H-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hlg-40h": {
         "model": "HLG-40H",
         "imageUrl": "/catalog/meanwell/HLG-40H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-40H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-40H-SPEC.pdf"
       },
       "hlg-60h": {
         "model": "HLG-60H",
         "imageUrl": "/catalog/meanwell/HLG-60H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-60H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-60H-SPEC.pdf"
       },
       "hlg-80h": {
         "model": "HLG-80H",
         "imageUrl": "/catalog/meanwell/HLG-80H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-80H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-80H-SPEC.pdf"
       },
       "hlg-100h": {
         "model": "HLG-100H",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/HLG-100H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-100H-SPEC.pdf"
       },
       "hlg-120h": {
         "model": "HLG-120H",
         "imageUrl": "/catalog/meanwell/HLG-120H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-120H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-120H-SPEC.pdf"
       },
       "hlg-150h": {
         "model": "HLG-150H",
         "imageUrl": "/catalog/meanwell/HLG-150H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-150H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-150H-SPEC.pdf"
       },
       "hlg-185h": {
         "model": "HLG-185H",
         "imageUrl": "/catalog/meanwell/HLG-185H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-185H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-185H-SPEC.pdf"
       },
       "hlg-240h": {
         "model": "HLG-240H",
         "imageUrl": "/catalog/meanwell/HLG-240H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-240H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-240H-spec.pdf"
       },
       "hlg-320h": {
         "model": "HLG-320H",
         "imageUrl": "/catalog/meanwell/HLG-320H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-320H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-320H-SPEC.pdf"
       },
       "hlg-480h": {
         "model": "HLG-480H",
         "imageUrl": "",
-        "pdfUrl": "/catalog/meanwell/HLG-480H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-480H-spec.pdf"
       },
       "hlg-600h": {
         "model": "HLG-600H",
         "imageUrl": "/catalog/meanwell/HLG-600H.jpg",
-        "pdfUrl": "/catalog/meanwell/HLG-600H.pdf"
+        "pdfUrl": "/catalog/meanwell/HLG-600H-SPEC.pdf"
       }
     }
   },
@@ -5484,74 +5272,74 @@ export const leafModelTreeFallback = [
       {
         "model": "HLG-60H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-60H-C-SPEC.pdf"
       },
       {
         "model": "HLG-80H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-80H-C-SPEC.pdf"
       },
       {
         "model": "HLG-120H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-120H-C-SPEC.pdf"
       },
       {
         "model": "HLG-185H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-185H-C-SPEC.pdf"
       },
       {
         "model": "HLG-240H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-240H-C-SPEC.pdf"
       },
       {
         "model": "HLG-320H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-320H-C-SPEC.pdf"
       },
       {
         "model": "HLG-480H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-480H-C-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hlg-60h-c": {
         "model": "HLG-60H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-60H-C-SPEC.pdf"
       },
       "hlg-80h-c": {
         "model": "HLG-80H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-80H-C-SPEC.pdf"
       },
       "hlg-120h-c": {
         "model": "HLG-120H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-120H-C-SPEC.pdf"
       },
       "hlg-185h-c": {
         "model": "HLG-185H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-185H-C-SPEC.pdf"
       },
       "hlg-240h-c": {
         "model": "HLG-240H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-240H-C-SPEC.pdf"
       },
       "hlg-320h-c": {
         "model": "HLG-320H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-320H-C-SPEC.pdf"
       },
       "hlg-480h-c": {
         "model": "HLG-480H-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLG-480H-C-spec.pdf"
       }
     }
   },
@@ -5579,34 +5367,34 @@ export const leafModelTreeFallback = [
       {
         "model": "HLN-40H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLN-40H-SPEC.PDF"
       },
       {
         "model": "HLN-60H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLN-60H-SPEC.PDF"
       },
       {
         "model": "HLN-80H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLN-80H-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "hln-40h": {
         "model": "HLN-40H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLN-40H-SPEC.PDF"
       },
       "hln-60h": {
         "model": "HLN-60H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLN-60H-SPEC.PDF"
       },
       "hln-80h": {
         "model": "HLN-80H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLN-80H-SPEC.PDF"
       }
     }
   },
@@ -5631,24 +5419,24 @@ export const leafModelTreeFallback = [
       {
         "model": "HLP-60H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLP-60H-SPEC.PDF"
       },
       {
         "model": "HLP-80H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLP-80H-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "hlp-60h": {
         "model": "HLP-60H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLP-60H-SPEC.PDF"
       },
       "hlp-80h": {
         "model": "HLP-80H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HLP-80H-SPEC.PDF"
       }
     }
   },
@@ -5688,134 +5476,134 @@ export const leafModelTreeFallback = [
       {
         "model": "HVG-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-65-SPEC.pdf"
       },
       {
         "model": "HVG-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-100-SPEC.pdf"
       },
       {
         "model": "HVG-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-150-SPEC.pdf"
       },
       {
         "model": "HVG-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-240-SPEC.pdf"
       },
       {
         "model": "HVG-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-320-SPEC.pdf"
       },
       {
         "model": "HVG-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-480-SPEC.pdf"
       },
       {
         "model": "HVGC-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-65-SPEC.pdf"
       },
       {
         "model": "HVGC-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-150-SPEC.pdf"
       },
       {
         "model": "HVGC-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-240-SPEC.pdf"
       },
       {
         "model": "HVGC-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-320-SPEC.pdf"
       },
       {
         "model": "HVGC-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-480-spec.pdf"
       },
       {
         "model": "HVGC-650",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-650-spec.pdf"
       },
       {
         "model": "HVGC-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-1000-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hvg-65": {
         "model": "HVG-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-65-SPEC.pdf"
       },
       "hvg-100": {
         "model": "HVG-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-100-SPEC.pdf"
       },
       "hvg-150": {
         "model": "HVG-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-150-SPEC.pdf"
       },
       "hvg-240": {
         "model": "HVG-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-240-SPEC.pdf"
       },
       "hvg-320": {
         "model": "HVG-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-320-SPEC.pdf"
       },
       "hvg-480": {
         "model": "HVG-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVG-480-SPEC.pdf"
       },
       "hvgc-65": {
         "model": "HVGC-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-65-SPEC.pdf"
       },
       "hvgc-150": {
         "model": "HVGC-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-150-SPEC.pdf"
       },
       "hvgc-240": {
         "model": "HVGC-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-240-SPEC.pdf"
       },
       "hvgc-320": {
         "model": "HVGC-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-320-SPEC.pdf"
       },
       "hvgc-480": {
         "model": "HVGC-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-480-spec.pdf"
       },
       "hvgc-650": {
         "model": "HVGC-650",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-650-spec.pdf"
       },
       "hvgc-1000": {
         "model": "HVGC-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HVGC-1000-spec.pdf"
       }
     }
   },
@@ -5850,74 +5638,74 @@ export const leafModelTreeFallback = [
       {
         "model": "LCM-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-25-SPEC.PDF"
       },
       {
         "model": "LCM-40(EO)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40(EO)-SPEC.PDF"
       },
       {
         "model": "LCM-60(EO)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60(EO)-SPEC.PDF"
       },
       {
         "model": "LCM-25DA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-25DA-SPEC.PDF"
       },
       {
         "model": "LCM-40DA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40DA-SPEC.PDF"
       },
       {
         "model": "LCM-40TW",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40TW-spec.pdf"
       },
       {
         "model": "LCM-60DA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60DA-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "lcm-25": {
         "model": "LCM-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-25-SPEC.PDF"
       },
       "lcm-40eo": {
         "model": "LCM-40(EO)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40(EO)-SPEC.PDF"
       },
       "lcm-60eo": {
         "model": "LCM-60(EO)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60(EO)-SPEC.PDF"
       },
       "lcm-25da": {
         "model": "LCM-25DA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-25DA-SPEC.PDF"
       },
       "lcm-40da": {
         "model": "LCM-40DA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40DA-SPEC.PDF"
       },
       "lcm-40tw": {
         "model": "LCM-40TW",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40TW-spec.pdf"
       },
       "lcm-60da": {
         "model": "LCM-60DA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60DA-SPEC.PDF"
       }
     }
   },
@@ -5948,44 +5736,44 @@ export const leafModelTreeFallback = [
       {
         "model": "LCM-40U(EO)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40U(EO)-spec.pdf"
       },
       {
         "model": "LCM-60U(EO)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60U(EO)-spec.pdf"
       },
       {
         "model": "LCM-40UDA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40UDA-SPEC.PDF"
       },
       {
         "model": "LCM-60UDA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60UDA-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "lcm-40ueo": {
         "model": "LCM-40U(EO)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40U(EO)-spec.pdf"
       },
       "lcm-60ueo": {
         "model": "LCM-60U(EO)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60U(EO)-spec.pdf"
       },
       "lcm-40uda": {
         "model": "LCM-40UDA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-40UDA-SPEC.PDF"
       },
       "lcm-60uda": {
         "model": "LCM-60UDA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LCM-60UDA-SPEC.PDF"
       }
     }
   },
@@ -6012,14 +5800,14 @@ export const leafModelTreeFallback = [
       {
         "model": "LDB-L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDB-L-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ldb-l": {
         "model": "LDB-L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDB-L-SPEC.pdf"
       }
     }
   },
@@ -6051,34 +5839,34 @@ export const leafModelTreeFallback = [
       {
         "model": "LDC-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDC-35-spec.pdf"
       },
       {
         "model": "LDC-55",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDC-55-spec.pdf"
       },
       {
         "model": "LDC-80",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDC-80-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ldc-35": {
         "model": "LDC-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDC-35-spec.pdf"
       },
       "ldc-55": {
         "model": "LDC-55",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDC-55-spec.pdf"
       },
       "ldc-80": {
         "model": "LDC-80",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDC-80-spec.pdf"
       }
     }
   },
@@ -6107,34 +5895,34 @@ export const leafModelTreeFallback = [
       {
         "model": "LDD-L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDD-L-spec.pdf"
       },
       {
         "model": "LDDS-H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDDS-H-spec.pdf"
       },
       {
         "model": "NLDD-H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NLDD-H-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ldd-l": {
         "model": "LDD-L",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDD-L-spec.pdf"
       },
       "ldds-h": {
         "model": "LDDS-H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDDS-H-spec.pdf"
       },
       "nldd-h": {
         "model": "NLDD-H",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NLDD-H-spec.pdf"
       }
     }
   },
@@ -6163,34 +5951,34 @@ export const leafModelTreeFallback = [
       {
         "model": "LDH-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDH-25-spec.pdf"
       },
       {
         "model": "LDH-45(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDH-45(DA)-SPEC.PDF"
       },
       {
         "model": "LDH-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDH-65-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ldh-25": {
         "model": "LDH-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDH-25-spec.pdf"
       },
       "ldh-45da": {
         "model": "LDH-45(DA)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDH-45(DA)-SPEC.PDF"
       },
       "ldh-65": {
         "model": "LDH-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LDH-65-spec.pdf"
       }
     }
   },
@@ -6230,134 +6018,134 @@ export const leafModelTreeFallback = [
       {
         "model": "LPH-18",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPH-18-SPEC.pdf"
       },
       {
         "model": "LPV-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-20-SPEC.pdf"
       },
       {
         "model": "LPV-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-35-SPEC.pdf"
       },
       {
         "model": "LPV-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-60-SPEC.pdf"
       },
       {
         "model": "LPV-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-100-SPEC.pdf"
       },
       {
         "model": "LPVL-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPVL-150-SPEC.PDF"
       },
       {
         "model": "LPV-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-150-SPEC.PDF"
       },
       {
         "model": "LPHC-18",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPHC-18-SPEC.pdf"
       },
       {
         "model": "LPC-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-20-SPEC.pdf"
       },
       {
         "model": "LPC-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-35-SPEC.pdf"
       },
       {
         "model": "LPC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-60-SPEC.pdf"
       },
       {
         "model": "LPC-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-100-SPEC.pdf"
       },
       {
         "model": "LPC-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-150-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "lph-18": {
         "model": "LPH-18",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPH-18-SPEC.pdf"
       },
       "lpv-20": {
         "model": "LPV-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-20-SPEC.pdf"
       },
       "lpv-35": {
         "model": "LPV-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-35-SPEC.pdf"
       },
       "lpv-60": {
         "model": "LPV-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-60-SPEC.pdf"
       },
       "lpv-100": {
         "model": "LPV-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-100-SPEC.pdf"
       },
       "lpvl-150": {
         "model": "LPVL-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPVL-150-SPEC.PDF"
       },
       "lpv-150": {
         "model": "LPV-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPV-150-SPEC.PDF"
       },
       "lphc-18": {
         "model": "LPHC-18",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPHC-18-SPEC.pdf"
       },
       "lpc-20": {
         "model": "LPC-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-20-SPEC.pdf"
       },
       "lpc-35": {
         "model": "LPC-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-35-SPEC.pdf"
       },
       "lpc-60": {
         "model": "LPC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-60-SPEC.pdf"
       },
       "lpc-100": {
         "model": "LPC-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-100-SPEC.pdf"
       },
       "lpc-150": {
         "model": "LPC-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPC-150-SPEC.pdf"
       }
     }
   },
@@ -6394,104 +6182,104 @@ export const leafModelTreeFallback = [
       {
         "model": "LPF-16",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-16-SPEC.PDF"
       },
       {
         "model": "LPF-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-25-SPEC.PDF"
       },
       {
         "model": "LPF-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-40-SPEC.PDF"
       },
       {
         "model": "LPF-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-60-SPEC.PDF"
       },
       {
         "model": "LPF-90",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-90-SPEC.PDF"
       },
       {
         "model": "LPF-16D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-16D-SPEC.PDF"
       },
       {
         "model": "LPF-25D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-25D-SPEC.PDF"
       },
       {
         "model": "LPF-40D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-40D-SPEC.PDF"
       },
       {
         "model": "LPF-60D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-60D-SPEC.PDF"
       },
       {
         "model": "LPF-90D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-90D-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "lpf-16": {
         "model": "LPF-16",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-16-SPEC.PDF"
       },
       "lpf-25": {
         "model": "LPF-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-25-SPEC.PDF"
       },
       "lpf-40": {
         "model": "LPF-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-40-SPEC.PDF"
       },
       "lpf-60": {
         "model": "LPF-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-60-SPEC.PDF"
       },
       "lpf-90": {
         "model": "LPF-90",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-90-SPEC.PDF"
       },
       "lpf-16d": {
         "model": "LPF-16D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-16D-SPEC.PDF"
       },
       "lpf-25d": {
         "model": "LPF-25D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-25D-SPEC.PDF"
       },
       "lpf-40d": {
         "model": "LPF-40D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-40D-SPEC.PDF"
       },
       "lpf-60d": {
         "model": "LPF-60D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-60D-SPEC.PDF"
       },
       "lpf-90d": {
         "model": "LPF-90D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPF-90D-SPEC.PDF"
       }
     }
   },
@@ -6518,14 +6306,14 @@ export const leafModelTreeFallback = [
       {
         "model": "NHDD-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NHDD-40-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "nhdd-40": {
         "model": "NHDD-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NHDD-40-spec.pdf"
       }
     }
   },
@@ -6562,94 +6350,94 @@ export const leafModelTreeFallback = [
       {
         "model": "NPF-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-40-SPEC.PDF"
       },
       {
         "model": "NPF-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-60-SPEC.PDF"
       },
       {
         "model": "NPF-90",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-90-SPEC.PDF"
       },
       {
         "model": "NPF-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-120-SPEC.PDF"
       },
       {
         "model": "NPF-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-200-spec.pdf"
       },
       {
         "model": "NPF-40D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-40D-SPEC.PDF"
       },
       {
         "model": "NPF-60D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-60D-SPEC.PDF"
       },
       {
         "model": "NPF-90D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-90D-SPEC.PDF"
       },
       {
         "model": "NPF-120D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-120D-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "npf-40": {
         "model": "NPF-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-40-SPEC.PDF"
       },
       "npf-60": {
         "model": "NPF-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-60-SPEC.PDF"
       },
       "npf-90": {
         "model": "NPF-90",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-90-SPEC.PDF"
       },
       "npf-120": {
         "model": "NPF-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-120-SPEC.PDF"
       },
       "npf-200": {
         "model": "NPF-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-200-spec.pdf"
       },
       "npf-40d": {
         "model": "NPF-40D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-40D-SPEC.PDF"
       },
       "npf-60d": {
         "model": "NPF-60D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-60D-SPEC.PDF"
       },
       "npf-90d": {
         "model": "NPF-90D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-90D-SPEC.PDF"
       },
       "npf-120d": {
         "model": "NPF-120D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NPF-120D-SPEC.PDF"
       }
     }
   },
@@ -6680,44 +6468,44 @@ export const leafModelTreeFallback = [
       {
         "model": "PCD-16",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PCD-16-SPEC.PDF"
       },
       {
         "model": "PCD-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PCD-25-SPEC.PDF"
       },
       {
         "model": "PCD-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PCD-40-SPEC.PDF"
       },
       {
         "model": "PCD-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PCD-60-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "pcd-16": {
         "model": "PCD-16",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PCD-16-SPEC.PDF"
       },
       "pcd-25": {
         "model": "PCD-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PCD-25-SPEC.PDF"
       },
       "pcd-40": {
         "model": "PCD-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PCD-40-SPEC.PDF"
       },
       "pcd-60": {
         "model": "PCD-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PCD-60-SPEC.PDF"
       }
     }
   },
@@ -6744,44 +6532,44 @@ export const leafModelTreeFallback = [
       {
         "model": "PLC-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLC-30-SPEC.PDF"
       },
       {
         "model": "PLC-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLC-45-SPEC.PDF"
       },
       {
         "model": "PLC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLC-60-SPEC.PDF"
       },
       {
         "model": "PLC-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLC-100-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "plc-30": {
         "model": "PLC-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLC-30-SPEC.PDF"
       },
       "plc-45": {
         "model": "PLC-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLC-45-SPEC.PDF"
       },
       "plc-60": {
         "model": "PLC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLC-60-SPEC.PDF"
       },
       "plc-100": {
         "model": "PLC-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLC-100-SPEC.PDF"
       }
     }
   },
@@ -6810,34 +6598,34 @@ export const leafModelTreeFallback = [
       {
         "model": "PLD-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLD-25-SPEC.PDF"
       },
       {
         "model": "PLD-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLD-40-SPEC.PDF"
       },
       {
         "model": "PLD-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLD-60-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "pld-25": {
         "model": "PLD-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLD-25-SPEC.PDF"
       },
       "pld-40": {
         "model": "PLD-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLD-40-SPEC.PDF"
       },
       "pld-60": {
         "model": "PLD-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLD-60-SPEC.PDF"
       }
     }
   },
@@ -6867,24 +6655,24 @@ export const leafModelTreeFallback = [
       {
         "model": "PLM-12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLM-12-SPEC.PDF"
       },
       {
         "model": "PLM-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLM-25-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "plm-12": {
         "model": "PLM-12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLM-12-SPEC.PDF"
       },
       "plm-25": {
         "model": "PLM-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLM-25-SPEC.PDF"
       }
     }
   },
@@ -6912,54 +6700,54 @@ export const leafModelTreeFallback = [
       {
         "model": "PLN-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-20-SPEC.PDF"
       },
       {
         "model": "PLN-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-30-SPEC.PDF"
       },
       {
         "model": "PLN-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-45-SPEC.PDF"
       },
       {
         "model": "PLN-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-60-SPEC.PDF"
       },
       {
         "model": "PLN-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-100-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "pln-20": {
         "model": "PLN-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-20-SPEC.PDF"
       },
       "pln-30": {
         "model": "PLN-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-30-SPEC.PDF"
       },
       "pln-45": {
         "model": "PLN-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-45-SPEC.PDF"
       },
       "pln-60": {
         "model": "PLN-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-60-SPEC.PDF"
       },
       "pln-100": {
         "model": "PLN-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLN-100-SPEC.PDF"
       }
     }
   },
@@ -6983,24 +6771,24 @@ export const leafModelTreeFallback = [
       {
         "model": "PLP-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLP-30-SPEC.PDF"
       },
       {
         "model": "PLP-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLP-60-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "plp-30": {
         "model": "PLP-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLP-30-SPEC.PDF"
       },
       "plp-60": {
         "model": "PLP-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PLP-60-SPEC.PDF"
       }
     }
   },
@@ -7033,54 +6821,54 @@ export const leafModelTreeFallback = [
       {
         "model": "PWM-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-40-SPEC.PDF"
       },
       {
         "model": "PWM-60(DA2)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-60(DA2)-SPEC.PDF"
       },
       {
         "model": "PWM-90(DA2)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-90(DA2)-SPEC.PDF"
       },
       {
         "model": "PWM-120(DA2)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-120(DA2)-SPEC.PDF"
       },
       {
         "model": "PWM-200(DA2)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-200(DA2)-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "pwm-40": {
         "model": "PWM-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-40-SPEC.PDF"
       },
       "pwm-60da2": {
         "model": "PWM-60(DA2)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-60(DA2)-SPEC.PDF"
       },
       "pwm-90da2": {
         "model": "PWM-90(DA2)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-90(DA2)-SPEC.PDF"
       },
       "pwm-120da2": {
         "model": "PWM-120(DA2)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-120(DA2)-SPEC.PDF"
       },
       "pwm-200da2": {
         "model": "PWM-200(DA2)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PWM-200(DA2)-SPEC.PDF"
       }
     }
   },
@@ -7109,34 +6897,34 @@ export const leafModelTreeFallback = [
       {
         "model": "SLD-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLD-50-spec.pdf"
       },
       {
         "model": "SLD-80",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLD-80-spec.pdf"
       },
       {
         "model": "SLD-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLD-150-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "sld-50": {
         "model": "SLD-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLD-50-spec.pdf"
       },
       "sld-80": {
         "model": "SLD-80",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLD-80-spec.pdf"
       },
       "sld-150": {
         "model": "SLD-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLD-150-spec.pdf"
       }
     }
   },
@@ -7164,34 +6952,34 @@ export const leafModelTreeFallback = [
       {
         "model": "SPWM-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPWM-75-spec.pdf"
       },
       {
         "model": "SPWM-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPWM-150-spec.pdf"
       },
       {
         "model": "SPWM-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPWM-240-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "spwm-75": {
         "model": "SPWM-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPWM-75-spec.pdf"
       },
       "spwm-150": {
         "model": "SPWM-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPWM-150-spec.pdf"
       },
       "spwm-240": {
         "model": "SPWM-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPWM-240-spec.pdf"
       }
     }
   },
@@ -7220,34 +7008,34 @@ export const leafModelTreeFallback = [
       {
         "model": "XBG-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XBG-100-spec.pdf"
       },
       {
         "model": "XBG-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XBG-160-spec.pdf"
       },
       {
         "model": "XBG-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XBG-240-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xbg-100": {
         "model": "XBG-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XBG-100-spec.pdf"
       },
       "xbg-160": {
         "model": "XBG-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XBG-160-spec.pdf"
       },
       "xbg-240": {
         "model": "XBG-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XBG-240-spec.pdf"
       }
     }
   },
@@ -7282,34 +7070,34 @@ export const leafModelTreeFallback = [
       {
         "model": "XLC-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-25-spec.pdf"
       },
       {
         "model": "XLC-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-40-spec.pdf"
       },
       {
         "model": "XLC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-60-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xlc-25": {
         "model": "XLC-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-25-spec.pdf"
       },
       "xlc-40": {
         "model": "XLC-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-40-spec.pdf"
       },
       "xlc-60": {
         "model": "XLC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-60-spec.pdf"
       }
     }
   },
@@ -7341,34 +7129,34 @@ export const leafModelTreeFallback = [
       {
         "model": "XLC-25-MA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-25-MA-spec.pdf"
       },
       {
         "model": "XLC-40-MA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-40-MA-spec.pdf"
       },
       {
         "model": "XLC-60-MA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-60-MA-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xlc-25-ma": {
         "model": "XLC-25-MA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-25-MA-spec.pdf"
       },
       "xlc-40-ma": {
         "model": "XLC-40-MA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-40-MA-spec.pdf"
       },
       "xlc-60-ma": {
         "model": "XLC-60-MA",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLC-60-MA-spec.pdf"
       }
     }
   },
@@ -7413,184 +7201,184 @@ export const leafModelTreeFallback = [
       {
         "model": "XLG-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-20-spec.pdf"
       },
       {
         "model": "XLG-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-25-spec.pdf"
       },
       {
         "model": "XLG-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-50-spec.pdf"
       },
       {
         "model": "XLG-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-75-spec.pdf"
       },
       {
         "model": "XLG-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-100-spec.pdf"
       },
       {
         "model": "XLG-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-150-spec.pdf"
       },
       {
         "model": "XLG-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-200-spec.pdf"
       },
       {
         "model": "XLG-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-240-spec.pdf"
       },
       {
         "model": "XLG-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-320-spec.pdf"
       },
       {
         "model": "XLG-240-48-ABV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-240-48-ABV-SPEC.PDF"
       },
       {
         "model": "XLG-320-48-ABV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-320-48-ABV-SPEC.PDF"
       },
       {
         "model": "XLG-50-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-50-DA2-spec.pdf"
       },
       {
         "model": "XLG-75-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-75-DA2-spec.pdf"
       },
       {
         "model": "XLG-100-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-100-DA2-spec.pdf"
       },
       {
         "model": "XLG-150-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-150-DA2-spec.pdf"
       },
       {
         "model": "XLG-200-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-200-DA2-spec.pdf"
       },
       {
         "model": "XLG-240-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-240-DA2-spec.pdf"
       },
       {
         "model": "XLG-320-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-320-DA2-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xlg-20": {
         "model": "XLG-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-20-spec.pdf"
       },
       "xlg-25": {
         "model": "XLG-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-25-spec.pdf"
       },
       "xlg-50": {
         "model": "XLG-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-50-spec.pdf"
       },
       "xlg-75": {
         "model": "XLG-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-75-spec.pdf"
       },
       "xlg-100": {
         "model": "XLG-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-100-spec.pdf"
       },
       "xlg-150": {
         "model": "XLG-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-150-spec.pdf"
       },
       "xlg-200": {
         "model": "XLG-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-200-spec.pdf"
       },
       "xlg-240": {
         "model": "XLG-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-240-spec.pdf"
       },
       "xlg-320": {
         "model": "XLG-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-320-spec.pdf"
       },
       "xlg-240-48-abv": {
         "model": "XLG-240-48-ABV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-240-48-ABV-SPEC.PDF"
       },
       "xlg-320-48-abv": {
         "model": "XLG-320-48-ABV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-320-48-ABV-SPEC.PDF"
       },
       "xlg-50-da2": {
         "model": "XLG-50-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-50-DA2-spec.pdf"
       },
       "xlg-75-da2": {
         "model": "XLG-75-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-75-DA2-spec.pdf"
       },
       "xlg-100-da2": {
         "model": "XLG-100-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-100-DA2-spec.pdf"
       },
       "xlg-150-da2": {
         "model": "XLG-150-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-150-DA2-spec.pdf"
       },
       "xlg-200-da2": {
         "model": "XLG-200-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-200-DA2-spec.pdf"
       },
       "xlg-240-da2": {
         "model": "XLG-240-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-240-DA2-spec.pdf"
       },
       "xlg-320-da2": {
         "model": "XLG-320-DA2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLG-320-DA2-spec.pdf"
       }
     }
   },
@@ -7627,34 +7415,34 @@ export const leafModelTreeFallback = [
       {
         "model": "XLN-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLN-25-spec.pdf"
       },
       {
         "model": "XLN-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLN-40-spec.pdf"
       },
       {
         "model": "XLN-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLN-60-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "xln-25": {
         "model": "XLN-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLN-25-spec.pdf"
       },
       "xln-40": {
         "model": "XLN-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLN-40-spec.pdf"
       },
       "xln-60": {
         "model": "XLN-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/XLN-60-spec.pdf"
       }
     }
   },
@@ -7694,27 +7482,27 @@ export const leafModelTreeFallback = [
       {
         "model": "EPS-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-15-SPEC.PDF"
       },
       {
         "model": "EPS-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-25-SPEC.PDF"
       },
       {
         "model": "EPS-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-35-SPEC.PDF"
       },
       {
         "model": "EPS-45S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-45S-SPEC.PDF"
       },
       {
         "model": "EPS-65S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-65S-SPEC.PDF"
       },
       {
         "model": "EPP-120S",
@@ -7724,17 +7512,17 @@ export const leafModelTreeFallback = [
       {
         "model": "EPS-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-45-SPEC.PDF"
       },
       {
         "model": "EPS-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-65-SPEC.PDF"
       },
       {
         "model": "EPS-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-120-SPEC.PDF"
       },
       {
         "model": "EPP-100",
@@ -7769,34 +7557,34 @@ export const leafModelTreeFallback = [
       {
         "model": "ELP-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELP-75-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "eps-15": {
         "model": "EPS-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-15-SPEC.PDF"
       },
       "eps-25": {
         "model": "EPS-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-25-SPEC.PDF"
       },
       "eps-35": {
         "model": "EPS-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-35-SPEC.PDF"
       },
       "eps-45s": {
         "model": "EPS-45S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-45S-SPEC.PDF"
       },
       "eps-65s": {
         "model": "EPS-65S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-65S-SPEC.PDF"
       },
       "epp-120s": {
         "model": "EPP-120S",
@@ -7806,17 +7594,17 @@ export const leafModelTreeFallback = [
       "eps-45": {
         "model": "EPS-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-45-SPEC.PDF"
       },
       "eps-65": {
         "model": "EPS-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-65-SPEC.PDF"
       },
       "eps-120": {
         "model": "EPS-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/EPS-120-SPEC.PDF"
       },
       "epp-100": {
         "model": "EPP-100",
@@ -7851,7 +7639,7 @@ export const leafModelTreeFallback = [
       "elp-75": {
         "model": "ELP-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ELP-75-SPEC.PDF"
       }
     }
   },
@@ -7894,134 +7682,134 @@ export const leafModelTreeFallback = [
       {
         "model": "IRM-01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-01-SPEC.PDF"
       },
       {
         "model": "IRM-02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-02-SPEC.PDF"
       },
       {
         "model": "IRM-03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-03-SPEC.PDF"
       },
       {
         "model": "IRM-05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-05-SPEC.PDF"
       },
       {
         "model": "IRM-10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-10-SPEC.PDF"
       },
       {
         "model": "IRM-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-15-SPEC.PDF"
       },
       {
         "model": "IRM-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-20-SPEC.PDF"
       },
       {
         "model": "IRM-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-30-SPEC.PDF"
       },
       {
         "model": "IRM-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-45-SPEC.PDF"
       },
       {
         "model": "IRM-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-60-SPEC.PDF"
       },
       {
         "model": "IRM-90",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-90-spec.pdf"
       },
       {
         "model": "IOB-05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IOB-05-spec.pdf"
       },
       {
         "model": "IOB-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IOB-15-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "irm-01": {
         "model": "IRM-01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-01-SPEC.PDF"
       },
       "irm-02": {
         "model": "IRM-02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-02-SPEC.PDF"
       },
       "irm-03": {
         "model": "IRM-03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-03-SPEC.PDF"
       },
       "irm-05": {
         "model": "IRM-05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-05-SPEC.PDF"
       },
       "irm-10": {
         "model": "IRM-10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-10-SPEC.PDF"
       },
       "irm-15": {
         "model": "IRM-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-15-SPEC.PDF"
       },
       "irm-20": {
         "model": "IRM-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-20-SPEC.PDF"
       },
       "irm-30": {
         "model": "IRM-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-30-SPEC.PDF"
       },
       "irm-45": {
         "model": "IRM-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-45-SPEC.PDF"
       },
       "irm-60": {
         "model": "IRM-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-60-SPEC.PDF"
       },
       "irm-90": {
         "model": "IRM-90",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRM-90-spec.pdf"
       },
       "iob-05": {
         "model": "IOB-05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IOB-05-spec.pdf"
       },
       "iob-15": {
         "model": "IOB-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IOB-15-spec.pdf"
       }
     }
   },
@@ -8058,154 +7846,154 @@ export const leafModelTreeFallback = [
       {
         "model": "LPS-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPS-50-SPEC.PDF"
       },
       {
         "model": "LPS-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPS-75-SPEC.PDF"
       },
       {
         "model": "LPS-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPS-100-SPEC.PDF"
       },
       {
         "model": "LPP-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPP-100-SPEC.PDF"
       },
       {
         "model": "LPP-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPP-150-SPEC.PDF"
       },
       {
         "model": "PD-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PD-25-SPEC.PDF"
       },
       {
         "model": "PD-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PD-45-SPEC.PDF"
       },
       {
         "model": "PD-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PD-65-SPEC.PDF"
       },
       {
         "model": "RPD-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPD-65-SPEC.PDF"
       },
       {
         "model": "PID-250",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PID-250-SPEC.PDF"
       },
       {
         "model": "PT-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PT-45-SPEC.PDF"
       },
       {
         "model": "PT-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PT-65-SPEC.PDF"
       },
       {
         "model": "PT-6503",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PT-6503-SPEC.PDF"
       },
       {
         "model": "RPT-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPT-65-SPEC.PDF"
       },
       {
         "model": "PPT-125",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PPT-125-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "lps-50": {
         "model": "LPS-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPS-50-SPEC.PDF"
       },
       "lps-75": {
         "model": "LPS-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPS-75-SPEC.PDF"
       },
       "lps-100": {
         "model": "LPS-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPS-100-SPEC.PDF"
       },
       "lpp-100": {
         "model": "LPP-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPP-100-SPEC.PDF"
       },
       "lpp-150": {
         "model": "LPP-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LPP-150-SPEC.PDF"
       },
       "pd-25": {
         "model": "PD-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PD-25-SPEC.PDF"
       },
       "pd-45": {
         "model": "PD-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PD-45-SPEC.PDF"
       },
       "pd-65": {
         "model": "PD-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PD-65-SPEC.PDF"
       },
       "rpd-65": {
         "model": "RPD-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPD-65-SPEC.PDF"
       },
       "pid-250": {
         "model": "PID-250",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PID-250-SPEC.PDF"
       },
       "pt-45": {
         "model": "PT-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PT-45-SPEC.PDF"
       },
       "pt-65": {
         "model": "PT-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PT-65-SPEC.PDF"
       },
       "pt-6503": {
         "model": "PT-6503",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PT-6503-SPEC.PDF"
       },
       "rpt-65": {
         "model": "RPT-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPT-65-SPEC.PDF"
       },
       "ppt-125": {
         "model": "PPT-125",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PPT-125-SPEC.PDF"
       }
     }
   },
@@ -8320,134 +8108,134 @@ export const leafModelTreeFallback = [
       {
         "model": "MPM-05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-05-spec.pdf"
       },
       {
         "model": "MPM-10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-10-spec.pdf"
       },
       {
         "model": "MPM-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-15-spec.pdf"
       },
       {
         "model": "MPM-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-20-spec.pdf"
       },
       {
         "model": "MPM-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-30-spec.pdf"
       },
       {
         "model": "MPM-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-45-spec.pdf"
       },
       {
         "model": "MPM-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-65-spec.pdf"
       },
       {
         "model": "MPM-90",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-90-spec.pdf"
       },
       {
         "model": "MFM-05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-05-spec.pdf"
       },
       {
         "model": "MFM-10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-10-spec.pdf"
       },
       {
         "model": "MFM-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-15-spec.pdf"
       },
       {
         "model": "MFM-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-20-spec.pdf"
       },
       {
         "model": "MFM-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-30-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "mpm-05": {
         "model": "MPM-05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-05-spec.pdf"
       },
       "mpm-10": {
         "model": "MPM-10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-10-spec.pdf"
       },
       "mpm-15": {
         "model": "MPM-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-15-spec.pdf"
       },
       "mpm-20": {
         "model": "MPM-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-20-spec.pdf"
       },
       "mpm-30": {
         "model": "MPM-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-30-spec.pdf"
       },
       "mpm-45": {
         "model": "MPM-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-45-spec.pdf"
       },
       "mpm-65": {
         "model": "MPM-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-65-spec.pdf"
       },
       "mpm-90": {
         "model": "MPM-90",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPM-90-spec.pdf"
       },
       "mfm-05": {
         "model": "MFM-05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-05-spec.pdf"
       },
       "mfm-10": {
         "model": "MFM-10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-10-spec.pdf"
       },
       "mfm-15": {
         "model": "MFM-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-15-spec.pdf"
       },
       "mfm-20": {
         "model": "MFM-20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-20-spec.pdf"
       },
       "mfm-30": {
         "model": "MFM-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MFM-30-spec.pdf"
       }
     }
   },
@@ -8491,194 +8279,194 @@ export const leafModelTreeFallback = [
       {
         "model": "RPS-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-30-SPEC.pdf"
       },
       {
         "model": "RPS-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-45-SPEC.pdf"
       },
       {
         "model": "RPS-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-60-SPEC.pdf"
       },
       {
         "model": "RPS-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-65-SPEC.pdf"
       },
       {
         "model": "RPS-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-75-SPEC.pdf"
       },
       {
         "model": "RPS-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-120-SPEC.pdf"
       },
       {
         "model": "RPS-120S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-120S-spec.pdf"
       },
       {
         "model": "RPS-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-160-SPEC.PDF"
       },
       {
         "model": "RPS-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-200-SPEC.pdf"
       },
       {
         "model": "RPS-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-300-SPEC.pdf"
       },
       {
         "model": "RPS-300-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-300-C-SPEC.PDF"
       },
       {
         "model": "RPS-400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-400-SPEC.pdf"
       },
       {
         "model": "RPS-500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-500-spec.pdf"
       },
       {
         "model": "RPD-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPD-60-SPEC.pdf"
       },
       {
         "model": "RPD-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPD-75-SPEC.pdf"
       },
       {
         "model": "RPT-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPT-60-SPEC.pdf"
       },
       {
         "model": "RPT-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPT-75-SPEC.pdf"
       },
       {
         "model": "RPT-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPT-160-spec.pdf"
       },
       {
         "model": "MPQ-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPQ-200-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rps-30": {
         "model": "RPS-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-30-SPEC.pdf"
       },
       "rps-45": {
         "model": "RPS-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-45-SPEC.pdf"
       },
       "rps-60": {
         "model": "RPS-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-60-SPEC.pdf"
       },
       "rps-65": {
         "model": "RPS-65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-65-SPEC.pdf"
       },
       "rps-75": {
         "model": "RPS-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-75-SPEC.pdf"
       },
       "rps-120": {
         "model": "RPS-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-120-SPEC.pdf"
       },
       "rps-120s": {
         "model": "RPS-120S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-120S-spec.pdf"
       },
       "rps-160": {
         "model": "RPS-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-160-SPEC.PDF"
       },
       "rps-200": {
         "model": "RPS-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-200-SPEC.pdf"
       },
       "rps-300": {
         "model": "RPS-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-300-SPEC.pdf"
       },
       "rps-300-c": {
         "model": "RPS-300-C",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-300-C-SPEC.PDF"
       },
       "rps-400": {
         "model": "RPS-400",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-400-SPEC.pdf"
       },
       "rps-500": {
         "model": "RPS-500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPS-500-spec.pdf"
       },
       "rpd-60": {
         "model": "RPD-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPD-60-SPEC.pdf"
       },
       "rpd-75": {
         "model": "RPD-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPD-75-SPEC.pdf"
       },
       "rpt-60": {
         "model": "RPT-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPT-60-SPEC.pdf"
       },
       "rpt-75": {
         "model": "RPT-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPT-75-SPEC.pdf"
       },
       "rpt-160": {
         "model": "RPT-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RPT-160-spec.pdf"
       },
       "mpq-200": {
         "model": "MPQ-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MPQ-200-spec.pdf"
       }
     }
   },
@@ -8746,14 +8534,14 @@ export const leafModelTreeFallback = [
       {
         "model": "DPU-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPU-3200-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "dpu-3200": {
         "model": "DPU-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPU-3200-spec.pdf"
       }
     }
   },
@@ -8782,24 +8570,24 @@ export const leafModelTreeFallback = [
       {
         "model": "PHP-3500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PHP-3500-spec.pdf"
       },
       {
         "model": "PHP-3500-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PHP-3500-HV-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "php-3500": {
         "model": "PHP-3500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PHP-3500-spec.pdf"
       },
       "php-3500-hv": {
         "model": "PHP-3500-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PHP-3500-HV-spec.pdf"
       }
     }
   },
@@ -8930,44 +8718,44 @@ export const leafModelTreeFallback = [
       {
         "model": "RST-5000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RST-5000-SPEC.PDF"
       },
       {
         "model": "RST-10000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RST-10000-SPEC.PDF"
       },
       {
         "model": "RST-7K5-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RST-7K5-HV-spec.pdf"
       },
       {
         "model": "RST-15K-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RST-15K-HV-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rst-5000": {
         "model": "RST-5000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RST-5000-SPEC.PDF"
       },
       "rst-10000": {
         "model": "RST-10000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RST-10000-SPEC.PDF"
       },
       "rst-7k5-hv": {
         "model": "RST-7K5-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RST-7K5-HV-spec.pdf"
       },
       "rst-15k-hv": {
         "model": "RST-15K-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RST-15K-HV-spec.pdf"
       }
     }
   },
@@ -8996,24 +8784,24 @@ export const leafModelTreeFallback = [
       {
         "model": "SHP-10K-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SHP-10K-HV-spec.pdf"
       },
       {
         "model": "SHP-30K-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SHP-30K-HV-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "shp-10k-hv": {
         "model": "SHP-10K-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SHP-10K-HV-spec.pdf"
       },
       "shp-30k-hv": {
         "model": "SHP-30K-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SHP-30K-HV-spec.pdf"
       }
     }
   },
@@ -9037,24 +8825,24 @@ export const leafModelTreeFallback = [
       {
         "model": "SPV-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPV-150-spec.pdf"
       },
       {
         "model": "SPV-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPV-300-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "spv-150": {
         "model": "SPV-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPV-150-spec.pdf"
       },
       "spv-300": {
         "model": "SPV-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPV-300-SPEC.PDF"
       }
     }
   },
@@ -9082,14 +8870,14 @@ export const leafModelTreeFallback = [
       {
         "model": "CMU2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/CMU2-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "cmu2": {
         "model": "CMU2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/CMU2-spec.pdf"
       }
     }
   },
@@ -9117,44 +8905,44 @@ export const leafModelTreeFallback = [
       {
         "model": "DRP-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRP-3200-spec.pdf"
       },
       {
         "model": "DHP-1UT",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DHP-1UT-SPEC.PDF"
       },
       {
         "model": "DHP-1UT-B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DHP-1UT-B-SPEC.PDF"
       },
       {
         "model": "DBR-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBR-3200-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "drp-3200": {
         "model": "DRP-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRP-3200-spec.pdf"
       },
       "dhp-1ut": {
         "model": "DHP-1UT",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DHP-1UT-SPEC.PDF"
       },
       "dhp-1ut-b": {
         "model": "DHP-1UT-B",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DHP-1UT-B-SPEC.PDF"
       },
       "dbr-3200": {
         "model": "DBR-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DBR-3200-spec.pdf"
       }
     }
   },
@@ -9182,14 +8970,14 @@ export const leafModelTreeFallback = [
       {
         "model": "NCP-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NCP-3200-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ncp-3200": {
         "model": "NCP-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NCP-3200-spec.pdf"
       }
     }
   },
@@ -9236,32 +9024,32 @@ export const leafModelTreeFallback = [
       {
         "model": "RCB-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RCB-1600-SPEC.pdf"
       },
       {
         "model": "RCP-1U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RCP-1U-SPEC.PDF"
       },
       {
         "model": "RHP-1U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RHP-1U-SPEC.PDF"
       },
       {
         "model": "RKP-1U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RKP-1U-SPEC.PDF"
       },
       {
         "model": "RCP-MU",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RCP-MU-SPEC.PDF"
       },
       {
         "model": "RKP-CMU1",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RKP-CMU1-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
@@ -9283,32 +9071,32 @@ export const leafModelTreeFallback = [
       "rcb-1600": {
         "model": "RCB-1600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RCB-1600-SPEC.pdf"
       },
       "rcp-1u": {
         "model": "RCP-1U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RCP-1U-SPEC.PDF"
       },
       "rhp-1u": {
         "model": "RHP-1U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RHP-1U-SPEC.PDF"
       },
       "rkp-1u": {
         "model": "RKP-1U",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RKP-1U-SPEC.PDF"
       },
       "rcp-mu": {
         "model": "RCP-MU",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RCP-MU-SPEC.PDF"
       },
       "rkp-cmu1": {
         "model": "RKP-CMU1",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RKP-CMU1-spec.pdf"
       }
     }
   },
@@ -9346,104 +9134,104 @@ export const leafModelTreeFallback = [
       {
         "model": "HEP-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-100-SPEC.PDF"
       },
       {
         "model": "HEP-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-150-SPEC.PDF"
       },
       {
         "model": "HEP-185",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-185-SPEC.PDF"
       },
       {
         "model": "HEP-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-240-SPEC.PDF"
       },
       {
         "model": "HEP-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-320-SPEC.PDF"
       },
       {
         "model": "HEP-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-480-spec.pdf"
       },
       {
         "model": "HEP-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-600-SPEC.PDF"
       },
       {
         "model": "HEP-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-1000-spec.pdf"
       },
       {
         "model": "HEP-2300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-2300-spec.pdf"
       },
       {
         "model": "HEP-2300-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-2300-HV-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "hep-100": {
         "model": "HEP-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-100-SPEC.PDF"
       },
       "hep-150": {
         "model": "HEP-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-150-SPEC.PDF"
       },
       "hep-185": {
         "model": "HEP-185",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-185-SPEC.PDF"
       },
       "hep-240": {
         "model": "HEP-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-240-SPEC.PDF"
       },
       "hep-320": {
         "model": "HEP-320",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-320-SPEC.PDF"
       },
       "hep-480": {
         "model": "HEP-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-480-spec.pdf"
       },
       "hep-600": {
         "model": "HEP-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-600-SPEC.PDF"
       },
       "hep-1000": {
         "model": "HEP-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-1000-spec.pdf"
       },
       "hep-2300": {
         "model": "HEP-2300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-2300-spec.pdf"
       },
       "hep-2300-hv": {
         "model": "HEP-2300-HV",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/HEP-2300-HV-spec.pdf"
       }
     }
   },
@@ -9470,44 +9258,44 @@ export const leafModelTreeFallback = [
       {
         "model": "DRC-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRC-40-SPEC.PDF"
       },
       {
         "model": "DRC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRC-60-SPEC.PDF"
       },
       {
         "model": "DRC-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRC-100-SPEC.PDF"
       },
       {
         "model": "DRC-180",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRC-180-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "drc-40": {
         "model": "DRC-40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRC-40-SPEC.PDF"
       },
       "drc-60": {
         "model": "DRC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRC-60-SPEC.PDF"
       },
       "drc-100": {
         "model": "DRC-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRC-100-SPEC.PDF"
       },
       "drc-180": {
         "model": "DRC-180",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRC-180-spec.pdf"
       }
     }
   },
@@ -9541,12 +9329,12 @@ export const leafModelTreeFallback = [
       {
         "model": "DRS-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRS-240-spec.pdf"
       },
       {
         "model": "DRS-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRS-480-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
@@ -9558,12 +9346,12 @@ export const leafModelTreeFallback = [
       "drs-240": {
         "model": "DRS-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRS-240-spec.pdf"
       },
       "drs-480": {
         "model": "DRS-480",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DRS-480-spec.pdf"
       }
     }
   },
@@ -9591,44 +9379,44 @@ export const leafModelTreeFallback = [
       {
         "model": "PSC-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSC-35-SPEC.PDF"
       },
       {
         "model": "PSC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSC-60-SPEC.PDF"
       },
       {
         "model": "PSC-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSC-100-SPEC.PDF"
       },
       {
         "model": "PSC-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSC-160-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "psc-35": {
         "model": "PSC-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSC-35-SPEC.PDF"
       },
       "psc-60": {
         "model": "PSC-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSC-60-SPEC.PDF"
       },
       "psc-100": {
         "model": "PSC-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSC-100-SPEC.PDF"
       },
       "psc-160": {
         "model": "PSC-160",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSC-160-SPEC.PDF"
       }
     }
   },
@@ -9664,134 +9452,134 @@ export const leafModelTreeFallback = [
       {
         "model": "LAD-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LAD-120-spec.pdf"
       },
       {
         "model": "LAD-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LAD-240-spec.pdf"
       },
       {
         "model": "LAD-360",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LAD-360-spec.pdf"
       },
       {
         "model": "LAD-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LAD-600-spec.pdf"
       },
       {
         "model": "SCP-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCP-35-SPEC.PDF"
       },
       {
         "model": "SCP-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCP-50-SPEC.PDF"
       },
       {
         "model": "SCP-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCP-75-SPEC.PDF"
       },
       {
         "model": "AD-55",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/AD-55-SPEC.PDF"
       },
       {
         "model": "ADS-55",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ADS-55-SPEC.PDF"
       },
       {
         "model": "AD-155",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/AD-155-SPEC.PDF"
       },
       {
         "model": "ADS-155",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ADS-155-SPEC.PDF"
       },
       {
         "model": "ADD-55",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ADD-55-SPEC.PDF"
       },
       {
         "model": "ADD-155",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ADD-155-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "lad-120": {
         "model": "LAD-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LAD-120-spec.pdf"
       },
       "lad-240": {
         "model": "LAD-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LAD-240-spec.pdf"
       },
       "lad-360": {
         "model": "LAD-360",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LAD-360-spec.pdf"
       },
       "lad-600": {
         "model": "LAD-600",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/LAD-600-spec.pdf"
       },
       "scp-35": {
         "model": "SCP-35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCP-35-SPEC.PDF"
       },
       "scp-50": {
         "model": "SCP-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCP-50-SPEC.PDF"
       },
       "scp-75": {
         "model": "SCP-75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCP-75-SPEC.PDF"
       },
       "ad-55": {
         "model": "AD-55",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/AD-55-SPEC.PDF"
       },
       "ads-55": {
         "model": "ADS-55",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ADS-55-SPEC.PDF"
       },
       "ad-155": {
         "model": "AD-155",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/AD-155-SPEC.PDF"
       },
       "ads-155": {
         "model": "ADS-155",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ADS-155-SPEC.PDF"
       },
       "add-55": {
         "model": "ADD-55",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ADD-55-SPEC.PDF"
       },
       "add-155": {
         "model": "ADD-155",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ADD-155-SPEC.PDF"
       }
     }
   },
@@ -9914,64 +9702,64 @@ export const leafModelTreeFallback = [
       {
         "model": "DDRH-15DR",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-15DR-SPEC.PDF"
       },
       {
         "model": "DDRH-30DR",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-30DR-SPEC.PDF"
       },
       {
         "model": "DDRH-45DR",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-45DR-SPEC.PDF"
       },
       {
         "model": "DDRH-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-60-spec.pdf"
       },
       {
         "model": "DDRH-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-120-spec.pdf"
       },
       {
         "model": "DDRH-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-240-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ddrh-15dr": {
         "model": "DDRH-15DR",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-15DR-SPEC.PDF"
       },
       "ddrh-30dr": {
         "model": "DDRH-30DR",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-30DR-SPEC.PDF"
       },
       "ddrh-45dr": {
         "model": "DDRH-45DR",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-45DR-SPEC.PDF"
       },
       "ddrh-60": {
         "model": "DDRH-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-60-spec.pdf"
       },
       "ddrh-120": {
         "model": "DDRH-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-120-spec.pdf"
       },
       "ddrh-240": {
         "model": "DDRH-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-240-spec.pdf"
       }
     }
   },
@@ -10003,74 +9791,74 @@ export const leafModelTreeFallback = [
       {
         "model": "RSD-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-30-spec.pdf"
       },
       {
         "model": "RSD-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-60-spec.pdf"
       },
       {
         "model": "RSD-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-100-SPEC.PDF"
       },
       {
         "model": "RSD-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-150-SPEC.PDF"
       },
       {
         "model": "RSD-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-200-SPEC.PDF"
       },
       {
         "model": "RSD-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-300-SPEC.PDF"
       },
       {
         "model": "RSD-500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-500-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rsd-30": {
         "model": "RSD-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-30-spec.pdf"
       },
       "rsd-60": {
         "model": "RSD-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-60-spec.pdf"
       },
       "rsd-100": {
         "model": "RSD-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-100-SPEC.PDF"
       },
       "rsd-150": {
         "model": "RSD-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-150-SPEC.PDF"
       },
       "rsd-200": {
         "model": "RSD-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-200-SPEC.PDF"
       },
       "rsd-300": {
         "model": "RSD-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-300-SPEC.PDF"
       },
       "rsd-500": {
         "model": "RSD-500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSD-500-spec.pdf"
       }
     }
   },
@@ -10097,24 +9885,24 @@ export const leafModelTreeFallback = [
       {
         "model": "RSDH-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDH-150-spec.pdf"
       },
       {
         "model": "RSDH-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDH-300-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rsdh-150": {
         "model": "RSDH-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDH-150-spec.pdf"
       },
       "rsdh-300": {
         "model": "RSDH-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDH-300-spec.pdf"
       }
     }
   },
@@ -10148,94 +9936,94 @@ export const leafModelTreeFallback = [
       {
         "model": "SD-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-15-SPEC.PDF"
       },
       {
         "model": "SD-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-25-SPEC.PDF"
       },
       {
         "model": "SD-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-50-SPEC.PDF"
       },
       {
         "model": "SD-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-100-SPEC.PDF"
       },
       {
         "model": "SD-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-150-SPEC.PDF"
       },
       {
         "model": "SD-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-200-SPEC.PDF"
       },
       {
         "model": "SD-350",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-350-SPEC.PDF"
       },
       {
         "model": "SD-500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-500-SPEC.PDF"
       },
       {
         "model": "SD-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-1000-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "sd-15": {
         "model": "SD-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-15-SPEC.PDF"
       },
       "sd-25": {
         "model": "SD-25",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-25-SPEC.PDF"
       },
       "sd-50": {
         "model": "SD-50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-50-SPEC.PDF"
       },
       "sd-100": {
         "model": "SD-100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-100-SPEC.PDF"
       },
       "sd-150": {
         "model": "SD-150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-150-SPEC.PDF"
       },
       "sd-200": {
         "model": "SD-200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-200-SPEC.PDF"
       },
       "sd-350": {
         "model": "SD-350",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-350-SPEC.PDF"
       },
       "sd-500": {
         "model": "SD-500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-500-SPEC.PDF"
       },
       "sd-1000": {
         "model": "SD-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SD-1000-SPEC.PDF"
       }
     }
   },
@@ -10265,34 +10053,34 @@ export const leafModelTreeFallback = [
       {
         "model": "MHB75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MHB75-SPEC.PDF"
       },
       {
         "model": "MHB100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MHB100-SPEC.PDF"
       },
       {
         "model": "MHB150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MHB150-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "mhb75": {
         "model": "MHB75",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MHB75-SPEC.PDF"
       },
       "mhb100": {
         "model": "MHB100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MHB100-SPEC.PDF"
       },
       "mhb150": {
         "model": "MHB150",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MHB150-SPEC.PDF"
       }
     }
   },
@@ -10323,44 +10111,44 @@ export const leafModelTreeFallback = [
       {
         "model": "RQB40W12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQB40W12-spec.pdf"
       },
       {
         "model": "RQB60W12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQB60W12-spec.pdf"
       },
       {
         "model": "RQB150W3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQB150W3-spec.pdf"
       },
       {
         "model": "RQB150W12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQB150W12-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "rqb40w12": {
         "model": "RQB40W12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQB40W12-spec.pdf"
       },
       "rqb60w12": {
         "model": "RQB60W12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQB60W12-spec.pdf"
       },
       "rqb150w3": {
         "model": "RQB150W3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQB150W3-spec.pdf"
       },
       "rqb150w12": {
         "model": "RQB150W12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RQB150W12-spec.pdf"
       }
     }
   },
@@ -10392,64 +10180,64 @@ export const leafModelTreeFallback = [
       {
         "model": "DDRH-15P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-15P-SPEC.PDF"
       },
       {
         "model": "DDRH-30P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-30P-SPEC.PDF"
       },
       {
         "model": "DDRH-45P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-45P-SPEC.PDF"
       },
       {
         "model": "DDRH-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-60-spec.pdf"
       },
       {
         "model": "DDRH-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-120-spec.pdf"
       },
       {
         "model": "DDRH-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-240-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ddrh-15p": {
         "model": "DDRH-15P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-15P-SPEC.PDF"
       },
       "ddrh-30p": {
         "model": "DDRH-30P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-30P-SPEC.PDF"
       },
       "ddrh-45p": {
         "model": "DDRH-45P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-45P-SPEC.PDF"
       },
       "ddrh-60": {
         "model": "DDRH-60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-60-spec.pdf"
       },
       "ddrh-120": {
         "model": "DDRH-120",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-120-spec.pdf"
       },
       "ddrh-240": {
         "model": "DDRH-240",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DDRH-240-spec.pdf"
       }
     }
   },
@@ -10496,224 +10284,224 @@ export const leafModelTreeFallback = [
       {
         "model": "SCWN03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCWN03-SPEC.PDF"
       },
       {
         "model": "SCWN06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCWN06-SPEC.PDF"
       },
       {
         "model": "SCW08",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW08-SPEC.PDF"
       },
       {
         "model": "SCW12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW12-SPEC.PDF"
       },
       {
         "model": "SCW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW20-spec.pdf"
       },
       {
         "model": "RSDW08",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW08-SPEC.PDF"
       },
       {
         "model": "RSDW10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW10-SPEC.PDF"
       },
       {
         "model": "SCWN03W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCWN03W8-SPEC.PDF"
       },
       {
         "model": "SCWN06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCWN06W8-SPEC.PDF"
       },
       {
         "model": "SCW08W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW08W8-SPEC.PDF"
       },
       {
         "model": "SCW12W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW12W8-SPEC.PDF"
       },
       {
         "model": "DCWN03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCWN03-SPEC.PDF"
       },
       {
         "model": "DCWN06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCWN06-SPEC.PDF"
       },
       {
         "model": "DCW08",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW08-SPEC.PDF"
       },
       {
         "model": "DCW12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW12-SPEC.PDF"
       },
       {
         "model": "RDDW08",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW08-SPEC.PDF"
       },
       {
         "model": "RDDW10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW10-SPEC.PDF"
       },
       {
         "model": "DCWN03W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCWN03W8-SPEC.PDF"
       },
       {
         "model": "DCWN06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCWN06W8-SPEC.PDF"
       },
       {
         "model": "DCW08W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW08W8-SPEC.PDF"
       },
       {
         "model": "DCW12W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW12W8-SPEC.PDF"
       },
       {
         "model": "DCW20W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW20W8-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "scwn03": {
         "model": "SCWN03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCWN03-SPEC.PDF"
       },
       "scwn06": {
         "model": "SCWN06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCWN06-SPEC.PDF"
       },
       "scw08": {
         "model": "SCW08",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW08-SPEC.PDF"
       },
       "scw12": {
         "model": "SCW12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW12-SPEC.PDF"
       },
       "scw20": {
         "model": "SCW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW20-spec.pdf"
       },
       "rsdw08": {
         "model": "RSDW08",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW08-SPEC.PDF"
       },
       "rsdw10": {
         "model": "RSDW10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW10-SPEC.PDF"
       },
       "scwn03w8": {
         "model": "SCWN03W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCWN03W8-SPEC.PDF"
       },
       "scwn06w8": {
         "model": "SCWN06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCWN06W8-SPEC.PDF"
       },
       "scw08w8": {
         "model": "SCW08W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW08W8-SPEC.PDF"
       },
       "scw12w8": {
         "model": "SCW12W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SCW12W8-SPEC.PDF"
       },
       "dcwn03": {
         "model": "DCWN03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCWN03-SPEC.PDF"
       },
       "dcwn06": {
         "model": "DCWN06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCWN06-SPEC.PDF"
       },
       "dcw08": {
         "model": "DCW08",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW08-SPEC.PDF"
       },
       "dcw12": {
         "model": "DCW12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW12-SPEC.PDF"
       },
       "rddw08": {
         "model": "RDDW08",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW08-SPEC.PDF"
       },
       "rddw10": {
         "model": "RDDW10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW10-SPEC.PDF"
       },
       "dcwn03w8": {
         "model": "DCWN03W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCWN03W8-SPEC.PDF"
       },
       "dcwn06w8": {
         "model": "DCWN06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCWN06W8-SPEC.PDF"
       },
       "dcw08w8": {
         "model": "DCW08W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW08W8-SPEC.PDF"
       },
       "dcw12w8": {
         "model": "DCW12W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW12W8-SPEC.PDF"
       },
       "dcw20w8": {
         "model": "DCW20W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DCW20W8-SPEC.PDF"
       }
     }
   },
@@ -10750,124 +10538,124 @@ export const leafModelTreeFallback = [
       {
         "model": "SI06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SI06W8-SPEC.PDF"
       },
       {
         "model": "SKM10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKM10-SPEC.PDF"
       },
       {
         "model": "SKMW15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKMW15-SPEC.PDF"
       },
       {
         "model": "SKMW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKMW20-SPEC.PDF"
       },
       {
         "model": "SKMW30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKMW30-SPEC.PDF"
       },
       {
         "model": "SKMW40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKMW40-SPEC.PDF"
       },
       {
         "model": "DI06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DI06W8-SPEC.PDF"
       },
       {
         "model": "DKM10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKM10-SPEC.PDF"
       },
       {
         "model": "DKMW15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKMW15-SPEC.PDF"
       },
       {
         "model": "DKMW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKMW20-SPEC.PDF"
       },
       {
         "model": "DKMW30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKMW30-SPEC.PDF"
       },
       {
         "model": "DKMW40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKMW40-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "si06w8": {
         "model": "SI06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SI06W8-SPEC.PDF"
       },
       "skm10": {
         "model": "SKM10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKM10-SPEC.PDF"
       },
       "skmw15": {
         "model": "SKMW15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKMW15-SPEC.PDF"
       },
       "skmw20": {
         "model": "SKMW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKMW20-SPEC.PDF"
       },
       "skmw30": {
         "model": "SKMW30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKMW30-SPEC.PDF"
       },
       "skmw40": {
         "model": "SKMW40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKMW40-SPEC.PDF"
       },
       "di06w8": {
         "model": "DI06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DI06W8-SPEC.PDF"
       },
       "dkm10": {
         "model": "DKM10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKM10-SPEC.PDF"
       },
       "dkmw15": {
         "model": "DKMW15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKMW15-SPEC.PDF"
       },
       "dkmw20": {
         "model": "DKMW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKMW20-SPEC.PDF"
       },
       "dkmw30": {
         "model": "DKMW30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKMW30-SPEC.PDF"
       },
       "dkmw40": {
         "model": "DKMW40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKMW40-SPEC.PDF"
       }
     }
   },
@@ -10911,184 +10699,184 @@ export const leafModelTreeFallback = [
       {
         "model": "SLW05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLW05-SPEC.PDF"
       },
       {
         "model": "SKE10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKE10-SPEC.PDF"
       },
       {
         "model": "SKA15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKA15-SPEC.PDF"
       },
       {
         "model": "SKA20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKA20-SPEC.PDF"
       },
       {
         "model": "SKM50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKM50-SPEC.PDF"
       },
       {
         "model": "RSDW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW20-SPEC.PDF"
       },
       {
         "model": "RSDW20UW",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW20UW-SPEC.PDF"
       },
       {
         "model": "RSDW40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW40-SPEC.PDF"
       },
       {
         "model": "RSDW60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW60-SPEC.PDF"
       },
       {
         "model": "SKM30-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKM30-N-SPEC.PDF"
       },
       {
         "model": "DLW05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLW05-SPEC.PDF"
       },
       {
         "model": "DKE10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKE10-SPEC.PDF"
       },
       {
         "model": "DKA15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKA15-SPEC.PDF"
       },
       {
         "model": "RDDW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW20-SPEC.PDF"
       },
       {
         "model": "RDDW20UW",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW20UW-SPEC.PDF"
       },
       {
         "model": "RDDW40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW40-SPEC.PDF"
       },
       {
         "model": "RDDW60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW60-SPEC.PDF"
       },
       {
         "model": "DKM30-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKM30-N-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "slw05": {
         "model": "SLW05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLW05-SPEC.PDF"
       },
       "ske10": {
         "model": "SKE10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKE10-SPEC.PDF"
       },
       "ska15": {
         "model": "SKA15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKA15-SPEC.PDF"
       },
       "ska20": {
         "model": "SKA20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKA20-SPEC.PDF"
       },
       "skm50": {
         "model": "SKM50",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKM50-SPEC.PDF"
       },
       "rsdw20": {
         "model": "RSDW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW20-SPEC.PDF"
       },
       "rsdw20uw": {
         "model": "RSDW20UW",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW20UW-SPEC.PDF"
       },
       "rsdw40": {
         "model": "RSDW40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW40-SPEC.PDF"
       },
       "rsdw60": {
         "model": "RSDW60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RSDW60-SPEC.PDF"
       },
       "skm30-n": {
         "model": "SKM30-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKM30-N-SPEC.PDF"
       },
       "dlw05": {
         "model": "DLW05",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLW05-SPEC.PDF"
       },
       "dke10": {
         "model": "DKE10",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKE10-SPEC.PDF"
       },
       "dka15": {
         "model": "DKA15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKA15-SPEC.PDF"
       },
       "rddw20": {
         "model": "RDDW20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW20-SPEC.PDF"
       },
       "rddw20uw": {
         "model": "RDDW20UW",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW20UW-SPEC.PDF"
       },
       "rddw40": {
         "model": "RDDW40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW40-SPEC.PDF"
       },
       "rddw60": {
         "model": "RDDW60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/RDDW60-SPEC.PDF"
       },
       "dkm30-n": {
         "model": "DKM30-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKM30-N-SPEC.PDF"
       }
     }
   },
@@ -11120,74 +10908,74 @@ export const leafModelTreeFallback = [
       {
         "model": "SKE15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKE15-SPEC.PDF"
       },
       {
         "model": "SDM30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SDM30-SPEC.PDF"
       },
       {
         "model": "SKA40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKA40-SPEC.PDF"
       },
       {
         "model": "SKA60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKA60-SPEC.PDF"
       },
       {
         "model": "DKE15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKE15-SPEC.PDF"
       },
       {
         "model": "DKA30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKA30-SPEC.PDF"
       },
       {
         "model": "TKA30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TKA30-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "ske15": {
         "model": "SKE15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKE15-SPEC.PDF"
       },
       "sdm30": {
         "model": "SDM30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SDM30-SPEC.PDF"
       },
       "ska40": {
         "model": "SKA40",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKA40-SPEC.PDF"
       },
       "ska60": {
         "model": "SKA60",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SKA60-SPEC.PDF"
       },
       "dke15": {
         "model": "DKE15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKE15-SPEC.PDF"
       },
       "dka30": {
         "model": "DKA30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DKA30-SPEC.PDF"
       },
       "tka30": {
         "model": "TKA30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TKA30-SPEC.PDF"
       }
     }
   },
@@ -11216,54 +11004,54 @@ export const leafModelTreeFallback = [
       {
         "model": "SRS",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SRS-SPEC.PDF"
       },
       {
         "model": "SLC03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLC03-SPEC.PDF"
       },
       {
         "model": "DLC03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLC03-SPEC.PDF"
       },
       {
         "model": "SUS01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SUS01-SPEC.PDF"
       },
       {
         "model": "SMA01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMA01-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "srs": {
         "model": "SRS",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SRS-SPEC.PDF"
       },
       "slc03": {
         "model": "SLC03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SLC03-SPEC.PDF"
       },
       "dlc03": {
         "model": "DLC03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DLC03-SPEC.PDF"
       },
       "sus01": {
         "model": "SUS01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SUS01-SPEC.PDF"
       },
       "sma01": {
         "model": "SMA01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMA01-SPEC.PDF"
       }
     }
   },
@@ -11298,84 +11086,84 @@ export const leafModelTreeFallback = [
       {
         "model": "MDS01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS01-N-SPEC.PDF"
       },
       {
         "model": "MDS02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS02-N-SPEC.PDF"
       },
       {
         "model": "MDS03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS03-SPEC.PDF"
       },
       {
         "model": "MDS06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS06-SPEC.PDF"
       },
       {
         "model": "MDD01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDD01-N-SPEC.PDF"
       },
       {
         "model": "MDD02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDD02-N-SPEC.PDF"
       },
       {
         "model": "MDD03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDD03-SPEC.PDF"
       },
       {
         "model": "MDD06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDD06-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "mds01-n": {
         "model": "MDS01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS01-N-SPEC.PDF"
       },
       "mds02-n": {
         "model": "MDS02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS02-N-SPEC.PDF"
       },
       "mds03": {
         "model": "MDS03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS03-SPEC.PDF"
       },
       "mds06": {
         "model": "MDS06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS06-SPEC.PDF"
       },
       "mdd01-n": {
         "model": "MDD01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDD01-N-SPEC.PDF"
       },
       "mdd02-n": {
         "model": "MDD02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDD02-N-SPEC.PDF"
       },
       "mdd03": {
         "model": "MDD03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDD03-SPEC.PDF"
       },
       "mdd06": {
         "model": "MDD06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDD06-SPEC.PDF"
       }
     }
   },
@@ -11403,24 +11191,24 @@ export const leafModelTreeFallback = [
       {
         "model": "MDS15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS15-spec.pdf"
       },
       {
         "model": "MDS20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS20-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "mds15": {
         "model": "MDS15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS15-spec.pdf"
       },
       "mds20": {
         "model": "MDS20",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/MDS20-spec.pdf"
       }
     }
   },
@@ -11450,24 +11238,24 @@ export const leafModelTreeFallback = [
       {
         "model": "N78",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/N78-spec.pdf"
       },
       {
         "model": "N78-2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/N78-2-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "n78": {
         "model": "N78",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/N78-spec.pdf"
       },
       "n78-2": {
         "model": "N78-2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/N78-2-spec.pdf"
       }
     }
   },
@@ -11519,284 +11307,284 @@ export const leafModelTreeFallback = [
       {
         "model": "SPA01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPA01-SPEC.PDF"
       },
       {
         "model": "DPAN02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPAN02-SPEC.PDF"
       },
       {
         "model": "DPBW03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPBW03-SPEC.PDF"
       },
       {
         "model": "SPBW03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPBW03-SPEC.PDF"
       },
       {
         "model": "SPBW06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPBW06-SPEC.PDF"
       },
       {
         "model": "DPBW06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPBW06-SPEC.PDF"
       },
       {
         "model": "SPAN02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPAN02-SPEC.PDF"
       },
       {
         "model": "SPB09",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPB09-SPEC.PDF"
       },
       {
         "model": "DPB09",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPB09-SPEC.PDF"
       },
       {
         "model": "SPRN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPRN01-SPEC.PDF"
       },
       {
         "model": "DPRN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPRN01-SPEC.PDF"
       },
       {
         "model": "SPA01W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPA01W8-SPEC.PDF"
       },
       {
         "model": "DPA01W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPA01W8-SPEC.PDF"
       },
       {
         "model": "SPAN02W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPAN02W8-SPEC.PDF"
       },
       {
         "model": "DPAN02W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPAN02W8-SPEC.PDF"
       },
       {
         "model": "SPBW03W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPBW03W8-SPEC.PDF"
       },
       {
         "model": "DPBW03W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPBW03W8-SPEC.PDF"
       },
       {
         "model": "SPBW06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPBW06W8-SPEC.PDF"
       },
       {
         "model": "DPBW06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPBW06W8-SPEC.PDF"
       },
       {
         "model": "SPB09W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPB09W8-SPEC.PDF"
       },
       {
         "model": "DPB09W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPB09W8-SPEC.PDF"
       },
       {
         "model": "SMU01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMU01-SPEC.PDF"
       },
       {
         "model": "SMU02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMU02-SPEC.PDF"
       },
       {
         "model": "SPU03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPU03-SPEC.PDF"
       },
       {
         "model": "SPU01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPU01-SPEC.PDF"
       },
       {
         "model": "DPU01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPU01-SPEC.PDF"
       },
       {
         "model": "SMU01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMU01-N-spec.pdf"
       },
       {
         "model": "SMU02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMU02-N-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "spa01": {
         "model": "SPA01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPA01-SPEC.PDF"
       },
       "dpan02": {
         "model": "DPAN02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPAN02-SPEC.PDF"
       },
       "dpbw03": {
         "model": "DPBW03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPBW03-SPEC.PDF"
       },
       "spbw03": {
         "model": "SPBW03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPBW03-SPEC.PDF"
       },
       "spbw06": {
         "model": "SPBW06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPBW06-SPEC.PDF"
       },
       "dpbw06": {
         "model": "DPBW06",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPBW06-SPEC.PDF"
       },
       "span02": {
         "model": "SPAN02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPAN02-SPEC.PDF"
       },
       "spb09": {
         "model": "SPB09",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPB09-SPEC.PDF"
       },
       "dpb09": {
         "model": "DPB09",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPB09-SPEC.PDF"
       },
       "sprn01": {
         "model": "SPRN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPRN01-SPEC.PDF"
       },
       "dprn01": {
         "model": "DPRN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPRN01-SPEC.PDF"
       },
       "spa01w8": {
         "model": "SPA01W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPA01W8-SPEC.PDF"
       },
       "dpa01w8": {
         "model": "DPA01W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPA01W8-SPEC.PDF"
       },
       "span02w8": {
         "model": "SPAN02W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPAN02W8-SPEC.PDF"
       },
       "dpan02w8": {
         "model": "DPAN02W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPAN02W8-SPEC.PDF"
       },
       "spbw03w8": {
         "model": "SPBW03W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPBW03W8-SPEC.PDF"
       },
       "dpbw03w8": {
         "model": "DPBW03W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPBW03W8-SPEC.PDF"
       },
       "spbw06w8": {
         "model": "SPBW06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPBW06W8-SPEC.PDF"
       },
       "dpbw06w8": {
         "model": "DPBW06W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPBW06W8-SPEC.PDF"
       },
       "spb09w8": {
         "model": "SPB09W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPB09W8-SPEC.PDF"
       },
       "dpb09w8": {
         "model": "DPB09W8",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPB09W8-SPEC.PDF"
       },
       "smu01": {
         "model": "SMU01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMU01-SPEC.PDF"
       },
       "smu02": {
         "model": "SMU02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMU02-SPEC.PDF"
       },
       "spu03": {
         "model": "SPU03",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPU03-SPEC.PDF"
       },
       "spu01": {
         "model": "SPU01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPU01-SPEC.PDF"
       },
       "dpu01": {
         "model": "DPU01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DPU01-SPEC.PDF"
       },
       "smu01-n": {
         "model": "SMU01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMU01-N-spec.pdf"
       },
       "smu02-n": {
         "model": "SMU02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SMU02-N-spec.pdf"
       }
     }
   },
@@ -11825,14 +11613,14 @@ export const leafModelTreeFallback = [
       {
         "model": "GD2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GD2-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "gd2": {
         "model": "GD2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/GD2-spec.pdf"
       }
     }
   },
@@ -11865,104 +11653,104 @@ export const leafModelTreeFallback = [
       {
         "model": "SBTN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SBTN01-spec.pdf"
       },
       {
         "model": "SFTN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SFTN01-spec.pdf"
       },
       {
         "model": "SBTN01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SBTN01-N-spec.pdf"
       },
       {
         "model": "SFTN01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SFTN01-N-spec.pdf"
       },
       {
         "model": "SFTN02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SFTN02-spec.pdf"
       },
       {
         "model": "SFTN02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SFTN02-N-spec.pdf"
       },
       {
         "model": "DETN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DETN01-spec.pdf"
       },
       {
         "model": "DETN02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DETN02-spec.pdf"
       },
       {
         "model": "DETN01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DETN01-N-spec.pdf"
       },
       {
         "model": "DETN02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DETN02-N-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "sbtn01": {
         "model": "SBTN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SBTN01-spec.pdf"
       },
       "sftn01": {
         "model": "SFTN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SFTN01-spec.pdf"
       },
       "sbtn01-n": {
         "model": "SBTN01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SBTN01-N-spec.pdf"
       },
       "sftn01-n": {
         "model": "SFTN01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SFTN01-N-spec.pdf"
       },
       "sftn02": {
         "model": "SFTN02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SFTN02-spec.pdf"
       },
       "sftn02-n": {
         "model": "SFTN02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SFTN02-N-spec.pdf"
       },
       "detn01": {
         "model": "DETN01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DETN01-spec.pdf"
       },
       "detn02": {
         "model": "DETN02",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DETN02-spec.pdf"
       },
       "detn01-n": {
         "model": "DETN01-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DETN01-N-spec.pdf"
       },
       "detn02-n": {
         "model": "DETN02-N",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/DETN02-N-spec.pdf"
       }
     }
   },
@@ -11991,54 +11779,54 @@ export const leafModelTreeFallback = [
       {
         "model": "NSD05-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD05-S-SPEC.PDF"
       },
       {
         "model": "NSD10-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD10-S-SPEC.PDF"
       },
       {
         "model": "NSD15-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD15-S-SPEC.PDF"
       },
       {
         "model": "NSD10-D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD10-D-SPEC.PDF"
       },
       {
         "model": "NSD15-D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD15-D-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "nsd05-s": {
         "model": "NSD05-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD05-S-SPEC.PDF"
       },
       "nsd10-s": {
         "model": "NSD10-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD10-S-SPEC.PDF"
       },
       "nsd15-s": {
         "model": "NSD15-S",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD15-S-SPEC.PDF"
       },
       "nsd10-d": {
         "model": "NSD10-D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD10-D-SPEC.PDF"
       },
       "nsd15-d": {
         "model": "NSD15-D",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NSD15-D-SPEC.PDF"
       }
     }
   },
@@ -12066,44 +11854,44 @@ export const leafModelTreeFallback = [
       {
         "model": "NID35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NID35-spec.pdf"
       },
       {
         "model": "NID65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NID65-spec.pdf"
       },
       {
         "model": "NID100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NID100-spec.pdf"
       },
       {
         "model": "NID100-4.2(Modification)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NID100-4.2(Modification)-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "nid35": {
         "model": "NID35",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NID35-spec.pdf"
       },
       "nid65": {
         "model": "NID65",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NID65-spec.pdf"
       },
       "nid100": {
         "model": "NID100",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NID100-spec.pdf"
       },
       "nid100-42modification": {
         "model": "NID100-4.2(Modification)",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NID100-4.2(Modification)-spec.pdf"
       }
     }
   },
@@ -12133,24 +11921,24 @@ export const leafModelTreeFallback = [
       {
         "model": "SPOL-01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPOL-01-spec.pdf"
       },
       {
         "model": "SPOL-12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPOL-12-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "spol-01": {
         "model": "SPOL-01",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPOL-01-spec.pdf"
       },
       "spol-12": {
         "model": "SPOL-12",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/SPOL-12-spec.pdf"
       }
     }
   },
@@ -12175,34 +11963,34 @@ export const leafModelTreeFallback = [
       {
         "model": "PSD-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSD-15-SPEC.PDF"
       },
       {
         "model": "PSD-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSD-30-SPEC.PDF"
       },
       {
         "model": "PSD-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSD-45-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "psd-15": {
         "model": "PSD-15",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSD-15-SPEC.PDF"
       },
       "psd-30": {
         "model": "PSD-30",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSD-30-SPEC.PDF"
       },
       "psd-45": {
         "model": "PSD-45",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PSD-45-SPEC.PDF"
       }
     }
   },
@@ -12329,103 +12117,6 @@ export const leafModelTreeFallback = [
     }
   },
   {
-    "key": "DC/AC|Modified Sine Wave|A301/302 Series",
-    "major": "DC/AC",
-    "subcategory": "Modified Sine Wave",
-    "leaf": "A301/302 Series",
-    "groups": [],
-    "wattage": "100W~2500W",
-    "features": [
-      "Modified sine wave output, suitable for resistive load",
-      "Low cost",
-      "1 year warranty"
-    ],
-    "thumbnailUrl": "/catalog/meanwell/thumbnails/a301.png",
-    "models": [
-      "A301,302-100",
-      "A301,302-150",
-      "A301,302-300",
-      "A301,302-600",
-      "A301,302-1K0",
-      "A301,302-1K7",
-      "A301,302-2K5"
-    ],
-    "modelAssets": [
-      {
-        "model": "A301,302-100",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "A301,302-150",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "A301,302-300",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "A301,302-600",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "A301,302-1K0",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "A301,302-1K7",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      {
-        "model": "A301,302-2K5",
-        "imageUrl": "",
-        "pdfUrl": ""
-      }
-    ],
-    "modelAssetsByKey": {
-      "a301302-100": {
-        "model": "A301,302-100",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "a301302-150": {
-        "model": "A301,302-150",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "a301302-300": {
-        "model": "A301,302-300",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "a301302-600": {
-        "model": "A301,302-600",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "a301302-1k0": {
-        "model": "A301,302-1K0",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "a301302-1k7": {
-        "model": "A301,302-1K7",
-        "imageUrl": "",
-        "pdfUrl": ""
-      },
-      "a301302-2k5": {
-        "model": "A301,302-2K5",
-        "imageUrl": "",
-        "pdfUrl": ""
-      }
-    }
-  },
-  {
     "key": "DC/AC|Solar Inverter|ISI Series",
     "major": "DC/AC",
     "subcategory": "Solar Inverter",
@@ -12445,14 +12136,14 @@ export const leafModelTreeFallback = [
       {
         "model": "ISI-501",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ISI-501-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "isi-501": {
         "model": "ISI-501",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/ISI-501-SPEC.PDF"
       }
     }
   },
@@ -12482,24 +12173,24 @@ export const leafModelTreeFallback = [
       {
         "model": "PV-SMI-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PV-SMI-1000-SPEC.pdf"
       },
       {
         "model": "PV-SMI-2000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PV-SMI-2000-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
       "pv-smi-1000": {
         "model": "PV-SMI-1000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PV-SMI-1000-SPEC.pdf"
       },
       "pv-smi-2000": {
         "model": "PV-SMI-2000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/PV-SMI-2000-SPEC.pdf"
       }
     }
   },
@@ -12523,34 +12214,34 @@ export const leafModelTreeFallback = [
       {
         "model": "IRC1",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRC1-SPEC.PDF"
       },
       {
         "model": "IRC2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRC2-SPEC.PDF"
       },
       {
         "model": "IRC3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRC3-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "irc1": {
         "model": "IRC1",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRC1-SPEC.PDF"
       },
       "irc2": {
         "model": "IRC2",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRC2-SPEC.PDF"
       },
       "irc3": {
         "model": "IRC3",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/IRC3-SPEC.PDF"
       }
     }
   },
@@ -12578,14 +12269,14 @@ export const leafModelTreeFallback = [
       {
         "model": "NTN-5K",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTN-5K-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ntn-5k": {
         "model": "NTN-5K",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTN-5K-spec.pdf"
       }
     }
   },
@@ -12616,74 +12307,74 @@ export const leafModelTreeFallback = [
       {
         "model": "NTS-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-300-spec.pdf"
       },
       {
         "model": "NTS-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-450-spec.pdf"
       },
       {
         "model": "NTS-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-750-spec.pdf"
       },
       {
         "model": "NTS-1200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-1200-spec.pdf"
       },
       {
         "model": "NTS-1700",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-1700-spec.pdf"
       },
       {
         "model": "NTS-2200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-2200-spec.pdf"
       },
       {
         "model": "NTS-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-3200-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "nts-300": {
         "model": "NTS-300",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-300-spec.pdf"
       },
       "nts-450": {
         "model": "NTS-450",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-450-spec.pdf"
       },
       "nts-750": {
         "model": "NTS-750",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-750-spec.pdf"
       },
       "nts-1200": {
         "model": "NTS-1200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-1200-spec.pdf"
       },
       "nts-1700": {
         "model": "NTS-1700",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-1700-spec.pdf"
       },
       "nts-2200": {
         "model": "NTS-2200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-2200-spec.pdf"
       },
       "nts-3200": {
         "model": "NTS-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-3200-spec.pdf"
       }
     }
   },
@@ -12710,24 +12401,24 @@ export const leafModelTreeFallback = [
       {
         "model": "NTS-250P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-250P-spec.pdf"
       },
       {
         "model": "NTS-400P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-400P-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "nts-250p": {
         "model": "NTS-250P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-250P-spec.pdf"
       },
       "nts-400p": {
         "model": "NTS-400P",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTS-400P-spec.pdf"
       }
     }
   },
@@ -12755,44 +12446,44 @@ export const leafModelTreeFallback = [
       {
         "model": "NTU-1200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTU-1200-spec.pdf"
       },
       {
         "model": "NTU-1700",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTU-1700-spec.pdf"
       },
       {
         "model": "NTU-2200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTU-2200-spec.pdf"
       },
       {
         "model": "NTU-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTU-3200-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "ntu-1200": {
         "model": "NTU-1200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTU-1200-spec.pdf"
       },
       "ntu-1700": {
         "model": "NTU-1700",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTU-1700-spec.pdf"
       },
       "ntu-2200": {
         "model": "NTU-2200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTU-2200-spec.pdf"
       },
       "ntu-3200": {
         "model": "NTU-3200",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/NTU-3200-spec.pdf"
       }
     }
   },
@@ -12820,24 +12511,24 @@ export const leafModelTreeFallback = [
       {
         "model": "TN-1500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TN-1500-SPEC.PDF"
       },
       {
         "model": "TN-3000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TN-3000-SPEC.PDF"
       }
     ],
     "modelAssetsByKey": {
       "tn-1500": {
         "model": "TN-1500",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TN-1500-SPEC.PDF"
       },
       "tn-3000": {
         "model": "TN-3000",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/TN-3000-SPEC.PDF"
       }
     }
   },
@@ -12873,84 +12564,84 @@ export const leafModelTreeFallback = [
       {
         "model": "VFD-150P-48",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-150P-48-spec.pdf"
       },
       {
         "model": "VFD-250P-48",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-250P-48-spec.pdf"
       },
       {
         "model": "VFD-350P-48",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-350P-48-spec.pdf"
       },
       {
         "model": "VFD-200C-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-200C-230-spec.pdf"
       },
       {
         "model": "VFD-350C-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-350C-230-spec.pdf"
       },
       {
         "model": "VFD-750C-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-750C-230-spec.pdf"
       },
       {
         "model": "VFD-250P-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-250P-230-spec.pdf"
       },
       {
         "model": "VFD-350P-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-350P-230-spec.pdf"
       }
     ],
     "modelAssetsByKey": {
       "vfd-150p-48": {
         "model": "VFD-150P-48",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-150P-48-spec.pdf"
       },
       "vfd-250p-48": {
         "model": "VFD-250P-48",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-250P-48-spec.pdf"
       },
       "vfd-350p-48": {
         "model": "VFD-350P-48",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-350P-48-spec.pdf"
       },
       "vfd-200c-230": {
         "model": "VFD-200C-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-200C-230-spec.pdf"
       },
       "vfd-350c-230": {
         "model": "VFD-350C-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-350C-230-spec.pdf"
       },
       "vfd-750c-230": {
         "model": "VFD-750C-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-750C-230-spec.pdf"
       },
       "vfd-250p-230": {
         "model": "VFD-250P-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-250P-230-spec.pdf"
       },
       "vfd-350p-230": {
         "model": "VFD-350P-230",
         "imageUrl": "",
-        "pdfUrl": ""
+        "pdfUrl": "/catalog/meanwell/VFD-350P-230-spec.pdf"
       }
     }
   }
