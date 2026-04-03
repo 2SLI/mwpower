@@ -3,11 +3,26 @@ import { NEWS_ALL_CATEGORY, formatNewsDate, getAllNewsSorted } from '../data/new
 
 const solutionCards = [
   { title: 'DC/DC Converter 전원 솔루션', image: '/meanwell/index_1.jpg', alt: 'DC/DC', productPreset: { majorId: 'dc-dc' } },
-  { title: 'LED 전원 솔루션', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED', productPreset: { majorId: 'ac-dc' } },
-  { title: '의료 전원 솔루션', image: '/meanwell/index-solutions-pic6.jpg', alt: 'Medical', productPreset: { majorId: 'ac-dc' } },
-  { title: 'LED Display 솔루션', image: '/meanwell/index-solutions-pic4.jpg', alt: 'Display', productPreset: { majorId: 'ac-dc' } },
-  { title: '구성형 전원 솔루션', image: '/meanwell/index-solutions-pic3.jpg', alt: 'Configurable', productPreset: { majorId: 'ac-dc' } },
-  { title: '건물 전원 솔루션', image: '/meanwell/index-solutions-pic5.jpg', alt: 'Building', productPreset: { majorId: 'smart-building-solutions' } },
+  { title: 'LED 전원 솔루션', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED', productSearch: 'LED' },
+  { title: '의료 전원 솔루션', image: '/meanwell/index-solutions-pic6.jpg', alt: 'MEDICAL', productSearch: 'MEDICAL' },
+  {
+    title: 'LED Display 솔루션',
+    image: '/meanwell/index-solutions-pic4.jpg',
+    alt: 'Display',
+    productSearch: 'UHP-200(R), UHP-350(R), UHP-500(R), UHP-200A, NEL-400, HSP-200, HSP-300, RSP-200, RSP-320, LRS-200, LRS-350',
+  },
+  {
+    title: '시스템 전원 솔루션',
+    image: '/meanwell/index-solutions-pic3.jpg',
+    alt: 'System Power',
+    productSearch: 'NMP Series, UMP Series, RCP Series, NCP Series, CMU2 Series, DRP Series',
+  },
+  {
+    title: '건물 관리 솔루션',
+    image: '/meanwell/index-solutions-pic5.jpg',
+    alt: 'Building Management',
+    productSearch: 'KNX, HDR, LCM, PWM, XLC, KAA, DLC, KSI, KSR, KSC',
+  },
 ]
 
 const productCards = [
@@ -44,7 +59,7 @@ function normalizeIndex(index, length) {
   return (index + length) % length
 }
 
-export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPreset, onOpenNewsArticle }) {
+export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPreset, onOpenProductSearch, onOpenNewsArticle }) {
   const totalSlides = bannerImages.length
   const [currentSlide, setCurrentSlide] = useState(0)
 
@@ -167,6 +182,10 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               event.preventDefault()
               if (item.productPreset) {
                 onOpenProductPreset?.(item.productPreset)
+                return
+              }
+              if (item.productSearch) {
+                onOpenProductSearch?.(item.productSearch)
                 return
               }
               onNavigate('products')

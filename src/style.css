@@ -100,10 +100,9 @@
     border-right: 1px solid #be1b25;
   }
 
-  #product-page .product-category-crumb .home svg {
-    width: 15px;
-    height: 15px;
-    display: block;
+  #product-page .product-category-crumb .home i {
+    font-size: 15px;
+    line-height: 1;
   }
 
   #product-page .product-category-crumb dl {
@@ -271,10 +270,9 @@
       color: #fff;
     }
 
-    #product-page .product-category-crumb .mobile-home svg {
-      width: 14px;
-      height: 14px;
-      display: block;
+    #product-page .product-category-crumb .mobile-home i {
+      font-size: 14px;
+      line-height: 1;
     }
 
     #product-page .product-category-crumb .mobile-path {

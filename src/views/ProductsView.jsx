@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import {
   findMatchingLabel,
-  findSearchResults,
   getLeafChips,
   getModelAssetByModel,
   getLeafView,
@@ -37,7 +36,7 @@ function hasPdfAsset(asset) {
   return String(asset?.pdfUrl ?? '').trim().length > 0
 }
 
-export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest }) {
+export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onNavigate }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
 
@@ -54,6 +53,18 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const [isMobileViewport, setIsMobileViewport] = useState(false)
   const categoryCrumbRef = useRef(null)
   const wasActiveRef = useRef(isActive)
+  const lastAppliedPresetAtRef = useRef(null)
+  const searchInput = String(search ?? '').trim()
+  const hasSearchInput = searchInput.length > 0
+  const searchKeywords = Array.from(
+    new Set(
+      searchInput
+        .split(/[,\uFF0C]/)
+        .map((keyword) => normalizeLabel(keyword))
+        .filter(Boolean)
+    )
+  )
+  const hasSearch = searchKeywords.length > 0
 
   useEffect(() => {
     let alive = true
@@ -81,6 +92,19 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       return
     }
 
+    const presetAt = externalPresetRequest?.at ?? null
+    const hasFreshPreset = presetAt != null && presetAt !== lastAppliedPresetAtRef.current
+    if (hasFreshPreset) {
+      setSearch('')
+      setIsMajorPanelOpen(false)
+      setIsSubPanelOpen(false)
+      setIsLeafPanelOpen(false)
+      setIsModelPanelOpen(false)
+
+      wasActiveRef.current = isActive
+      return
+    }
+
     const defaultMajorId = majorCategories[0]?.id ?? defaultMajorCategories[0]?.id ?? ''
     setActiveMajorId(defaultMajorId)
     setActiveSubcategory(null)
@@ -94,7 +118,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setIsModelPanelOpen(false)
 
     wasActiveRef.current = isActive
-  }, [isActive, majorCategories])
+  }, [isActive, majorCategories, externalPresetRequest])
 
   useEffect(() => {
     const externalKeyword = String(externalSearchRequest?.keyword ?? '').trim()
@@ -117,6 +141,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setActiveLeaf(leaf || subcategory || null)
     setActiveGroup(group || null)
     setActiveModel(model || null)
+    lastAppliedPresetAtRef.current = externalPresetRequest?.at ?? null
   }, [externalPresetRequest])
 
   useEffect(() => {
@@ -176,9 +201,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const subcategoriesKey = useMemo(() => subcategories.join('|'), [subcategories])
 
   useEffect(() => {
-    if (search.trim()) return
+    if (hasSearch) return
     if (activeSubcategory && !subcategories.includes(activeSubcategory)) setActiveSubcategory(null)
-  }, [search, activeSubcategory, subcategories, subcategoriesKey])
+  }, [hasSearch, activeSubcategory, subcategories, subcategoriesKey])
 
   const selectableLeafChips = useMemo(
     () => getLeafChips(activeMajor?.name, activeSubcategory, { includeFallback: true }),
@@ -255,14 +280,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     }
   }, [leafView, activeGroup])
 
-  const searchTerm = search.trim()
-  const hasSearch = searchTerm.length > 0
-
-  const searchResults = useMemo(
-    () => (hasSearch ? findSearchResults(majorCategories, searchTerm, leafTreeMap) : []),
-    [hasSearch, majorCategories, searchTerm, leafTreeMap]
-  )
-
   const selectedGroupName = useMemo(() => {
     if (!leafView || leafView.groups.length <= 1) return null
     const groupNames = leafView.groups.map((group) => group.name)
@@ -291,10 +308,51 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
   const pdfReadyModelCount = useMemo(() => modelCards.filter((item) => hasPdfAsset(item.asset)).length, [modelCards])
 
+  const getRecordModelNames = (record) => {
+    const sourceModels =
+      Array.isArray(record?.groups) && record.groups.length > 1
+        ? record.groups.flatMap((group) => (Array.isArray(group?.models) ? group.models : []))
+        : Array.isArray(record?.models)
+          ? record.models
+          : []
+
+    const dedupedModels = []
+    const modelSeen = new Set()
+    sourceModels.forEach((modelName) => {
+      const model = String(modelName ?? '').trim()
+      const key = normalizeLabel(model)
+      if (!model || !key || modelSeen.has(key)) return
+      modelSeen.add(key)
+      dedupedModels.push(model)
+    })
+
+    return dedupedModels
+  }
+
+  const toLeafCardRecord = (record, modelNames = getRecordModelNames(record)) => {
+    const modelList = modelNames.map((modelName) => ({
+      modelName,
+      asset: getModelAssetByModel(record?.modelAssetsByKey, modelName),
+    }))
+
+    return {
+      key: String(record?.key ?? '').trim(),
+      major: String(record?.major ?? '').trim(),
+      subcategory: String(record?.subcategory ?? '').trim(),
+      leaf: String(record?.leaf ?? '').trim(),
+      thumbnailUrl: String(record?.thumbnailUrl ?? '').trim(),
+      wattage: String(record?.wattage ?? '').trim(),
+      features: Array.isArray(record?.features) ? record.features : [],
+      modelList,
+      totalModels: modelList.length,
+      pdfReadyCount: modelList.filter((item) => hasPdfAsset(item.asset)).length,
+    }
+  }
+
   const majorAllLeafRecords = useMemo(() => {
     if (!activeMajor || hasSearch || activeLeaf) return []
 
-    const records = Object.values(leafTreeMap?.byKey ?? {})
+    return Object.values(leafTreeMap?.byKey ?? {})
       .filter((record) => {
         const isMajorMatched = normalizeLabel(record?.major) === normalizeLabel(activeMajor.name)
         if (!isMajorMatched) return false
@@ -306,44 +364,41 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         if (sub !== 0) return sub
         return String(a?.leaf ?? '').localeCompare(String(b?.leaf ?? ''))
       })
-      .map((record) => {
-        const sourceModels =
-          Array.isArray(record?.groups) && record.groups.length > 1
-            ? record.groups.flatMap((group) => (Array.isArray(group?.models) ? group.models : []))
-            : Array.isArray(record?.models)
-              ? record.models
-              : []
-
-        const dedupedModels = []
-        const modelSeen = new Set()
-        sourceModels.forEach((modelName) => {
-          const model = String(modelName ?? '').trim()
-          const key = normalizeLabel(model)
-          if (!model || !key || modelSeen.has(key)) return
-          modelSeen.add(key)
-          dedupedModels.push(model)
-        })
-
-        const modelList = dedupedModels.map((modelName) => ({
-          modelName,
-          asset: getModelAssetByModel(record?.modelAssetsByKey, modelName),
-        }))
-
-        return {
-          key: record.key,
-          subcategory: String(record?.subcategory ?? ''),
-          leaf: String(record?.leaf ?? ''),
-          thumbnailUrl: String(record?.thumbnailUrl ?? '').trim(),
-          wattage: String(record?.wattage ?? '').trim(),
-          features: Array.isArray(record?.features) ? record.features : [],
-          modelList,
-          totalModels: modelList.length,
-          pdfReadyCount: modelList.filter((item) => hasPdfAsset(item.asset)).length,
-        }
-      })
-
-    return records
+      .map((record) => toLeafCardRecord(record))
   }, [activeMajor, hasSearch, activeSubcategory, activeLeaf, leafTreeMap])
+
+  const searchLeafRecords = useMemo(() => {
+    if (!hasSearch) return []
+
+    return Object.values(leafTreeMap?.byKey ?? {})
+      .reduce((acc, record) => {
+        const models = getRecordModelNames(record)
+        const groups = Array.isArray(record?.groups) ? record.groups.map((group) => String(group?.name ?? '').trim()) : []
+        const searchableTexts = [
+          String(record?.major ?? ''),
+          String(record?.subcategory ?? ''),
+          String(record?.leaf ?? ''),
+          ...groups,
+          ...models,
+        ]
+
+        const isMatched = searchableTexts.some((text) => {
+          const normalizedText = normalizeLabel(text)
+          return searchKeywords.some((keyword) => normalizedText.includes(keyword))
+        })
+        if (!isMatched) return acc
+
+        acc.push(toLeafCardRecord(record, models))
+        return acc
+      }, [])
+      .sort((a, b) => {
+        const major = String(a?.major ?? '').localeCompare(String(b?.major ?? ''))
+        if (major !== 0) return major
+        const sub = String(a?.subcategory ?? '').localeCompare(String(b?.subcategory ?? ''))
+        if (sub !== 0) return sub
+        return String(a?.leaf ?? '').localeCompare(String(b?.leaf ?? ''))
+      })
+  }, [hasSearch, searchKeywords, leafTreeMap])
 
   const selectedModelCard = useMemo(
     () => modelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
@@ -376,8 +431,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const showMajorTitle = Boolean(majorTitle) && normalizeLabel(majorTitle) !== normalizeLabel(pageHeading)
 
   const searchMetaText = hasSearch
-    ? searchResults.length > 0
-      ? `${searchResults.length}개의 결과가 있습니다. 클릭하면 해당 카테고리로 이동합니다.`
+    ? searchLeafRecords.length > 0
+      ? `${searchLeafRecords.length}개 시리즈가 검색되었습니다. 모델을 클릭하면 해당 상세로 이동합니다.`
       : '일치하는 검색 결과가 없습니다.'
     : activeLeaf
       ? modelCards.length > 0
@@ -387,6 +442,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         ? `${activeMajor?.name ?? ''}${activeSubcategory ? ` / ${activeSubcategory}` : ''} 하위의 전체 품목을 표시중입니다. (${majorAllLeafRecords.length}개 시리즈)`
         : '상단 카테고리 바에서 대분류 -> 중분류 -> 소분류 -> 모델 순서로 선택하세요.'
 
+  const canGoBack = hasSearch || Boolean(activeModel) || Boolean(activeLeaf) || Boolean(activeSubcategory)
+  const backButtonAriaLabel = canGoBack ? '뒤로가기' : '홈으로'
+  const backButtonIconClass = canGoBack ? 'fa-solid fa-arrow-left' : 'fa-solid fa-house'
   const mobilePathText = [activeMajor?.name, activeSubcategory, activeLeaf, activeModel].filter(Boolean).join(' / ') || '카테고리를 선택하세요'
 
   const handleMajorClick = (majorId) => {
@@ -428,24 +486,15 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     if (hasSearch) setSearch('')
   }
 
-  const handleSearchResultClick = (result) => {
-    setActiveMajorId(result.majorId)
-    setActiveSubcategory(result.subcategory || null)
-    setActiveLeaf(result.leafChip || null)
-    setActiveGroup(result.groupName || null)
-    setSearch('')
-    setIsMajorPanelOpen(false)
-    setIsSubPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
-  }
-
-  const handleMajorAggregateModelClick = (record, modelName) => {
+  const handleLeafRecordModelClick = (record, modelName) => {
+    const majorName = String(record?.major ?? '').trim()
     const subcategory = String(record?.subcategory ?? '').trim()
     const leaf = String(record?.leaf ?? '').trim()
     const model = String(modelName ?? '').trim()
     if (!subcategory || !leaf || !model) return
 
+    const matchedMajorId = majorCategories.find((item) => normalizeLabel(item?.name) === normalizeLabel(majorName))?.id
+    if (matchedMajorId) setActiveMajorId(matchedMajorId)
     setActiveSubcategory(subcategory)
     setActiveLeaf(leaf)
     setActiveGroup(null)
@@ -457,20 +506,120 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setIsModelPanelOpen(false)
   }
 
+  const handleBack = () => {
+    setIsMajorPanelOpen(false)
+    setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+
+    if (hasSearchInput) {
+      setSearch('')
+      return
+    }
+
+    if (activeModel) {
+      setActiveModel(null)
+      return
+    }
+
+    if (activeLeaf) {
+      setActiveLeaf(null)
+      setActiveGroup(null)
+      setActiveModel(null)
+      return
+    }
+
+    if (activeSubcategory) {
+      setActiveSubcategory(null)
+      setActiveLeaf(null)
+      setActiveGroup(null)
+      setActiveModel(null)
+    }
+  }
+
+  const handleBackOrHome = () => {
+    if (canGoBack) {
+      handleBack()
+      return
+    }
+    onNavigate?.('home')
+  }
+
+  const renderLeafRecordCard = (record) => (
+    <article key={record.key} className="rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
+      <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
+        {record.major} / {record.subcategory} / {record.leaf}
+      </p>
+      <div className="mt-3 grid gap-4 lg:grid-cols-[280px_1fr_320px]">
+        <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+          {record.thumbnailUrl ? (
+            <img
+              src={decodeAssetUrl(record.thumbnailUrl)}
+              alt={record.leaf}
+              className="block h-[220px] w-full object-contain p-3"
+              loading="lazy"
+            />
+          ) : (
+            <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
+          )}
+        </div>
+
+        <div className="grid content-start gap-3">
+          <h4 className="m-0 text-[34px] font-black leading-tight tracking-[-0.01em] text-slate-900 max-[640px]:text-[28px]">{record.leaf}</h4>
+          <div className="grid gap-1.5 text-[15px] text-slate-700">
+            <p className="m-0">
+              <strong>Wattage:</strong> {record.wattage || '정보 없음'}
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Features</p>
+            {Array.isArray(record.features) && record.features.length > 0 ? (
+              <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
+                {record.features.map((feature) => (
+                  <li key={`${record.key}-${feature}`}>{feature}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
+            )}
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
+          <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
+          {record.modelList.length > 0 ? (
+            <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
+              {record.modelList.map((item, index) => (
+                <button
+                  key={`${record.key}-${item.modelName}`}
+                  type="button"
+                  className="text-left text-slate-700 underline-offset-2 hover:text-[#c02f2f] hover:underline"
+                  onClick={() => handleLeafRecordModelClick(record, item.modelName)}
+                >
+                  {item.modelName}
+                  {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
+                  {index < record.modelList.length - 1 ? ' /' : ''}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
+          )}
+        </div>
+      </div>
+    </article>
+  )
+
   return (
     <section className={`${isActive ? '' : 'is-hidden'} min-h-[1200px] overflow-x-hidden bg-slate-100 pb-16 max-[640px]:min-h-0 max-[640px]:pb-10`} id="product-page">
       <div className="border-b border-slate-200 bg-white">
         <div className="w-full">
           <div className="product-category-crumb" ref={categoryCrumbRef}>
             <div className="inner max-[640px]:hidden">
-              <a className="home" href="/" aria-label="홈으로">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path
-                    fill="currentColor"
-                    d="M12 3.2 3 10.6V21h6.2v-5.4h5.6V21H21V10.6L12 3.2Zm7 15.8h-2.2v-5.4H7.2V19H5v-7.4l7-5.8 7 5.8V19Z"
-                  />
-                </svg>
-              </a>
+              <button type="button" className="home" aria-label={backButtonAriaLabel} onClick={handleBackOrHome}>
+                <i className={backButtonIconClass} aria-hidden="true"></i>
+              </button>
 
               <dl className={`g ${isMajorPanelOpen ? 'open' : ''}`}>
                 <dt>
@@ -610,14 +759,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
             <div className="mobile-crumb hidden max-[640px]:block">
               <div className="mobile-crumb-top">
-                <a className="mobile-home" href="/" aria-label="홈으로">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <path
-                      fill="currentColor"
-                      d="M12 3.2 3 10.6V21h6.2v-5.4h5.6V21H21V10.6L12 3.2Zm7 15.8h-2.2v-5.4H7.2V19H5v-7.4l7-5.8 7 5.8V19Z"
-                    />
-                  </svg>
-                </a>
+                <button type="button" className="mobile-home" aria-label={backButtonAriaLabel} onClick={handleBackOrHome}>
+                  <i className={backButtonIconClass} aria-hidden="true"></i>
+                </button>
 
                 <p className="mobile-path" title={mobilePathText}>
                   {mobilePathText}
@@ -773,7 +917,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               id="product-search-input"
               className="min-w-0 flex-1 border-0 bg-transparent text-[15px] text-slate-700 outline-none placeholder:text-slate-400"
               type="text"
-              placeholder="상품명/시리즈/그룹 검색"
+              placeholder="상품명/시리즈/그룹 검색 (예: LED, MEDICAL)"
               autoComplete="off"
               spellCheck="false"
               value={search}
@@ -781,7 +925,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             />
             <button
               type="button"
-              className={`h-[34px] rounded-full bg-slate-200 px-3.5 text-xs font-bold text-slate-700 max-[640px]:h-[30px] max-[640px]:px-3 ${hasSearch ? '' : 'is-hidden'}`}
+              className={`h-[34px] rounded-full bg-slate-200 px-3.5 text-xs font-bold text-slate-700 max-[640px]:h-[30px] max-[640px]:px-3 ${hasSearchInput ? '' : 'is-hidden'}`}
               onClick={() => setSearch('')}
             >
               Clear
@@ -795,92 +939,18 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
           <div className="category-grid grid gap-3 rounded-[12px] bg-slate-100 p-1">
             {hasSearch ? (
-              searchResults.length === 0 ? (
+              searchLeafRecords.length === 0 ? (
                 <div className="rounded-xl border border-dashed border-slate-300 bg-white px-[18px] py-6">
                   <p className="m-0 text-center text-sm text-slate-500">검색 결과가 없습니다. 다른 키워드로 다시 시도해보세요.</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-3 max-[640px]:grid-cols-1">
-                  {searchResults.map((result) => (
-                    <article
-                      key={`${result.majorId}-${result.subcategory}-${result.leafChip}-${result.groupName}-${result.name}`}
-                      className="grid cursor-pointer gap-1.5 rounded-xl border border-slate-300 bg-white px-3.5 py-[13px] transition hover:border-[#cf4a4a] hover:shadow-[0_0_0_2px_#f1d6d6]"
-                      onClick={() => handleSearchResultClick(result)}
-                    >
-                      <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#ab2b2b]">{result.majorName}</p>
-                      <h3 className="m-0 text-base font-bold text-slate-800">{result.name}</h3>
-                      <p className="m-0 text-xs text-slate-500">{result.context}</p>
-                    </article>
-                  ))}
+                <div className="grid gap-3">
+                  {searchLeafRecords.map((record) => renderLeafRecordCard(record))}
                 </div>
               )
             ) : showMajorAggregateView ? (
               <div className="grid gap-3">
-                {majorAllLeafRecords.map((record) => (
-                  <article key={record.key} className="rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
-                    <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
-                      {activeMajor?.name} / {record.subcategory} / {record.leaf}
-                    </p>
-                    <div className="mt-3 grid gap-4 lg:grid-cols-[280px_1fr_320px]">
-                      <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
-                        {record.thumbnailUrl ? (
-                          <img
-                            src={decodeAssetUrl(record.thumbnailUrl)}
-                            alt={record.leaf}
-                            className="block h-[220px] w-full object-contain p-3"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
-                        )}
-                      </div>
-
-                      <div className="grid content-start gap-3">
-                        <h4 className="m-0 text-[34px] font-black leading-tight tracking-[-0.01em] text-slate-900 max-[640px]:text-[28px]">{record.leaf}</h4>
-                        <div className="grid gap-1.5 text-[15px] text-slate-700">
-                          <p className="m-0">
-                            <strong>Wattage:</strong> {record.wattage || '정보 없음'}
-                          </p>
-                        </div>
-
-                        <div>
-                          <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Features</p>
-                          {Array.isArray(record.features) && record.features.length > 0 ? (
-                            <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
-                              {record.features.map((feature) => (
-                                <li key={`${record.key}-${feature}`}>{feature}</li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
-                        <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
-                        {record.modelList.length > 0 ? (
-                          <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
-                            {record.modelList.map((item, index) => (
-                              <button
-                                key={`${record.key}-${item.modelName}`}
-                                type="button"
-                                className="text-left text-slate-700 underline-offset-2 hover:text-[#c02f2f] hover:underline"
-                                onClick={() => handleMajorAggregateModelClick(record, item.modelName)}
-                              >
-                                {item.modelName}
-                                {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
-                                {index < record.modelList.length - 1 ? ' /' : ''}
-                              </button>
-                            ))}
-                          </div>
-                        ) : (
-                          <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
-                        )}
-                      </div>
-                    </div>
-                  </article>
-                ))}
+                {majorAllLeafRecords.map((record) => renderLeafRecordCard(record))}
               </div>
             ) : !activeLeaf ? (
               !activeSubcategory ? (

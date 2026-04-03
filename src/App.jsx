@@ -129,6 +129,7 @@ export default function App() {
             bannerImages={bannerImages}
             onNavigate={handleNavigate}
             onOpenProductPreset={handleOpenProductPreset}
+            onOpenProductSearch={handleProductSearch}
             onOpenNewsArticle={handleOpenNewsArticle}
           />
           <NewsView isActive={activeView === 'news'} onNavigate={handleNavigate} externalNewsRequest={newsRequest} />
@@ -136,6 +137,7 @@ export default function App() {
             isActive={activeView === 'products'}
             externalSearchRequest={productSearchRequest}
             externalPresetRequest={productPresetRequest}
+            onNavigate={handleNavigate}
           />
           <ServiceView isActive={activeView === 'service'} />
           <ContactView isActive={activeView === 'contact-product'} />
