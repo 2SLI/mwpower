@@ -201,6 +201,15 @@
     font-weight: 700;
   }
 
+  #product-page .pdf-viewer-shell {
+    position: relative;
+    overflow: hidden;
+  }
+
+  #product-page .pdf-viewer-frame {
+    display: block;
+  }
+
   @media (max-width: 640px) {
     #product-page #product-major-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -380,6 +389,19 @@
       color: #005fb0;
       font-weight: 700;
       background: #f8fafc;
+    }
+
+    #product-page .pdf-viewer-shell {
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-y pinch-zoom;
+      background: #ffffff;
+    }
+
+    #product-page .pdf-viewer-frame {
+      touch-action: pan-y pinch-zoom;
+      pointer-events: auto;
     }
   }
 }

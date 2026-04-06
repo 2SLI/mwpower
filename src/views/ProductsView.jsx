@@ -972,13 +972,27 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </section>
 
                 {selectedModelCard.asset?.pdfUrl ? (
-                  <div className="h-[1290px] overflow-hidden rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100vh-170px)] max-[640px]:min-h-[560px]">
-                    <iframe
-                      title={`${selectedModelCard.modelName} PDF`}
-                      src={withPdfViewerParams(decodeAssetUrl(selectedModelCard.asset.pdfUrl), { mobile: isMobileViewport })}
-                      className="h-full w-full border-0 bg-white max-[640px]:h-[128%] max-[640px]:w-[128%] max-[640px]:origin-top-left max-[640px]:scale-[0.78]"
-                    ></iframe>
-                  </div>
+                  <>
+                    <div className="pdf-viewer-shell h-[1290px] rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100vh-170px)] max-[640px]:min-h-[560px]">
+                      <iframe
+                        title={`${selectedModelCard.modelName} PDF`}
+                        src={
+                          isMobileViewport
+                            ? decodeAssetUrl(selectedModelCard.asset.pdfUrl)
+                            : withPdfViewerParams(decodeAssetUrl(selectedModelCard.asset.pdfUrl), { mobile: false })
+                        }
+                        className="pdf-viewer-frame h-full w-full border-0 bg-white"
+                      ></iframe>
+                    </div>
+                    <a
+                      href={decodeAssetUrl(selectedModelCard.asset.pdfUrl)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-2 hidden items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 max-[640px]:inline-flex"
+                    >
+                      전체 PDF 열기
+                    </a>
+                  </>
                 ) : (
                   <div className="rounded-lg border border-dashed border-slate-300 bg-white px-4 py-8">
                     <p className="m-0 text-center text-sm text-slate-500">PDF 준비중입니다.</p>
