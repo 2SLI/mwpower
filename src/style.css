@@ -345,13 +345,19 @@
     }
 
     #product-page .product-category-crumb .mobile-tab-panel {
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      top: max(118px, calc(env(safe-area-inset-top) + 84px));
+      z-index: 80;
       display: grid;
-      max-height: 260px;
+      max-height: min(68dvh, 540px);
       overflow-y: auto;
       border: 1px solid #d9d9d9;
-      border-radius: 14px;
+      border-radius: 16px;
       background: #fff;
-      padding: 6px 0;
+      box-shadow: 0 20px 36px rgba(15, 23, 42, 0.18);
+      padding: 8px 0;
     }
 
     #product-page .product-category-crumb .mobile-tab-panel button {
@@ -360,12 +366,13 @@
       border: 0;
       background: transparent;
       text-align: left;
-      padding: 10px 12px;
-      color: #475569;
-      font-size: 13px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      min-height: 46px;
+      padding: 11px 14px;
+      color: #334155;
+      font-size: 14px;
+      line-height: 1.35;
+      white-space: normal;
+      word-break: keep-all;
       cursor: pointer;
     }
 
