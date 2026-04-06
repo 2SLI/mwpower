@@ -800,40 +800,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 >
                   <span className="mobile-tab-text">{activeSubcategory ?? '중분류 선택'}</span>
                 </button>
-
-                <button
-                  type="button"
-                  className={`mobile-tab ${isLeafPanelOpen ? 'on' : ''}`}
-                  aria-expanded={isLeafPanelOpen}
-                  aria-controls="mobile-leaf-panel"
-                  onClick={() => {
-                    if (selectableLeafChips.length === 0) return
-                    setIsLeafPanelOpen((prev) => !prev)
-                    setIsMajorPanelOpen(false)
-                    setIsSubPanelOpen(false)
-                    setIsModelPanelOpen(false)
-                  }}
-                  disabled={selectableLeafChips.length === 0}
-                >
-                  <span className="mobile-tab-text">{activeLeaf ?? '소분류 선택'}</span>
-                </button>
-
-                <button
-                  type="button"
-                  className={`mobile-tab ${isModelPanelOpen ? 'on' : ''}`}
-                  aria-expanded={isModelPanelOpen}
-                  aria-controls="mobile-model-panel"
-                  onClick={() => {
-                    if (modelCards.length === 0) return
-                    setIsModelPanelOpen((prev) => !prev)
-                    setIsMajorPanelOpen(false)
-                    setIsSubPanelOpen(false)
-                    setIsLeafPanelOpen(false)
-                  }}
-                  disabled={modelCards.length === 0}
-                >
-                  <span className="mobile-tab-text">{activeModel ?? '모델 선택'}</span>
-                </button>
               </div>
 
               {isMajorPanelOpen ? (
@@ -861,37 +827,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                       onClick={() => handleSubcategoryClick(subcategory)}
                     >
                       {subcategory}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-
-              {isLeafPanelOpen ? (
-                <div className="mobile-tab-panel" id="mobile-leaf-panel">
-                  {selectableLeafChips.map((leafChip) => (
-                    <button
-                      key={leafChip}
-                      type="button"
-                      className={normalizeLabel(leafChip) === normalizeLabel(activeLeaf) ? 'on' : ''}
-                      onClick={() => handleLeafClick(leafChip)}
-                    >
-                      {leafChip}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-
-              {isModelPanelOpen ? (
-                <div className="mobile-tab-panel" id="mobile-model-panel">
-                  {modelCards.map((item) => (
-                    <button
-                      key={item.modelName}
-                      type="button"
-                      className={normalizeLabel(item.modelName) === normalizeLabel(activeModel) ? 'on' : ''}
-                      onClick={() => handleModelClick(item.modelName)}
-                    >
-                      {item.modelName}
-                      {!hasPdfAsset(item.asset) ? ' · PDF 준비중' : ''}
                     </button>
                   ))}
                 </div>

@@ -207,7 +207,7 @@
     }
 
     #product-page .product-category-crumb .inner {
-      min-height: 52px;
+      display: none;
     }
 
     #product-page .product-category-crumb .home {
