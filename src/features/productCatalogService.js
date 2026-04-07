@@ -1,5 +1,6 @@
 ﻿import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import { folderCatalogManifest } from '../data/folderCatalogManifest'
+import { featureTranslationsKo } from '../data/featureTranslationsKo'
 import { leafModelTreeFallback } from '../data/leafModelTreeFallback'
 
 export const iconByMajor = {
@@ -353,17 +354,37 @@ function normalizeFeatures(values) {
   if (!Array.isArray(values)) return []
 
   const output = []
-  const seen = new Set()
+  const sourceSeen = new Set()
+  const localizedSeen = new Set()
 
   values.forEach((value) => {
     const text = String(value ?? '').trim()
-    const key = normalizeLabel(text)
-    if (!text || !key || seen.has(key)) return
-    seen.add(key)
-    output.push(text)
+    const sourceKey = normalizeLabel(text)
+    if (!text || !sourceKey || sourceSeen.has(sourceKey)) return
+    sourceSeen.add(sourceKey)
+
+    const localizedText = localizeFeatureText(text)
+    const localizedKey = normalizeLabel(localizedText)
+    if (!localizedText || !localizedKey || localizedSeen.has(localizedKey)) return
+    localizedSeen.add(localizedKey)
+    output.push(localizedText)
   })
 
   return output
+}
+
+function localizeFeatureText(text = '') {
+  const source = String(text ?? '').trim()
+  if (!source) return ''
+
+  const translated = String(featureTranslationsKo?.[source] ?? '').trim()
+  if (!translated) return source
+
+  return translated
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\s+([,.)/])/g, '$1')
+    .replace(/([(])\s+/g, '$1')
+    .trim()
 }
 
 function matchesSearch(value, normalizedQuery) {

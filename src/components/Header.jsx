@@ -117,17 +117,6 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           </button>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
-            aria-label="사용자"
-            onClick={() => onNavigate('contact-product')}
-          >
-            <svg viewBox="0 0 24 24" className="h-6 w-6 max-[640px]:h-5 max-[640px]:w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="8" r="3.5"></circle>
-              <path d="M5 20c0-3.3 3.1-5 7-5s7 1.7 7 5"></path>
-            </svg>
-          </button>
-          <button
-            type="button"
             className="relative inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
             aria-label="메뉴"
             aria-expanded={isMenuOpen}

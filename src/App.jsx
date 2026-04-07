@@ -39,7 +39,6 @@ function setMetaByProperty(property, content) {
 
 export default function App() {
   const [activeView, setActiveView] = useState('home')
-  const [firebaseStatus] = useState('Firebase initialized: App/Auth/Firestore connected.')
   const [productSearchRequest, setProductSearchRequest] = useState(null)
   const [productPresetRequest, setProductPresetRequest] = useState(null)
   const [newsRequest, setNewsRequest] = useState(null)
@@ -157,11 +156,6 @@ export default function App() {
           <TechnicalContactView isActive={activeView === 'contact-tech'} />
         </main>
         <Footer />
-
-        <section className="px-4 pb-16 pt-3 text-xs text-neutral-500" id="firebase-status">
-          {firebaseStatus}
-        </section>
-
       </div>
     </>
   )
