@@ -210,6 +210,39 @@
     display: block;
   }
 
+  #product-page .pdf-react-viewer {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y pinch-zoom;
+    background: #e2e8f0;
+    padding: 8px;
+  }
+
+  #product-page .pdf-react-viewer .react-pdf__Document {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+  }
+
+  #product-page .pdf-react-viewer .react-pdf__Page {
+    max-width: 100%;
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+  }
+
+  #product-page .pdf-react-viewer .react-pdf__Page__canvas {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+  }
+
+  #product-page .pdf-react-viewer .react-pdf__Page__textContent {
+    inset: 0;
+  }
+
   @media (max-width: 640px) {
     #product-page #product-major-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -402,6 +435,14 @@
     #product-page .pdf-viewer-frame {
       touch-action: pan-y pinch-zoom;
       pointer-events: auto;
+    }
+
+    #product-page .pdf-react-viewer {
+      padding: 6px;
+    }
+
+    #product-page .pdf-react-viewer .react-pdf__Document {
+      gap: 10px;
     }
   }
 }

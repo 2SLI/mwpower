@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Document, Page, pdfjs } from 'react-pdf'
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+import 'react-pdf/dist/Page/TextLayer.css'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import {
   findMatchingLabel,
@@ -9,6 +12,8 @@ import {
   loadMajorCategories,
   normalizeLabel,
 } from '../features/productCatalogService'
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString()
 
 function withPdfViewerParams(url = '', { mobile = false } = {}) {
   const text = String(url ?? '').trim()
@@ -51,7 +56,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const [isLeafPanelOpen, setIsLeafPanelOpen] = useState(false)
   const [isModelPanelOpen, setIsModelPanelOpen] = useState(false)
   const [isMobileViewport, setIsMobileViewport] = useState(false)
+  const [mobilePdfNumPages, setMobilePdfNumPages] = useState(0)
+  const [mobilePdfViewportWidth, setMobilePdfViewportWidth] = useState(0)
   const categoryCrumbRef = useRef(null)
+  const mobilePdfViewportRef = useRef(null)
   const wasActiveRef = useRef(isActive)
   const lastAppliedPresetAtRef = useRef(null)
   const searchInput = String(search ?? '').trim()
@@ -404,6 +412,12 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     () => modelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
     [modelCards, activeModel]
   )
+  const selectedPdfUrl = useMemo(() => decodeAssetUrl(selectedModelCard?.asset?.pdfUrl), [selectedModelCard?.asset?.pdfUrl])
+  const mobilePdfPageWidth = useMemo(() => {
+    const width = mobilePdfViewportWidth - 16
+    if (!Number.isFinite(width) || width <= 0) return null
+    return Math.max(260, width)
+  }, [mobilePdfViewportWidth])
 
   useEffect(() => {
     if (modelCards.length === 0) {
@@ -416,6 +430,33 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const exists = modelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel))
     if (!exists) setActiveModel(null)
   }, [modelCards, activeModel])
+
+  useEffect(() => {
+    setMobilePdfNumPages(0)
+  }, [selectedPdfUrl])
+
+  useEffect(() => {
+    if (!isMobileViewport) return undefined
+    const viewport = mobilePdfViewportRef.current
+    if (!viewport) return undefined
+
+    const syncWidth = () => {
+      const nextWidth = Math.round(viewport.clientWidth)
+      setMobilePdfViewportWidth((prev) => (prev === nextWidth ? prev : nextWidth))
+    }
+
+    syncWidth()
+
+    if (typeof ResizeObserver === 'function') {
+      const observer = new ResizeObserver(syncWidth)
+      observer.observe(viewport)
+      return () => observer.disconnect()
+    }
+
+    if (typeof window === 'undefined') return undefined
+    window.addEventListener('resize', syncWidth)
+    return () => window.removeEventListener('resize', syncWidth)
+  }, [isMobileViewport, selectedPdfUrl])
 
   const showMajorAggregateView = !hasSearch && !activeLeaf && majorAllLeafRecords.length > 0
   const showNewProducts = !hasSearch && !activeLeaf && !showMajorAggregateView
@@ -974,24 +1015,37 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 {selectedModelCard.asset?.pdfUrl ? (
                   <>
                     <div className="pdf-viewer-shell h-[1290px] rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100vh-170px)] max-[640px]:min-h-[560px]">
-                      <iframe
-                        title={`${selectedModelCard.modelName} PDF`}
-                        src={
-                          isMobileViewport
-                            ? decodeAssetUrl(selectedModelCard.asset.pdfUrl)
-                            : withPdfViewerParams(decodeAssetUrl(selectedModelCard.asset.pdfUrl), { mobile: false })
-                        }
-                        className="pdf-viewer-frame h-full w-full border-0 bg-white"
-                      ></iframe>
+                      {isMobileViewport ? (
+                        <div ref={mobilePdfViewportRef} className="pdf-react-viewer h-full w-full">
+                          <Document
+                            key={selectedPdfUrl}
+                            file={selectedPdfUrl}
+                            loading={<p className="m-0 px-2 py-4 text-center text-sm text-slate-600">PDF 불러오는 중...</p>}
+                            onLoadSuccess={({ numPages }) => setMobilePdfNumPages(numPages)}
+                            onLoadError={() => setMobilePdfNumPages(0)}
+                            error={<p className="m-0 px-2 py-4 text-center text-sm text-rose-600">PDF 표시 중 오류가 발생했습니다.</p>}
+                            noData={<p className="m-0 px-2 py-4 text-center text-sm text-slate-600">PDF 파일이 없습니다.</p>}
+                          >
+                            {mobilePdfNumPages > 0 &&
+                              Array.from({ length: mobilePdfNumPages }, (_, pageIndex) => (
+                                <Page
+                                  key={`mobile-pdf-page-${pageIndex + 1}`}
+                                  pageNumber={pageIndex + 1}
+                                  width={mobilePdfPageWidth ?? undefined}
+                                  renderAnnotationLayer
+                                  renderTextLayer
+                                />
+                              ))}
+                          </Document>
+                        </div>
+                      ) : (
+                        <iframe
+                          title={`${selectedModelCard.modelName} PDF`}
+                          src={withPdfViewerParams(selectedPdfUrl, { mobile: false })}
+                          className="pdf-viewer-frame h-full w-full border-0 bg-white"
+                        ></iframe>
+                      )}
                     </div>
-                    <a
-                      href={decodeAssetUrl(selectedModelCard.asset.pdfUrl)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-2 hidden items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 max-[640px]:inline-flex"
-                    >
-                      전체 PDF 열기
-                    </a>
                   </>
                 ) : (
                   <div className="rounded-lg border border-dashed border-slate-300 bg-white px-4 py-8">
