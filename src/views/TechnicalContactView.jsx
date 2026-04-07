@@ -90,7 +90,7 @@ export function TechnicalContactView({ isActive }) {
                 <span className="mt-1 inline-grid h-[26px] w-[26px] place-items-center rounded-md border border-[#e72e25] bg-white text-xs text-[#e72e25]" aria-hidden="true">
                   <i className="fa-solid fa-mobile-screen-button"></i>
                 </span>
-                <span>041-522-3324</span>
+                <span>010-6358-3144</span>
               </li>
             </ul>
           </div>

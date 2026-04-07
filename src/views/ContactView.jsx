@@ -78,7 +78,7 @@ export function ContactView({ isActive }) {
                 <span className="mt-1 inline-grid h-[26px] w-[26px] place-items-center rounded-md border border-[#e72e25] bg-white text-xs text-[#e72e25]" aria-hidden="true">
                   <i className="fa-regular fa-envelope"></i>
                 </span>
-                <span>hclee@l-light.co.kr</span>
+                <span>dhlee@l-light.co.kr</span>
               </li>
               <li className="grid grid-cols-[30px_1fr] items-start gap-3.5 text-[clamp(20px,1.3vw,27px)] leading-[1.45] text-slate-800 max-[640px]:text-base">
                 <span className="mt-1 inline-grid h-[26px] w-[26px] place-items-center rounded-md border border-[#e72e25] bg-white text-xs text-[#e72e25]" aria-hidden="true">
@@ -90,7 +90,7 @@ export function ContactView({ isActive }) {
                 <span className="mt-1 inline-grid h-[26px] w-[26px] place-items-center rounded-md border border-[#e72e25] bg-white text-xs text-[#e72e25]" aria-hidden="true">
                   <i className="fa-solid fa-mobile-screen-button"></i>
                 </span>
-                <span>041-522-3324</span>
+                <span>010-3305-7949</span>
               </li>
             </ul>
           </div>

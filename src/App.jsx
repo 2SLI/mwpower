@@ -7,12 +7,19 @@ import { ProductsView } from './views/ProductsView'
 import { ServiceView } from './views/ServiceView'
 import { ContactView } from './views/ContactView'
 import { TechnicalContactView } from './views/TechnicalContactView'
+import { AdminView } from './views/AdminView'
 import { bannerImages } from './data/bannerImages'
 
 function normalizeView(view) {
   if (view === 'contact') return 'contact-product'
   if (view === 'news' || view === 'products' || view === 'service' || view === 'contact-product' || view === 'contact-tech') return view
   return 'home'
+}
+
+function normalizePathname(pathname = '/') {
+  const raw = String(pathname ?? '/').trim().toLowerCase()
+  if (!raw || raw === '/') return '/'
+  return raw.replace(/\/+$/g, '') || '/'
 }
 
 function setMetaByName(name, content) {
@@ -42,9 +49,22 @@ export default function App() {
   const [productSearchRequest, setProductSearchRequest] = useState(null)
   const [productPresetRequest, setProductPresetRequest] = useState(null)
   const [newsRequest, setNewsRequest] = useState(null)
+  const [pathname, setPathname] = useState(() => (typeof window === 'undefined' ? '/' : normalizePathname(window.location.pathname)))
+  const isAdminRoute = pathname === '/admin'
   const isContactView = activeView === 'contact-product' || activeView === 'contact-tech'
 
   useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    const syncPath = () => setPathname(normalizePathname(window.location.pathname))
+    syncPath()
+    window.addEventListener('popstate', syncPath)
+    return () => window.removeEventListener('popstate', syncPath)
+  }, [])
+
+  useEffect(() => {
+    if (isAdminRoute) return
+
     const pageMeta = {
       home: {
         title: '민웰파워 | MEAN WELL 정품 공급업체',
@@ -79,7 +99,7 @@ export default function App() {
     setMetaByProperty('og:description', current.description)
     setMetaByName('twitter:title', current.title)
     setMetaByName('twitter:description', current.description)
-  }, [activeView])
+  }, [activeView, isAdminRoute])
 
   function handleNavigate(view) {
     setActiveView(normalizeView(view))
@@ -104,6 +124,10 @@ export default function App() {
     if (!id) return
     setNewsRequest({ articleId: id, category: String(category ?? ''), at: Date.now() })
     setActiveView('news')
+  }
+
+  if (isAdminRoute) {
+    return <AdminView />
   }
 
   return (

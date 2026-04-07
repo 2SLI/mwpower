@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { NEWS_ALL_CATEGORY, formatNewsDate, getNewsByCategory, getNewsById, newsCategories } from '../data/newsContent'
+import { NEWS_ALL_CATEGORY, formatNewsDate, getAllNewsSorted, newsCategories as defaultNewsCategories } from '../data/newsContent'
+import { buildNewsCategories, loadNewsArticlesForPublic } from '../features/newsService'
 
 const PAGE_SIZE = 5
 
@@ -8,14 +9,59 @@ function clampPage(page, totalPages) {
   return Math.min(Math.max(page, 1), totalPages)
 }
 
+function getNewsByCategory(articles, category) {
+  if (!category || category === NEWS_ALL_CATEGORY) return articles
+  return articles.filter((item) => item.category === category)
+}
+
+function getNewsById(articles, articleId) {
+  const id = String(articleId ?? '').trim()
+  if (!id) return null
+  return articles.find((item) => item.id === id) ?? null
+}
+
 export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
+  const [articles, setArticles] = useState(() => getAllNewsSorted())
+  const [availableCategories, setAvailableCategories] = useState(defaultNewsCategories)
   const [activeCategory, setActiveCategory] = useState(NEWS_ALL_CATEGORY)
   const [keyword, setKeyword] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [activeArticleId, setActiveArticleId] = useState(null)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
+  const [isLoadingArticles, setIsLoadingArticles] = useState(false)
+  const [loadError, setLoadError] = useState('')
 
-  const categoryArticles = useMemo(() => getNewsByCategory(activeCategory), [activeCategory])
+  useEffect(() => {
+    let alive = true
+    setIsLoadingArticles(true)
+
+    ;(async () => {
+      const result = await loadNewsArticlesForPublic()
+      if (!alive) return
+
+      const nextArticles = Array.isArray(result?.articles) && result.articles.length > 0 ? result.articles : getAllNewsSorted()
+      const nextCategories = buildNewsCategories(nextArticles)
+
+      setArticles(nextArticles)
+      setAvailableCategories(nextCategories)
+      setActiveCategory((prev) => (nextCategories.includes(prev) ? prev : NEWS_ALL_CATEGORY))
+      setLoadError('')
+      setIsLoadingArticles(false)
+    })().catch(() => {
+      if (!alive) return
+      const fallback = getAllNewsSorted()
+      setArticles(fallback)
+      setAvailableCategories(buildNewsCategories(fallback))
+      setLoadError('뉴스 데이터를 불러오지 못했습니다. 로컬 데이터로 표시합니다.')
+      setIsLoadingArticles(false)
+    })
+
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  const categoryArticles = useMemo(() => getNewsByCategory(articles, activeCategory), [articles, activeCategory])
 
   const filteredArticles = useMemo(() => {
     const term = keyword.trim().toLowerCase()
@@ -57,10 +103,10 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
   useEffect(() => {
     if (!externalNewsRequest) return
 
-    const target = getNewsById(externalNewsRequest.articleId)
+    const target = getNewsById(articles, externalNewsRequest.articleId)
     if (!target) return
 
-    const nextCategory = newsCategories.includes(externalNewsRequest.category)
+    const nextCategory = availableCategories.includes(externalNewsRequest.category)
       ? externalNewsRequest.category
       : NEWS_ALL_CATEGORY
 
@@ -68,7 +114,7 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
     setActiveArticleId(target.id)
     setIsDetailOpen(true)
     setCurrentPage(1)
-  }, [externalNewsRequest])
+  }, [externalNewsRequest, articles, availableCategories])
 
   useEffect(() => {
     if (!activeArticleId) return
@@ -109,7 +155,7 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
         <div className="grid gap-8 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-[40px]">
           <aside className="hidden lg:block">
             <ul className="m-0 list-none border border-[#d0d0d0] bg-[#efefef] p-0">
-              {newsCategories.map((category) => {
+              {availableCategories.map((category) => {
                 const isActiveCategory = category === activeCategory
                 return (
                   <li key={category} className="border-b border-[#d0d0d0] last:border-b-0">
@@ -242,6 +288,10 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
               </div>
             ) : (
               <>
+                {isLoadingArticles ? (
+                  <p className="mt-3 text-sm font-semibold text-[#666]">뉴스 데이터를 불러오는 중입니다...</p>
+                ) : null}
+                {loadError ? <p className="mt-3 text-sm font-semibold text-[#b42323]">{loadError}</p> : null}
                 <div className="mt-4 rounded-sm border border-[#dcdcdc] bg-[#f4f4f4]">
                   <div className="grid grid-cols-[130px_110px_1fr] items-center border-b border-[#dfdfdf] bg-[#e9e9e9] px-3 py-2 text-[13px] text-[#5a5a5a]">
                     <span>Date</span>
