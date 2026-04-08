@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
+import { modelOptionWattageMap } from '../data/modelOptionWattageMap'
 import {
   findMatchingLabel,
   getLeafChips,
@@ -39,6 +40,26 @@ function decodeAssetUrl(url = '') {
 
 function hasPdfAsset(asset) {
   return String(asset?.pdfUrl ?? '').trim().length > 0
+}
+
+function formatWatt(value) {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return '-'
+  const rounded = Math.round(number * 1000) / 1000
+  return String(rounded)
+}
+
+function findModelOptionKey(modelName = '') {
+  let key = normalizeLabel(modelName)
+  if (!key) return ''
+  if (modelOptionWattageMap[key]) return key
+
+  while (key.includes('-')) {
+    key = key.slice(0, key.lastIndexOf('-'))
+    if (modelOptionWattageMap[key]) return key
+  }
+
+  return ''
 }
 
 export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onNavigate }) {
@@ -412,6 +433,13 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     () => modelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
     [modelCards, activeModel]
   )
+  const selectedModelOptions = useMemo(() => {
+    const optionKey = findModelOptionKey(selectedModelCard?.modelName)
+    if (!optionKey) return []
+
+    const options = Array.isArray(modelOptionWattageMap[optionKey]) ? modelOptionWattageMap[optionKey] : []
+    return options.filter((item) => String(item?.model ?? '').trim())
+  }, [selectedModelCard?.modelName])
   const selectedPdfUrl = useMemo(() => decodeAssetUrl(selectedModelCard?.asset?.pdfUrl), [selectedModelCard?.asset?.pdfUrl])
   const mobilePdfPageWidth = useMemo(() => {
     const width = mobilePdfViewportWidth - 16
@@ -1011,6 +1039,25 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     </div>
                   </div>
                 </section>
+
+                {selectedModelOptions.length > 0 ? (
+                  <section className="rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="m-0 text-[15px] font-bold text-slate-800">옵션 모델</p>
+                      <p className="m-0 text-[12px] text-slate-500">{selectedModelOptions.length}개</p>
+                    </div>
+                    <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+                      {selectedModelOptions.map((option) => (
+                        <div key={option.model} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                          <p className="m-0 text-[13px] font-semibold text-slate-900">{option.model}</p>
+                          <p className="mt-1 text-[12px] text-slate-600">
+                            <strong>W:</strong> {formatWatt(option.watt)}W
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
 
                 {selectedModelCard.asset?.pdfUrl ? (
                   <>
