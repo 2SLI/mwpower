@@ -159,6 +159,29 @@ function getMostFrequentWatt(wattCounts) {
   return chosenValue
 }
 
+function getMostFrequentValue(valueCounts) {
+  let chosenValue = ''
+  let chosenCount = -1
+
+  valueCounts.forEach((count, value) => {
+    if (count > chosenCount) {
+      chosenCount = count
+      chosenValue = value
+      return
+    }
+
+    if (count === chosenCount) {
+      const left = String(value ?? '')
+      const right = String(chosenValue ?? '')
+      if (left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' }) < 0) {
+        chosenValue = value
+      }
+    }
+  })
+
+  return chosenValue
+}
+
 function naturalCompare(a, b) {
   return String(a ?? '').localeCompare(String(b ?? ''), undefined, { numeric: true, sensitivity: 'base' })
 }
@@ -297,9 +320,12 @@ async function main() {
     const watt = Number(row?.['Watt(W)'] ?? '')
     if (!Number.isFinite(watt) || watt <= 0) return
 
+    const dcVoltage = String(row?.['DC Voltage(V)'] ?? '').trim()
+
     const current = modelWattStats.get(canonicalModel) ?? {
       displayModel: rawModel,
       wattCounts: new Map(),
+      dcVoltageCounts: new Map(),
     }
 
     if (rawModel.length > current.displayModel.length) {
@@ -307,6 +333,9 @@ async function main() {
     }
 
     current.wattCounts.set(watt, (current.wattCounts.get(watt) ?? 0) + 1)
+    if (dcVoltage) {
+      current.dcVoltageCounts.set(dcVoltage, (current.dcVoltageCounts.get(dcVoltage) ?? 0) + 1)
+    }
     modelWattStats.set(canonicalModel, current)
   })
 
@@ -336,12 +365,14 @@ async function main() {
     const watt = getMostFrequentWatt(stats.wattCounts)
     if (!Number.isFinite(watt)) return
 
+    const dcVoltage = String(getMostFrequentValue(stats.dcVoltageCounts) ?? '').trim()
     const optionModel = hasHyphenSuffix ? `${baseCandidate}-${suffix}` : `${baseCandidate}${suffix}`
 
     if (!optionMap.has(baseCandidate)) optionMap.set(baseCandidate, [])
     optionMap.get(baseCandidate).push({
       model: optionModel,
       watt,
+      dcVoltage,
     })
   })
 
@@ -384,7 +415,7 @@ async function main() {
 
     if (!isFinitePositive(fallbackWatt)) return
 
-    optionMap.set(baseCanonical, [{ model: normalizeModelName(baseDisplay), watt: fallbackWatt }])
+    optionMap.set(baseCanonical, [{ model: normalizeModelName(baseDisplay), watt: fallbackWatt, dcVoltage: '' }])
   })
 
   const output = {}
@@ -401,19 +432,31 @@ async function main() {
         const key = normalizeModelName(item.model)
         if (!key) return
         if (!dedupedByModel.has(key)) {
-          dedupedByModel.set(key, item)
+          dedupedByModel.set(key, { ...item })
           return
         }
         const prev = dedupedByModel.get(key)
-        if (Number(item.watt) < Number(prev.watt)) dedupedByModel.set(key, item)
+        if (!prev.dcVoltage && item.dcVoltage) prev.dcVoltage = item.dcVoltage
+
+        if (Number(item.watt) < Number(prev.watt)) {
+          dedupedByModel.set(key, {
+            ...item,
+            dcVoltage: item.dcVoltage || prev.dcVoltage || '',
+          })
+        }
       })
 
       const sortedOptions = [...dedupedByModel.values()]
         .sort((a, b) => naturalCompare(a.model, b.model))
-        .map((item) => ({
-          model: item.model,
-          watt: Number(item.watt),
-        }))
+        .map((item) => {
+          const result = {
+            model: item.model,
+            watt: Number(item.watt),
+          }
+          const dcVoltage = String(item.dcVoltage ?? '').trim()
+          if (dcVoltage) result.dcVoltage = dcVoltage
+          return result
+        })
 
       if (sortedOptions.length > 0) {
         output[normalizedBase] = sortedOptions

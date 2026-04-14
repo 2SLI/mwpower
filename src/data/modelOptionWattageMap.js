@@ -4,73 +4,88 @@ export const modelOptionWattageMap = {
   "ad-55": [
     {
       "model": "AD-55A",
-      "watt": 51.38
+      "watt": 51.38,
+      "dcVoltage": "13.8"
     },
     {
       "model": "AD-55B",
-      "watt": 53.92
+      "watt": 53.92,
+      "dcVoltage": "27.6"
     }
   ],
   "ad-155": [
     {
       "model": "AD-155A",
-      "watt": 151.55
+      "watt": 151.55,
+      "dcVoltage": "13.8"
     },
     {
       "model": "AD-155B",
-      "watt": 151.55
+      "watt": 151.55,
+      "dcVoltage": "27.6"
     },
     {
       "model": "AD-155C",
-      "watt": 156.5
+      "watt": 156.5,
+      "dcVoltage": "54"
     }
   ],
   "add-55": [
     {
       "model": "ADD-55A",
-      "watt": 52.58
+      "watt": 52.58,
+      "dcVoltage": "13.8"
     },
     {
       "model": "ADD-55B",
-      "watt": 55.12
+      "watt": 55.12,
+      "dcVoltage": "27.6"
     }
   ],
   "add-155": [
     {
       "model": "ADD-155A",
-      "watt": 152.75
+      "watt": 152.75,
+      "dcVoltage": "13.8"
     },
     {
       "model": "ADD-155B",
-      "watt": 152.75
+      "watt": 152.75,
+      "dcVoltage": "27.6"
     },
     {
       "model": "ADD-155C",
-      "watt": 149.9
+      "watt": 149.9,
+      "dcVoltage": "54"
     }
   ],
   "ads-55": [
     {
       "model": "ADS-5512",
-      "watt": 51
+      "watt": 51,
+      "dcVoltage": "12"
     },
     {
       "model": "ADS-5524",
-      "watt": 58
+      "watt": 58,
+      "dcVoltage": "24"
     }
   ],
   "ads-155": [
     {
       "model": "ADS-15512",
-      "watt": 153
+      "watt": 153,
+      "dcVoltage": "12"
     },
     {
       "model": "ADS-15524",
-      "watt": 154.2
+      "watt": 154.2,
+      "dcVoltage": "24"
     },
     {
       "model": "ADS-15548",
-      "watt": 154.2
+      "watt": 154.2,
+      "dcVoltage": "48"
     }
   ],
   "apc-8": [
@@ -84,7 +99,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "APC-8-350",
-      "watt": 8.05
+      "watt": 8.05,
+      "dcVoltage": "29"
     },
     {
       "model": "APC-8-500",
@@ -92,149 +108,180 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "APC-8-700",
-      "watt": 8.05
+      "watt": 8.05,
+      "dcVoltage": "38"
     }
   ],
   "apc-12": [
     {
       "model": "APC-12-350",
-      "watt": 12.6
+      "watt": 12.6,
+      "dcVoltage": "36"
     },
     {
       "model": "APC-12-700",
-      "watt": 12.6
+      "watt": 12.6,
+      "dcVoltage": "18"
     }
   ],
   "apc-16": [
     {
       "model": "APC-16-350",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "48"
     },
     {
       "model": "APC-16-700",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "24"
     }
   ],
   "apc-25": [
     {
       "model": "APC-25-350",
-      "watt": 24.5
+      "watt": 24.5,
+      "dcVoltage": "70"
     },
     {
       "model": "APC-25-500",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "50"
     },
     {
       "model": "APC-25-1050",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "24"
     }
   ],
   "apc-35": [
     {
       "model": "APC-35-350",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "100"
     },
     {
       "model": "APC-35-500",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "70"
     },
     {
       "model": "APC-35-1050",
-      "watt": 34.7
+      "watt": 34.7,
+      "dcVoltage": "33"
     }
   ],
   "apv-8": [
     {
       "model": "APV-8-5",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "12"
     },
     {
       "model": "APV-8-24",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "5"
     }
   ],
   "apv-12": [
     {
       "model": "APV-12-5",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "5"
     },
     {
       "model": "APV-12-12",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "12"
     },
     {
       "model": "APV-12-15",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "15"
     },
     {
       "model": "APV-12-24",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "24"
     }
   ],
   "apv-16": [
     {
       "model": "APV-16-5",
-      "watt": 13
+      "watt": 13,
+      "dcVoltage": "5"
     },
     {
       "model": "APV-16-12",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     },
     {
       "model": "APV-16-15",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     },
     {
       "model": "APV-16-24",
-      "watt": 16.08
+      "watt": 16.08,
+      "dcVoltage": "24"
     }
   ],
   "apv-25": [
     {
       "model": "APV-25-5",
-      "watt": 17.5
+      "watt": 17.5,
+      "dcVoltage": "5"
     }
   ],
   "apv-35": [
     {
       "model": "APV-35-5",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     }
   ],
   "bic-5k": [
     {
       "model": "BIC-5K-24",
-      "watt": 4992
+      "watt": 4992,
+      "dcVoltage": "24"
     },
     {
       "model": "BIC-5K-48",
-      "watt": 4992
+      "watt": 4992,
+      "dcVoltage": "48"
     },
     {
       "model": "BIC-5K-96",
-      "watt": 4992
+      "watt": 4992,
+      "dcVoltage": "96"
     },
     {
       "model": "BIC-5K-380",
-      "watt": 5025
+      "watt": 5025,
+      "dcVoltage": "380"
     }
   ],
   "bic-2200": [
     {
       "model": "BIC-2200-12",
-      "watt": 2160
+      "watt": 2160,
+      "dcVoltage": "12"
     },
     {
       "model": "BIC-2200-24",
-      "watt": 2160
+      "watt": 2160,
+      "dcVoltage": "24"
     },
     {
       "model": "BIC-2200-48",
-      "watt": 2160
+      "watt": 2160,
+      "dcVoltage": "48"
     },
     {
       "model": "BIC-2200-96",
-      "watt": 2160
+      "watt": 2160,
+      "dcVoltage": "96"
     }
   ],
   "cmu2": [
@@ -246,11 +293,13 @@ export const modelOptionWattageMap = {
   "csp-3000": [
     {
       "model": "CSP-3000-120",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "250"
     },
     {
       "model": "CSP-3000-250",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "400"
     },
     {
       "model": "CSP-3000-400",
@@ -266,21 +315,25 @@ export const modelOptionWattageMap = {
   "dbr-3200": [
     {
       "model": "DBR-3200-24",
-      "watt": 3200
+      "watt": 3200,
+      "dcVoltage": "28.8"
     },
     {
       "model": "DBR-3200-48",
-      "watt": 3200
+      "watt": 3200,
+      "dcVoltage": "57.6"
     }
   ],
   "dbu-3200": [
     {
       "model": "DBU-3200-24",
-      "watt": 3200
+      "watt": 3200,
+      "dcVoltage": "28.8"
     },
     {
       "model": "DBU-3200-48",
-      "watt": 3200
+      "watt": 3200,
+      "dcVoltage": "57.6"
     }
   ],
   "dbuf20": [
@@ -298,7 +351,8 @@ export const modelOptionWattageMap = {
   "dcw08": [
     {
       "model": "DCW08A-05",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "5"
     },
     {
       "model": "DCW08A-12",
@@ -310,7 +364,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DCW08B-05",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "12"
     },
     {
       "model": "DCW08B-12",
@@ -322,7 +377,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DCW08C-05",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "15"
     },
     {
       "model": "DCW08C-12",
@@ -342,7 +398,8 @@ export const modelOptionWattageMap = {
   "dcw12": [
     {
       "model": "DCW12A-05",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "5"
     },
     {
       "model": "DCW12A-12",
@@ -354,7 +411,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DCW12B-05",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "12"
     },
     {
       "model": "DCW12B-12",
@@ -366,7 +424,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DCW12C-05",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "15"
     },
     {
       "model": "DCW12C-12",
@@ -416,21 +475,25 @@ export const modelOptionWattageMap = {
   "ddr-15": [
     {
       "model": "DDR-15L-3.3",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "3.3"
     },
     {
       "model": "DDR-15L-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     }
   ],
   "ddr-30": [
     {
       "model": "DDR-30G-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "DDR-30G-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "DDR-30G-24",
@@ -438,61 +501,74 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DDR-30L-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     }
   ],
   "ddr-60": [
     {
       "model": "DDR-60G-5",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "5"
     },
     {
       "model": "DDR-60G-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "DDR-60G-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "DDR-60G-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "DDR-60L-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "DDR-60L-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     }
   ],
   "ddr-120": [
     {
       "model": "DDR-120A-12",
-      "watt": 99.6
+      "watt": 99.6,
+      "dcVoltage": "12"
     },
     {
       "model": "DDR-120A-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "DDR-120B-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "DDR-120B-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "48"
     },
     {
       "model": "DDR-120B-48",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     }
   ],
   "ddr-240": [
     {
       "model": "DDR-240B-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "DDR-240B-48",
@@ -504,53 +580,65 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DDR-240C-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "DDR-240D-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     },
     {
       "model": "DDR-240D-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     }
   ],
   "ddr-480": [
     {
       "model": "DDR-480B-12",
-      "watt": 400.8
+      "watt": 400.8,
+      "dcVoltage": "12"
     },
     {
       "model": "DDR-480B-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "DDR-480B-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     },
     {
       "model": "DDR-480C-12",
-      "watt": 400.8
+      "watt": 400.8,
+      "dcVoltage": "12"
     },
     {
       "model": "DDR-480C-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "DDR-480C-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     },
     {
       "model": "DDR-480D-12",
-      "watt": 400.8
+      "watt": 400.8,
+      "dcVoltage": "12"
     },
     {
       "model": "DDR-480D-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "DDR-480D-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     }
   ],
   "ddrh-15dr": [
@@ -592,49 +680,59 @@ export const modelOptionWattageMap = {
   "ddrh-60": [
     {
       "model": "DDRH-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     }
   ],
   "ddrh-120": [
     {
       "model": "DDRH-120-12",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     },
     {
       "model": "DDRH-120-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     },
     {
       "model": "DDRH-120-32",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     },
     {
       "model": "DDRH-120-48",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     }
   ],
   "ddrh-240": [
     {
       "model": "DDRH-240-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "DDRH-240-24",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "DDRH-240-32",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "DDRH-240-48",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     }
   ],
   "detn01": [
     {
       "model": "DETN01L",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5"
     }
   ],
   "detn01-n": [
@@ -676,7 +774,8 @@ export const modelOptionWattageMap = {
   "dka15": [
     {
       "model": "DKA15A-05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "DKA15A-12",
@@ -688,7 +787,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DKA15B-05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     },
     {
       "model": "DKA15B-12",
@@ -700,7 +800,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DKA15C-05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     },
     {
       "model": "DKA15C-12",
@@ -714,43 +815,52 @@ export const modelOptionWattageMap = {
   "dka30": [
     {
       "model": "DKA30A-05",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "DKA30B-05",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "DKA30C-05",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     }
   ],
   "dke10": [
     {
       "model": "DKE10A-",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "5"
     },
     {
       "model": "DKE10B-",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "12"
     },
     {
       "model": "DKE10C-",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "15"
     }
   ],
   "dke15": [
     {
       "model": "DKE15A-",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "DKE15B-",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     },
     {
       "model": "DKE15C-",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     }
   ],
   "dkm10": [
@@ -792,7 +902,8 @@ export const modelOptionWattageMap = {
   "dlc-02": [
     {
       "model": "DLC-02-2X16V",
-      "watt": 7.68
+      "watt": 7.68,
+      "dcVoltage": "16"
     }
   ],
   "dlc-02-kn": [
@@ -822,7 +933,8 @@ export const modelOptionWattageMap = {
   "dlw05": [
     {
       "model": "DLW05A-05",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "12"
     },
     {
       "model": "DLW05A-12",
@@ -834,7 +946,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DLW05B-05",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "15"
     },
     {
       "model": "DLW05B-12",
@@ -920,11 +1033,13 @@ export const modelOptionWattageMap = {
   "dpu-3200": [
     {
       "model": "DPU-3200-24",
-      "watt": 3192
+      "watt": 3192,
+      "dcVoltage": "24"
     },
     {
       "model": "DPU-3200-48",
-      "watt": 3216
+      "watt": 3216,
+      "dcVoltage": "48"
     }
   ],
   "dpu01": [
@@ -936,61 +1051,73 @@ export const modelOptionWattageMap = {
   "dra-40": [
     {
       "model": "DRA-40-12",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "12"
     },
     {
       "model": "DRA-40-24",
-      "watt": 40.8
+      "watt": 40.8,
+      "dcVoltage": "24"
     }
   ],
   "dra-60": [
     {
       "model": "DRA-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "DRA-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     }
   ],
   "drc-40": [
     {
       "model": "DRC-40A",
-      "watt": 40.02
+      "watt": 40.02,
+      "dcVoltage": "13.8"
     },
     {
       "model": "DRC-40B",
-      "watt": 40.02
+      "watt": 40.02,
+      "dcVoltage": "27.6"
     }
   ],
   "drc-60": [
     {
       "model": "DRC-60A",
-      "watt": 59.34
+      "watt": 59.34,
+      "dcVoltage": "13.8"
     },
     {
       "model": "DRC-60B",
-      "watt": 59.34
+      "watt": 59.34,
+      "dcVoltage": "27.6"
     }
   ],
   "drc-100": [
     {
       "model": "DRC-100A",
-      "watt": 96.6
+      "watt": 96.6,
+      "dcVoltage": "13.8"
     },
     {
       "model": "DRC-100B",
-      "watt": 96.6
+      "watt": 96.6,
+      "dcVoltage": "27.6"
     }
   ],
   "drc-180": [
     {
       "model": "DRC-180A",
-      "watt": 179.4
+      "watt": 179.4,
+      "dcVoltage": "13.8"
     },
     {
       "model": "DRC-180B",
-      "watt": 179.4
+      "watt": 179.4,
+      "dcVoltage": "27.6"
     }
   ],
   "drdn20": [
@@ -1008,29 +1135,35 @@ export const modelOptionWattageMap = {
   "drp-3200": [
     {
       "model": "DRP-3200-24",
-      "watt": 3192
+      "watt": 3192,
+      "dcVoltage": "24"
     },
     {
       "model": "DRP-3200-48",
-      "watt": 3216
+      "watt": 3216,
+      "dcVoltage": "48"
     }
   ],
   "drs-240": [
     {
       "model": "DRS-240-12",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "0.3"
     },
     {
       "model": "DRS-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "0.4"
     },
     {
       "model": "DRS-240-36",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "0.5"
     },
     {
       "model": "DRS-240-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "0.2"
     }
   ],
   "drs-480": [
@@ -1044,7 +1177,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "DRS-480-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "44"
     }
   ],
   "dups20": [
@@ -1062,29 +1196,35 @@ export const modelOptionWattageMap = {
   "edr-75": [
     {
       "model": "EDR-75-12",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     },
     {
       "model": "EDR-75-24",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "12"
     },
     {
       "model": "EDR-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     }
   ],
   "edr-120": [
     {
       "model": "EDR-120-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "EDR-120-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "EDR-120-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     }
   ],
   "edr-150": [
@@ -1096,19 +1236,23 @@ export const modelOptionWattageMap = {
   "elg-75": [
     {
       "model": "ELG-75-42",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "24"
     },
     {
       "model": "ELG-75-48",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "36"
     },
     {
       "model": "ELG-75-C350",
-      "watt": 0.5
+      "watt": 0.5,
+      "dcVoltage": "107"
     },
     {
       "model": "ELG-75-C350-700MA",
-      "watt": 0.5
+      "watt": 0.5,
+      "dcVoltage": "71"
     }
   ],
   "elg-75-c": [
@@ -1120,23 +1264,28 @@ export const modelOptionWattageMap = {
   "elg-100": [
     {
       "model": "ELG-100-24",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "42"
     },
     {
       "model": "ELG-100-36",
-      "watt": 95.76
+      "watt": 95.76,
+      "dcVoltage": "48"
     },
     {
       "model": "ELG-100-42",
-      "watt": 95.76
+      "watt": 95.76,
+      "dcVoltage": "54"
     },
     {
       "model": "ELG-100-C700",
-      "watt": 0.5
+      "watt": 0.5,
+      "dcVoltage": "143"
     },
     {
       "model": "ELG-100-C1050",
-      "watt": 0.5
+      "watt": 0.5,
+      "dcVoltage": "95"
     }
   ],
   "elg-100-c": [
@@ -1162,11 +1311,13 @@ export const modelOptionWattageMap = {
   "elg-150": [
     {
       "model": "ELG-150-C1050",
-      "watt": 105
+      "watt": 105,
+      "dcVoltage": "315"
     },
     {
       "model": "ELG-150-C1400",
-      "watt": 105
+      "watt": 105,
+      "dcVoltage": "225"
     }
   ],
   "elg-150-c": [
@@ -1184,23 +1335,28 @@ export const modelOptionWattageMap = {
   "elg-200": [
     {
       "model": "ELG-200-12",
-      "watt": 144
+      "watt": 144,
+      "dcVoltage": "12"
     },
     {
       "model": "ELG-200-24",
-      "watt": 149.76
+      "watt": 149.76,
+      "dcVoltage": "24"
     },
     {
       "model": "ELG-200-36",
-      "watt": 149.94
+      "watt": 149.94,
+      "dcVoltage": "36"
     },
     {
       "model": "ELG-200-42",
-      "watt": 150.12
+      "watt": 150.12,
+      "dcVoltage": "42"
     },
     {
       "model": "ELG-200-C700",
-      "watt": 0.5
+      "watt": 0.5,
+      "dcVoltage": "190"
     }
   ],
   "elg-200-c": [
@@ -1212,15 +1368,18 @@ export const modelOptionWattageMap = {
   "elg-240": [
     {
       "model": "ELG-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "ELG-240-36",
-      "watt": 239.76
+      "watt": 239.76,
+      "dcVoltage": "36"
     },
     {
       "model": "ELG-240-42",
-      "watt": 239.82
+      "watt": 239.82,
+      "dcVoltage": "42"
     }
   ],
   "elg-240-c": [
@@ -1232,7 +1391,8 @@ export const modelOptionWattageMap = {
   "elg-300": [
     {
       "model": "ELG-300-12A",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "24"
     }
   ],
   "elgc-300": [
@@ -1244,477 +1404,584 @@ export const modelOptionWattageMap = {
   "elp-75": [
     {
       "model": "ELP-75-3.3",
-      "watt": 49.5
+      "watt": 49.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "ELP-75-5",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "5"
     },
     {
       "model": "ELP-75-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "ELP-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     }
   ],
   "enc-120": [
     {
       "model": "ENC-120-12",
-      "watt": 115.2
+      "watt": 115.2,
+      "dcVoltage": "14.4"
     },
     {
       "model": "ENC-120-24",
-      "watt": 115.2
+      "watt": 115.2,
+      "dcVoltage": "28.8"
     },
     {
       "model": "ENC-120-48",
-      "watt": 115.2
+      "watt": 115.2,
+      "dcVoltage": "57.6"
     }
   ],
   "enc-180": [
     {
       "model": "ENC-180-12",
-      "watt": 172.8
+      "watt": 172.8,
+      "dcVoltage": "14.4"
     },
     {
       "model": "ENC-180-24",
-      "watt": 172.8
+      "watt": 172.8,
+      "dcVoltage": "28.8"
     },
     {
       "model": "ENC-180-48",
-      "watt": 172.8
+      "watt": 172.8,
+      "dcVoltage": "57.6"
     }
   ],
   "enc-240": [
     {
       "model": "ENC-240-12",
-      "watt": 230.4
+      "watt": 230.4,
+      "dcVoltage": "14.4"
     },
     {
       "model": "ENC-240-24",
-      "watt": 230.4
+      "watt": 230.4,
+      "dcVoltage": "28.8"
     },
     {
       "model": "ENC-240-48",
-      "watt": 230.4
+      "watt": 230.4,
+      "dcVoltage": "57.6"
     }
   ],
   "enc-360": [
     {
       "model": "ENC-360-12",
-      "watt": 345.6
+      "watt": 345.6,
+      "dcVoltage": "14.4"
     },
     {
       "model": "ENC-360-24",
-      "watt": 345.6
+      "watt": 345.6,
+      "dcVoltage": "28.8"
     },
     {
       "model": "ENC-360-48",
-      "watt": 345.6
+      "watt": 345.6,
+      "dcVoltage": "57.6"
     }
   ],
   "enp-120": [
     {
       "model": "ENP-120-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "13.8"
     },
     {
       "model": "ENP-120-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "27.6"
     },
     {
       "model": "ENP-120-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "55.2"
     }
   ],
   "enp-180": [
     {
       "model": "ENP-180-12",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "13.8"
     },
     {
       "model": "ENP-180-24",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "27.6"
     },
     {
       "model": "ENP-180-48",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "55.2"
     }
   ],
   "enp-240": [
     {
       "model": "ENP-240-12",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "13.8"
     },
     {
       "model": "ENP-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "27.6"
     },
     {
       "model": "ENP-240-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "55.2"
     }
   ],
   "enp-360": [
     {
       "model": "ENP-360-12",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "13.8"
     },
     {
       "model": "ENP-360-24",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "27.6"
     },
     {
       "model": "ENP-360-48",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "55.2"
     }
   ],
   "epp-100": [
     {
       "model": "EPP-100-12",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-100-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "EPP-100-24",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     },
     {
       "model": "EPP-100-27",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "27"
     },
     {
       "model": "EPP-100-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     }
   ],
   "epp-120s": [
     {
       "model": "EPP-120S-12",
-      "watt": 141.6
+      "watt": 141.6,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-120S-15",
-      "watt": 142.5
+      "watt": 142.5,
+      "dcVoltage": "15"
     },
     {
       "model": "EPP-120S-24",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "24"
     },
     {
       "model": "EPP-120S-27",
-      "watt": 149.8
+      "watt": 149.8,
+      "dcVoltage": "27"
     },
     {
       "model": "EPP-120S-48",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "48"
     }
   ],
   "epp-150": [
     {
       "model": "EPP-150-12",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-150-15",
-      "watt": 100.5
+      "watt": 100.5,
+      "dcVoltage": "15"
     },
     {
       "model": "EPP-150-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     },
     {
       "model": "EPP-150-27",
-      "watt": 100.17
+      "watt": 100.17,
+      "dcVoltage": "27"
     },
     {
       "model": "EPP-150-48",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "48"
     }
   ],
   "epp-200": [
     {
       "model": "EPP-200-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-200-15",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "15"
     },
     {
       "model": "EPP-200-24",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "24"
     },
     {
       "model": "EPP-200-27",
-      "watt": 202.5
+      "watt": 202.5,
+      "dcVoltage": "27"
     },
     {
       "model": "EPP-200-48",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "48"
     }
   ],
   "epp-300": [
     {
       "model": "EPP-300-12",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-300-15",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "15"
     },
     {
       "model": "EPP-300-24",
-      "watt": 199.9
+      "watt": 199.9,
+      "dcVoltage": "24"
     },
     {
       "model": "EPP-300-27",
-      "watt": 199.8
+      "watt": 199.8,
+      "dcVoltage": "27"
     },
     {
       "model": "EPP-300-48",
-      "watt": 200.2
+      "watt": 200.2,
+      "dcVoltage": "48"
     }
   ],
   "epp-400": [
     {
       "model": "EPP-400-24",
-      "watt": 400.8
+      "watt": 400.8,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-400-36",
-      "watt": 403.2
+      "watt": 403.2,
+      "dcVoltage": "12"
     }
   ],
   "epp-500": [
     {
       "model": "EPP-500-12",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-500-15",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-500-18",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-500-24",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-500-27",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-500-36",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-500-48",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     },
     {
       "model": "EPP-500-54",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     }
   ],
   "eps-15": [
     {
       "model": "EPS-15-3.3",
-      "watt": 9.9
+      "watt": 9.9,
+      "dcVoltage": "3.3"
     },
     {
       "model": "EPS-15-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "EPS-15-7.5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "7.5"
     },
     {
       "model": "EPS-15-15",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     },
     {
       "model": "EPS-15-48",
-      "watt": 15.02
+      "watt": 15.02,
+      "dcVoltage": "48"
     }
   ],
   "eps-25": [
     {
       "model": "EPS-25-3.3",
-      "watt": 16.5
+      "watt": 16.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "EPS-25-5",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "EPS-25-7.5",
-      "watt": 25.5
+      "watt": 25.5,
+      "dcVoltage": "7.5"
     },
     {
       "model": "EPS-25-15",
-      "watt": 25.5
+      "watt": 25.5,
+      "dcVoltage": "15"
     },
     {
       "model": "EPS-25-48",
-      "watt": 25.44
+      "watt": 25.44,
+      "dcVoltage": "48"
     }
   ],
   "eps-35": [
     {
       "model": "EPS-35-3.3",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "3.3"
     },
     {
       "model": "EPS-35-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "EPS-35-7.5",
-      "watt": 35.25
+      "watt": 35.25,
+      "dcVoltage": "7.5"
     },
     {
       "model": "EPS-35-15",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "15"
     },
     {
       "model": "EPS-35-48",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "48"
     }
   ],
   "eps-45": [
     {
       "model": "EPS-45-3.3",
-      "watt": 26.4
+      "watt": 26.4,
+      "dcVoltage": "3.3"
     },
     {
       "model": "EPS-45-5",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "5"
     },
     {
       "model": "EPS-45-7.5",
-      "watt": 40.5
+      "watt": 40.5,
+      "dcVoltage": "7.5"
     },
     {
       "model": "EPS-45-15",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "15"
     },
     {
       "model": "EPS-45-48",
-      "watt": 48
+      "watt": 48,
+      "dcVoltage": "48"
     }
   ],
   "eps-45s": [
     {
       "model": "EPS-45S-3.3",
-      "watt": 26.4
+      "watt": 26.4,
+      "dcVoltage": "3.3"
     },
     {
       "model": "EPS-45S-5",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "5"
     },
     {
       "model": "EPS-45S-7.5",
-      "watt": 40.5
+      "watt": 40.5,
+      "dcVoltage": "7.5"
     },
     {
       "model": "EPS-45S-12",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "12"
     },
     {
       "model": "EPS-45S-15",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "15"
     },
     {
       "model": "EPS-45S-24",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "24"
     },
     {
       "model": "EPS-45S-48",
-      "watt": 45.1
+      "watt": 45.1,
+      "dcVoltage": "48"
     }
   ],
   "eps-65": [
     {
       "model": "EPS-65-3.3",
-      "watt": 36.3
+      "watt": 36.3,
+      "dcVoltage": "3.3"
     },
     {
       "model": "EPS-65-5",
-      "watt": 55
+      "watt": 55,
+      "dcVoltage": "5"
     },
     {
       "model": "EPS-65-7.5",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "7.5"
     },
     {
       "model": "EPS-65-15",
-      "watt": 65.1
+      "watt": 65.1,
+      "dcVoltage": "15"
     },
     {
       "model": "EPS-65-48",
-      "watt": 65.28
+      "watt": 65.28,
+      "dcVoltage": "48"
     }
   ],
   "eps-65s": [
     {
       "model": "EPS-65S-3.3",
-      "watt": 33
+      "watt": 33,
+      "dcVoltage": "3.3"
     },
     {
       "model": "EPS-65S-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "EPS-65S-7.5",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "7.5"
     },
     {
       "model": "EPS-65S-12",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "12"
     },
     {
       "model": "EPS-65S-15",
-      "watt": 65.1
+      "watt": 65.1,
+      "dcVoltage": "15"
     },
     {
       "model": "EPS-65S-24",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "24"
     },
     {
       "model": "EPS-65S-48",
-      "watt": 65.3
+      "watt": 65.3,
+      "dcVoltage": "48"
     }
   ],
   "eps-120": [
     {
       "model": "EPS-120-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "EPS-120-15",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "EPS-120-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "EPS-120-27",
-      "watt": 121.5
+      "watt": 121.5,
+      "dcVoltage": "27"
     },
     {
       "model": "EPS-120-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     }
   ],
   "erdn20": [
@@ -1729,700 +1996,852 @@ export const modelOptionWattageMap = {
       "watt": 40
     }
   ],
-  "erg-5000(h)": [
-    {
-      "model": "ERG-5000(H)",
-      "watt": 5000
-    }
-  ],
   "erg-5000": [
     {
-      "model": "ERG-5000(H)",
-      "watt": 5000
+      "model": "ERG-5000H",
+      "watt": 5000,
+      "dcVoltage": "60"
     }
   ],
   "erp-200": [
     {
       "model": "ERP-200-12",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "12"
     },
     {
       "model": "ERP-200-24",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "24"
     }
   ],
   "erp-350": [
     {
       "model": "ERP-350-36",
-      "watt": 320.4
+      "watt": 320.4,
+      "dcVoltage": "12"
     },
     {
       "model": "ERP-350-48",
-      "watt": 350.4
+      "watt": 350.4,
+      "dcVoltage": "24"
     }
   ],
   "erpf-400": [
     {
       "model": "ERPF-400-12",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "12"
     },
     {
       "model": "ERPF-400-24",
-      "watt": 400.8
+      "watt": 400.8,
+      "dcVoltage": "24"
     },
     {
       "model": "ERPF-400-48",
-      "watt": 398.4
+      "watt": 398.4,
+      "dcVoltage": "48"
     }
   ],
   "ers-1400": [
     {
       "model": "ERS-1400H",
-      "watt": 1400
+      "watt": 1400,
+      "dcVoltage": "10"
     }
   ],
   "gc30b": [
     {
       "model": "GC30B-0P1J",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "4.2"
     },
     {
       "model": "GC30B-1P1J",
-      "watt": 22.38
+      "watt": 22.38,
+      "dcVoltage": "5.6"
     },
     {
       "model": "GC30B-2P1J",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "8.4"
     },
     {
       "model": "GC30B-4P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "14.3"
     },
     {
       "model": "GC30B-5P1J",
-      "watt": 27
+      "watt": 27,
+      "dcVoltage": "16.8"
     },
     {
       "model": "GC30B-6P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "28.6"
     },
     {
       "model": "GC30B-11P1J",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "7.2"
     }
   ],
   "gc30e": [
     {
       "model": "GC30E-0P1J",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "4.2"
     },
     {
       "model": "GC30E-1P1J",
-      "watt": 22.38
+      "watt": 22.38,
+      "dcVoltage": "5.6"
     },
     {
       "model": "GC30E-2P1J",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "8.4"
     },
     {
       "model": "GC30E-4P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "14.3"
     },
     {
       "model": "GC30E-5P1J",
-      "watt": 27
+      "watt": 27,
+      "dcVoltage": "16.8"
     },
     {
       "model": "GC30E-6P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "28.6"
     },
     {
       "model": "GC30E-11P1J",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "7.2"
     }
   ],
   "gc30u": [
     {
       "model": "GC30U-0P1J",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "4.2"
     },
     {
       "model": "GC30U-1P1J",
-      "watt": 22.38
+      "watt": 22.38,
+      "dcVoltage": "5.6"
     },
     {
       "model": "GC30U-2P1J",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "8.4"
     },
     {
       "model": "GC30U-4P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "14.3"
     },
     {
       "model": "GC30U-5P1J",
-      "watt": 27
+      "watt": 27,
+      "dcVoltage": "16.8"
     },
     {
       "model": "GC30U-6P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "28.6"
     },
     {
       "model": "GC30U-11P1J",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "7.2"
     }
   ],
   "gc120": [
     {
       "model": "GC120A12-",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "13.6"
     },
     {
       "model": "GC120A24-",
-      "watt": 120.2
+      "watt": 120.2,
+      "dcVoltage": "27.2"
     },
     {
       "model": "GC120A48-",
-      "watt": 120.2
+      "watt": 120.2,
+      "dcVoltage": "54.4"
     }
   ],
   "gc160": [
     {
       "model": "GC160A12-",
-      "watt": 136
+      "watt": 136,
+      "dcVoltage": "13.6"
     },
     {
       "model": "GC160A24-",
-      "watt": 160.2
+      "watt": 160.2,
+      "dcVoltage": "27.2"
     },
     {
       "model": "GC160A48-",
-      "watt": 160.5
+      "watt": 160.5,
+      "dcVoltage": "54.4"
     }
   ],
   "gc220": [
     {
       "model": "GC220A12-",
-      "watt": 183.6
+      "watt": 183.6,
+      "dcVoltage": "13.6"
     },
     {
       "model": "GC220A24-",
-      "watt": 217.6
+      "watt": 217.6,
+      "dcVoltage": "27.2"
     },
     {
       "model": "GC220A48-",
-      "watt": 217.6
+      "watt": 217.6,
+      "dcVoltage": "54.4"
     }
   ],
   "gc330": [
     {
       "model": "GC330A36-C4P",
-      "watt": 326.4
+      "watt": 326.4,
+      "dcVoltage": "40.8"
     },
     {
       "model": "GC330A48-C4P",
-      "watt": 326.4
+      "watt": 326.4,
+      "dcVoltage": "54.4"
     }
   ],
   "gd2": [
     {
       "model": "GD2-121503",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "15"
     }
   ],
   "gp25a": [
     {
       "model": "GP25A13A-R1B",
-      "watt": 28.5
+      "watt": 28.5,
+      "dcVoltage": "5"
     },
     {
       "model": "GP25A13D-R1B",
-      "watt": 28
+      "watt": 28,
+      "dcVoltage": "12"
     },
     {
       "model": "GP25A14E-R1B",
-      "watt": 29
+      "watt": 29,
+      "dcVoltage": "5"
     },
     {
       "model": "GP25A58F-R1B",
-      "watt": 37.77
+      "watt": 37.77,
+      "dcVoltage": "5"
     }
   ],
   "gp25b": [
     {
       "model": "GP25B13A-R1B",
-      "watt": 28
+      "watt": 28,
+      "dcVoltage": "12"
     },
     {
       "model": "GP25B13D-R1B",
-      "watt": 29
+      "watt": 29,
+      "dcVoltage": "5"
     },
     {
       "model": "GP25B14E-R1B",
-      "watt": 37.77
+      "watt": 37.77,
+      "dcVoltage": "5"
     },
     {
       "model": "GP25B58F-R1B",
-      "watt": 28.5
+      "watt": 28.5,
+      "dcVoltage": "5"
     }
   ],
   "gp50a": [
     {
       "model": "GP50A13A-R1B",
-      "watt": 46.5
+      "watt": 46.5,
+      "dcVoltage": "5"
     },
     {
       "model": "GP50A13D-R1B",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "12"
     },
     {
       "model": "GP50A14E-R1B",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "GP50A58F-R1B",
-      "watt": 71.2
+      "watt": 71.2,
+      "dcVoltage": "5"
     }
   ],
   "gsm18b": [
     {
       "model": "GSM18B05-P1J",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM18B07-P1J",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM18B09-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM18B12-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM18B15-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM18B18-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM18B24-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM18B48-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "48"
     }
   ],
   "gsm18e": [
     {
       "model": "GSM18E05-P1J",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM18E07-P1J",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM18E09-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM18E12-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM18E15-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM18E18-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM18E24-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM18E48-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "48"
     }
   ],
   "gsm18u": [
     {
       "model": "GSM18U05-P1J",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM18U07-P1J",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM18U09-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM18U12-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM18U15-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM18U18-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM18U24-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM18U48-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "48"
     }
   ],
   "gsm25b": [
     {
       "model": "GSM25B05-P1J",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM25B07-P1J",
-      "watt": 22
+      "watt": 22,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM25B09-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM25B12-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM25B15-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM25B18-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM25B24-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM25B48-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "48"
     }
   ],
   "gsm25e": [
     {
       "model": "GSM25E05-P1J",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM25E07-P1J",
-      "watt": 22
+      "watt": 22,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM25E09-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM25E12-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM25E15-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM25E18-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM25E24-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM25E48-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "48"
     }
   ],
   "gsm25u": [
     {
       "model": "GSM25U05-P1J",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM25U07-P1J",
-      "watt": 22
+      "watt": 22,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM25U09-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM25U12-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM25U15-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM25U18-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM25U24-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM25U48-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "48"
     }
   ],
   "gsm36b": [
     {
       "model": "GSM36B05-P1J",
-      "watt": 22.5
+      "watt": 22.5,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM36B07-P1J",
-      "watt": 32.4
+      "watt": 32.4,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM36B09-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM36B12-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM36B15-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM36B18-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM36B24-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM36B48-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "48"
     }
   ],
   "gsm36e": [
     {
       "model": "GSM36E05-P1J",
-      "watt": 22.5
+      "watt": 22.5,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM36E07-P1J",
-      "watt": 32.4
+      "watt": 32.4,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM36E09-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM36E12-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM36E15-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM36E18-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM36E24-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM36E48-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "48"
     }
   ],
   "gsm36u": [
     {
       "model": "GSM36U05-P1J",
-      "watt": 22.5
+      "watt": 22.5,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM36U07-P1J",
-      "watt": 32.4
+      "watt": 32.4,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM36U09-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM36U12-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM36U15-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM36U18-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM36U24-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM36U48-P1J",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "48"
     }
   ],
   "gsm40a": [
     {
       "model": "GSM40A05-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM40A07-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM40A09-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM40A12-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM40A15-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM40A18-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM40A24-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM40A48-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "48"
     }
   ],
   "gsm40b": [
     {
       "model": "GSM40B05-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM40B07-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM40B09-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM40B12-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM40B15-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM40B18-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM40B24-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM40B48-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "48"
     }
   ],
   "gsm60a": [
     {
       "model": "GSM60A05-P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM60A07-P1J",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM60A09-P1J",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM60A12-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM60A15-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM60A18-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM60A24-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM60A48-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     }
   ],
   "gsm60b": [
     {
       "model": "GSM60B05-P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "GSM60B07-P1J",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GSM60B09-P1J",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "9"
     },
     {
       "model": "GSM60B12-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM60B15-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM60B18-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "18"
     },
     {
       "model": "GSM60B24-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM60B48-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     }
   ],
   "gsm90a": [
@@ -2434,173 +2853,212 @@ export const modelOptionWattageMap = {
   "gsm90b": [
     {
       "model": "GSM90B12-P1M",
-      "watt": 80
+      "watt": 80,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM90B15-P1M",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM90B19-P1M",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "19"
     },
     {
       "model": "GSM90B24-P1M",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM90B48-P1M",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "48"
     }
   ],
   "gsm120a": [
     {
       "model": "GSM120A12-R7B",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM120A15-R7B",
-      "watt": 105
+      "watt": 105,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM120A20-R7B",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "20"
     },
     {
       "model": "GSM120A24-R7B",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM120A48-R7B",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     }
   ],
   "gsm120b": [
     {
       "model": "GSM120B12-R7B",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM120B15-R7B",
-      "watt": 105
+      "watt": 105,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM120B20-R7B",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "20"
     },
     {
       "model": "GSM120B24-R7B",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM120B48-R7B",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     }
   ],
   "gsm160a": [
     {
       "model": "GSM160A12",
-      "watt": 138
+      "watt": 138,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM160A15",
-      "watt": 144
+      "watt": 144,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM160A20",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "20"
     },
     {
       "model": "GSM160A24",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM160A48",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "48"
     }
   ],
   "gsm160b": [
     {
       "model": "GSM160B12-R7B",
-      "watt": 138
+      "watt": 138,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM160B15-R7B",
-      "watt": 144
+      "watt": 144,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM160B20-R7B",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "20"
     },
     {
       "model": "GSM160B24-R7B",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM160B48-R7B",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "48"
     }
   ],
   "gsm220a": [
     {
       "model": "GSM220A12",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM220A15",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM220A20",
-      "watt": 220
+      "watt": 220,
+      "dcVoltage": "20"
     },
     {
       "model": "GSM220A24",
-      "watt": 221
+      "watt": 221,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM220A48",
-      "watt": 221
+      "watt": 221,
+      "dcVoltage": "48"
     }
   ],
   "gsm220b": [
     {
       "model": "GSM220B12",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "12"
     },
     {
       "model": "GSM220B15",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "15"
     },
     {
       "model": "GSM220B20",
-      "watt": 220
+      "watt": 220,
+      "dcVoltage": "20"
     },
     {
       "model": "GSM220B24",
-      "watt": 221
+      "watt": 221,
+      "dcVoltage": "24"
     },
     {
       "model": "GSM220B48",
-      "watt": 221
+      "watt": 221,
+      "dcVoltage": "48"
     }
   ],
   "gst18a": [
     {
       "model": "GST18A05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "18"
     },
     {
       "model": "GST18A07",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "24"
     },
     {
       "model": "GST18A09",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "28"
     },
     {
       "model": "GST18A12",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "48"
     },
     {
       "model": "GST18A15",
@@ -2626,527 +3084,649 @@ export const modelOptionWattageMap = {
   "gst18b": [
     {
       "model": "GST18B05",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "5"
     },
     {
       "model": "GST18B07",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "7.5"
     }
   ],
   "gst18e": [
     {
       "model": "GST18E05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "GST18E07",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GST18E09",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "9"
     },
     {
       "model": "GST18E12",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "12"
     },
     {
       "model": "GST18E15",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "15"
     },
     {
       "model": "GST18E18",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "18"
     },
     {
       "model": "GST18E24",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "24"
     },
     {
       "model": "GST18E28",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "28"
     },
     {
       "model": "GST18E48",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "48"
     }
   ],
   "gst18u": [
     {
       "model": "GST18U05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "GST18U07",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GST18U09",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "9"
     },
     {
       "model": "GST18U12",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "12"
     },
     {
       "model": "GST18U15",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "15"
     },
     {
       "model": "GST18U18",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "18"
     },
     {
       "model": "GST18U24",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "24"
     },
     {
       "model": "GST18U28",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "28"
     },
     {
       "model": "GST18U48",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "48"
     }
   ],
   "gst25a": [
     {
       "model": "GST25A05-P1J",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "GST25A07-P1J",
-      "watt": 22
+      "watt": 22,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GST25A09-P1J",
-      "watt": 23
+      "watt": 23,
+      "dcVoltage": "9"
     },
     {
       "model": "GST25A12-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "GST25A15-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "15"
     },
     {
       "model": "GST25A18-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "18"
     },
     {
       "model": "GST25A24-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "24"
     },
     {
       "model": "GST25A28-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "28"
     },
     {
       "model": "GST25A48-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "48"
     }
   ],
   "gst25b": [
     {
       "model": "GST25B05-P1J",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "GST25B07-P1J",
-      "watt": 22
+      "watt": 22,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GST25B09-P1J",
-      "watt": 23
+      "watt": 23,
+      "dcVoltage": "9"
     },
     {
       "model": "GST25B12-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "GST25B15-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "15"
     },
     {
       "model": "GST25B18-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "18"
     },
     {
       "model": "GST25B24-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "24"
     },
     {
       "model": "GST25B28-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "28"
     },
     {
       "model": "GST25B48-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "48"
     }
   ],
   "gst25e": [
     {
       "model": "GST25E05-P1J",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "GST25E07-P1J",
-      "watt": 22
+      "watt": 22,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GST25E09-P1J",
-      "watt": 23
+      "watt": 23,
+      "dcVoltage": "9"
     },
     {
       "model": "GST25E12-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "GST25E15-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "15"
     },
     {
       "model": "GST25E18-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "18"
     },
     {
       "model": "GST25E24-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "24"
     },
     {
       "model": "GST25E28-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "28"
     },
     {
       "model": "GST25E48-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "48"
     }
   ],
   "gst25u": [
     {
       "model": "GST25U05-P1J",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "GST25U07-P1J",
-      "watt": 22
+      "watt": 22,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GST25U09-P1J",
-      "watt": 23
+      "watt": 23,
+      "dcVoltage": "9"
     },
     {
       "model": "GST25U12-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "GST25U15-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "15"
     },
     {
       "model": "GST25U18-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "18"
     },
     {
       "model": "GST25U24-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "24"
     },
     {
       "model": "GST25U28-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "28"
     },
     {
       "model": "GST25U48-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "48"
     }
   ],
   "gst36b": [
     {
       "model": "GST36B05",
-      "watt": 21.5
+      "watt": 21.5,
+      "dcVoltage": "5"
     },
     {
       "model": "GST36B09",
-      "watt": 28
+      "watt": 28,
+      "dcVoltage": "9"
     },
     {
       "model": "GST36B12",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "12"
     },
     {
       "model": "GST36B24",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     },
     {
       "model": "GST36B48",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "48"
     }
   ],
   "gst36e": [
     {
       "model": "GST36E05",
-      "watt": 21.5
+      "watt": 21.5,
+      "dcVoltage": "5"
     },
     {
       "model": "GST36E09",
-      "watt": 28
+      "watt": 28,
+      "dcVoltage": "9"
     },
     {
       "model": "GST36E12",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "12"
     },
     {
       "model": "GST36E24",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     },
     {
       "model": "GST36E48",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "48"
     }
   ],
   "gst36u": [
     {
       "model": "GST36U05",
-      "watt": 21.5
+      "watt": 21.5,
+      "dcVoltage": "5"
     },
     {
       "model": "GST36U09",
-      "watt": 28
+      "watt": 28,
+      "dcVoltage": "9"
     },
     {
       "model": "GST36U12",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "12"
     },
     {
       "model": "GST36U24",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     },
     {
       "model": "GST36U48",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "48"
     }
   ],
   "gst40a": [
     {
       "model": "GST40A05-P1J",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "GST40A07-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GST40A09-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "9"
     },
     {
       "model": "GST40A12-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "12"
     },
     {
       "model": "GST40A15-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "15"
     },
     {
       "model": "GST40A18-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "18"
     },
     {
       "model": "GST40A24-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "24"
     },
     {
       "model": "GST40A48-P1J",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "48"
     }
   ],
   "gst60a": [
     {
       "model": "GST60A05-P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "GST60A07-P1J",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "7.5"
     },
     {
       "model": "GST60A09-P1J",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "9"
     },
     {
       "model": "GST60A12-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "GST60A15-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "GST60A18-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "18"
     },
     {
       "model": "GST60A24-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "GST60A48-P1J",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     }
   ],
   "gst90a": [
     {
       "model": "GST90A12-P1M",
-      "watt": 80
+      "watt": 80,
+      "dcVoltage": "12"
     },
     {
       "model": "GST90A15-P1M",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "15"
     },
     {
       "model": "GST90A19-P1M",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "19"
     },
     {
       "model": "GST90A24-P1M",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "24"
     },
     {
       "model": "GST90A48-P1M",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "48"
     }
   ],
   "gst120a": [
     {
       "model": "GST120A12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "GST120A12-R7B",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "GST120A15",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     },
     {
       "model": "GST120A15-R7B",
-      "watt": 105
+      "watt": 105,
+      "dcVoltage": "15"
     },
     {
       "model": "GST120A15-R7B-R7B",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "20"
     }
   ],
   "gst160a": [
     {
       "model": "GST160A12",
-      "watt": 138
+      "watt": 138,
+      "dcVoltage": "12"
     },
     {
       "model": "GST160A15",
-      "watt": 144
+      "watt": 144,
+      "dcVoltage": "15"
     },
     {
       "model": "GST160A20",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "20"
     },
     {
       "model": "GST160A24",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "24"
     },
     {
       "model": "GST160A36",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "36"
     },
     {
       "model": "GST160A48",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "48"
     }
   ],
   "gst220a": [
     {
       "model": "GST220A12",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "12"
     },
     {
       "model": "GST220A15",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "15"
     },
     {
       "model": "GST220A20",
-      "watt": 220
+      "watt": 220,
+      "dcVoltage": "20"
     },
     {
       "model": "GST220A24",
-      "watt": 221
+      "watt": 221,
+      "dcVoltage": "24"
     },
     {
       "model": "GST220A36",
-      "watt": 219.6
+      "watt": 219.6,
+      "dcVoltage": "36"
     },
     {
       "model": "GST220A48",
-      "watt": 221
+      "watt": 221,
+      "dcVoltage": "48"
     }
   ],
   "gst280a": [
     {
       "model": "GST280A12",
-      "watt": 252
+      "watt": 252,
+      "dcVoltage": "12"
     },
     {
       "model": "GST280A15",
-      "watt": 255
+      "watt": 255,
+      "dcVoltage": "15"
     },
     {
       "model": "GST280A20",
-      "watt": 260
+      "watt": 260,
+      "dcVoltage": "20"
     },
     {
       "model": "GST280A24",
-      "watt": 280.08
+      "watt": 280.08,
+      "dcVoltage": "24"
     },
     {
       "model": "GST280A48",
-      "watt": 280.32
+      "watt": 280.32,
+      "dcVoltage": "48"
     }
   ],
   "gst360a": [
     {
       "model": "GST360A12",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "24"
     },
     {
       "model": "GST360A15",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "36"
     },
     {
       "model": "GST360A48",
-      "watt": 330
+      "watt": 330,
+      "dcVoltage": "12"
     },
     {
       "model": "GST360A55",
-      "watt": 340.5
+      "watt": 340.5,
+      "dcVoltage": "15"
     }
   ],
   "gst360b": [
     {
       "model": "GST360B12",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "24"
     },
     {
       "model": "GST360B15",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "36"
     },
     {
       "model": "GST360B48",
-      "watt": 330
+      "watt": 330,
+      "dcVoltage": "12"
     },
     {
       "model": "GST360B55",
-      "watt": 340.5
+      "watt": 340.5,
+      "dcVoltage": "15"
     }
   ],
   "gsv30": [
@@ -3164,19 +3744,23 @@ export const modelOptionWattageMap = {
   "hbg-60": [
     {
       "model": "HBG-60-1050",
-      "watt": 57.75
+      "watt": 57.75,
+      "dcVoltage": "43"
     },
     {
       "model": "HBG-60-1050P",
-      "watt": 57.75
+      "watt": 57.75,
+      "dcVoltage": "43"
     },
     {
       "model": "HBG-60-1400",
-      "watt": 60.9
+      "watt": 60.9,
+      "dcVoltage": "29"
     },
     {
       "model": "HBG-60-1400P",
-      "watt": 60.9
+      "watt": 60.9,
+      "dcVoltage": "29"
     }
   ],
   "hbg-60-p": [
@@ -3260,11 +3844,13 @@ export const modelOptionWattageMap = {
   "hbg-240p": [
     {
       "model": "HBG-240P-36",
-      "watt": 241.2
+      "watt": 241.2,
+      "dcVoltage": "36"
     },
     {
       "model": "HBG-240P-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     }
   ],
   "hbgc-300": [
@@ -3276,57 +3862,69 @@ export const modelOptionWattageMap = {
   "hdr-15": [
     {
       "model": "HDR-15-5",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "5"
     },
     {
       "model": "HDR-15-48",
-      "watt": 15.4
+      "watt": 15.4,
+      "dcVoltage": "48"
     }
   ],
   "hdr-30": [
     {
       "model": "HDR-30-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "HDR-30-12",
-      "watt": 24
+      "watt": 24,
+      "dcVoltage": "5"
     },
     {
       "model": "HDR-30-15",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "HDR-30-24",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "5"
     },
     {
       "model": "HDR-30-48",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "5"
     }
   ],
   "hdr-60": [
     {
       "model": "HDR-60-5",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "5"
     },
     {
       "model": "HDR-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "HDR-60-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "HDR-60-48",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     }
   ],
   "hdr-100": [
     {
       "model": "HDR-100-15",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "12"
     }
   ],
   "hdr-150": [
@@ -3338,193 +3936,237 @@ export const modelOptionWattageMap = {
   "hep-100": [
     {
       "model": "HEP-100-12",
-      "watt": 100.08
+      "watt": 100.08,
+      "dcVoltage": "12"
     },
     {
       "model": "HEP-100-15",
-      "watt": 100.05
+      "watt": 100.05,
+      "dcVoltage": "15"
     },
     {
       "model": "HEP-100-24",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "24"
     },
     {
       "model": "HEP-100-36",
-      "watt": 95.4
+      "watt": 95.4,
+      "dcVoltage": "36"
     },
     {
       "model": "HEP-100-48",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "48"
     },
     {
       "model": "HEP-100-54",
-      "watt": 95.58
+      "watt": 95.58,
+      "dcVoltage": "54"
     }
   ],
   "hep-150": [
     {
       "model": "HEP-150-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "HEP-150-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "HEP-150-24",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     },
     {
       "model": "HEP-150-36",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "36"
     },
     {
       "model": "HEP-150-48",
-      "watt": 153.6
+      "watt": 153.6,
+      "dcVoltage": "48"
     },
     {
       "model": "HEP-150-54",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "54"
     }
   ],
   "hep-185": [
     {
       "model": "HEP-185-12",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "12"
     },
     {
       "model": "HEP-185-15",
-      "watt": 172
+      "watt": 172,
+      "dcVoltage": "15"
     },
     {
       "model": "HEP-185-24",
-      "watt": 187.2
+      "watt": 187.2,
+      "dcVoltage": "24"
     },
     {
       "model": "HEP-185-36",
-      "watt": 187.2
+      "watt": 187.2,
+      "dcVoltage": "36"
     },
     {
       "model": "HEP-185-48",
-      "watt": 187.2
+      "watt": 187.2,
+      "dcVoltage": "48"
     },
     {
       "model": "HEP-185-54",
-      "watt": 186.3
+      "watt": 186.3,
+      "dcVoltage": "54"
     }
   ],
   "hep-240": [
     {
       "model": "HEP-240-12",
-      "watt": 192
+      "watt": 192,
+      "dcVoltage": "12"
     },
     {
       "model": "HEP-240-15",
-      "watt": 225
+      "watt": 225,
+      "dcVoltage": "15"
     },
     {
       "model": "HEP-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "HEP-240-36",
-      "watt": 241.2
+      "watt": 241.2,
+      "dcVoltage": "36"
     },
     {
       "model": "HEP-240-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     },
     {
       "model": "HEP-240-54",
-      "watt": 240.3
+      "watt": 240.3,
+      "dcVoltage": "54"
     }
   ],
   "hep-320": [
     {
       "model": "HEP-320-12",
-      "watt": 264
+      "watt": 264,
+      "dcVoltage": "12"
     },
     {
       "model": "HEP-320-15",
-      "watt": 285
+      "watt": 285,
+      "dcVoltage": "15"
     },
     {
       "model": "HEP-320-24",
-      "watt": 320.16
+      "watt": 320.16,
+      "dcVoltage": "24"
     },
     {
       "model": "HEP-320-36",
-      "watt": 320.4
+      "watt": 320.4,
+      "dcVoltage": "36"
     },
     {
       "model": "HEP-320-48",
-      "watt": 321.6
+      "watt": 321.6,
+      "dcVoltage": "48"
     },
     {
       "model": "HEP-320-54",
-      "watt": 321.3
+      "watt": 321.3,
+      "dcVoltage": "54"
     }
   ],
   "hep-480": [
     {
       "model": "HEP-480-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "HEP-480-36",
-      "watt": 478.8
+      "watt": 478.8,
+      "dcVoltage": "36"
     },
     {
       "model": "HEP-480-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     },
     {
       "model": "HEP-480-54",
-      "watt": 480.6
+      "watt": 480.6,
+      "dcVoltage": "54"
     }
   ],
   "hep-600": [
     {
       "model": "HEP-600-12",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "12"
     },
     {
       "model": "HEP-600-15",
-      "watt": 540
+      "watt": 540,
+      "dcVoltage": "15"
     },
     {
       "model": "HEP-600-20",
-      "watt": 560
+      "watt": 560,
+      "dcVoltage": "20"
     },
     {
       "model": "HEP-600-24",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "24"
     },
     {
       "model": "HEP-600-30",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "30"
     },
     {
       "model": "HEP-600-36",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "48"
     },
     {
       "model": "HEP-600-42",
-      "watt": 604.8
+      "watt": 604.8,
+      "dcVoltage": "54"
     }
   ],
   "hep-600c": [
     {
       "model": "HEP-600C-12",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "14.4"
     },
     {
       "model": "HEP-600C-24",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "28.8"
     },
     {
       "model": "HEP-600C-48",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "57.6"
     }
   ],
   "hep-1000": [
@@ -3536,23 +4178,28 @@ export const modelOptionWattageMap = {
   "hep-2300": [
     {
       "model": "HEP-2300-55",
-      "watt": 2300
+      "watt": 2300,
+      "dcVoltage": "57.6"
     },
     {
       "model": "HEP-2300-55-400AH",
-      "watt": 2300
+      "watt": 2300,
+      "dcVoltage": "57.6"
     },
     {
       "model": "HEP-2300-115",
-      "watt": 2300
+      "watt": 2300,
+      "dcVoltage": "115"
     },
     {
       "model": "HEP-2300-230",
-      "watt": 2300
+      "watt": 2300,
+      "dcVoltage": "230"
     },
     {
       "model": "HEP-2300-380",
-      "watt": 2300
+      "watt": 2300,
+      "dcVoltage": "380"
     }
   ],
   "hep-2300-hv": [
@@ -3564,65 +4211,80 @@ export const modelOptionWattageMap = {
   "hlg-40h": [
     {
       "model": "HLG-40H-12",
-      "watt": 39.96
+      "watt": 39.96,
+      "dcVoltage": "12"
     },
     {
       "model": "HLG-40H-15",
-      "watt": 40.05
+      "watt": 40.05,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-40H-20",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-40H-24",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-40H-30",
-      "watt": 40.2
+      "watt": 40.2,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-40H-36",
-      "watt": 40.32
+      "watt": 40.32,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-40H-42",
-      "watt": 40.5
+      "watt": 40.5,
+      "dcVoltage": "54"
     }
   ],
   "hlg-60h": [
     {
       "model": "HLG-60H-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-60H-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-60H-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-60H-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-60H-36",
-      "watt": 62.4
+      "watt": 62.4,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-60H-42",
-      "watt": 62.1
+      "watt": 62.1,
+      "dcVoltage": "54"
     },
     {
       "model": "HLG-60H-C350",
-      "watt": 70
+      "watt": 70,
+      "dcVoltage": "200"
     },
     {
       "model": "HLG-60H-C700",
-      "watt": 70
+      "watt": 70,
+      "dcVoltage": "100"
     },
     {
       "model": "HLG-60H-C700-350MA",
@@ -3638,39 +4300,48 @@ export const modelOptionWattageMap = {
   "hlg-80h": [
     {
       "model": "HLG-80H-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "HLG-80H-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-80H-20",
-      "watt": 80
+      "watt": 80,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-80H-24",
-      "watt": 81.6
+      "watt": 81.6,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-80H-30",
-      "watt": 81
+      "watt": 81,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-80H-36",
-      "watt": 81.6
+      "watt": 81.6,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-80H-42",
-      "watt": 81
+      "watt": 81,
+      "dcVoltage": "54"
     },
     {
       "model": "HLG-80H-C350",
-      "watt": 89.95
+      "watt": 89.95,
+      "dcVoltage": "128"
     },
     {
       "model": "HLG-80H-C700",
-      "watt": 90.3
+      "watt": 90.3,
+      "dcVoltage": "257"
     }
   ],
   "hlg-80h-c": [
@@ -3682,73 +4353,90 @@ export const modelOptionWattageMap = {
   "hlg-100h": [
     {
       "model": "HLG-100H-20",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-100H-24",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-100H-30",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-100H-36",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-100H-42",
-      "watt": 95.58
+      "watt": 95.58,
+      "dcVoltage": "54"
     }
   ],
   "hlg-120h": [
     {
       "model": "HLG-120H-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "HLG-120H-15",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-120H-20",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-120H-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-120H-30",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-120H-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-120H-54",
-      "watt": 124.2
+      "watt": 124.2,
+      "dcVoltage": "54"
     },
     {
       "model": "HLG-120H-C350",
-      "watt": 150.5
+      "watt": 150.5,
+      "dcVoltage": "430"
     },
     {
       "model": "HLG-120H-C500",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "150"
     },
     {
       "model": "HLG-120H-C700",
-      "watt": 150.5
+      "watt": 150.5,
+      "dcVoltage": "300"
     },
     {
       "model": "HLG-120H-C1050",
-      "watt": 155.4
+      "watt": 155.4,
+      "dcVoltage": "107"
     },
     {
       "model": "HLG-120H-C1400",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "215"
     }
   ],
   "hlg-120h-c": [
@@ -3760,77 +4448,95 @@ export const modelOptionWattageMap = {
   "hlg-150h": [
     {
       "model": "HLG-150H-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "HLG-150H-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-150H-20",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-150H-24",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-150H-30",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-150H-48",
-      "watt": 153.6
+      "watt": 153.6,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-150H-54",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "54"
     }
   ],
   "hlg-185h": [
     {
       "model": "HLG-185H-12",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "12"
     },
     {
       "model": "HLG-185H-15",
-      "watt": 172.5
+      "watt": 172.5,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-185H-20",
-      "watt": 186
+      "watt": 186,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-185H-24",
-      "watt": 187.2
+      "watt": 187.2,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-185H-30",
-      "watt": 186
+      "watt": 186,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-185H-48",
-      "watt": 187.2
+      "watt": 187.2,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-185H-54",
-      "watt": 186.3
+      "watt": 186.3,
+      "dcVoltage": "54"
     },
     {
       "model": "HLG-185H-C500",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "200"
     },
     {
       "model": "HLG-185H-C700",
-      "watt": 200.2
+      "watt": 200.2,
+      "dcVoltage": "143"
     },
     {
       "model": "HLG-185H-C1050",
-      "watt": 199.5
+      "watt": 199.5,
+      "dcVoltage": "95"
     },
     {
       "model": "HLG-185H-C1400",
-      "watt": 200.2
+      "watt": 200.2,
+      "dcVoltage": "71"
     }
   ],
   "hlg-185h-c": [
@@ -3842,43 +4548,53 @@ export const modelOptionWattageMap = {
   "hlg-240h": [
     {
       "model": "HLG-240H-12",
-      "watt": 192
+      "watt": 192,
+      "dcVoltage": "12"
     },
     {
       "model": "HLG-240H-15",
-      "watt": 225
+      "watt": 225,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-240H-20",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-240H-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-240H-30",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-240H-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-240H-54",
-      "watt": 240.3
+      "watt": 240.3,
+      "dcVoltage": "54"
     },
     {
       "model": "HLG-240H-C700",
-      "watt": 249.9
+      "watt": 249.9,
+      "dcVoltage": "360"
     },
     {
       "model": "HLG-240H-C1050",
-      "watt": 250.25
+      "watt": 250.25,
+      "dcVoltage": "241"
     },
     {
       "model": "HLG-240H-C1400",
-      "watt": 249.9
+      "watt": 249.9,
+      "dcVoltage": "182"
     }
   ],
   "hlg-240h-c": [
@@ -3890,51 +4606,63 @@ export const modelOptionWattageMap = {
   "hlg-320h": [
     {
       "model": "HLG-320H-12",
-      "watt": 264
+      "watt": 264,
+      "dcVoltage": "12"
     },
     {
       "model": "HLG-320H-15",
-      "watt": 285
+      "watt": 285,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-320H-20",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-320H-24",
-      "watt": 320.16
+      "watt": 320.16,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-320H-30",
-      "watt": 321
+      "watt": 321,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-320H-48",
-      "watt": 321.6
+      "watt": 321.6,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-320H-54",
-      "watt": 321.3
+      "watt": 321.3,
+      "dcVoltage": "54"
     },
     {
       "model": "HLG-320H-C700",
-      "watt": 299.6
+      "watt": 299.6,
+      "dcVoltage": "435"
     },
     {
       "model": "HLG-320H-C1050",
-      "watt": 320.25
+      "watt": 320.25,
+      "dcVoltage": "187"
     },
     {
       "model": "HLG-320H-C1400",
-      "watt": 319.2
+      "watt": 319.2,
+      "dcVoltage": "156"
     },
     {
       "model": "HLG-320H-C1750",
-      "watt": 319.2
+      "watt": 319.2,
+      "dcVoltage": "118"
     },
     {
       "model": "HLG-320H-C2100",
-      "watt": 318.5
+      "watt": 318.5,
+      "dcVoltage": "95"
     }
   ],
   "hlg-320h-c": [
@@ -3946,47 +4674,58 @@ export const modelOptionWattageMap = {
   "hlg-480h": [
     {
       "model": "HLG-480H-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-480H-30",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-480H-36",
-      "watt": 478.8
+      "watt": 478.8,
+      "dcVoltage": "36"
     },
     {
       "model": "HLG-480H-42",
-      "watt": 478.8
+      "watt": 478.8,
+      "dcVoltage": "42"
     },
     {
       "model": "HLG-480H-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-480H-54",
-      "watt": 480.6
+      "watt": 480.6,
+      "dcVoltage": "54"
     },
     {
       "model": "HLG-480H-C1400",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "420"
     },
     {
       "model": "HLG-480H-C1750",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "340"
     },
     {
       "model": "HLG-480H-C2100",
-      "watt": 481
+      "watt": 481,
+      "dcVoltage": "280"
     },
     {
       "model": "HLG-480H-C2800",
-      "watt": 479
+      "watt": 479,
+      "dcVoltage": "210"
     },
     {
       "model": "HLG-480H-C3500",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "170"
     }
   ],
   "hlg-480h-c": [
@@ -3998,837 +4737,1030 @@ export const modelOptionWattageMap = {
   "hlg-600h": [
     {
       "model": "HLG-600H-12",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "12"
     },
     {
       "model": "HLG-600H-15",
-      "watt": 540
+      "watt": 540,
+      "dcVoltage": "15"
     },
     {
       "model": "HLG-600H-20",
-      "watt": 560
+      "watt": 560,
+      "dcVoltage": "20"
     },
     {
       "model": "HLG-600H-24",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "24"
     },
     {
       "model": "HLG-600H-30",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "30"
     },
     {
       "model": "HLG-600H-48",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "48"
     },
     {
       "model": "HLG-600H-54",
-      "watt": 604.8
+      "watt": 604.8,
+      "dcVoltage": "54"
     }
   ],
   "hln-40h": [
     {
       "model": "HLN-40H-12",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "12"
     },
     {
       "model": "HLN-40H-15",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "15"
     },
     {
       "model": "HLN-40H-20",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "20"
     },
     {
       "model": "HLN-40H-24",
-      "watt": 40.1
+      "watt": 40.1,
+      "dcVoltage": "24"
     },
     {
       "model": "HLN-40H-30",
-      "watt": 40.2
+      "watt": 40.2,
+      "dcVoltage": "30"
     },
     {
       "model": "HLN-40H-36",
-      "watt": 40.3
+      "watt": 40.3,
+      "dcVoltage": "48"
     },
     {
       "model": "HLN-40H-42",
-      "watt": 40.5
+      "watt": 40.5,
+      "dcVoltage": "54"
     }
   ],
   "hln-60h": [
     {
       "model": "HLN-60H-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "HLN-60H-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "HLN-60H-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "HLN-60H-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "HLN-60H-36",
-      "watt": 62.4
+      "watt": 62.4,
+      "dcVoltage": "48"
     },
     {
       "model": "HLN-60H-42",
-      "watt": 62.1
+      "watt": 62.1,
+      "dcVoltage": "54"
     }
   ],
   "hln-80h": [
     {
       "model": "HLN-80H-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "HLN-80H-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "HLN-80H-20",
-      "watt": 80
+      "watt": 80,
+      "dcVoltage": "20"
     },
     {
       "model": "HLN-80H-24",
-      "watt": 81.6
+      "watt": 81.6,
+      "dcVoltage": "24"
     },
     {
       "model": "HLN-80H-30",
-      "watt": 81
+      "watt": 81,
+      "dcVoltage": "30"
     },
     {
       "model": "HLN-80H-36",
-      "watt": 81.6
+      "watt": 81.6,
+      "dcVoltage": "48"
     },
     {
       "model": "HLN-80H-42",
-      "watt": 81
+      "watt": 81,
+      "dcVoltage": "54"
     }
   ],
   "hlp-60h": [
     {
       "model": "HLP-60H-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "HLP-60H-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "HLP-60H-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "HLP-60H-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "HLP-60H-36",
-      "watt": 62.4
+      "watt": 62.4,
+      "dcVoltage": "48"
     },
     {
       "model": "HLP-60H-42",
-      "watt": 62.1
+      "watt": 62.1,
+      "dcVoltage": "54"
     }
   ],
   "hlp-80h": [
     {
       "model": "HLP-80H-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "HLP-80H-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "HLP-80H-20",
-      "watt": 80
+      "watt": 80,
+      "dcVoltage": "20"
     },
     {
       "model": "HLP-80H-24",
-      "watt": 81.6
+      "watt": 81.6,
+      "dcVoltage": "24"
     },
     {
       "model": "HLP-80H-30",
-      "watt": 81
+      "watt": 81,
+      "dcVoltage": "30"
     },
     {
       "model": "HLP-80H-36",
-      "watt": 81.6
+      "watt": 81.6,
+      "dcVoltage": "48"
     },
     {
       "model": "HLP-80H-42",
-      "watt": 81
+      "watt": 81,
+      "dcVoltage": "54"
     }
   ],
   "hrp-75": [
     {
       "model": "HRP-75-3.3",
-      "watt": 49.5
+      "watt": 49.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRP-75-5",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "5"
     },
     {
       "model": "HRP-75-7.5",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRP-75-12",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-75-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "HRP-75-24",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-75-36",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     }
   ],
   "hrp-100": [
     {
       "model": "HRP-100-3.3",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRP-100-5",
-      "watt": 85
+      "watt": 85,
+      "dcVoltage": "5"
     },
     {
       "model": "HRP-100-7.5",
-      "watt": 101.3
+      "watt": 101.3,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRP-100-12",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-100-15",
-      "watt": 105
+      "watt": 105,
+      "dcVoltage": "15"
     },
     {
       "model": "HRP-100-24",
-      "watt": 108
+      "watt": 108,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-100-36",
-      "watt": 104.4
+      "watt": 104.4,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-100-48",
-      "watt": 105.6
+      "watt": 105.6,
+      "dcVoltage": "48"
     }
   ],
   "hrp-150": [
     {
       "model": "HRP-150-3.3",
-      "watt": 99
+      "watt": 99,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRP-150-5",
-      "watt": 130
+      "watt": 130,
+      "dcVoltage": "5"
     },
     {
       "model": "HRP-150-7.5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRP-150-12",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-150-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "HRP-150-24",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-150-36",
-      "watt": 154.8
+      "watt": 154.8,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-150-48",
-      "watt": 158.4
+      "watt": 158.4,
+      "dcVoltage": "48"
     }
   ],
   "hrp-150n3": [
     {
       "model": "HRP-150N3-36",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "24"
     }
   ],
   "hrp-200": [
     {
       "model": "HRP-200-3.3",
-      "watt": 132
+      "watt": 132,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRP-200-5",
-      "watt": 175
+      "watt": 175,
+      "dcVoltage": "5"
     },
     {
       "model": "HRP-200-7.5",
-      "watt": 200.3
+      "watt": 200.3,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRP-200-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-200-15",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "15"
     },
     {
       "model": "HRP-200-24",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-200-36",
-      "watt": 205.2
+      "watt": 205.2,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-200-48",
-      "watt": 206.4
+      "watt": 206.4,
+      "dcVoltage": "48"
     }
   ],
   "hrp-300": [
     {
       "model": "HRP-300-3.3",
-      "watt": 198
+      "watt": 198,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRP-300-5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "5"
     },
     {
       "model": "HRP-300-7.5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRP-300-12",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-300-15",
-      "watt": 330
+      "watt": 330,
+      "dcVoltage": "15"
     },
     {
       "model": "HRP-300-24",
-      "watt": 336
+      "watt": 336,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-300-36",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-300-48",
-      "watt": 336
+      "watt": 336,
+      "dcVoltage": "48"
     }
   ],
   "hrp-300n3": [
     {
       "model": "HRP-300N3-12",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-300N3-24",
-      "watt": 336
+      "watt": 336,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-300N3-36",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-300N3-48",
-      "watt": 336
+      "watt": 336,
+      "dcVoltage": "48"
     }
   ],
   "hrp-450": [
     {
       "model": "HRP-450-3.3",
-      "watt": 297
+      "watt": 297,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRP-450-5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "5"
     },
     {
       "model": "HRP-450-7.5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRP-450-12",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-450-15",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "15"
     },
     {
       "model": "HRP-450-24",
-      "watt": 451.2
+      "watt": 451.2,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-450-36",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-450-48",
-      "watt": 456
+      "watt": 456,
+      "dcVoltage": "48"
     }
   ],
   "hrp-600": [
     {
       "model": "HRP-600-3.3",
-      "watt": 396
+      "watt": 396,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRP-600-5",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "5"
     },
     {
       "model": "HRP-600-7.5",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRP-600-12",
-      "watt": 636
+      "watt": 636,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-600-15",
-      "watt": 645
+      "watt": 645,
+      "dcVoltage": "15"
     },
     {
       "model": "HRP-600-24",
-      "watt": 648
+      "watt": 648,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-600-36",
-      "watt": 630
+      "watt": 630,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-600-48",
-      "watt": 624
+      "watt": 624,
+      "dcVoltage": "48"
     }
   ],
   "hrp-600n3": [
     {
       "model": "HRP-600N3-12",
-      "watt": 636
+      "watt": 636,
+      "dcVoltage": "12"
     },
     {
       "model": "HRP-600N3-24",
-      "watt": 648
+      "watt": 648,
+      "dcVoltage": "24"
     },
     {
       "model": "HRP-600N3-36",
-      "watt": 630
+      "watt": 630,
+      "dcVoltage": "36"
     },
     {
       "model": "HRP-600N3-48",
-      "watt": 624
+      "watt": 624,
+      "dcVoltage": "48"
     }
   ],
   "hrpg-150": [
     {
       "model": "HRPG-150-3.3",
-      "watt": 99
+      "watt": 99,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRPG-150-5",
-      "watt": 130
+      "watt": 130,
+      "dcVoltage": "5"
     },
     {
       "model": "HRPG-150-7.5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRPG-150-12",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "12"
     },
     {
       "model": "HRPG-150-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "HRPG-150-24",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "24"
     },
     {
       "model": "HRPG-150-36",
-      "watt": 154.8
+      "watt": 154.8,
+      "dcVoltage": "36"
     },
     {
       "model": "HRPG-150-48",
-      "watt": 158.4
+      "watt": 158.4,
+      "dcVoltage": "48"
     }
   ],
   "hrpg-200": [
     {
       "model": "HRPG-200-3.3",
-      "watt": 132
+      "watt": 132,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRPG-200-5",
-      "watt": 175
+      "watt": 175,
+      "dcVoltage": "5"
     },
     {
       "model": "HRPG-200-7.5",
-      "watt": 200.3
+      "watt": 200.3,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRPG-200-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "HRPG-200-15",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "15"
     },
     {
       "model": "HRPG-200-24",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "24"
     },
     {
       "model": "HRPG-200-36",
-      "watt": 205.2
+      "watt": 205.2,
+      "dcVoltage": "36"
     },
     {
       "model": "HRPG-200-48",
-      "watt": 206.4
+      "watt": 206.4,
+      "dcVoltage": "48"
     }
   ],
   "hrpg-300": [
     {
       "model": "HRPG-300-3.3",
-      "watt": 198
+      "watt": 198,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRPG-300-5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "5"
     },
     {
       "model": "HRPG-300-7.5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRPG-300-12",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "12"
     },
     {
       "model": "HRPG-300-15",
-      "watt": 330
+      "watt": 330,
+      "dcVoltage": "15"
     },
     {
       "model": "HRPG-300-24",
-      "watt": 336
+      "watt": 336,
+      "dcVoltage": "24"
     },
     {
       "model": "HRPG-300-36",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "36"
     },
     {
       "model": "HRPG-300-48",
-      "watt": 336
+      "watt": 336,
+      "dcVoltage": "48"
     }
   ],
   "hrpg-450": [
     {
       "model": "HRPG-450-3.3",
-      "watt": 297
+      "watt": 297,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRPG-450-5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "5"
     },
     {
       "model": "HRPG-450-7.5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRPG-450-12",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "HRPG-450-15",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "15"
     },
     {
       "model": "HRPG-450-24",
-      "watt": 451.2
+      "watt": 451.2,
+      "dcVoltage": "24"
     },
     {
       "model": "HRPG-450-36",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "36"
     },
     {
       "model": "HRPG-450-48",
-      "watt": 456
+      "watt": 456,
+      "dcVoltage": "48"
     }
   ],
   "hrpg-600": [
     {
       "model": "HRPG-600-3.3",
-      "watt": 396
+      "watt": 396,
+      "dcVoltage": "3.3"
     },
     {
       "model": "HRPG-600-5",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "5"
     },
     {
       "model": "HRPG-600-7.5",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "7.5"
     },
     {
       "model": "HRPG-600-12",
-      "watt": 636
+      "watt": 636,
+      "dcVoltage": "12"
     },
     {
       "model": "HRPG-600-15",
-      "watt": 645
+      "watt": 645,
+      "dcVoltage": "15"
     },
     {
       "model": "HRPG-600-24",
-      "watt": 648
+      "watt": 648,
+      "dcVoltage": "24"
     },
     {
       "model": "HRPG-600-36",
-      "watt": 630
+      "watt": 630,
+      "dcVoltage": "36"
     },
     {
       "model": "HRPG-600-48",
-      "watt": 624
+      "watt": 624,
+      "dcVoltage": "48"
     }
   ],
   "hrpg-1000": [
     {
       "model": "HRPG-1000-12",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "12"
     },
     {
       "model": "HRPG-1000-15",
-      "watt": 1000
+      "watt": 1000,
+      "dcVoltage": "15"
     },
     {
       "model": "HRPG-1000-24",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "24"
     },
     {
       "model": "HRPG-1000-48",
-      "watt": 1000
+      "watt": 1000,
+      "dcVoltage": "48"
     }
   ],
   "hrpg-1000n3": [
     {
       "model": "HRPG-1000N3-12",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "12"
     },
     {
       "model": "HRPG-1000N3-24",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "24"
     },
     {
       "model": "HRPG-1000N3-36",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "36"
     },
     {
       "model": "HRPG-1000N3-48",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "48"
     }
   ],
   "hsp-200": [
     {
       "model": "HSP-200-4.2",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "5"
     },
     {
       "model": "HSP-200-5",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "5"
     }
   ],
   "hsp-300": [
     {
       "model": "HSP-300-2.8",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "5"
     },
     {
       "model": "HSP-300-4.2",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "5"
     },
     {
       "model": "HSP-300-5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "5"
     }
   ],
   "hvg-65": [
     {
       "model": "HVG-65-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "HVG-65-15",
-      "watt": 64.5
+      "watt": 64.5,
+      "dcVoltage": "15"
     },
     {
       "model": "HVG-65-20",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "20"
     },
     {
       "model": "HVG-65-24",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "24"
     },
     {
       "model": "HVG-65-30",
-      "watt": 65.1
+      "watt": 65.1,
+      "dcVoltage": "30"
     },
     {
       "model": "HVG-65-36",
-      "watt": 65.3
+      "watt": 65.3,
+      "dcVoltage": "48"
     },
     {
       "model": "HVG-65-42",
-      "watt": 65.3
+      "watt": 65.3,
+      "dcVoltage": "54"
     }
   ],
   "hvg-100": [
     {
       "model": "HVG-100-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "HVG-100-20",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "20"
     },
     {
       "model": "HVG-100-24",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "24"
     },
     {
       "model": "HVG-100-30",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "30"
     },
     {
       "model": "HVG-100-36",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "48"
     },
     {
       "model": "HVG-100-42",
-      "watt": 95.58
+      "watt": 95.58,
+      "dcVoltage": "54"
     }
   ],
   "hvg-150": [
     {
       "model": "HVG-150-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "HVG-150-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "HVG-150-20",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "20"
     },
     {
       "model": "HVG-150-24",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "24"
     },
     {
       "model": "HVG-150-30",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "30"
     },
     {
       "model": "HVG-150-36",
-      "watt": 150.24
+      "watt": 150.24,
+      "dcVoltage": "48"
     },
     {
       "model": "HVG-150-42",
-      "watt": 150.12
+      "watt": 150.12,
+      "dcVoltage": "54"
     }
   ],
   "hvg-240": [
     {
       "model": "HVG-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "HVG-240-30",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "30"
     },
     {
       "model": "HVG-240-36",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     },
     {
       "model": "HVG-240-42",
-      "watt": 243
+      "watt": 243,
+      "dcVoltage": "54"
     }
   ],
   "hvg-320": [
     {
       "model": "HVG-320-24",
-      "watt": 321.6
+      "watt": 321.6,
+      "dcVoltage": "24"
     },
     {
       "model": "HVG-320-30",
-      "watt": 321
+      "watt": 321,
+      "dcVoltage": "30"
     },
     {
       "model": "HVG-320-36",
-      "watt": 321.6
+      "watt": 321.6,
+      "dcVoltage": "48"
     },
     {
       "model": "HVG-320-42",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "54"
     }
   ],
   "hvg-480": [
     {
       "model": "HVG-480-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "HVG-480-30",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "30"
     },
     {
       "model": "HVG-480-36",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     },
     {
       "model": "HVG-480-42",
-      "watt": 480.6
+      "watt": 480.6,
+      "dcVoltage": "54"
     }
   ],
   "hvgc-65": [
     {
       "model": "HVGC-65-350",
-      "watt": 65.1
+      "watt": 65.1,
+      "dcVoltage": "150"
     },
     {
       "model": "HVGC-65-500",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "107"
     },
     {
       "model": "HVGC-65-700",
-      "watt": 65.1
+      "watt": 65.1,
+      "dcVoltage": "72"
     },
     {
       "model": "HVGC-65-1050",
@@ -4838,19 +5770,23 @@ export const modelOptionWattageMap = {
   "hvgc-150": [
     {
       "model": "HVGC-150-350",
-      "watt": 149.8
+      "watt": 149.8,
+      "dcVoltage": "346"
     },
     {
       "model": "HVGC-150-500",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "247"
     },
     {
       "model": "HVGC-150-700",
-      "watt": 150.5
+      "watt": 150.5,
+      "dcVoltage": "165"
     },
     {
       "model": "HVGC-150-1050",
-      "watt": 150.15
+      "watt": 150.15,
+      "dcVoltage": "124"
     },
     {
       "model": "HVGC-150-1400",
@@ -4860,61 +5796,75 @@ export const modelOptionWattageMap = {
   "hvgc-240": [
     {
       "model": "HVGC-240-700",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "354"
     },
     {
       "model": "HVGC-240-1050",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "235"
     },
     {
       "model": "HVGC-240-1400",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "176"
     },
     {
       "model": "HVGC-240-1750",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "141"
     },
     {
       "model": "HVGC-240-2100",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "117"
     },
     {
       "model": "HVGC-240-2800",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "88"
     },
     {
       "model": "HVGC-240-3500",
-      "watt": 240.1
+      "watt": 240.1,
+      "dcVoltage": "71"
     }
   ],
   "hvgc-320": [
     {
       "model": "HVGC-320-700",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "442"
     },
     {
       "model": "HVGC-320-1050",
-      "watt": 320
+      "watt": 320,
+      "dcVoltage": "311"
     },
     {
       "model": "HVGC-320-1400",
-      "watt": 320
+      "watt": 320,
+      "dcVoltage": "234"
     },
     {
       "model": "HVGC-320-1750",
-      "watt": 320
+      "watt": 320,
+      "dcVoltage": "187"
     },
     {
       "model": "HVGC-320-2100",
-      "watt": 320
+      "watt": 320,
+      "dcVoltage": "156"
     },
     {
       "model": "HVGC-320-2800",
-      "watt": 320
+      "watt": 320,
+      "dcVoltage": "118"
     },
     {
       "model": "HVGC-320-3500",
-      "watt": 320
+      "watt": 320,
+      "dcVoltage": "94"
     }
   ],
   "hvgc-480": [
@@ -4932,15 +5882,18 @@ export const modelOptionWattageMap = {
   "hvgc-1000": [
     {
       "model": "HVGC-1000A-H-",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "190"
     },
     {
       "model": "HVGC-1000A-L-",
-      "watt": 1003.2
+      "watt": 1003.2,
+      "dcVoltage": "400"
     },
     {
       "model": "HVGC-1000A-M-",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "250"
     }
   ],
   "icl-16l": [
@@ -4970,53 +5923,65 @@ export const modelOptionWattageMap = {
   "iob-05": [
     {
       "model": "IOB-05-03",
-      "watt": 3.3
+      "watt": 3.3,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IOB-05-05",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "5"
     },
     {
       "model": "IOB-05-09",
-      "watt": 5.04
+      "watt": 5.04,
+      "dcVoltage": "9"
     },
     {
       "model": "IOB-05-12",
-      "watt": 5.04
+      "watt": 5.04,
+      "dcVoltage": "12"
     },
     {
       "model": "IOB-05-15",
-      "watt": 5.1
+      "watt": 5.1,
+      "dcVoltage": "15"
     },
     {
       "model": "IOB-05-24",
-      "watt": 5.04
+      "watt": 5.04,
+      "dcVoltage": "24"
     }
   ],
   "iob-15": [
     {
       "model": "IOB-15-03",
-      "watt": 9.9
+      "watt": 9.9,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IOB-15-05",
-      "watt": 14
+      "watt": 14,
+      "dcVoltage": "5"
     },
     {
       "model": "IOB-15-09",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "9"
     },
     {
       "model": "IOB-15-12",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     },
     {
       "model": "IOB-15-15",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     },
     {
       "model": "IOB-15-24",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "24"
     }
   ],
   "irc1": [
@@ -5040,269 +6005,330 @@ export const modelOptionWattageMap = {
   "irm-01": [
     {
       "model": "IRM-01-3.3",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IRM-01-5",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-01-9",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "9"
     },
     {
       "model": "IRM-01-12",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-01-15",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-01-24",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "24"
     }
   ],
   "irm-02": [
     {
       "model": "IRM-02-3.3",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IRM-02-5",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-02-9",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "9"
     },
     {
       "model": "IRM-02-12",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-02-15",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-02-24",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "24"
     }
   ],
   "irm-03": [
     {
       "model": "IRM-03-3.3",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IRM-03-5",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-03-9",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "9"
     },
     {
       "model": "IRM-03-12",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-03-15",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-03-24",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "24"
     }
   ],
   "irm-05": [
     {
       "model": "IRM-05-3.3",
-      "watt": 4.125
+      "watt": 4.125,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IRM-05-5",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-05-12",
-      "watt": 5.04
+      "watt": 5.04,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-05-15",
-      "watt": 4.95
+      "watt": 4.95,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-05-24",
-      "watt": 5.52
+      "watt": 5.52,
+      "dcVoltage": "24"
     }
   ],
   "irm-10": [
     {
       "model": "IRM-10-3.3",
-      "watt": 8.25
+      "watt": 8.25,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IRM-10-5",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-10-12",
-      "watt": 10.2
+      "watt": 10.2,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-10-15",
-      "watt": 10.05
+      "watt": 10.05,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-10-24",
-      "watt": 10.08
+      "watt": 10.08,
+      "dcVoltage": "24"
     }
   ],
   "irm-15": [
     {
       "model": "IRM-15-3.3",
-      "watt": 11.55
+      "watt": 11.55,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IRM-15-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-15-12",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-15-15",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-15-24",
-      "watt": 15.12
+      "watt": 15.12,
+      "dcVoltage": "24"
     }
   ],
   "irm-20": [
     {
       "model": "IRM-20-3.3",
-      "watt": 14.85
+      "watt": 14.85,
+      "dcVoltage": "3.3"
     },
     {
       "model": "IRM-20-5",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-20-12",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-20-15",
-      "watt": 21
+      "watt": 21,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-20-24",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "24"
     }
   ],
   "irm-30": [
     {
       "model": "IRM-30-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-30-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-30-15",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-30-24",
-      "watt": 31.2
+      "watt": 31.2,
+      "dcVoltage": "24"
     },
     {
       "model": "IRM-30-48",
-      "watt": 30.2
+      "watt": 30.2,
+      "dcVoltage": "48"
     }
   ],
   "irm-45": [
     {
       "model": "IRM-45-5",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-45-12",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-45-15",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-45-24",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "24"
     },
     {
       "model": "IRM-45-48",
-      "watt": 45.12
+      "watt": 45.12,
+      "dcVoltage": "48"
     }
   ],
   "irm-60": [
     {
       "model": "IRM-60-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "IRM-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "IRM-60-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "IRM-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "IRM-60-48",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     }
   ],
   "irm-90": [
     {
       "model": "IRM-90-12",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "48"
     },
     {
       "model": "IRM-90-15",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "48"
     },
     {
       "model": "IRM-90-24",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "48"
     },
     {
       "model": "IRM-90-48",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "48"
     }
   ],
   "isi-501": [
     {
       "model": "ISI-501-112",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "ISI-501-124",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "24"
     },
     {
       "model": "ISI-501-148",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "48"
     },
     {
       "model": "ISI-501-212",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "12"
     }
   ],
   "kaa-4r4v-s": [
@@ -5314,7 +6340,8 @@ export const modelOptionWattageMap = {
   "kaa-8r-s": [
     {
       "model": "KAA-8R-S-10MA",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "31"
     }
   ],
   "knx-20e-640": [
@@ -5350,75 +6377,91 @@ export const modelOptionWattageMap = {
   "lad-120": [
     {
       "model": "LAD-120A",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "13.8"
     },
     {
       "model": "LAD-120B",
-      "watt": 121.4
+      "watt": 121.4,
+      "dcVoltage": "13.8"
     },
     {
       "model": "LAD-120C",
-      "watt": 120.35
+      "watt": 120.35,
+      "dcVoltage": "27.6"
     },
     {
       "model": "LAD-120D",
-      "watt": 121.99
+      "watt": 121.99,
+      "dcVoltage": "27.6"
     }
   ],
   "lad-240": [
     {
       "model": "LAD-240A",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "13.8"
     },
     {
       "model": "LAD-240B",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "13.8"
     },
     {
       "model": "LAD-240C",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "27.6"
     },
     {
       "model": "LAD-240D",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "27.6"
     },
     {
       "model": "LAD-240D-CH1",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "41.5"
     }
   ],
   "lad-360": [
     {
       "model": "LAD-360B",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "21.5"
     },
     {
       "model": "LAD-360C",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "0.5"
     },
     {
       "model": "LAD-360D",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "32"
     }
   ],
   "lad-600": [
     {
       "model": "LAD-600B",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "27.6"
     },
     {
       "model": "LAD-600C",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "27.6"
     },
     {
       "model": "LAD-600D",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "41.5"
     }
   ],
   "lcm-25": [
     {
       "model": "LCM-25-350MA",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "50"
     }
   ],
   "lcm-25da": [
@@ -5430,7 +6473,8 @@ export const modelOptionWattageMap = {
   "lcm-25kn": [
     {
       "model": "LCM-25KN-350MA",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "54"
     }
   ],
   "lcm-40(eo)": [
@@ -5454,7 +6498,8 @@ export const modelOptionWattageMap = {
   "lcm-40kn": [
     {
       "model": "LCM-40KN-350MA",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "80"
     }
   ],
   "lcm-40tw": [
@@ -5478,7 +6523,8 @@ export const modelOptionWattageMap = {
   "lcm-40uda": [
     {
       "model": "LCM-40UDA-350MA",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "70"
     }
   ],
   "lcm-60(eo)": [
@@ -5502,7 +6548,8 @@ export const modelOptionWattageMap = {
   "lcm-60kn": [
     {
       "model": "LCM-60KN-500MA",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "90"
     }
   ],
   "lcm-60u(eo)": [
@@ -5520,7 +6567,8 @@ export const modelOptionWattageMap = {
   "lcm-60uda": [
     {
       "model": "LCM-60UDA-500MA",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "84"
     }
   ],
   "ldc-35": [
@@ -5544,15 +6592,18 @@ export const modelOptionWattageMap = {
   "ldh-25": [
     {
       "model": "LDH-25-250",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "12"
     },
     {
       "model": "LDH-25-350",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "24"
     },
     {
       "model": "LDH-25-500",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "12"
     }
   ],
   "ldh-45(da)": [
@@ -5570,11 +6621,13 @@ export const modelOptionWattageMap = {
   "ldh-65": [
     {
       "model": "LDH-65-700",
-      "watt": 56
+      "watt": 56,
+      "dcVoltage": "12"
     },
     {
       "model": "LDH-65-1050",
-      "watt": 63
+      "watt": 63,
+      "dcVoltage": "24"
     }
   ],
   "lop-200": [
@@ -5586,57 +6639,70 @@ export const modelOptionWattageMap = {
   "lop-300": [
     {
       "model": "LOP-300-12",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-300-15",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-300-18",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-300-24",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-300-27",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-300-36",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-300-48",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-300-54",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     }
   ],
   "lop-400": [
     {
       "model": "LOP-400-12",
-      "watt": 400.8
+      "watt": 400.8,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-400-15",
-      "watt": 402.3
+      "watt": 402.3,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-400-18",
-      "watt": 403.2
+      "watt": 403.2,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-400-24",
-      "watt": 403.2
+      "watt": 403.2,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-400-27",
-      "watt": 405
+      "watt": 405,
+      "dcVoltage": "12"
     }
   ],
   "lop-500": [
@@ -5654,727 +6720,893 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "LOP-500-24",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "31.2"
     },
     {
       "model": "LOP-500-27",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "35.1"
     },
     {
       "model": "LOP-500-36",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "46.8"
     },
     {
       "model": "LOP-500-48",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "62.4"
     },
     {
       "model": "LOP-500-54",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "67.5"
     }
   ],
   "lop-600": [
     {
       "model": "LOP-600-12",
-      "watt": 900
+      "watt": 900,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-600-15",
-      "watt": 899.1
+      "watt": 899.1,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-600-18",
-      "watt": 900
+      "watt": 900,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-600-24",
-      "watt": 902.4
+      "watt": 902.4,
+      "dcVoltage": "12"
     },
     {
       "model": "LOP-600-27",
-      "watt": 901.8
+      "watt": 901.8,
+      "dcVoltage": "12"
     }
   ],
   "lpc-20": [
     {
       "model": "LPC-20-350",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "48"
     },
     {
       "model": "LPC-20-700",
-      "watt": 21
+      "watt": 21,
+      "dcVoltage": "30"
     }
   ],
   "lpc-35": [
     {
       "model": "LPC-35-700",
-      "watt": 33.6
+      "watt": 33.6,
+      "dcVoltage": "48"
     },
     {
       "model": "LPC-35-1050",
-      "watt": 31.5
+      "watt": 31.5,
+      "dcVoltage": "30"
     },
     {
       "model": "LPC-35-1400",
-      "watt": 33.6
+      "watt": 33.6,
+      "dcVoltage": "24"
     }
   ],
   "lpc-60": [
     {
       "model": "LPC-60-1050",
-      "watt": 50.4
+      "watt": 50.4,
+      "dcVoltage": "48"
     },
     {
       "model": "LPC-60-1400",
-      "watt": 58.8
+      "watt": 58.8,
+      "dcVoltage": "42"
     },
     {
       "model": "LPC-60-1750",
-      "watt": 59.5
+      "watt": 59.5,
+      "dcVoltage": "34"
     }
   ],
   "lpc-100": [
     {
       "model": "LPC-100-350",
-      "watt": 100.1
+      "watt": 100.1,
+      "dcVoltage": "286"
     },
     {
       "model": "LPC-100-500",
-      "watt": 100.1
+      "watt": 100.1,
+      "dcVoltage": "200"
     },
     {
       "model": "LPC-100-700",
-      "watt": 100.1
+      "watt": 100.1,
+      "dcVoltage": "143"
     },
     {
       "model": "LPC-100-1050",
-      "watt": 100.1
+      "watt": 100.1,
+      "dcVoltage": "96"
     },
     {
       "model": "LPC-100-1400",
-      "watt": 100.1
+      "watt": 100.1,
+      "dcVoltage": "72"
     },
     {
       "model": "LPC-100-1750",
-      "watt": 100.1
+      "watt": 100.1,
+      "dcVoltage": "58"
     },
     {
       "model": "LPC-100-2100",
-      "watt": 100.1
+      "watt": 100.1,
+      "dcVoltage": "48"
     }
   ],
   "lpc-150": [
     {
       "model": "LPC-150-1050",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "72"
     },
     {
       "model": "LPC-150-1400",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "144"
     },
     {
       "model": "LPC-150-2450",
-      "watt": 151.9
+      "watt": 151.9,
+      "dcVoltage": "31"
     },
     {
       "model": "LPC-150-3150",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     }
   ],
   "lpf-16": [
     {
       "model": "LPF-16-12",
-      "watt": 16.05
+      "watt": 16.05,
+      "dcVoltage": "12"
     },
     {
       "model": "LPF-16-15",
-      "watt": 16
+      "watt": 16,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-16-20",
-      "watt": 16.08
+      "watt": 16.08,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-16-24",
-      "watt": 16.2
+      "watt": 16.2,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-16-30",
-      "watt": 16.32
+      "watt": 16.32,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-16-36",
-      "watt": 16.2
+      "watt": 16.2,
+      "dcVoltage": "48"
     }
   ],
   "lpf-16d": [
     {
       "model": "LPF-16D-12",
-      "watt": 16.08
+      "watt": 16.08,
+      "dcVoltage": "12"
     },
     {
       "model": "LPF-16D-15",
-      "watt": 16.05
+      "watt": 16.05,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-16D-20",
-      "watt": 16
+      "watt": 16,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-16D-24",
-      "watt": 16.08
+      "watt": 16.08,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-16D-30",
-      "watt": 16.2
+      "watt": 16.2,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-16D-36",
-      "watt": 16.32
+      "watt": 16.32,
+      "dcVoltage": "48"
     },
     {
       "model": "LPF-16D-42",
-      "watt": 16.2
+      "watt": 16.2,
+      "dcVoltage": "54"
     }
   ],
   "lpf-25": [
     {
       "model": "LPF-25-12",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "12"
     },
     {
       "model": "LPF-25-15",
-      "watt": 25.05
+      "watt": 25.05,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-25-20",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-25-24",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-25-30",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-25-36",
-      "watt": 25.44
+      "watt": 25.44,
+      "dcVoltage": "48"
     },
     {
       "model": "LPF-25-42",
-      "watt": 25.38
+      "watt": 25.38,
+      "dcVoltage": "54"
     }
   ],
   "lpf-25d": [
     {
       "model": "LPF-25D-12",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "12"
     },
     {
       "model": "LPF-25D-15",
-      "watt": 25.05
+      "watt": 25.05,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-25D-20",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-25D-24",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-25D-30",
-      "watt": 25.44
+      "watt": 25.44,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-25D-36",
-      "watt": 25.38
+      "watt": 25.38,
+      "dcVoltage": "48"
     }
   ],
   "lpf-40": [
     {
       "model": "LPF-40-12",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "12"
     },
     {
       "model": "LPF-40-15",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-40-20",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-40-24",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-40-30",
-      "watt": 40.2
+      "watt": 40.2,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-40-36",
-      "watt": 40.32
+      "watt": 40.32,
+      "dcVoltage": "48"
     },
     {
       "model": "LPF-40-42",
-      "watt": 41.04
+      "watt": 41.04,
+      "dcVoltage": "54"
     }
   ],
   "lpf-40d": [
     {
       "model": "LPF-40D-12",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "12"
     },
     {
       "model": "LPF-40D-15",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-40D-20",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-40D-24",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-40D-30",
-      "watt": 40.2
+      "watt": 40.2,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-40D-36",
-      "watt": 40.32
+      "watt": 40.32,
+      "dcVoltage": "48"
     },
     {
       "model": "LPF-40D-42",
-      "watt": 41.04
+      "watt": 41.04,
+      "dcVoltage": "54"
     }
   ],
   "lpf-60": [
     {
       "model": "LPF-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "LPF-60-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-60-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-60-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-60-36",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     },
     {
       "model": "LPF-60-42",
-      "watt": 60.48
+      "watt": 60.48,
+      "dcVoltage": "54"
     }
   ],
   "lpf-60d": [
     {
       "model": "LPF-60D-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "LPF-60D-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-60D-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-60D-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-60D-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-60D-36",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     },
     {
       "model": "LPF-60D-42",
-      "watt": 60.48
+      "watt": 60.48,
+      "dcVoltage": "54"
     }
   ],
   "lpf-90": [
     {
       "model": "LPF-90-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-90-20",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-90-24",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-90-30",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-90-36",
-      "watt": 90.24
+      "watt": 90.24,
+      "dcVoltage": "48"
     },
     {
       "model": "LPF-90-42",
-      "watt": 90.18
+      "watt": 90.18,
+      "dcVoltage": "54"
     }
   ],
   "lpf-90d": [
     {
       "model": "LPF-90D-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "LPF-90D-20",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "20"
     },
     {
       "model": "LPF-90D-24",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "24"
     },
     {
       "model": "LPF-90D-30",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "30"
     },
     {
       "model": "LPF-90D-36",
-      "watt": 90.24
+      "watt": 90.24,
+      "dcVoltage": "48"
     },
     {
       "model": "LPF-90D-42",
-      "watt": 90.18
+      "watt": 90.18,
+      "dcVoltage": "54"
     }
   ],
   "lph-18": [
     {
       "model": "LPH-18-12",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "12"
     },
     {
       "model": "LPH-18-24",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "24"
     },
     {
       "model": "LPH-18-36",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "36"
     }
   ],
   "lphc-18": [
     {
       "model": "LPHC-18-350",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "48"
     },
     {
       "model": "LPHC-18-700",
-      "watt": 17.5
+      "watt": 17.5,
+      "dcVoltage": "25"
     }
   ],
   "lpp-100": [
     {
       "model": "LPP-100-3.3",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "3.3"
     },
     {
       "model": "LPP-100-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "LPP-100-7.5",
-      "watt": 101.25
+      "watt": 101.25,
+      "dcVoltage": "7.5"
     },
     {
       "model": "LPP-100-12",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "LPP-100-13.5",
-      "watt": 101.25
+      "watt": 101.25,
+      "dcVoltage": "13.5"
     },
     {
       "model": "LPP-100-15",
-      "watt": 100.5
+      "watt": 100.5,
+      "dcVoltage": "15"
     },
     {
       "model": "LPP-100-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     },
     {
       "model": "LPP-100-27",
-      "watt": 102.6
+      "watt": 102.6,
+      "dcVoltage": "27"
     },
     {
       "model": "LPP-100-48",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "48"
     }
   ],
   "lpp-150": [
     {
       "model": "LPP-150-3.3",
-      "watt": 99
+      "watt": 99,
+      "dcVoltage": "3.3"
     },
     {
       "model": "LPP-150-5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "5"
     },
     {
       "model": "LPP-150-7.5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "7.5"
     },
     {
       "model": "LPP-150-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "LPP-150-13.5",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "13.5"
     },
     {
       "model": "LPP-150-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "LPP-150-24",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     },
     {
       "model": "LPP-150-27",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "27"
     },
     {
       "model": "LPP-150-48",
-      "watt": 153.6
+      "watt": 153.6,
+      "dcVoltage": "48"
     }
   ],
   "lps-50": [
     {
       "model": "LPS-50-3.3",
-      "watt": 33
+      "watt": 33,
+      "dcVoltage": "3.3"
     },
     {
       "model": "LPS-50-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "LPS-50-12",
-      "watt": 50.4
+      "watt": 50.4,
+      "dcVoltage": "12"
     },
     {
       "model": "LPS-50-15",
-      "watt": 51
+      "watt": 51,
+      "dcVoltage": "15"
     },
     {
       "model": "LPS-50-24",
-      "watt": 50.4
+      "watt": 50.4,
+      "dcVoltage": "24"
     },
     {
       "model": "LPS-50-48",
-      "watt": 52.8
+      "watt": 52.8,
+      "dcVoltage": "48"
     }
   ],
   "lps-75": [
     {
       "model": "LPS-75-3.3",
-      "watt": 49.5
+      "watt": 49.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "LPS-75-5",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "5"
     },
     {
       "model": "LPS-75-12",
-      "watt": 74.4
+      "watt": 74.4,
+      "dcVoltage": "12"
     },
     {
       "model": "LPS-75-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "LPS-75-24",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     },
     {
       "model": "LPS-75-48",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "48"
     }
   ],
   "lps-100": [
     {
       "model": "LPS-100-3.3",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "3.3"
     },
     {
       "model": "LPS-100-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "LPS-100-7.5",
-      "watt": 99.75
+      "watt": 99.75,
+      "dcVoltage": "7.5"
     },
     {
       "model": "LPS-100-12",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     },
     {
       "model": "LPS-100-13.5",
-      "watt": 101.25
+      "watt": 101.25,
+      "dcVoltage": "13.5"
     },
     {
       "model": "LPS-100-15",
-      "watt": 100.5
+      "watt": 100.5,
+      "dcVoltage": "15"
     },
     {
       "model": "LPS-100-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     },
     {
       "model": "LPS-100-27",
-      "watt": 144
+      "watt": 144,
+      "dcVoltage": "27"
     },
     {
       "model": "LPS-100-48",
-      "watt": 102.6
+      "watt": 102.6,
+      "dcVoltage": "48"
     }
   ],
   "lpv-20": [
     {
       "model": "LPV-20-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "LPV-20-12",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "12"
     },
     {
       "model": "LPV-20-15",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "15"
     },
     {
       "model": "LPV-20-24",
-      "watt": 20.2
+      "watt": 20.2,
+      "dcVoltage": "24"
     }
   ],
   "lpv-35": [
     {
       "model": "LPV-35-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "LPV-35-12",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "12"
     },
     {
       "model": "LPV-35-15",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "15"
     },
     {
       "model": "LPV-35-24",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     },
     {
       "model": "LPV-35-36",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "36"
     }
   ],
   "lpv-60": [
     {
       "model": "LPV-60-5",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "5"
     },
     {
       "model": "LPV-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "LPV-60-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "LPV-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "LPV-60-36",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "36"
     },
     {
       "model": "LPV-60-48",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     }
   ],
   "lpv-100": [
     {
       "model": "LPV-100-5",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "5"
     },
     {
       "model": "LPV-100-12",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "LPV-100-15",
-      "watt": 100.5
+      "watt": 100.5,
+      "dcVoltage": "15"
     },
     {
       "model": "LPV-100-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     },
     {
       "model": "LPV-100-36",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "36"
     },
     {
       "model": "LPV-100-48",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "48"
     }
   ],
   "lpv-150": [
     {
       "model": "LPV-150-36",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "LPV-150-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     }
   ],
   "lpvl-150": [
     {
       "model": "LPVL-150-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "LPVL-150-12-LPV-150-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     }
   ],
   "lrs-35": [
     {
       "model": "LRS-35-5",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "5"
     },
     {
       "model": "LRS-35-12",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "15"
     },
     {
       "model": "LRS-35-15",
@@ -6384,15 +7616,18 @@ export const modelOptionWattageMap = {
   "lrs-50": [
     {
       "model": "LRS-50-3.3",
-      "watt": 33
+      "watt": 33,
+      "dcVoltage": "3.3"
     },
     {
       "model": "LRS-50-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "LRS-50-12",
-      "watt": 51
+      "watt": 51,
+      "dcVoltage": "15"
     },
     {
       "model": "LRS-50-15",
@@ -6402,11 +7637,13 @@ export const modelOptionWattageMap = {
   "lrs-75": [
     {
       "model": "LRS-75-5",
-      "watt": 72
+      "watt": 72,
+      "dcVoltage": "36"
     },
     {
       "model": "LRS-75-12",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-75-15",
@@ -6416,11 +7653,13 @@ export const modelOptionWattageMap = {
   "lrs-100": [
     {
       "model": "LRS-100-3.3",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "3.3"
     },
     {
       "model": "LRS-100-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-100-12",
@@ -6446,47 +7685,57 @@ export const modelOptionWattageMap = {
   "lrs-100n2": [
     {
       "model": "LRS-100N2-12",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-100N2-24",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-100N2-36",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-100N2-48",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "48"
     }
   ],
   "lrs-150": [
     {
       "model": "LRS-150-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-150-15",
-      "watt": 154.8
+      "watt": 154.8,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-150-24",
-      "watt": 158.4
+      "watt": 158.4,
+      "dcVoltage": "48"
     }
   ],
   "lrs-150f": [
     {
       "model": "LRS-150F-5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-150F-12",
-      "watt": 154.8
+      "watt": 154.8,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-150F-15",
-      "watt": 158.4
+      "watt": 158.4,
+      "dcVoltage": "48"
     }
   ],
   "lrs-200": [
@@ -6498,19 +7747,23 @@ export const modelOptionWattageMap = {
   "lrs-200n2": [
     {
       "model": "LRS-200N2-12",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-200N2-12-200N2-36",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-200N2-24",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-200N2-48",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "48"
     }
   ],
   "lrs-350": [
@@ -6522,7 +7775,8 @@ export const modelOptionWattageMap = {
   "lrs-350n2": [
     {
       "model": "LRS-350N2-12",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "36"
     },
     {
       "model": "LRS-350N2-24",
@@ -6530,7 +7784,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "LRS-350N2-36",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-350N2-48",
@@ -6540,11 +7795,13 @@ export const modelOptionWattageMap = {
   "lrs-450": [
     {
       "model": "LRS-450-5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "5"
     },
     {
       "model": "LRS-450-12",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "15"
     },
     {
       "model": "LRS-450-15",
@@ -6566,29 +7823,35 @@ export const modelOptionWattageMap = {
   "lrs-600": [
     {
       "model": "LRS-600-5",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-600-12",
-      "watt": 597.6
+      "watt": 597.6,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-600-15",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "48"
     }
   ],
   "lrs-600n2": [
     {
       "model": "LRS-600N2-12",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "12"
     },
     {
       "model": "LRS-600N2-24",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "36"
     },
     {
       "model": "LRS-600N2-36",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "48"
     },
     {
       "model": "LRS-600N2-48",
@@ -6598,33 +7861,40 @@ export const modelOptionWattageMap = {
   "lrs-1200": [
     {
       "model": "LRS-1200-12",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "12"
     },
     {
       "model": "LRS-1200-24",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "24"
     },
     {
       "model": "LRS-1200-36",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "36"
     },
     {
       "model": "LRS-1200-48",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "48"
     }
   ],
   "lsp-160": [
     {
       "model": "LSP-160-12",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "12"
     },
     {
       "model": "LSP-160-24",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "4.2"
     },
     {
       "model": "LSP-160-36",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "3.3"
     },
     {
       "model": "LSP-160-48",
@@ -6658,111 +7928,134 @@ export const modelOptionWattageMap = {
   "mdr-10": [
     {
       "model": "MDR-10-5",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "5"
     },
     {
       "model": "MDR-10-12",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "12"
     },
     {
       "model": "MDR-10-15",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "15"
     },
     {
       "model": "MDR-10-24",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "24"
     }
   ],
   "mdr-20": [
     {
       "model": "MDR-20-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "MDR-20-12",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "12"
     },
     {
       "model": "MDR-20-15",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "15"
     },
     {
       "model": "MDR-20-24",
-      "watt": 24
+      "watt": 24,
+      "dcVoltage": "24"
     }
   ],
   "mdr-40": [
     {
       "model": "MDR-40-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "MDR-40-12",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "12"
     },
     {
       "model": "MDR-40-24",
-      "watt": 40.8
+      "watt": 40.8,
+      "dcVoltage": "24"
     },
     {
       "model": "MDR-40-48",
-      "watt": 39.8
+      "watt": 39.8,
+      "dcVoltage": "48"
     }
   ],
   "mdr-60": [
     {
       "model": "MDR-60-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "MDR-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "MDR-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "MDR-60-48",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     }
   ],
   "mdr-100": [
     {
       "model": "MDR-100-12",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "12"
     },
     {
       "model": "MDR-100-24",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "24"
     },
     {
       "model": "MDR-100-48",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "48"
     }
   ],
   "mds01-n": [
     {
       "model": "MDS01-N-MDD01-N",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "3.3"
     }
   ],
   "mds02-n": [
     {
       "model": "MDS02-N-MDD02-N",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "3.3"
     }
   ],
   "mds03": [
     {
       "model": "MDS03-MDD03",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "12"
     }
   ],
   "mds06": [
     {
       "model": "MDS06-MDD06",
-      "watt": 6
+      "watt": 6,
+      "dcVoltage": "12"
     }
   ],
   "mds15": [
@@ -6780,437 +8073,538 @@ export const modelOptionWattageMap = {
   "mfm-05": [
     {
       "model": "MFM-05-3.3",
-      "watt": 4.1
+      "watt": 4.1,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MFM-05-5",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "5"
     },
     {
       "model": "MFM-05-12",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "12"
     },
     {
       "model": "MFM-05-15",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "15"
     },
     {
       "model": "MFM-05-24",
-      "watt": 5.5
+      "watt": 5.5,
+      "dcVoltage": "24"
     }
   ],
   "mfm-10": [
     {
       "model": "MFM-10-3.3",
-      "watt": 8.3
+      "watt": 8.3,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MFM-10-5",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "5"
     },
     {
       "model": "MFM-10-12",
-      "watt": 10.2
+      "watt": 10.2,
+      "dcVoltage": "12"
     },
     {
       "model": "MFM-10-15",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "15"
     },
     {
       "model": "MFM-10-24",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "24"
     }
   ],
   "mfm-15": [
     {
       "model": "MFM-15-3.3",
-      "watt": 11.6
+      "watt": 11.6,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MFM-15-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "MFM-15-12",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     },
     {
       "model": "MFM-15-15",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     },
     {
       "model": "MFM-15-24",
-      "watt": 15.1
+      "watt": 15.1,
+      "dcVoltage": "24"
     }
   ],
   "mfm-20": [
     {
       "model": "MFM-20-3.3",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "MFM-20-5",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "12"
     },
     {
       "model": "MFM-20-12",
-      "watt": 21
+      "watt": 21,
+      "dcVoltage": "15"
     },
     {
       "model": "MFM-20-15",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "24"
     }
   ],
   "mfm-30": [
     {
       "model": "MFM-30-3.3",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MFM-30-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "MFM-30-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "MFM-30-15",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     },
     {
       "model": "MFM-30-24",
-      "watt": 31.2
+      "watt": 31.2,
+      "dcVoltage": "24"
     },
     {
       "model": "MFM-30-48",
-      "watt": 30.2
+      "watt": 30.2,
+      "dcVoltage": "48"
     }
   ],
   "mhb75": [
     {
       "model": "MHB75-12S05",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "5"
     },
     {
       "model": "MHB75-12S12",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "12"
     },
     {
       "model": "MHB75-12S24",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "24"
     },
     {
       "model": "MHB75-24S05",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "5"
     },
     {
       "model": "MHB75-24S12",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "12"
     },
     {
       "model": "MHB75-24S24",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "24"
     },
     {
       "model": "MHB75-48S05",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "5"
     },
     {
       "model": "MHB75-48S12",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "12"
     },
     {
       "model": "MHB75-48S24",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "24"
     }
   ],
   "mhb100": [
     {
       "model": "MHB100-24S05",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "MHB100-24S12",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "12"
     },
     {
       "model": "MHB100-24S24",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "24"
     },
     {
       "model": "MHB100-48S05",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "MHB100-48S12",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "12"
     },
     {
       "model": "MHB100-48S24",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "24"
     }
   ],
   "mhb150": [
     {
       "model": "MHB150-48S05",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "5"
     },
     {
       "model": "MHB150-48S12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "MHB150-48S24",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "24"
     }
   ],
   "mp1k0": [
     {
       "model": "MP1K0-2",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "2"
     },
     {
       "model": "MP1K0-3.3",
-      "watt": 82.5
+      "watt": 82.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MP1K0-5",
-      "watt": 125
+      "watt": 125,
+      "dcVoltage": "5"
     },
     {
       "model": "MP1K0-7.5",
-      "watt": 135
+      "watt": 135,
+      "dcVoltage": "7.5"
     },
     {
       "model": "MP1K0-12",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "12"
     },
     {
       "model": "MP1K0-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "MP1K0-18",
-      "watt": 153
+      "watt": 153,
+      "dcVoltage": "18"
     },
     {
       "model": "MP1K0-24",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "24"
     },
     {
       "model": "MP1K0-27",
-      "watt": 156.6
+      "watt": 156.6,
+      "dcVoltage": "27"
     },
     {
       "model": "MP1K0-33",
-      "watt": 155.1
+      "watt": 155.1,
+      "dcVoltage": "33"
     },
     {
       "model": "MP1K0-48",
-      "watt": 153.6
+      "watt": 153.6,
+      "dcVoltage": "48"
     }
   ],
   "mp450": [
     {
       "model": "MP450-2",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "2"
     },
     {
       "model": "MP450-3.3",
-      "watt": 82.5
+      "watt": 82.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MP450-5",
-      "watt": 125
+      "watt": 125,
+      "dcVoltage": "5"
     },
     {
       "model": "MP450-7.5",
-      "watt": 135
+      "watt": 135,
+      "dcVoltage": "7.5"
     },
     {
       "model": "MP450-12",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "12"
     },
     {
       "model": "MP450-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "MP450-18",
-      "watt": 153
+      "watt": 153,
+      "dcVoltage": "18"
     },
     {
       "model": "MP450-24",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "24"
     },
     {
       "model": "MP450-27",
-      "watt": 156.6
+      "watt": 156.6,
+      "dcVoltage": "27"
     },
     {
       "model": "MP450-33",
-      "watt": 155.1
+      "watt": 155.1,
+      "dcVoltage": "33"
     },
     {
       "model": "MP450-48",
-      "watt": 153.6
+      "watt": 153.6,
+      "dcVoltage": "48"
     }
   ],
   "mp650": [
     {
       "model": "MP650-2",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "2"
     },
     {
       "model": "MP650-3.3",
-      "watt": 82.5
+      "watt": 82.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MP650-5",
-      "watt": 125
+      "watt": 125,
+      "dcVoltage": "5"
     },
     {
       "model": "MP650-7.5",
-      "watt": 135
+      "watt": 135,
+      "dcVoltage": "7.5"
     },
     {
       "model": "MP650-12",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "12"
     },
     {
       "model": "MP650-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "MP650-18",
-      "watt": 153
+      "watt": 153,
+      "dcVoltage": "18"
     },
     {
       "model": "MP650-24",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "24"
     },
     {
       "model": "MP650-27",
-      "watt": 156.6
+      "watt": 156.6,
+      "dcVoltage": "27"
     },
     {
       "model": "MP650-33",
-      "watt": 155.1
+      "watt": 155.1,
+      "dcVoltage": "33"
     },
     {
       "model": "MP650-48",
-      "watt": 153.6
+      "watt": 153.6,
+      "dcVoltage": "48"
     }
   ],
   "mpm-05": [
     {
       "model": "MPM-05-3.3",
-      "watt": 4.1
+      "watt": 4.1,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MPM-05-5",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "5"
     },
     {
       "model": "MPM-05-12",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "12"
     },
     {
       "model": "MPM-05-15",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "15"
     },
     {
       "model": "MPM-05-24",
-      "watt": 5.5
+      "watt": 5.5,
+      "dcVoltage": "24"
     }
   ],
   "mpm-10": [
     {
       "model": "MPM-10-3.3",
-      "watt": 8.3
+      "watt": 8.3,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MPM-10-5",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "5"
     },
     {
       "model": "MPM-10-12",
-      "watt": 10.2
+      "watt": 10.2,
+      "dcVoltage": "12"
     },
     {
       "model": "MPM-10-15",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "15"
     },
     {
       "model": "MPM-10-24",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "24"
     }
   ],
   "mpm-15": [
     {
       "model": "MPM-15-3.3",
-      "watt": 11.6
+      "watt": 11.6,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MPM-15-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "MPM-15-12",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     },
     {
       "model": "MPM-15-15",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     },
     {
       "model": "MPM-15-24",
-      "watt": 15.1
+      "watt": 15.1,
+      "dcVoltage": "24"
     }
   ],
   "mpm-20": [
     {
       "model": "MPM-20-3.3",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "MPM-20-5",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "12"
     },
     {
       "model": "MPM-20-12",
-      "watt": 21
+      "watt": 21,
+      "dcVoltage": "15"
     },
     {
       "model": "MPM-20-15",
-      "watt": 21.6
+      "watt": 21.6,
+      "dcVoltage": "24"
     }
   ],
   "mpm-30": [
     {
       "model": "MPM-30-3.3",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MPM-30-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "MPM-30-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "MPM-30-15",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     },
     {
       "model": "MPM-30-24",
-      "watt": 31.2
+      "watt": 31.2,
+      "dcVoltage": "24"
     },
     {
       "model": "MPM-30-48",
-      "watt": 30.2
+      "watt": 30.2,
+      "dcVoltage": "48"
     }
   ],
   "mpm-45": [
@@ -7220,19 +8614,23 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "MPM-45-12",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "12"
     },
     {
       "model": "MPM-45-15",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "15"
     },
     {
       "model": "MPM-45-24",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "24"
     },
     {
       "model": "MPM-45-48",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "48"
     }
   ],
   "mpm-65": [
@@ -7242,25 +8640,30 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "MPM-65-12",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "12"
     },
     {
       "model": "MPM-65-15",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "15"
     },
     {
       "model": "MPM-65-24",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "24"
     },
     {
       "model": "MPM-65-48",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "48"
     }
   ],
   "mpm-90": [
     {
       "model": "MPM-90-12",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "48"
     },
     {
       "model": "MPM-90-15",
@@ -7268,7 +8671,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "MPM-90-24",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "12"
     },
     {
       "model": "MPM-90-48",
@@ -7278,217 +8682,267 @@ export const modelOptionWattageMap = {
   "mpq-200": [
     {
       "model": "MPQ-200-0.8",
-      "watt": 140
+      "watt": 140,
+      "dcVoltage": "0.8"
     },
     {
       "model": "MPQ-200-10",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "10"
     }
   ],
   "msp-100": [
     {
       "model": "MSP-100-3.3",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MSP-100-5",
-      "watt": 85
+      "watt": 85,
+      "dcVoltage": "5"
     },
     {
       "model": "MSP-100-7.5",
-      "watt": 101.3
+      "watt": 101.3,
+      "dcVoltage": "7.5"
     },
     {
       "model": "MSP-100-12",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "MSP-100-15",
-      "watt": 105
+      "watt": 105,
+      "dcVoltage": "15"
     },
     {
       "model": "MSP-100-24",
-      "watt": 108
+      "watt": 108,
+      "dcVoltage": "24"
     },
     {
       "model": "MSP-100-36",
-      "watt": 104.4
+      "watt": 104.4,
+      "dcVoltage": "36"
     },
     {
       "model": "MSP-100-48",
-      "watt": 105.6
+      "watt": 105.6,
+      "dcVoltage": "48"
     }
   ],
   "msp-200": [
     {
       "model": "MSP-200-3.3",
-      "watt": 132
+      "watt": 132,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MSP-200-5",
-      "watt": 175
+      "watt": 175,
+      "dcVoltage": "5"
     },
     {
       "model": "MSP-200-7.5",
-      "watt": 200.3
+      "watt": 200.3,
+      "dcVoltage": "7.5"
     },
     {
       "model": "MSP-200-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "MSP-200-15",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "15"
     },
     {
       "model": "MSP-200-24",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "24"
     },
     {
       "model": "MSP-200-36",
-      "watt": 205.2
+      "watt": 205.2,
+      "dcVoltage": "36"
     },
     {
       "model": "MSP-200-48",
-      "watt": 206.4
+      "watt": 206.4,
+      "dcVoltage": "48"
     }
   ],
   "msp-300": [
     {
       "model": "MSP-300-3.3",
-      "watt": 198
+      "watt": 198,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MSP-300-5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "5"
     },
     {
       "model": "MSP-300-7.5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "7.5"
     },
     {
       "model": "MSP-300-12",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "12"
     },
     {
       "model": "MSP-300-15",
-      "watt": 330
+      "watt": 330,
+      "dcVoltage": "15"
     },
     {
       "model": "MSP-300-24",
-      "watt": 336
+      "watt": 336,
+      "dcVoltage": "24"
     },
     {
       "model": "MSP-300-36",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "36"
     },
     {
       "model": "MSP-300-48",
-      "watt": 336
+      "watt": 336,
+      "dcVoltage": "48"
     }
   ],
   "msp-450": [
     {
       "model": "MSP-450-3.3",
-      "watt": 297
+      "watt": 297,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MSP-450-5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "5"
     },
     {
       "model": "MSP-450-7.5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "7.5"
     },
     {
       "model": "MSP-450-12",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "MSP-450-15",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "15"
     },
     {
       "model": "MSP-450-24",
-      "watt": 451.2
+      "watt": 451.2,
+      "dcVoltage": "24"
     },
     {
       "model": "MSP-450-36",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "36"
     },
     {
       "model": "MSP-450-48",
-      "watt": 456
+      "watt": 456,
+      "dcVoltage": "48"
     }
   ],
   "msp-600": [
     {
       "model": "MSP-600-3.3",
-      "watt": 396
+      "watt": 396,
+      "dcVoltage": "3.3"
     },
     {
       "model": "MSP-600-5",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "5"
     },
     {
       "model": "MSP-600-7.5",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "7.5"
     },
     {
       "model": "MSP-600-12",
-      "watt": 636
+      "watt": 636,
+      "dcVoltage": "12"
     },
     {
       "model": "MSP-600-15",
-      "watt": 645
+      "watt": 645,
+      "dcVoltage": "15"
     },
     {
       "model": "MSP-600-24",
-      "watt": 648
+      "watt": 648,
+      "dcVoltage": "24"
     },
     {
       "model": "MSP-600-36",
-      "watt": 630
+      "watt": 630,
+      "dcVoltage": "36"
     },
     {
       "model": "MSP-600-48",
-      "watt": 624
+      "watt": 624,
+      "dcVoltage": "48"
     }
   ],
   "msp-1000": [
     {
       "model": "MSP-1000-12",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "12"
     },
     {
       "model": "MSP-1000-15",
-      "watt": 1000
+      "watt": 1000,
+      "dcVoltage": "15"
     },
     {
       "model": "MSP-1000-24",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "24"
     },
     {
       "model": "MSP-1000-48",
-      "watt": 1000
+      "watt": 1000,
+      "dcVoltage": "48"
     }
   ],
   "msp-1600": [
     {
       "model": "MSP-1600-12",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "12"
     },
     {
       "model": "MSP-1600-24",
-      "watt": 1608
+      "watt": 1608,
+      "dcVoltage": "24"
     },
     {
       "model": "MSP-1600-36",
-      "watt": 1602
+      "watt": 1602,
+      "dcVoltage": "36"
     },
     {
       "model": "MSP-1600-48",
-      "watt": 1608
+      "watt": 1608,
+      "dcVoltage": "48"
     }
   ],
   "n78": [
@@ -7506,69 +8960,83 @@ export const modelOptionWattageMap = {
   "ncp-3200": [
     {
       "model": "NCP-3200-24",
-      "watt": 3192
+      "watt": 3192,
+      "dcVoltage": "24"
     },
     {
       "model": "NCP-3200-48",
-      "watt": 3216
+      "watt": 3216,
+      "dcVoltage": "48"
     }
   ],
   "ndr-75": [
     {
       "model": "NDR-75-12",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     },
     {
       "model": "NDR-75-24",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "12"
     },
     {
       "model": "NDR-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     }
   ],
   "ndr-120": [
     {
       "model": "NDR-120-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "NDR-120-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "NDR-120-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     }
   ],
   "ndr-240": [
     {
       "model": "NDR-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "NDR-240-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     }
   ],
   "ndr-480": [
     {
       "model": "NDR-480-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "NDR-480-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     }
   ],
   "nel-400": [
     {
       "model": "NEL-400-4.2",
-      "watt": 224
+      "watt": 224,
+      "dcVoltage": "2.8"
     },
     {
       "model": "NEL-400-5",
-      "watt": 224
+      "watt": 224,
+      "dcVoltage": "2.8"
     }
   ],
   "nge12": [
@@ -7580,129 +9048,156 @@ export const modelOptionWattageMap = {
   "nge18": [
     {
       "model": "NGE18EXX-P1J",
-      "watt": 18
+      "watt": 18,
+      "dcVoltage": "24"
     },
     {
       "model": "NGE18IXX/UXX-P1J",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     }
   ],
   "nge30": [
     {
       "model": "NGE30EXX-P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     },
     {
       "model": "NGE30IXX/UXX-P1J",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     }
   ],
   "nge45": [
     {
       "model": "NGE45EXX-P1J",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "15"
     },
     {
       "model": "NGE45IXX/UXX-P1J",
-      "watt": 28.1
+      "watt": 28.1,
+      "dcVoltage": "9"
     }
   ],
   "nge65": [
     {
       "model": "NGE65EXX-P1J",
-      "watt": 65.1
+      "watt": 65.1,
+      "dcVoltage": "24"
     },
     {
       "model": "NGE65IXX/UXX-P1J",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     }
   ],
   "nge90": [
     {
       "model": "NGE90EXX-P1J",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "18"
     },
     {
       "model": "NGE90IXX/UXX-P1J",
-      "watt": 82.5
+      "watt": 82.5,
+      "dcVoltage": "15"
     }
   ],
   "nge100": [
     {
       "model": "NGE100U",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "12"
     }
   ],
   "nhdd-40": [
     {
       "model": "NHDD-40-100",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "359"
     },
     {
       "model": "NHDD-40-100-100MA",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "359"
     }
   ],
   "nid35": [
     {
       "model": "NID35-5",
-      "watt": 17.5
+      "watt": 17.5,
+      "dcVoltage": "5"
     },
     {
       "model": "NID35-12",
-      "watt": 34.8
+      "watt": 34.8,
+      "dcVoltage": "12"
     },
     {
       "model": "NID35-15",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "15"
     },
     {
       "model": "NID35-24",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     }
   ],
   "nid65": [
     {
       "model": "NID65-5",
-      "watt": 32.5
+      "watt": 32.5,
+      "dcVoltage": "5"
     },
     {
       "model": "NID65-12",
-      "watt": 58.8
+      "watt": 58.8,
+      "dcVoltage": "12"
     },
     {
       "model": "NID65-15",
-      "watt": 64.5
+      "watt": 64.5,
+      "dcVoltage": "15"
     },
     {
       "model": "NID65-24",
-      "watt": 64.8
+      "watt": 64.8,
+      "dcVoltage": "24"
     }
   ],
   "nid100": [
     {
       "model": "NID100-4.2",
-      "watt": 46.2
+      "watt": 46.2,
+      "dcVoltage": "4.2"
     },
     {
       "model": "NID100-4.2H",
-      "watt": 63
+      "watt": 63,
+      "dcVoltage": "4.2"
     },
     {
       "model": "NID100-5",
-      "watt": 55
+      "watt": 55,
+      "dcVoltage": "5"
     },
     {
       "model": "NID100-12",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "12"
     },
     {
       "model": "NID100-15",
-      "watt": 97.5
+      "watt": 97.5,
+      "dcVoltage": "15"
     },
     {
       "model": "NID100-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     }
   ],
   "nid100-4.2(modification)": [
@@ -7732,343 +9227,421 @@ export const modelOptionWattageMap = {
   "npb-120": [
     {
       "model": "NPB-120-12",
-      "watt": 103.4
+      "watt": 103.4,
+      "dcVoltage": "13.8"
     },
     {
       "model": "NPB-120-24",
-      "watt": 121.6
+      "watt": 121.6,
+      "dcVoltage": "27.6"
     },
     {
       "model": "NPB-120-48",
-      "watt": 121.6
+      "watt": 121.6,
+      "dcVoltage": "55.2"
     }
   ],
   "npb-240": [
     {
       "model": "NPB-240-12",
-      "watt": 205.2
+      "watt": 205.2,
+      "dcVoltage": "14.4"
     },
     {
       "model": "NPB-240-24",
-      "watt": 243.2
+      "watt": 243.2,
+      "dcVoltage": "28.8"
     },
     {
       "model": "NPB-240-48",
-      "watt": 243.2
+      "watt": 243.2,
+      "dcVoltage": "57.6"
     }
   ],
   "npb-360": [
     {
       "model": "NPB-360-12",
-      "watt": 304
+      "watt": 304,
+      "dcVoltage": "14.4"
     },
     {
       "model": "NPB-360-24",
-      "watt": 364.8
+      "watt": 364.8,
+      "dcVoltage": "28.8"
     },
     {
       "model": "NPB-360-48",
-      "watt": 364.8
+      "watt": 364.8,
+      "dcVoltage": "57.6"
     }
   ],
   "npb-450": [
     {
       "model": "NPB-450-12NFC",
-      "watt": 420
+      "watt": 420,
+      "dcVoltage": "13.8"
     },
     {
       "model": "NPB-450-24NFC",
-      "watt": 453.6
+      "watt": 453.6,
+      "dcVoltage": "27.6"
     },
     {
       "model": "NPB-450-48NFC",
-      "watt": 456.96
+      "watt": 456.96,
+      "dcVoltage": "55.2"
     },
     {
       "model": "NPB-450-72NFC",
-      "watt": 462
+      "watt": 462,
+      "dcVoltage": "69"
     }
   ],
   "npb-750": [
     {
       "model": "NPB-750-12",
-      "watt": 722.4
+      "watt": 722.4,
+      "dcVoltage": "14.4"
     },
     {
       "model": "NPB-750-24",
-      "watt": 756
+      "watt": 756,
+      "dcVoltage": "28.8"
     },
     {
       "model": "NPB-750-48",
-      "watt": 759.4
+      "watt": 759.4,
+      "dcVoltage": "57.6"
     }
   ],
   "npb-1200": [
     {
       "model": "NPB-1200-12",
-      "watt": 1176
+      "watt": 1176,
+      "dcVoltage": "14.4"
     },
     {
       "model": "NPB-1200-24",
-      "watt": 1209.6
+      "watt": 1209.6,
+      "dcVoltage": "28.8"
     },
     {
       "model": "NPB-1200-48",
-      "watt": 1209.6
+      "watt": 1209.6,
+      "dcVoltage": "57.6"
     }
   ],
   "npb-1700": [
     {
       "model": "NPB-1700-12",
-      "watt": 1428
+      "watt": 1428,
+      "dcVoltage": "14.4"
     },
     {
       "model": "NPB-1700-24",
-      "watt": 1680
+      "watt": 1680,
+      "dcVoltage": "28.8"
     },
     {
       "model": "NPB-1700-48",
-      "watt": 1680
+      "watt": 1680,
+      "dcVoltage": "57.6"
     }
   ],
   "npf-40": [
     {
       "model": "NPF-40-12",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "12"
     },
     {
       "model": "NPF-40-15",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "15"
     },
     {
       "model": "NPF-40-20",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "20"
     },
     {
       "model": "NPF-40-24",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "24"
     },
     {
       "model": "NPF-40-30",
-      "watt": 40.2
+      "watt": 40.2,
+      "dcVoltage": "30"
     },
     {
       "model": "NPF-40-36",
-      "watt": 40.32
+      "watt": 40.32,
+      "dcVoltage": "48"
     },
     {
       "model": "NPF-40-42",
-      "watt": 41.04
+      "watt": 41.04,
+      "dcVoltage": "54"
     }
   ],
   "npf-40d": [
     {
       "model": "NPF-40D-12",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "12"
     },
     {
       "model": "NPF-40D-15",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "15"
     },
     {
       "model": "NPF-40D-20",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "20"
     },
     {
       "model": "NPF-40D-24",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "24"
     },
     {
       "model": "NPF-40D-30",
-      "watt": 40.2
+      "watt": 40.2,
+      "dcVoltage": "30"
     },
     {
       "model": "NPF-40D-36",
-      "watt": 40.32
+      "watt": 40.32,
+      "dcVoltage": "48"
     },
     {
       "model": "NPF-40D-42",
-      "watt": 41.04
+      "watt": 41.04,
+      "dcVoltage": "54"
     }
   ],
   "npf-60": [
     {
       "model": "NPF-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "NPF-60-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "NPF-60-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "NPF-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "NPF-60-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "NPF-60-36",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     },
     {
       "model": "NPF-60-42",
-      "watt": 60.48
+      "watt": 60.48,
+      "dcVoltage": "54"
     }
   ],
   "npf-60d": [
     {
       "model": "NPF-60D-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "NPF-60D-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "NPF-60D-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "NPF-60D-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "NPF-60D-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "NPF-60D-36",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     },
     {
       "model": "NPF-60D-42",
-      "watt": 60.48
+      "watt": 60.48,
+      "dcVoltage": "54"
     }
   ],
   "npf-90": [
     {
       "model": "NPF-90-12",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "12"
     },
     {
       "model": "NPF-90-15",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "15"
     },
     {
       "model": "NPF-90-20",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "20"
     },
     {
       "model": "NPF-90-24",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "24"
     },
     {
       "model": "NPF-90-30",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "30"
     },
     {
       "model": "NPF-90-36",
-      "watt": 90.24
+      "watt": 90.24,
+      "dcVoltage": "48"
     },
     {
       "model": "NPF-90-42",
-      "watt": 90.18
+      "watt": 90.18,
+      "dcVoltage": "54"
     }
   ],
   "npf-90d": [
     {
       "model": "NPF-90D-12",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "12"
     },
     {
       "model": "NPF-90D-15",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "15"
     },
     {
       "model": "NPF-90D-20",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "20"
     },
     {
       "model": "NPF-90D-24",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "24"
     },
     {
       "model": "NPF-90D-30",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "30"
     },
     {
       "model": "NPF-90D-36",
-      "watt": 90.24
+      "watt": 90.24,
+      "dcVoltage": "48"
     },
     {
       "model": "NPF-90D-42",
-      "watt": 90.18
+      "watt": 90.18,
+      "dcVoltage": "54"
     }
   ],
   "npf-120": [
     {
       "model": "NPF-120-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "NPF-120-15",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "NPF-120-20",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "20"
     },
     {
       "model": "NPF-120-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "NPF-120-30",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "30"
     },
     {
       "model": "NPF-120-36",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     },
     {
       "model": "NPF-120-42",
-      "watt": 124.2
+      "watt": 124.2,
+      "dcVoltage": "54"
     }
   ],
   "npf-120d": [
     {
       "model": "NPF-120D-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "NPF-120D-15",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "NPF-120D-20",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "20"
     },
     {
       "model": "NPF-120D-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "NPF-120D-30",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "30"
     },
     {
       "model": "NPF-120D-36",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     },
     {
       "model": "NPF-120D-42",
-      "watt": 124.2
+      "watt": 124.2,
+      "dcVoltage": "54"
     }
   ],
   "npf-200": [
@@ -8080,61 +9653,74 @@ export const modelOptionWattageMap = {
   "npp-450": [
     {
       "model": "NPP-450-12",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "14.4"
     },
     {
       "model": "NPP-450-24",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "28.8"
     },
     {
       "model": "NPP-450-48",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "57.6"
     },
     {
       "model": "NPP-450-72",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "72"
     }
   ],
   "npp-750": [
     {
       "model": "NPP-750-12",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "16.8"
     },
     {
       "model": "NPP-750-24",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "12"
     },
     {
       "model": "NPP-750-48",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "33.6"
     }
   ],
   "npp-1200": [
     {
       "model": "NPP-1200-12",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "16.8"
     },
     {
       "model": "NPP-1200-24",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "12"
     },
     {
       "model": "NPP-1200-48",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "33.6"
     }
   ],
   "npp-1700": [
     {
       "model": "NPP-1700-12",
-      "watt": 1700
+      "watt": 1700,
+      "dcVoltage": "16.8"
     },
     {
       "model": "NPP-1700-24",
-      "watt": 1700
+      "watt": 1700,
+      "dcVoltage": "12"
     },
     {
       "model": "NPP-1700-48",
-      "watt": 1700
+      "watt": 1700,
+      "dcVoltage": "33.6"
     }
   ],
   "nsd05-s": [
@@ -8170,121 +9756,149 @@ export const modelOptionWattageMap = {
   "nsp-75": [
     {
       "model": "NSP-75-5",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "5"
     },
     {
       "model": "NSP-75-12",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "12"
     },
     {
       "model": "NSP-75-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "NSP-75-24",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     },
     {
       "model": "NSP-75-27",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "27"
     },
     {
       "model": "NSP-75-36",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "36"
     },
     {
       "model": "NSP-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     },
     {
       "model": "NSP-75-60",
-      "watt": 78
+      "watt": 78,
+      "dcVoltage": "60"
     }
   ],
   "nsp-100": [
     {
       "model": "NSP-100-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "NSP-100-7.5",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "7.5"
     },
     {
       "model": "NSP-100-12",
-      "watt": 100.5
+      "watt": 100.5,
+      "dcVoltage": "12"
     },
     {
       "model": "NSP-100-15",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "15"
     },
     {
       "model": "NSP-100-24",
-      "watt": 99.9
+      "watt": 99.9,
+      "dcVoltage": "24"
     },
     {
       "model": "NSP-100-27",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "27"
     },
     {
       "model": "NSP-100-36",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "36"
     },
     {
       "model": "NSP-100-48",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "48"
     }
   ],
   "nsp-150": [
     {
       "model": "NSP-150-5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "5.5"
     },
     {
       "model": "NSP-150-7.5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "9"
     },
     {
       "model": "NSP-150-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "14"
     },
     {
       "model": "NSP-150-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "19"
     },
     {
       "model": "NSP-150-24",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "26"
     },
     {
       "model": "NSP-150-27",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "32"
     },
     {
       "model": "NSP-150-36",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "43"
     },
     {
       "model": "NSP-150-48",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "57"
     },
     {
       "model": "NSP-150-60",
-      "watt": 153
+      "watt": 153,
+      "dcVoltage": "72"
     }
   ],
   "nsp-200": [
     {
       "model": "NSP-200-5",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "12"
     },
     {
       "model": "NSP-200-7.5",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "24"
     },
     {
       "model": "NSP-200-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "27"
     },
     {
       "model": "NSP-200-15",
@@ -8314,61 +9928,75 @@ export const modelOptionWattageMap = {
   "nsp-320": [
     {
       "model": "NSP-320-5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "5"
     },
     {
       "model": "NSP-320-7.5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "7.5"
     },
     {
       "model": "NSP-320-12",
-      "watt": 320.4
+      "watt": 320.4,
+      "dcVoltage": "12"
     },
     {
       "model": "NSP-320-15",
-      "watt": 321
+      "watt": 321,
+      "dcVoltage": "15"
     },
     {
       "model": "NSP-320-24",
-      "watt": 321.6
+      "watt": 321.6,
+      "dcVoltage": "24"
     },
     {
       "model": "NSP-320-27",
-      "watt": 321.3
+      "watt": 321.3,
+      "dcVoltage": "27"
     },
     {
       "model": "NSP-320-36",
-      "watt": 320.4
+      "watt": 320.4,
+      "dcVoltage": "36"
     },
     {
       "model": "NSP-320-48",
-      "watt": 321.6
+      "watt": 321.6,
+      "dcVoltage": "48"
     },
     {
       "model": "NSP-320-60",
-      "watt": 324
+      "watt": 324,
+      "dcVoltage": "60"
     }
   ],
   "nsp-500": [
     {
       "model": "NSP-500-5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "5"
     },
     {
       "model": "NSP-500-12",
-      "watt": 504
+      "watt": 504,
+      "dcVoltage": "15"
     },
     {
       "model": "NSP-500-15",
-      "watt": 501
+      "watt": 501,
+      "dcVoltage": "36"
     },
     {
       "model": "NSP-500-24",
-      "watt": 504
+      "watt": 504,
+      "dcVoltage": "48"
     },
     {
       "model": "NSP-500-27",
-      "watt": 502.2
+      "watt": 502.2,
+      "dcVoltage": "60"
     },
     {
       "model": "NSP-500-36",
@@ -8386,63 +10014,77 @@ export const modelOptionWattageMap = {
   "nsp-750": [
     {
       "model": "NSP-750-5",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "5"
     },
     {
       "model": "NSP-750-12",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "12"
     },
     {
       "model": "NSP-750-15",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "15"
     },
     {
       "model": "NSP-750-24",
-      "watt": 751.2
+      "watt": 751.2,
+      "dcVoltage": "24"
     },
     {
       "model": "NSP-750-27",
-      "watt": 750.6
+      "watt": 750.6,
+      "dcVoltage": "27"
     },
     {
       "model": "NSP-750-36",
-      "watt": 752.4
+      "watt": 752.4,
+      "dcVoltage": "36"
     },
     {
       "model": "NSP-750-48",
-      "watt": 753.6
+      "watt": 753.6,
+      "dcVoltage": "48"
     },
     {
       "model": "NSP-750-60",
-      "watt": 756
+      "watt": 756,
+      "dcVoltage": "60"
     }
   ],
   "nsp-1600": [
     {
       "model": "NSP-1600-12",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "12"
     },
     {
       "model": "NSP-1600-24",
-      "watt": 1608
+      "watt": 1608,
+      "dcVoltage": "24"
     },
     {
       "model": "NSP-1600-36",
-      "watt": 1602
+      "watt": 1602,
+      "dcVoltage": "36"
     },
     {
       "model": "NSP-1600-48",
-      "watt": 1608
+      "watt": 1608,
+      "dcVoltage": "48"
     }
   ],
   "nsp-3200": [
     {
       "model": "NSP-3200-24",
-      "watt": 3192
+      "watt": 3192,
+      "dcVoltage": "24"
     },
     {
       "model": "NSP-3200-48",
-      "watt": 3216
+      "watt": 3216,
+      "dcVoltage": "48"
     }
   ],
   "ntn-5k": [
@@ -8462,11 +10104,13 @@ export const modelOptionWattageMap = {
   "nts-250p": [
     {
       "model": "NTS-250P-112",
-      "watt": 250
+      "watt": 250,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-250P-124",
-      "watt": 250
+      "watt": 250,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-250P-148",
@@ -8488,11 +10132,13 @@ export const modelOptionWattageMap = {
   "nts-300": [
     {
       "model": "NTS-300-112",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-300-124",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-300-148",
@@ -8514,11 +10160,13 @@ export const modelOptionWattageMap = {
   "nts-400p": [
     {
       "model": "NTS-400P-112",
-      "watt": 400
+      "watt": 400,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-400P-124",
-      "watt": 400
+      "watt": 400,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-400P-148",
@@ -8540,11 +10188,13 @@ export const modelOptionWattageMap = {
   "nts-450": [
     {
       "model": "NTS-450-112",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-450-124",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-450-148",
@@ -8566,11 +10216,13 @@ export const modelOptionWattageMap = {
   "nts-750": [
     {
       "model": "NTS-750-112",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-750-124",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "12"
     },
     {
       "model": "NTS-750-148",
@@ -8592,57 +10244,69 @@ export const modelOptionWattageMap = {
   "nts-1200": [
     {
       "model": "NTS-1200-112",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "3"
     },
     {
       "model": "NTS-1200-124",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "3"
     },
     {
       "model": "NTS-1200-148",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "3"
     },
     {
       "model": "NTS-1200-212",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "3"
     },
     {
       "model": "NTS-1200-224",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "3"
     },
     {
       "model": "NTS-1200-248",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "3"
     }
   ],
   "nts-1700": [
     {
       "model": "NTS-1700-112",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "3"
     },
     {
       "model": "NTS-1700-124",
-      "watt": 1700
+      "watt": 1700,
+      "dcVoltage": "3"
     }
   ],
   "nts-2200": [
     {
       "model": "NTS-2200-112",
-      "watt": 2200
+      "watt": 2200,
+      "dcVoltage": "3"
     },
     {
       "model": "NTS-2200-124",
-      "watt": 2200
+      "watt": 2200,
+      "dcVoltage": "3"
     }
   ],
   "nts-3200": [
     {
       "model": "NTS-3200-112",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "3"
     },
     {
       "model": "NTS-3200-124",
-      "watt": 3200
+      "watt": 3200,
+      "dcVoltage": "3"
     }
   ],
   "ntu-1200": [
@@ -8704,433 +10368,533 @@ export const modelOptionWattageMap = {
   "owa-60e": [
     {
       "model": "OWA-60E-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "OWA-60E-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "OWA-60E-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "OWA-60E-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "OWA-60E-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "OWA-60E-36",
-      "watt": 60.12
+      "watt": 60.12,
+      "dcVoltage": "36"
     },
     {
       "model": "OWA-60E-42",
-      "watt": 63
+      "watt": 63,
+      "dcVoltage": "42"
     },
     {
       "model": "OWA-60E-48",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     },
     {
       "model": "OWA-60E-54",
-      "watt": 60.48
+      "watt": 60.48,
+      "dcVoltage": "54"
     }
   ],
   "owa-60u": [
     {
       "model": "OWA-60U-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "OWA-60U-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "OWA-60U-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "OWA-60U-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "OWA-60U-30",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "OWA-60U-36",
-      "watt": 60.12
+      "watt": 60.12,
+      "dcVoltage": "36"
     },
     {
       "model": "OWA-60U-42",
-      "watt": 63
+      "watt": 63,
+      "dcVoltage": "42"
     },
     {
       "model": "OWA-60U-48",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     },
     {
       "model": "OWA-60U-54",
-      "watt": 60.48
+      "watt": 60.48,
+      "dcVoltage": "54"
     }
   ],
   "owa-90e": [
     {
       "model": "OWA-90E-12",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "12"
     },
     {
       "model": "OWA-90E-15",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "15"
     },
     {
       "model": "OWA-90E-20",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "20"
     },
     {
       "model": "OWA-90E-24",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "24"
     },
     {
       "model": "OWA-90E-30",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "30"
     },
     {
       "model": "OWA-90E-36",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "36"
     },
     {
       "model": "OWA-90E-42",
-      "watt": 90.3
+      "watt": 90.3,
+      "dcVoltage": "42"
     },
     {
       "model": "OWA-90E-48",
-      "watt": 90.24
+      "watt": 90.24,
+      "dcVoltage": "48"
     },
     {
       "model": "OWA-90E-54",
-      "watt": 90.18
+      "watt": 90.18,
+      "dcVoltage": "54"
     }
   ],
   "owa-90u": [
     {
       "model": "OWA-90U-12",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "12"
     },
     {
       "model": "OWA-90U-15",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "15"
     },
     {
       "model": "OWA-90U-20",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "20"
     },
     {
       "model": "OWA-90U-24",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "24"
     },
     {
       "model": "OWA-90U-30",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "30"
     },
     {
       "model": "OWA-90U-36",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "36"
     },
     {
       "model": "OWA-90U-42",
-      "watt": 90.3
+      "watt": 90.3,
+      "dcVoltage": "42"
     },
     {
       "model": "OWA-90U-48",
-      "watt": 90.24
+      "watt": 90.24,
+      "dcVoltage": "48"
     },
     {
       "model": "OWA-90U-54",
-      "watt": 90.18
+      "watt": 90.18,
+      "dcVoltage": "54"
     }
   ],
   "owa-120e": [
     {
       "model": "OWA-120E-12",
-      "watt": 115.2
+      "watt": 115.2,
+      "dcVoltage": "12"
     },
     {
       "model": "OWA-120E-15",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "OWA-120E-20",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "20"
     },
     {
       "model": "OWA-120E-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "OWA-120E-30",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "30"
     },
     {
       "model": "OWA-120E-36",
-      "watt": 122.4
+      "watt": 122.4,
+      "dcVoltage": "36"
     },
     {
       "model": "OWA-120E-42",
-      "watt": 121.8
+      "watt": 121.8,
+      "dcVoltage": "42"
     },
     {
       "model": "OWA-120E-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     },
     {
       "model": "OWA-120E-54",
-      "watt": 124.2
+      "watt": 124.2,
+      "dcVoltage": "54"
     }
   ],
   "owa-120u": [
     {
       "model": "OWA-120U-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "OWA-120U-15",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "OWA-120U-20",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "20"
     },
     {
       "model": "OWA-120U-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "OWA-120U-30",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "30"
     },
     {
       "model": "OWA-120U-36",
-      "watt": 122.4
+      "watt": 122.4,
+      "dcVoltage": "36"
     },
     {
       "model": "OWA-120U-42",
-      "watt": 121.8
+      "watt": 121.8,
+      "dcVoltage": "42"
     },
     {
       "model": "OWA-120U-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     },
     {
       "model": "OWA-120U-54",
-      "watt": 124.2
+      "watt": 124.2,
+      "dcVoltage": "54"
     }
   ],
   "owa-200e": [
     {
       "model": "OWA-200E-12",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "12"
     },
     {
       "model": "OWA-200E-20",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "20"
     },
     {
       "model": "OWA-200E-24",
-      "watt": 199
+      "watt": 199,
+      "dcVoltage": "24"
     },
     {
       "model": "OWA-200E-36",
-      "watt": 199
+      "watt": 199,
+      "dcVoltage": "36"
     },
     {
       "model": "OWA-200E-42",
-      "watt": 199
+      "watt": 199,
+      "dcVoltage": "42"
     },
     {
       "model": "OWA-200E-48",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "48"
     },
     {
       "model": "OWA-200E-54",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "54"
     }
   ],
   "owa-200u": [
     {
       "model": "OWA-200U-12",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "12"
     },
     {
       "model": "OWA-200U-20",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "20"
     },
     {
       "model": "OWA-200U-24",
-      "watt": 199
+      "watt": 199,
+      "dcVoltage": "24"
     },
     {
       "model": "OWA-200U-36",
-      "watt": 199
+      "watt": 199,
+      "dcVoltage": "36"
     },
     {
       "model": "OWA-200U-42",
-      "watt": 199
+      "watt": 199,
+      "dcVoltage": "42"
     },
     {
       "model": "OWA-200U-48",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "48"
     },
     {
       "model": "OWA-200U-54",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "54"
     }
   ],
   "pcd-16": [
     {
       "model": "PCD-16-350",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "48"
     },
     {
       "model": "PCD-16-700",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "24"
     },
     {
       "model": "PCD-16-1050",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "16"
     },
     {
       "model": "PCD-16-1400",
-      "watt": 16.8
+      "watt": 16.8,
+      "dcVoltage": "12"
     }
   ],
   "pcd-25": [
     {
       "model": "PCD-25-350",
-      "watt": 20.3
+      "watt": 20.3,
+      "dcVoltage": "58"
     },
     {
       "model": "PCD-25-700",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "36"
     },
     {
       "model": "PCD-25-1050",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "24"
     },
     {
       "model": "PCD-25-1400",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "18"
     }
   ],
   "pcd-40": [
     {
       "model": "PCD-40-500B",
-      "watt": 37.8
+      "watt": 37.8,
+      "dcVoltage": "80"
     },
     {
       "model": "PCD-40-700B",
-      "watt": 37.8
+      "watt": 37.8,
+      "dcVoltage": "57"
     },
     {
       "model": "PCD-40-1750B",
-      "watt": 37.8
+      "watt": 37.8,
+      "dcVoltage": "23"
     }
   ],
   "pcd-60": [
     {
       "model": "PCD-60-500B",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "108"
     },
     {
       "model": "PCD-60-700B",
-      "watt": 60.2
+      "watt": 60.2,
+      "dcVoltage": "86"
     },
     {
       "model": "PCD-60-1050B",
-      "watt": 59.85
+      "watt": 59.85,
+      "dcVoltage": "57"
     },
     {
       "model": "PCD-60-1400B",
-      "watt": 60.2
+      "watt": 60.2,
+      "dcVoltage": "43"
     },
     {
       "model": "PCD-60-1750B",
-      "watt": 59.5
+      "watt": 59.5,
+      "dcVoltage": "34"
     },
     {
       "model": "PCD-60-2000B",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "PCD-60-2400B",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "25"
     }
   ],
   "pd-25": [
     {
       "model": "PD-25A",
-      "watt": 24.9
+      "watt": 24.9,
+      "dcVoltage": "5"
     },
     {
       "model": "PD-25B",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "12"
     },
     {
       "model": "PD-2505",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "PD-2512",
-      "watt": 24
+      "watt": 24,
+      "dcVoltage": "24"
     },
     {
       "model": "PD-2515",
-      "watt": 24
+      "watt": 24,
+      "dcVoltage": "5"
     }
   ],
   "pd-45": [
     {
       "model": "PD-45A",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "5"
     },
     {
       "model": "PD-45B",
-      "watt": 44.8
+      "watt": 44.8,
+      "dcVoltage": "12"
     }
   ],
   "pd-65": [
     {
       "model": "PD-65A",
-      "watt": 61.1
+      "watt": 61.1,
+      "dcVoltage": "5"
     },
     {
       "model": "PD-65B",
-      "watt": 65.5
+      "watt": 65.5,
+      "dcVoltage": "12"
     }
   ],
   "php-3500": [
     {
       "model": "PHP-3500-24",
-      "watt": 3500
+      "watt": 3500,
+      "dcVoltage": "24"
     },
     {
       "model": "PHP-3500-48",
-      "watt": 3500
+      "watt": 3500,
+      "dcVoltage": "48"
     },
     {
       "model": "PHP-3500-115",
-      "watt": 3500
+      "watt": 3500,
+      "dcVoltage": "133"
     },
     {
       "model": "PHP-3500-230",
-      "watt": 3500
+      "watt": 3500,
+      "dcVoltage": "115"
     },
     {
       "model": "PHP-3500-380",
-      "watt": 3500
+      "watt": 3500,
+      "dcVoltage": "217"
     }
   ],
   "php-3500-hv": [
@@ -9142,205 +10906,252 @@ export const modelOptionWattageMap = {
   "pid-250": [
     {
       "model": "PID-250A",
-      "watt": 205
+      "watt": 205,
+      "dcVoltage": "12"
     },
     {
       "model": "PID-250B",
-      "watt": 250.6
+      "watt": 250.6,
+      "dcVoltage": "5"
     },
     {
       "model": "PID-250C",
-      "watt": 251.8
+      "watt": 251.8,
+      "dcVoltage": "24"
     },
     {
       "model": "PID-250D",
-      "watt": 250.6
+      "watt": 250.6,
+      "dcVoltage": "5"
     }
   ],
   "plc-30": [
     {
       "model": "PLC-30-9",
-      "watt": 29.7
+      "watt": 29.7,
+      "dcVoltage": "9"
     },
     {
       "model": "PLC-30-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "PLC-30-15",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     },
     {
       "model": "PLC-30-20",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "20"
     },
     {
       "model": "PLC-30-24",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "24"
     },
     {
       "model": "PLC-30-27",
-      "watt": 30.24
+      "watt": 30.24,
+      "dcVoltage": "27"
     },
     {
       "model": "PLC-30-36",
-      "watt": 30.24
+      "watt": 30.24,
+      "dcVoltage": "36"
     },
     {
       "model": "PLC-30-48",
-      "watt": 30.24
+      "watt": 30.24,
+      "dcVoltage": "48"
     }
   ],
   "plc-45": [
     {
       "model": "PLC-45-12",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "12"
     },
     {
       "model": "PLC-45-15",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "15"
     },
     {
       "model": "PLC-45-20",
-      "watt": 46
+      "watt": 46,
+      "dcVoltage": "20"
     },
     {
       "model": "PLC-45-24",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "24"
     },
     {
       "model": "PLC-45-27",
-      "watt": 45.9
+      "watt": 45.9,
+      "dcVoltage": "27"
     },
     {
       "model": "PLC-45-36",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "36"
     },
     {
       "model": "PLC-45-48",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "48"
     }
   ],
   "plc-60": [
     {
       "model": "PLC-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "PLC-60-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "PLC-60-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "PLC-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "PLC-60-27",
-      "watt": 62.1
+      "watt": 62.1,
+      "dcVoltage": "27"
     },
     {
       "model": "PLC-60-36",
-      "watt": 61.2
+      "watt": 61.2,
+      "dcVoltage": "36"
     },
     {
       "model": "PLC-60-48",
-      "watt": 62.4
+      "watt": 62.4,
+      "dcVoltage": "48"
     }
   ],
   "plc-100": [
     {
       "model": "PLC-100-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "PLC-100-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "PLC-100-20",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "20"
     },
     {
       "model": "PLC-100-24",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "24"
     },
     {
       "model": "PLC-100-27",
-      "watt": 95.85
+      "watt": 95.85,
+      "dcVoltage": "27"
     },
     {
       "model": "PLC-100-36",
-      "watt": 95.4
+      "watt": 95.4,
+      "dcVoltage": "36"
     },
     {
       "model": "PLC-100-48",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "48"
     }
   ],
   "pld-25": [
     {
       "model": "PLD-25-350",
-      "watt": 20.3
+      "watt": 20.3,
+      "dcVoltage": "58"
     },
     {
       "model": "PLD-25-700",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "36"
     },
     {
       "model": "PLD-25-1050",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "24"
     },
     {
       "model": "PLD-25-1400",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "18"
     }
   ],
   "pld-40": [
     {
       "model": "PLD-40-500B",
-      "watt": 37.8
+      "watt": 37.8,
+      "dcVoltage": "80"
     },
     {
       "model": "PLD-40-700B",
-      "watt": 37.8
+      "watt": 37.8,
+      "dcVoltage": "57"
     },
     {
       "model": "PLD-40-1750B",
-      "watt": 37.8
+      "watt": 37.8,
+      "dcVoltage": "23"
     }
   ],
   "pld-60": [
     {
       "model": "PLD-60-500B",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "108"
     },
     {
       "model": "PLD-60-700B",
-      "watt": 60.2
+      "watt": 60.2,
+      "dcVoltage": "86"
     },
     {
       "model": "PLD-60-1050B",
-      "watt": 59.85
+      "watt": 59.85,
+      "dcVoltage": "57"
     },
     {
       "model": "PLD-60-1400B",
-      "watt": 60.2
+      "watt": 60.2,
+      "dcVoltage": "43"
     },
     {
       "model": "PLD-60-1750B",
-      "watt": 59.5
+      "watt": 59.5,
+      "dcVoltage": "34"
     },
     {
       "model": "PLD-60-2000B",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "30"
     },
     {
       "model": "PLD-60-2400B",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "25"
     }
   ],
   "plm-12": [
@@ -9358,209 +11169,255 @@ export const modelOptionWattageMap = {
   "pln-20": [
     {
       "model": "PLN-20-18",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "18"
     },
     {
       "model": "PLN-20-36",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "36"
     }
   ],
   "pln-30": [
     {
       "model": "PLN-30-9",
-      "watt": 29.7
+      "watt": 29.7,
+      "dcVoltage": "9"
     },
     {
       "model": "PLN-30-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "PLN-30-15",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     },
     {
       "model": "PLN-30-20",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "20"
     },
     {
       "model": "PLN-30-24",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "24"
     },
     {
       "model": "PLN-30-27",
-      "watt": 30.24
+      "watt": 30.24,
+      "dcVoltage": "27"
     },
     {
       "model": "PLN-30-36",
-      "watt": 30.24
+      "watt": 30.24,
+      "dcVoltage": "36"
     },
     {
       "model": "PLN-30-48",
-      "watt": 30.24
+      "watt": 30.24,
+      "dcVoltage": "48"
     }
   ],
   "pln-45": [
     {
       "model": "PLN-45-15",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "15"
     },
     {
       "model": "PLN-45-20",
-      "watt": 46
+      "watt": 46,
+      "dcVoltage": "20"
     },
     {
       "model": "PLN-45-24",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "24"
     },
     {
       "model": "PLN-45-27",
-      "watt": 45.9
+      "watt": 45.9,
+      "dcVoltage": "27"
     },
     {
       "model": "PLN-45-36",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "36"
     },
     {
       "model": "PLN-45-48",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "48"
     }
   ],
   "pln-60": [
     {
       "model": "PLN-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "PLN-60-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "PLN-60-20",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "20"
     },
     {
       "model": "PLN-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "PLN-60-27",
-      "watt": 62.1
+      "watt": 62.1,
+      "dcVoltage": "27"
     },
     {
       "model": "PLN-60-36",
-      "watt": 61.2
+      "watt": 61.2,
+      "dcVoltage": "36"
     },
     {
       "model": "PLN-60-48",
-      "watt": 62.4
+      "watt": 62.4,
+      "dcVoltage": "48"
     }
   ],
   "pln-100": [
     {
       "model": "PLN-100-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "PLN-100-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "PLN-100-20",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "20"
     },
     {
       "model": "PLN-100-24",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "24"
     },
     {
       "model": "PLN-100-27",
-      "watt": 95.85
+      "watt": 95.85,
+      "dcVoltage": "27"
     },
     {
       "model": "PLN-100-36",
-      "watt": 95.4
+      "watt": 95.4,
+      "dcVoltage": "36"
     },
     {
       "model": "PLN-100-48",
-      "watt": 96
+      "watt": 96,
+      "dcVoltage": "48"
     }
   ],
   "plp-30": [
     {
       "model": "PLP-30-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "PLP-30-24",
-      "watt": 31.2
+      "watt": 31.2,
+      "dcVoltage": "24"
     },
     {
       "model": "PLP-30-48",
-      "watt": 30.24
+      "watt": 30.24,
+      "dcVoltage": "48"
     }
   ],
   "plp-60": [
     {
       "model": "PLP-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     }
   ],
   "ppt-125": [
     {
       "model": "PPT-125A",
-      "watt": 79
+      "watt": 79,
+      "dcVoltage": "3.3"
     },
     {
       "model": "PPT-125B",
-      "watt": 99.5
+      "watt": 99.5,
+      "dcVoltage": "5"
     },
     {
       "model": "PPT-125C",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "12"
     },
     {
       "model": "PPT-125D",
-      "watt": 101
+      "watt": 101,
+      "dcVoltage": "5"
     }
   ],
   "psc-35": [
     {
       "model": "PSC-35A",
-      "watt": 35.88
+      "watt": 35.88,
+      "dcVoltage": "13.8"
     },
     {
       "model": "PSC-35B",
-      "watt": 35.88
+      "watt": 35.88,
+      "dcVoltage": "27.6"
     }
   ],
   "psc-60": [
     {
       "model": "PSC-60A",
-      "watt": 59.34
+      "watt": 59.34,
+      "dcVoltage": "13.8"
     },
     {
       "model": "PSC-60B",
-      "watt": 59.34
+      "watt": 59.34,
+      "dcVoltage": "27.6"
     }
   ],
   "psc-100": [
     {
       "model": "PSC-100A",
-      "watt": 100.05
+      "watt": 100.05,
+      "dcVoltage": "27.6"
     },
     {
       "model": "PSC-100B",
-      "watt": 100.74
+      "watt": 100.74,
+      "dcVoltage": "27.6"
     }
   ],
   "psc-160": [
     {
       "model": "PSC-160A",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "13.8"
     },
     {
       "model": "PSC-160B",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "27.6"
     }
   ],
   "psd-15": [
@@ -9570,7 +11427,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "PSD-15A-24",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "6.75"
     },
     {
       "model": "PSD-15B-24",
@@ -9582,115 +11440,140 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "PSD-15C-24",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "32.4"
     }
   ],
   "psd-30": [
     {
       "model": "PSD-30A-5",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "PSD-30B-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "PSD-30C-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "24"
     }
   ],
   "psd-45": [
     {
       "model": "PSD-45A-24",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "12"
     },
     {
       "model": "PSD-45B-24",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "12"
     },
     {
       "model": "PSD-45C-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     }
   ],
   "psp-600": [
     {
       "model": "PSP-600-5",
-      "watt": 400
+      "watt": 400,
+      "dcVoltage": "5"
     },
     {
       "model": "PSP-600-12",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "12"
     },
     {
       "model": "PSP-600-13.5",
-      "watt": 600.75
+      "watt": 600.75,
+      "dcVoltage": "13.5"
     },
     {
       "model": "PSP-600-15",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "15"
     },
     {
       "model": "PSP-600-24",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "24"
     },
     {
       "model": "PSP-600-27",
-      "watt": 599.4
+      "watt": 599.4,
+      "dcVoltage": "27"
     },
     {
       "model": "PSP-600-48",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "48"
     }
   ],
   "pspa-1000": [
     {
       "model": "PSPA-1000-12",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "12"
     },
     {
       "model": "PSPA-1000-15",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "15"
     },
     {
       "model": "PSPA-1000-24",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "24"
     },
     {
       "model": "PSPA-1000-48",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "48"
     }
   ],
   "pt-45": [
     {
       "model": "PT-45A",
-      "watt": 40.5
+      "watt": 40.5,
+      "dcVoltage": "5"
     },
     {
       "model": "PT-45B",
-      "watt": 42.6
+      "watt": 42.6,
+      "dcVoltage": "12"
     },
     {
       "model": "PT-45C",
-      "watt": 43.5
+      "watt": 43.5,
+      "dcVoltage": "5"
     }
   ],
   "pt-65": [
     {
       "model": "PT-65A",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "5"
     },
     {
       "model": "PT-65B",
-      "watt": 63.5
+      "watt": 63.5,
+      "dcVoltage": "12"
     },
     {
       "model": "PT-65C",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "5"
     },
     {
       "model": "PT-65D",
-      "watt": 68
+      "watt": 68,
+      "dcVoltage": "5"
     }
   ],
   "pt-6503": [
@@ -9714,19 +11597,23 @@ export const modelOptionWattageMap = {
   "pwm-40": [
     {
       "model": "PWM-40-12",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "12"
     },
     {
       "model": "PWM-40-24",
-      "watt": 40.08
+      "watt": 40.08,
+      "dcVoltage": "24"
     },
     {
       "model": "PWM-40-36",
-      "watt": 40.32
+      "watt": 40.32,
+      "dcVoltage": "36"
     },
     {
       "model": "PWM-40-48",
-      "watt": 40.32
+      "watt": 40.32,
+      "dcVoltage": "48"
     }
   ],
   "pwm-60-kn": [
@@ -9798,39 +11685,47 @@ export const modelOptionWattageMap = {
   "qp-150": [
     {
       "model": "QP-150-3A",
-      "watt": 146
+      "watt": 146,
+      "dcVoltage": "5"
     },
     {
       "model": "QP-150-3B",
-      "watt": 150.2
+      "watt": 150.2,
+      "dcVoltage": "5"
     },
     {
       "model": "QP-150-3C",
-      "watt": 152
+      "watt": 152,
+      "dcVoltage": "5"
     }
   ],
   "qp-320": [
     {
       "model": "QP-320D",
-      "watt": 316
+      "watt": 316,
+      "dcVoltage": "5"
     },
     {
       "model": "QP-320F",
-      "watt": 316
+      "watt": 316,
+      "dcVoltage": "5"
     }
   ],
   "rcb-1600": [
     {
       "model": "RCB-1600-12",
-      "watt": 1440
+      "watt": 1440,
+      "dcVoltage": "14.4"
     },
     {
       "model": "RCB-1600-24",
-      "watt": 1584
+      "watt": 1584,
+      "dcVoltage": "28.8"
     },
     {
       "model": "RCB-1600-48",
-      "watt": 1584
+      "watt": 1584,
+      "dcVoltage": "57.6"
     }
   ],
   "rcp-1u": [
@@ -9842,101 +11737,122 @@ export const modelOptionWattageMap = {
   "rcp-1000": [
     {
       "model": "RCP-1000-12",
-      "watt": 2880
+      "watt": 2880,
+      "dcVoltage": "24"
     },
     {
       "model": "RCP-1000-24",
-      "watt": 3024
+      "watt": 3024,
+      "dcVoltage": "48"
     },
     {
       "model": "RCP-1000-48",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "48"
     }
   ],
   "rcp-1600": [
     {
       "model": "RCP-1600-12",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "12"
     },
     {
       "model": "RCP-1600-24",
-      "watt": 1608
+      "watt": 1608,
+      "dcVoltage": "24"
     },
     {
       "model": "RCP-1600-48",
-      "watt": 1608
+      "watt": 1608,
+      "dcVoltage": "48"
     }
   ],
   "rcp-2000": [
     {
       "model": "RCP-2000-12",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "12"
     },
     {
       "model": "RCP-2000-24",
-      "watt": 1920
+      "watt": 1920,
+      "dcVoltage": "24"
     },
     {
       "model": "RCP-2000-48",
-      "watt": 2016
+      "watt": 2016,
+      "dcVoltage": "48"
     }
   ],
   "rd-35": [
     {
       "model": "RD-35A",
-      "watt": 32
+      "watt": 32,
+      "dcVoltage": "5"
     },
     {
       "model": "RD-35B",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "5"
     },
     {
       "model": "RD-3513",
-      "watt": 35.1
+      "watt": 35.1,
+      "dcVoltage": "13.5"
     }
   ],
   "rd-50": [
     {
       "model": "RD-50A",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "5"
     },
     {
       "model": "RD-50B",
-      "watt": 53.6
+      "watt": 53.6,
+      "dcVoltage": "5"
     }
   ],
   "rd-65": [
     {
       "model": "RD-65A",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "5"
     },
     {
       "model": "RD-65B",
-      "watt": 68
+      "watt": 68,
+      "dcVoltage": "5"
     }
   ],
   "rd-85": [
     {
       "model": "RD-85A",
-      "watt": 88
+      "watt": 88,
+      "dcVoltage": "5"
     },
     {
       "model": "RD-85B",
-      "watt": 88
+      "watt": 88,
+      "dcVoltage": "5"
     }
   ],
   "rd-125": [
     {
       "model": "RD-125-1224",
-      "watt": 133.2
+      "watt": 133.2,
+      "dcVoltage": "12"
     },
     {
       "model": "RD-125-1248",
-      "watt": 138
+      "watt": 138,
+      "dcVoltage": "12"
     },
     {
       "model": "RD-125-2448",
-      "watt": 144
+      "watt": 144,
+      "dcVoltage": "24"
     }
   ],
   "rddw08": [
@@ -9978,57 +11894,68 @@ export const modelOptionWattageMap = {
   "rhp-1u": [
     {
       "model": "RHP-1UI-A",
-      "watt": 8040
+      "watt": 8040,
+      "dcVoltage": "48"
     }
   ],
   "rid-50": [
     {
       "model": "RID-50A",
-      "watt": 54
+      "watt": 54,
+      "dcVoltage": "5"
     },
     {
       "model": "RID-50B",
-      "watt": 53.6
+      "watt": 53.6,
+      "dcVoltage": "5"
     }
   ],
   "rid-65": [
     {
       "model": "RID-65A",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "5"
     },
     {
       "model": "RID-65B",
-      "watt": 68
+      "watt": 68,
+      "dcVoltage": "5"
     }
   ],
   "rid-85": [
     {
       "model": "RID-85A",
-      "watt": 88
+      "watt": 88,
+      "dcVoltage": "5"
     },
     {
       "model": "RID-85B",
-      "watt": 88
+      "watt": 88,
+      "dcVoltage": "5"
     }
   ],
   "rid-125": [
     {
       "model": "RID-125-1224",
-      "watt": 133.2
+      "watt": 133.2,
+      "dcVoltage": "12"
     },
     {
       "model": "RID-125-1248",
-      "watt": 138
+      "watt": 138,
+      "dcVoltage": "12"
     },
     {
       "model": "RID-125-2448",
-      "watt": 144
+      "watt": 144,
+      "dcVoltage": "24"
     }
   ],
   "rkp-1u": [
     {
       "model": "RKP-1UI",
-      "watt": 6048
+      "watt": 6048,
+      "dcVoltage": "48"
     }
   ],
   "rkp-cmu1": [
@@ -10040,235 +11967,288 @@ export const modelOptionWattageMap = {
   "rpb-1600": [
     {
       "model": "RPB-1600-12",
-      "watt": 1600
+      "watt": 1600,
+      "dcVoltage": "14.4"
     },
     {
       "model": "RPB-1600-24",
-      "watt": 1600
+      "watt": 1600,
+      "dcVoltage": "28.8"
     },
     {
       "model": "RPB-1600-48",
-      "watt": 1600
+      "watt": 1600,
+      "dcVoltage": "57.6"
     }
   ],
   "rpd-60": [
     {
       "model": "RPD-60A",
-      "watt": 49
+      "watt": 49,
+      "dcVoltage": "5"
     },
     {
       "model": "RPD-60B",
-      "watt": 53.5
+      "watt": 53.5,
+      "dcVoltage": "5"
     }
   ],
   "rpd-65": [
     {
       "model": "RPD-65C",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "RPD-65D",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "5"
     }
   ],
   "rpd-75": [
     {
       "model": "RPD-75A",
-      "watt": 71
+      "watt": 71,
+      "dcVoltage": "5"
     },
     {
       "model": "RPD-75B",
-      "watt": 73
+      "watt": 73,
+      "dcVoltage": "5"
     }
   ],
   "rps-30": [
     {
       "model": "RPS-30-3.3",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RPS-30-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "RPS-30-7.5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "7.5"
     },
     {
       "model": "RPS-30-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "RPS-30-15",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-30-24",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-30-48",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "48"
     }
   ],
   "rps-45": [
     {
       "model": "RPS-45-3.3",
-      "watt": 26.4
+      "watt": 26.4,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RPS-45-5",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "5"
     },
     {
       "model": "RPS-45-7.5",
-      "watt": 40.5
+      "watt": 40.5,
+      "dcVoltage": "7.5"
     },
     {
       "model": "RPS-45-12",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "12"
     },
     {
       "model": "RPS-45-15",
-      "watt": 45
+      "watt": 45,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-45-24",
-      "watt": 45.6
+      "watt": 45.6,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-45-48",
-      "watt": 45.1
+      "watt": 45.1,
+      "dcVoltage": "48"
     }
   ],
   "rps-60": [
     {
       "model": "RPS-60-3.3",
-      "watt": 33
+      "watt": 33,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RPS-60-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "RPS-60-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "RPS-60-15",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-60-48",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "48"
     }
   ],
   "rps-65": [
     {
       "model": "RPS-65-3.3",
-      "watt": 33
+      "watt": 33,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RPS-65-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "RPS-65-7.5",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "7.5"
     },
     {
       "model": "RPS-65-12",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "12"
     },
     {
       "model": "RPS-65-15",
-      "watt": 65.1
+      "watt": 65.1,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-65-24",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-65-48",
-      "watt": 65.3
+      "watt": 65.3,
+      "dcVoltage": "48"
     }
   ],
   "rps-75": [
     {
       "model": "RPS-75-3.3",
-      "watt": 49.5
+      "watt": 49.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RPS-75-5",
-      "watt": 70
+      "watt": 70,
+      "dcVoltage": "5"
     },
     {
       "model": "RPS-75-12",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "12"
     },
     {
       "model": "RPS-75-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-75-24",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-75-36",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "36"
     },
     {
       "model": "RPS-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     }
   ],
   "rps-120": [
     {
       "model": "RPS-120-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "RPS-120-15",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-120-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-120-27",
-      "watt": 121.5
+      "watt": 121.5,
+      "dcVoltage": "27"
     },
     {
       "model": "RPS-120-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     }
   ],
   "rps-120s": [
     {
       "model": "RPS-120S-12",
-      "watt": 141.6
+      "watt": 141.6,
+      "dcVoltage": "12"
     },
     {
       "model": "RPS-120S-15",
-      "watt": 142.5
+      "watt": 142.5,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-120S-24",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-120S-27",
-      "watt": 149.8
+      "watt": 149.8,
+      "dcVoltage": "27"
     },
     {
       "model": "RPS-120S-48",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "48"
     }
   ],
   "rps-160": [
@@ -10280,45 +12260,55 @@ export const modelOptionWattageMap = {
   "rps-200": [
     {
       "model": "RPS-200-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "RPS-200-15",
-      "watt": 201
+      "watt": 201,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-200-24",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-200-27",
-      "watt": 202.5
+      "watt": 202.5,
+      "dcVoltage": "27"
     },
     {
       "model": "RPS-200-48",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "48"
     }
   ],
   "rps-300": [
     {
       "model": "RPS-300-12",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-300-15",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "18.5"
     },
     {
       "model": "RPS-300-24",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "30"
     },
     {
       "model": "RPS-300-27",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "33.5"
     },
     {
       "model": "RPS-300-48",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "59.5"
     }
   ],
   "rps-300-c": [
@@ -10330,53 +12320,65 @@ export const modelOptionWattageMap = {
   "rps-400": [
     {
       "model": "RPS-400-12",
-      "watt": 400.5
+      "watt": 400.5,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-400-15",
-      "watt": 401.4
+      "watt": 401.4,
+      "dcVoltage": "18"
     },
     {
       "model": "RPS-400-18",
-      "watt": 403.2
+      "watt": 403.2,
+      "dcVoltage": "36"
     },
     {
       "model": "RPS-400-24",
-      "watt": 403.2
+      "watt": 403.2,
+      "dcVoltage": "48"
     },
     {
       "model": "RPS-400-27",
-      "watt": 400.8
+      "watt": 400.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-400-36",
-      "watt": 402.3
+      "watt": 402.3,
+      "dcVoltage": "27"
     }
   ],
   "rps-500": [
     {
       "model": "RPS-500-12",
-      "watt": 309.6
+      "watt": 309.6,
+      "dcVoltage": "15"
     },
     {
       "model": "RPS-500-15",
-      "watt": 310.5
+      "watt": 310.5,
+      "dcVoltage": "18"
     },
     {
       "model": "RPS-500-18",
-      "watt": 310.5
+      "watt": 310.5,
+      "dcVoltage": "36"
     },
     {
       "model": "RPS-500-24",
-      "watt": 309.6
+      "watt": 309.6,
+      "dcVoltage": "48"
     },
     {
       "model": "RPS-500-27",
-      "watt": 309.6
+      "watt": 309.6,
+      "dcVoltage": "24"
     },
     {
       "model": "RPS-500-36",
-      "watt": 309.6
+      "watt": 309.6,
+      "dcVoltage": "27"
     },
     {
       "model": "RPS-500-48",
@@ -10386,117 +12388,142 @@ export const modelOptionWattageMap = {
   "rpt-60": [
     {
       "model": "RPT-60A",
-      "watt": 46.5
+      "watt": 46.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RPT-60B",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "RPT-60C",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     }
   ],
   "rpt-65": [
     {
       "model": "RPT-65E",
-      "watt": 62.5
+      "watt": 62.5,
+      "dcVoltage": "12"
     },
     {
       "model": "RPT-65F",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "5"
     },
     {
       "model": "RPT-65G",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "5"
     }
   ],
   "rpt-75": [
     {
       "model": "RPT-75A",
-      "watt": 68.5
+      "watt": 68.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RPT-75B",
-      "watt": 72
+      "watt": 72,
+      "dcVoltage": "5"
     },
     {
       "model": "RPT-75C",
-      "watt": 72
+      "watt": 72,
+      "dcVoltage": "5"
     }
   ],
   "rpt-160": [
     {
       "model": "RPT-160A",
-      "watt": 145
+      "watt": 145,
+      "dcVoltage": "5"
     },
     {
       "model": "RPT-160B",
-      "watt": 146
+      "watt": 146,
+      "dcVoltage": "5"
     },
     {
       "model": "RPT-160C",
-      "watt": 143
+      "watt": 143,
+      "dcVoltage": "5"
     },
     {
       "model": "RPT-160D",
-      "watt": 147.8
+      "watt": 147.8,
+      "dcVoltage": "5"
     }
   ],
   "rq-50": [
     {
       "model": "RQ-50B",
-      "watt": 45.5
+      "watt": 45.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RQ-50C",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "RQ-50D",
-      "watt": 53.4
+      "watt": 53.4,
+      "dcVoltage": "5"
     }
   ],
   "rq-65": [
     {
       "model": "RQ-65B",
-      "watt": 62.5
+      "watt": 62.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RQ-65C",
-      "watt": 65
+      "watt": 65,
+      "dcVoltage": "5"
     },
     {
       "model": "RQ-65D",
-      "watt": 68
+      "watt": 68,
+      "dcVoltage": "5"
     }
   ],
   "rq-85": [
     {
       "model": "RQ-85B",
-      "watt": 80.7
+      "watt": 80.7,
+      "dcVoltage": "5"
     },
     {
       "model": "RQ-85C",
-      "watt": 82.5
+      "watt": 82.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RQ-85D",
-      "watt": 84
+      "watt": 84,
+      "dcVoltage": "5"
     }
   ],
   "rq-125": [
     {
       "model": "RQ-125B",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "5"
     },
     {
       "model": "RQ-125C",
-      "watt": 122.5
+      "watt": 122.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RQ-125D",
-      "watt": 124
+      "watt": 124,
+      "dcVoltage": "5"
     }
   ],
   "rqb40w12": [
@@ -10526,847 +12553,1041 @@ export const modelOptionWattageMap = {
   "rs-15": [
     {
       "model": "RS-15-3.3",
-      "watt": 9.9
+      "watt": 9.9,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RS-15-5",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "RS-15-12",
-      "watt": 15.6
+      "watt": 15.6,
+      "dcVoltage": "12"
     },
     {
       "model": "RS-15-15",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     },
     {
       "model": "RS-15-24",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "24"
     },
     {
       "model": "RS-15-48",
-      "watt": 15.024
+      "watt": 15.024,
+      "dcVoltage": "48"
     }
   ],
   "rs-25": [
     {
       "model": "RS-25-3.3",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RS-25-5",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "RS-25-12",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "12"
     },
     {
       "model": "RS-25-15",
-      "watt": 25.5
+      "watt": 25.5,
+      "dcVoltage": "15"
     },
     {
       "model": "RS-25-24",
-      "watt": 26.4
+      "watt": 26.4,
+      "dcVoltage": "24"
     },
     {
       "model": "RS-25-48",
-      "watt": 27.36
+      "watt": 27.36,
+      "dcVoltage": "48"
     }
   ],
   "rs-35": [
     {
       "model": "RS-35-3.3",
-      "watt": 23.1
+      "watt": 23.1,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RS-35-5",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "5"
     },
     {
       "model": "RS-35-12",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "12"
     },
     {
       "model": "RS-35-15",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "15"
     },
     {
       "model": "RS-35-24",
-      "watt": 36
+      "watt": 36,
+      "dcVoltage": "24"
     },
     {
       "model": "RS-35-48",
-      "watt": 38.4
+      "watt": 38.4,
+      "dcVoltage": "48"
     }
   ],
   "rs-50": [
     {
       "model": "RS-50-3.3",
-      "watt": 33
+      "watt": 33,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RS-50-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "RS-50-12",
-      "watt": 50.4
+      "watt": 50.4,
+      "dcVoltage": "12"
     },
     {
       "model": "RS-50-15",
-      "watt": 51
+      "watt": 51,
+      "dcVoltage": "15"
     },
     {
       "model": "RS-50-24",
-      "watt": 52.8
+      "watt": 52.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RS-50-48",
-      "watt": 52.8
+      "watt": 52.8,
+      "dcVoltage": "48"
     }
   ],
   "rs-75": [
     {
       "model": "RS-75-3.3",
-      "watt": 49.5
+      "watt": 49.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RS-75-5",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "5"
     },
     {
       "model": "RS-75-12",
-      "watt": 72
+      "watt": 72,
+      "dcVoltage": "12"
     },
     {
       "model": "RS-75-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "RS-75-24",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RS-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     }
   ],
   "rs-100": [
     {
       "model": "RS-100-3.3",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RS-100-5",
-      "watt": 80
+      "watt": 80,
+      "dcVoltage": "5"
     },
     {
       "model": "RS-100-12",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "RS-100-15",
-      "watt": 105
+      "watt": 105,
+      "dcVoltage": "15"
     },
     {
       "model": "RS-100-24",
-      "watt": 108
+      "watt": 108,
+      "dcVoltage": "24"
     },
     {
       "model": "RS-100-48",
-      "watt": 110.4
+      "watt": 110.4,
+      "dcVoltage": "48"
     }
   ],
   "rs-150": [
     {
       "model": "RS-150-3.3",
-      "watt": 99
+      "watt": 99,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RS-150-5",
-      "watt": 130
+      "watt": 130,
+      "dcVoltage": "5"
     },
     {
       "model": "RS-150-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "RS-150-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "RS-150-24",
-      "watt": 156
+      "watt": 156,
+      "dcVoltage": "24"
     },
     {
       "model": "RS-150-48",
-      "watt": 158.4
+      "watt": 158.4,
+      "dcVoltage": "48"
     }
   ],
   "rsd-30": [
     {
       "model": "RSD-30G-3.3",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSD-30G-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-30G-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-30G-24",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-30L-3.3",
-      "watt": 19.8
+      "watt": 19.8,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSD-30L-5",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-30L-12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-30L-24",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "24"
     }
   ],
   "rsd-60": [
     {
       "model": "RSD-60G-3.3",
-      "watt": 39.6
+      "watt": 39.6,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSD-60G-5",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-60G-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-60G-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-60L-3.3",
-      "watt": 39.6
+      "watt": 39.6,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSD-60L-5",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-60L-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-60L-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     }
   ],
   "rsd-100": [
     {
       "model": "RSD-100B-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-100B-12",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-100B-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-100C-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-100C-12",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-100C-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-100D-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-100D-12",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-100D-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     }
   ],
   "rsd-150": [
     {
       "model": "RSD-150B-5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-150B-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-150B-24",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-150C-5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-150C-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-150C-24",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-150D-5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-150D-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-150D-24",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     }
   ],
   "rsd-200": [
     {
       "model": "RSD-200B-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-200B-24",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-200B-48",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "48"
     },
     {
       "model": "RSD-200C-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-200C-24",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-200C-48",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "48"
     },
     {
       "model": "RSD-200D-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-200D-24",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-200D-48",
-      "watt": 201.6
+      "watt": 201.6,
+      "dcVoltage": "48"
     }
   ],
   "rsd-300": [
     {
       "model": "RSD-300B-5",
-      "watt": 210
+      "watt": 210,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-300B-12",
-      "watt": 270
+      "watt": 270,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-300B-24",
-      "watt": 271.2
+      "watt": 271.2,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-300B-48",
-      "watt": 273.6
+      "watt": 273.6,
+      "dcVoltage": "48"
     },
     {
       "model": "RSD-300C-5",
-      "watt": 210
+      "watt": 210,
+      "dcVoltage": "5"
     },
     {
       "model": "RSD-300C-12",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-300C-24",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-300C-48",
-      "watt": 302.4
+      "watt": 302.4,
+      "dcVoltage": "48"
     }
   ],
   "rsd-500": [
     {
       "model": "RSD-500B-12",
-      "watt": 420
+      "watt": 420,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-500B-24",
-      "watt": 420
+      "watt": 420,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-500B-48",
-      "watt": 422.4
+      "watt": 422.4,
+      "dcVoltage": "48"
     },
     {
       "model": "RSD-500C-12",
-      "watt": 420
+      "watt": 420,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-500C-24",
-      "watt": 460.8
+      "watt": 460.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-500C-48",
-      "watt": 460.8
+      "watt": 460.8,
+      "dcVoltage": "48"
     },
     {
       "model": "RSD-500D-12",
-      "watt": 420
+      "watt": 420,
+      "dcVoltage": "12"
     },
     {
       "model": "RSD-500D-24",
-      "watt": 499.2
+      "watt": 499.2,
+      "dcVoltage": "24"
     },
     {
       "model": "RSD-500D-48",
-      "watt": 499.2
+      "watt": 499.2,
+      "dcVoltage": "48"
     }
   ],
   "rsdh-150": [
     {
       "model": "RSDH-150-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "RSDH-150-24",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "24"
     },
     {
       "model": "RSDH-150-32",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "32"
     },
     {
       "model": "RSDH-150-48",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "48"
     }
   ],
   "rsdh-300": [
     {
       "model": "RSDH-300-12",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "12"
     },
     {
       "model": "RSDH-300-24",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "24"
     },
     {
       "model": "RSDH-300-32",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "32"
     },
     {
       "model": "RSDH-300-48",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "48"
     }
   ],
   "rsdw08": [
     {
       "model": "RSDW08-RDDW08",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "3.3"
     }
   ],
   "rsdw10": [
     {
       "model": "RSDW10-RDDW10",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "3.3"
     }
   ],
   "rsdw20": [
     {
       "model": "RSDW20-RDDW20",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "3.3"
     }
   ],
   "rsdw20uw": [
     {
       "model": "RSDW20UW-RDDW20UW",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "12"
     }
   ],
   "rsdw40": [
     {
       "model": "RSDW40-RDDW40",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "3.3"
     }
   ],
   "rsdw60": [
     {
       "model": "RSDW60-RDDW60",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "3.3"
     }
   ],
   "rsp-75": [
     {
       "model": "RSP-75-3.3",
-      "watt": 49.5
+      "watt": 49.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSP-75-5",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "5"
     },
     {
       "model": "RSP-75-7.5",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "7.5"
     },
     {
       "model": "RSP-75-12",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-75-13.5",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "13.5"
     },
     {
       "model": "RSP-75-15",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "15"
     },
     {
       "model": "RSP-75-24",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-75-27",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "27"
     },
     {
       "model": "RSP-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     }
   ],
   "rsp-100": [
     {
       "model": "RSP-100-3.3",
-      "watt": 66
+      "watt": 66,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSP-100-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "5"
     },
     {
       "model": "RSP-100-7.5",
-      "watt": 101.25
+      "watt": 101.25,
+      "dcVoltage": "7.5"
     },
     {
       "model": "RSP-100-12",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-100-13.5",
-      "watt": 101.25
+      "watt": 101.25,
+      "dcVoltage": "13.5"
     },
     {
       "model": "RSP-100-15",
-      "watt": 100.5
+      "watt": 100.5,
+      "dcVoltage": "15"
     },
     {
       "model": "RSP-100-24",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-100-27",
-      "watt": 102.6
+      "watt": 102.6,
+      "dcVoltage": "27"
     },
     {
       "model": "RSP-100-48",
-      "watt": 100.8
+      "watt": 100.8,
+      "dcVoltage": "48"
     }
   ],
   "rsp-150": [
     {
       "model": "RSP-150-3.3",
-      "watt": 99
+      "watt": 99,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSP-150-5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "5"
     },
     {
       "model": "RSP-150-7.5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "7.5"
     },
     {
       "model": "RSP-150-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-150-13.5",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "13.5"
     },
     {
       "model": "RSP-150-15",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "RSP-150-24",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-150-27",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "27"
     },
     {
       "model": "RSP-150-48",
-      "watt": 153.6
+      "watt": 153.6,
+      "dcVoltage": "48"
     }
   ],
   "rsp-200": [
     {
       "model": "RSP-200-2.5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "2.5"
     },
     {
       "model": "RSP-200-3.3",
-      "watt": 132
+      "watt": 132,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSP-200-4",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "4"
     },
     {
       "model": "RSP-200-5",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "5"
     },
     {
       "model": "RSP-200-7.5",
-      "watt": 200.25
+      "watt": 200.25,
+      "dcVoltage": "7.5"
     },
     {
       "model": "RSP-200-12",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     }
   ],
   "rsp-320": [
     {
       "model": "RSP-320-2.5",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "2.5"
     },
     {
       "model": "RSP-320-3.3",
-      "watt": 198
+      "watt": 198,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSP-320-4",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "4"
     },
     {
       "model": "RSP-320-5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "5"
     },
     {
       "model": "RSP-320-7.5",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "7.5"
     },
     {
       "model": "RSP-320-12",
-      "watt": 320.4
+      "watt": 320.4,
+      "dcVoltage": "12"
     }
   ],
   "rsp-500": [
     {
       "model": "RSP-500-3.3",
-      "watt": 297
+      "watt": 297,
+      "dcVoltage": "3.3"
     },
     {
       "model": "RSP-500-4",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "4"
     },
     {
       "model": "RSP-500-5",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "5"
     },
     {
       "model": "RSP-500-12",
-      "watt": 500.4
+      "watt": 500.4,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-500-15",
-      "watt": 504
+      "watt": 504,
+      "dcVoltage": "48"
     },
     {
       "model": "RSP-500-24",
-      "watt": 501
+      "watt": 501,
+      "dcVoltage": "15"
     },
     {
       "model": "RSP-500-27",
-      "watt": 504
+      "watt": 504,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-500-48",
-      "watt": 502.2
+      "watt": 502.2,
+      "dcVoltage": "27"
     }
   ],
   "rsp-750": [
     {
       "model": "RSP-750-5",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "5"
     },
     {
       "model": "RSP-750-12",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-750-15",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "15"
     },
     {
       "model": "RSP-750-24",
-      "watt": 751.2
+      "watt": 751.2,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-750-27",
-      "watt": 750.6
+      "watt": 750.6,
+      "dcVoltage": "27"
     },
     {
       "model": "RSP-750-48",
-      "watt": 753.6
+      "watt": 753.6,
+      "dcVoltage": "48"
     }
   ],
   "rsp-1000": [
     {
       "model": "RSP-1000-12",
-      "watt": 720
+      "watt": 720,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-1000-15",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "15"
     },
     {
       "model": "RSP-1000-24",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-1000-27",
-      "watt": 999
+      "watt": 999,
+      "dcVoltage": "27"
     },
     {
       "model": "RSP-1000-48",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "48"
     }
   ],
   "rsp-1500": [
     {
       "model": "RSP-1500-5",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "5"
     },
     {
       "model": "RSP-1500-12",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-1500-15",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "15"
     },
     {
       "model": "RSP-1500-24",
-      "watt": 1512
+      "watt": 1512,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-1500-27",
-      "watt": 1512
+      "watt": 1512,
+      "dcVoltage": "27"
     },
     {
       "model": "RSP-1500-48",
-      "watt": 1536
+      "watt": 1536,
+      "dcVoltage": "48"
     }
   ],
   "rsp-1600": [
     {
       "model": "RSP-1600-12",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-1600-24",
-      "watt": 1608
+      "watt": 1608,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-1600-27",
-      "watt": 1593
+      "watt": 1593,
+      "dcVoltage": "27"
     },
     {
       "model": "RSP-1600-36",
-      "watt": 1602
+      "watt": 1602,
+      "dcVoltage": "36"
     },
     {
       "model": "RSP-1600-48",
-      "watt": 1608
+      "watt": 1608,
+      "dcVoltage": "48"
     }
   ],
   "rsp-2000": [
     {
       "model": "RSP-2000-12",
-      "watt": 1200
+      "watt": 1200,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-2000-24",
-      "watt": 1920
+      "watt": 1920,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-2000-48",
-      "watt": 2016
+      "watt": 2016,
+      "dcVoltage": "48"
     }
   ],
   "rsp-2400": [
     {
       "model": "RSP-2400-12",
-      "watt": 2000.4
+      "watt": 2000.4,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-2400-24",
-      "watt": 2400
+      "watt": 2400,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-2400-48",
-      "watt": 2400
+      "watt": 2400,
+      "dcVoltage": "48"
     }
   ],
   "rsp-3000": [
     {
       "model": "RSP-3000-12",
-      "watt": 2400
+      "watt": 2400,
+      "dcVoltage": "12"
     },
     {
       "model": "RSP-3000-24",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "24"
     },
     {
       "model": "RSP-3000-48",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "48"
     }
   ],
   "rst-7k5-hv": [
@@ -11384,101 +13605,123 @@ export const modelOptionWattageMap = {
   "rst-5000": [
     {
       "model": "RST-5000-24",
-      "watt": 4800
+      "watt": 4800,
+      "dcVoltage": "24"
     },
     {
       "model": "RST-5000-36",
-      "watt": 4968
+      "watt": 4968,
+      "dcVoltage": "36"
     },
     {
       "model": "RST-5000-48",
-      "watt": 5040
+      "watt": 5040,
+      "dcVoltage": "48"
     }
   ],
   "rst-10000": [
     {
       "model": "RST-10000-24",
-      "watt": 9600
+      "watt": 9600,
+      "dcVoltage": "24"
     },
     {
       "model": "RST-10000-36",
-      "watt": 9936
+      "watt": 9936,
+      "dcVoltage": "36"
     },
     {
       "model": "RST-10000-48",
-      "watt": 10080
+      "watt": 10080,
+      "dcVoltage": "48"
     }
   ],
   "rt-50": [
     {
       "model": "RT-50A",
-      "watt": 46.5
+      "watt": 46.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-50B",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-50C",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-50D",
-      "watt": 51
+      "watt": 51,
+      "dcVoltage": "5"
     }
   ],
   "rt-65": [
     {
       "model": "RT-65A",
-      "watt": 66.1
+      "watt": 66.1,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-65B",
-      "watt": 64.6
+      "watt": 64.6,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-65C",
-      "watt": 65.5
+      "watt": 65.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-65D",
-      "watt": 68
+      "watt": 68,
+      "dcVoltage": "5"
     }
   ],
   "rt-85": [
     {
       "model": "RT-85A",
-      "watt": 84.5
+      "watt": 84.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-85B",
-      "watt": 88
+      "watt": 88,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-85C",
-      "watt": 87.5
+      "watt": 87.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-85D",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "5"
     }
   ],
   "rt-125": [
     {
       "model": "RT-125A",
-      "watt": 131
+      "watt": 131,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-125B",
-      "watt": 132
+      "watt": 132,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-125C",
-      "watt": 132.5
+      "watt": 132.5,
+      "dcVoltage": "5"
     },
     {
       "model": "RT-125D",
-      "watt": 136
+      "watt": 136,
+      "dcVoltage": "5"
     }
   ],
   "sbp-001": [
@@ -11502,37 +13745,44 @@ export const modelOptionWattageMap = {
   "scp-35": [
     {
       "model": "SCP-35-12",
-      "watt": 35.9
+      "watt": 35.9,
+      "dcVoltage": "13.8"
     },
     {
       "model": "SCP-35-24",
-      "watt": 38.6
+      "watt": 38.6,
+      "dcVoltage": "27.6"
     }
   ],
   "scp-50": [
     {
       "model": "SCP-50-12",
-      "watt": 49.7
+      "watt": 49.7,
+      "dcVoltage": "13.8"
     },
     {
       "model": "SCP-50-24",
-      "watt": 49.7
+      "watt": 49.7,
+      "dcVoltage": "27.6"
     }
   ],
   "scp-75": [
     {
       "model": "SCP-75-12",
-      "watt": 74.5
+      "watt": 74.5,
+      "dcVoltage": "13.8"
     },
     {
       "model": "SCP-75-24",
-      "watt": 74.5
+      "watt": 74.5,
+      "dcVoltage": "27.6"
     }
   ],
   "scw08": [
     {
       "model": "SCW08A-05",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "5"
     },
     {
       "model": "SCW08A-12",
@@ -11544,7 +13794,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SCW08B-05",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "12"
     },
     {
       "model": "SCW08B-12",
@@ -11556,7 +13807,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SCW08C-05",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "15"
     },
     {
       "model": "SCW08C-12",
@@ -11570,13 +13822,15 @@ export const modelOptionWattageMap = {
   "scw08w8": [
     {
       "model": "SCW08W8-DCW08W8",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "12"
     }
   ],
   "scw12": [
     {
       "model": "SCW12A-05",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "5"
     },
     {
       "model": "SCW12A-12",
@@ -11588,7 +13842,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SCW12B-05",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "12"
     },
     {
       "model": "SCW12B-12",
@@ -11600,7 +13855,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SCW12C-05",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "15"
     },
     {
       "model": "SCW12C-12",
@@ -11614,7 +13870,8 @@ export const modelOptionWattageMap = {
   "scw12w8": [
     {
       "model": "SCW12W8-DCW12W8",
-      "watt": 12
+      "watt": 12,
+      "dcVoltage": "12"
     }
   ],
   "scw20": [
@@ -11626,105 +13883,127 @@ export const modelOptionWattageMap = {
   "scwn03": [
     {
       "model": "SCWN03-DCWN03",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "3.3"
     }
   ],
   "scwn03w8": [
     {
       "model": "SCWN03W8-DCWN03W8",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "12"
     }
   ],
   "scwn06": [
     {
       "model": "SCWN06-DCWN06",
-      "watt": 6
+      "watt": 6,
+      "dcVoltage": "3.3"
     }
   ],
   "scwn06w8": [
     {
       "model": "SCWN06W8-DCWN06W8",
-      "watt": 6
+      "watt": 6,
+      "dcVoltage": "12"
     }
   ],
   "sd-15": [
     {
       "model": "SD-15A-05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-15A-12",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-15A-24",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-15B-05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-15B-12",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-15B-24",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-15C-05",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-15C-12",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-15C-24",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     }
   ],
   "sd-25": [
     {
       "model": "SD-25A-5",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-25B-5",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "12"
     },
     {
       "model": "SD-25C-5",
-      "watt": 26.4
+      "watt": 26.4,
+      "dcVoltage": "24"
     }
   ],
   "sd-50": [
     {
       "model": "SD-50A-5",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-50B-5",
-      "watt": 50.4
+      "watt": 50.4,
+      "dcVoltage": "12"
     },
     {
       "model": "SD-50C-5",
-      "watt": 50.4
+      "watt": 50.4,
+      "dcVoltage": "24"
     }
   ],
   "sd-100": [
     {
       "model": "SD-100A-5",
-      "watt": 90
+      "watt": 90,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-100B-5",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "12"
     },
     {
       "model": "SD-100C-5",
-      "watt": 102
+      "watt": 102,
+      "dcVoltage": "24"
     },
     {
       "model": "SD-100D-5",
@@ -11734,89 +14013,108 @@ export const modelOptionWattageMap = {
   "sd-150": [
     {
       "model": "SD-150B-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "SD-150C-12",
-      "watt": 151.2
+      "watt": 151.2,
+      "dcVoltage": "24"
     }
   ],
   "sd-200": [
     {
       "model": "SD-200B",
-      "watt": 170
+      "watt": 170,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-200C",
-      "watt": 200.4
+      "watt": 200.4,
+      "dcVoltage": "12"
     }
   ],
   "sd-350": [
     {
       "model": "SD-350B",
-      "watt": 285
+      "watt": 285,
+      "dcVoltage": "5"
     },
     {
       "model": "SD-350C",
-      "watt": 330
+      "watt": 330,
+      "dcVoltage": "12"
     }
   ],
   "sd-500": [
     {
       "model": "SD-500H-12",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "12"
     },
     {
       "model": "SD-500H-24",
-      "watt": 504
+      "watt": 504,
+      "dcVoltage": "24"
     },
     {
       "model": "SD-500H-48",
-      "watt": 504
+      "watt": 504,
+      "dcVoltage": "48"
     },
     {
       "model": "SD-500L-12",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "12"
     },
     {
       "model": "SD-500L-24",
-      "watt": 504
+      "watt": 504,
+      "dcVoltage": "24"
     },
     {
       "model": "SD-500L-48",
-      "watt": 504
+      "watt": 504,
+      "dcVoltage": "48"
     }
   ],
   "sd-1000": [
     {
       "model": "SD-1000H-12",
-      "watt": 720
+      "watt": 720,
+      "dcVoltage": "12"
     },
     {
       "model": "SD-1000H-24",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "24"
     },
     {
       "model": "SD-1000H-48",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "48"
     },
     {
       "model": "SD-1000L-12",
-      "watt": 720
+      "watt": 720,
+      "dcVoltage": "12"
     },
     {
       "model": "SD-1000L-24",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "24"
     },
     {
       "model": "SD-1000L-48",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "48"
     }
   ],
   "sdm30": [
     {
       "model": "SDM30-12S12",
-      "watt": 25.2
+      "watt": 25.2,
+      "dcVoltage": "12"
     },
     {
       "model": "SDM30-12S15",
@@ -11824,7 +14122,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SDM30-24S12",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "15"
     },
     {
       "model": "SDM30-48S12",
@@ -11840,165 +14139,201 @@ export const modelOptionWattageMap = {
   "sdr-75": [
     {
       "model": "SDR-75-12",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "12"
     },
     {
       "model": "SDR-75-24",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "24"
     },
     {
       "model": "SDR-75-48",
-      "watt": 76.8
+      "watt": 76.8,
+      "dcVoltage": "48"
     }
   ],
   "sdr-120": [
     {
       "model": "SDR-120-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "SDR-120-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "SDR-120-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     }
   ],
   "sdr-240": [
     {
       "model": "SDR-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "SDR-240-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     }
   ],
   "sdr-480": [
     {
       "model": "SDR-480-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "SDR-480-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     }
   ],
   "sdr-480p": [
     {
       "model": "SDR-480P-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "SDR-480P-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     }
   ],
   "sdr-960": [
     {
       "model": "SDR-960-24",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "24"
     },
     {
       "model": "SDR-960-48",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "48"
     }
   ],
   "se-450": [
     {
       "model": "SE-450-3.3",
-      "watt": 247.5
+      "watt": 247.5,
+      "dcVoltage": "3.3"
     },
     {
       "model": "SE-450-5",
-      "watt": 375
+      "watt": 375,
+      "dcVoltage": "5"
     },
     {
       "model": "SE-450-12",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "12"
     },
     {
       "model": "SE-450-15",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "15"
     },
     {
       "model": "SE-450-24",
-      "watt": 451.2
+      "watt": 451.2,
+      "dcVoltage": "24"
     },
     {
       "model": "SE-450-36",
-      "watt": 450
+      "watt": 450,
+      "dcVoltage": "36"
     },
     {
       "model": "SE-450-48",
-      "watt": 451.2
+      "watt": 451.2,
+      "dcVoltage": "48"
     }
   ],
   "se-600": [
     {
       "model": "SE-600-5",
-      "watt": 500
+      "watt": 500,
+      "dcVoltage": "5"
     },
     {
       "model": "SE-600-15",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "15"
     },
     {
       "model": "SE-600-48",
-      "watt": 600
+      "watt": 600,
+      "dcVoltage": "48"
     }
   ],
   "se-1000": [
     {
       "model": "SE-1000-5",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "5"
     },
     {
       "model": "SE-1000-9",
-      "watt": 900
+      "watt": 900,
+      "dcVoltage": "9"
     },
     {
       "model": "SE-1000-12",
-      "watt": 999.6
+      "watt": 999.6,
+      "dcVoltage": "12"
     },
     {
       "model": "SE-1000-15",
-      "watt": 1000.5
+      "watt": 1000.5,
+      "dcVoltage": "15"
     },
     {
       "model": "SE-1000-24",
-      "watt": 1000.8
+      "watt": 1000.8,
+      "dcVoltage": "24"
     },
     {
       "model": "SE-1000-48",
-      "watt": 998.4
+      "watt": 998.4,
+      "dcVoltage": "48"
     }
   ],
   "se-1500": [
     {
       "model": "SE-1500-5",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "5"
     },
     {
       "model": "SE-1500-12",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "12"
     },
     {
       "model": "SE-1500-15",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "15"
     },
     {
       "model": "SE-1500-24",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "24"
     },
     {
       "model": "SE-1500-27",
-      "watt": 1501.2
+      "watt": 1501.2,
+      "dcVoltage": "27"
     },
     {
       "model": "SE-1500-48",
-      "watt": 1502.4
+      "watt": 1502.4,
+      "dcVoltage": "48"
     }
   ],
   "sftn01": [
@@ -12046,17 +14381,20 @@ export const modelOptionWattageMap = {
   "ska15": [
     {
       "model": "SKA15A-",
-      "watt": 9.9
+      "watt": 9.9,
+      "dcVoltage": "3.3"
     },
     {
       "model": "SKA15B-",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     }
   ],
   "ska20": [
     {
       "model": "SKA20A-05",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "5"
     },
     {
       "model": "SKA20A-12",
@@ -12068,7 +14406,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SKA20B-05",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "12"
     },
     {
       "model": "SKA20B-12",
@@ -12080,7 +14419,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SKA20C-05",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "15"
     },
     {
       "model": "SKA20C-12",
@@ -12094,25 +14434,30 @@ export const modelOptionWattageMap = {
   "ska40": [
     {
       "model": "SKA40A-05",
-      "watt": 35
+      "watt": 35,
+      "dcVoltage": "7"
     },
     {
       "model": "SKA40B-05",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "8.95"
     },
     {
       "model": "SKA40C-05",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "15"
     }
   ],
   "ska60": [
     {
       "model": "SKA60A-05",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "7"
     },
     {
       "model": "SKA60A-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "19.2"
     },
     {
       "model": "SKA60A-15",
@@ -12120,11 +14465,13 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SKA60B-05",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "8.95"
     },
     {
       "model": "SKA60B-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "18"
     },
     {
       "model": "SKA60B-15",
@@ -12132,11 +14479,13 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SKA60C-05",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "15"
     },
     {
       "model": "SKA60C-12",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "23.3"
     },
     {
       "model": "SKA60C-15",
@@ -12146,67 +14495,81 @@ export const modelOptionWattageMap = {
   "ske10": [
     {
       "model": "SKE10A-",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "5"
     },
     {
       "model": "SKE10B-",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "12"
     },
     {
       "model": "SKE10C-",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "15"
     }
   ],
   "ske15": [
     {
       "model": "SKE15A-",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "5"
     },
     {
       "model": "SKE15B-",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "12"
     },
     {
       "model": "SKE15C-",
-      "watt": 15
+      "watt": 15,
+      "dcVoltage": "15"
     }
   ],
   "skm10": [
     {
       "model": "SKM10-DKM10",
-      "watt": 10
+      "watt": 10,
+      "dcVoltage": "3.3"
     }
   ],
   "skm30-n": [
     {
       "model": "SKM30-N-DKM30-N",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "12"
     }
   ],
   "skm50": [
     {
       "model": "SKM50B-05",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "7"
     },
     {
       "model": "SKM50B-12",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "15"
     },
     {
       "model": "SKM50B-15",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "18"
     },
     {
       "model": "SKM50C-05",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "8.95"
     },
     {
       "model": "SKM50C-12",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "19.2"
     },
     {
       "model": "SKM50C-15",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "23.3"
     }
   ],
   "skmw15": [
@@ -12218,37 +14581,43 @@ export const modelOptionWattageMap = {
   "skmw20": [
     {
       "model": "SKMW20-DKMW20",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "3.3"
     }
   ],
   "skmw30": [
     {
       "model": "SKMW30-DKMW30",
-      "watt": 30
+      "watt": 30,
+      "dcVoltage": "3.3"
     }
   ],
   "skmw40": [
     {
       "model": "SKMW40-DKMW40",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "3.3"
     }
   ],
   "slc03": [
     {
       "model": "SLC03-DLC03",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "50"
     }
   ],
   "sld-50": [
     {
       "model": "SLD-50-56",
-      "watt": 50.4
+      "watt": 50.4,
+      "dcVoltage": "60"
     }
   ],
   "sld-80": [
     {
       "model": "SLD-80-56",
-      "watt": 78.4
+      "watt": 78.4,
+      "dcVoltage": "60"
     }
   ],
   "sld-150": [
@@ -12260,11 +14629,13 @@ export const modelOptionWattageMap = {
   "slw05": [
     {
       "model": "SLW05A-",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "9"
     },
     {
       "model": "SLW05B-",
-      "watt": 5
+      "watt": 5,
+      "dcVoltage": "15"
     },
     {
       "model": "SLW05C-",
@@ -12274,53 +14645,65 @@ export const modelOptionWattageMap = {
   "sma01": [
     {
       "model": "SMA01L-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SMA01L-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SMA01M-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SMA01M-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SMA01N-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "26.4"
     },
     {
       "model": "SMA01N-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "26.4"
     }
   ],
   "smu01": [
     {
       "model": "SMU01L-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SMU01L-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SMU01M-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SMU01M-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SMU01N-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "26.4"
     },
     {
       "model": "SMU01N-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "26.4"
     }
   ],
   "smu01-n": [
@@ -12332,39 +14715,48 @@ export const modelOptionWattageMap = {
   "smu02": [
     {
       "model": "SMU02L-05",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SMU02L-12",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SMU02L-15",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SMU02M-05",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SMU02M-12",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SMU02M-15",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SMU02N-05",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "26.4"
     },
     {
       "model": "SMU02N-12",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "26.4"
     },
     {
       "model": "SMU02N-15",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "26.4"
     }
   ],
   "smu02-n": [
@@ -12376,7 +14768,8 @@ export const modelOptionWattageMap = {
   "spa01": [
     {
       "model": "SPA01A-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5"
     },
     {
       "model": "SPA01A-12",
@@ -12388,7 +14781,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SPA01B-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "12"
     },
     {
       "model": "SPA01B-12",
@@ -12400,7 +14794,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "SPA01C-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "15"
     },
     {
       "model": "SPA01C-12",
@@ -12414,55 +14809,64 @@ export const modelOptionWattageMap = {
   "spa01w8": [
     {
       "model": "SPA01W8-DPA01W8",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "12"
     }
   ],
   "span02": [
     {
       "model": "SPAN02-DPAN02",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "3.3"
     }
   ],
   "span02w8": [
     {
       "model": "SPAN02W8-DPAN02W8",
-      "watt": 2
+      "watt": 2,
+      "dcVoltage": "12"
     }
   ],
   "spb09": [
     {
       "model": "SPB09-DPB09",
-      "watt": 9
+      "watt": 9,
+      "dcVoltage": "3.3"
     }
   ],
   "spb09w8": [
     {
       "model": "SPB09W8-DPB09W8",
-      "watt": 9
+      "watt": 9,
+      "dcVoltage": "12"
     }
   ],
   "spbw03": [
     {
       "model": "SPBW03-DPBW03",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "3.3"
     }
   ],
   "spbw03w8": [
     {
       "model": "SPBW03W8-DPBW03W8",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "12"
     }
   ],
   "spbw06": [
     {
       "model": "SPBW06-DPBW06",
-      "watt": 6
+      "watt": 6,
+      "dcVoltage": "3.3"
     }
   ],
   "spbw06w8": [
     {
       "model": "SPBW06W8-DPBW06W8",
-      "watt": 6
+      "watt": 6,
+      "dcVoltage": "12"
     }
   ],
   "spd-10s-277s": [
@@ -12474,21 +14878,25 @@ export const modelOptionWattageMap = {
   "spd-20": [
     {
       "model": "SPD-20-240P",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "1500"
     },
     {
       "model": "SPD-20-277P",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "1500"
     }
   ],
   "spd-20hp": [
     {
       "model": "SPD-20HP-277S",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "810"
     },
     {
       "model": "SPD-20HP-480S",
-      "watt": 20
+      "watt": 20,
+      "dcVoltage": "1400"
     }
   ],
   "spol-01": [
@@ -12506,187 +14914,227 @@ export const modelOptionWattageMap = {
   "sprn01": [
     {
       "model": "SPRN01-DPRN01",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5"
     }
   ],
   "spu01": [
     {
       "model": "SPU01-DPU01",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5"
     }
   ],
   "spu03": [
     {
       "model": "SPU03L-05",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SPU03L-12",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SPU03L-15",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SPU03M-05",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SPU03M-12",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SPU03M-15",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SPU03N-05",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "26.4"
     },
     {
       "model": "SPU03N-12",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "26.4"
     },
     {
       "model": "SPU03N-15",
-      "watt": 3
+      "watt": 3,
+      "dcVoltage": "26.4"
     }
   ],
   "spv-150": [
     {
       "model": "SPV-150-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "SPV-150-24",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "48"
     },
     {
       "model": "SPV-150-48",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "24"
     }
   ],
   "spv-300": [
     {
       "model": "SPV-300-12",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "12"
     },
     {
       "model": "SPV-300-24",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "24"
     },
     {
       "model": "SPV-300-48",
-      "watt": 300
+      "watt": 300,
+      "dcVoltage": "48"
     }
   ],
   "spwm-75": [
     {
       "model": "SPWM-75-12",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "12"
     },
     {
       "model": "SPWM-75-24",
-      "watt": 75
+      "watt": 75,
+      "dcVoltage": "24"
     }
   ],
   "spwm-150": [
     {
       "model": "SPWM-150-12",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "12"
     },
     {
       "model": "SPWM-150-24",
-      "watt": 150
+      "watt": 150,
+      "dcVoltage": "24"
     }
   ],
   "spwm-240": [
     {
       "model": "SPWM-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "SPWM-240-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     }
   ],
   "sus01": [
     {
       "model": "SUS01L-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SUS01L-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "5.5"
     },
     {
       "model": "SUS01M-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SUS01M-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "13.2"
     },
     {
       "model": "SUS01N-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "26.4"
     },
     {
       "model": "SUS01N-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "26.4"
     },
     {
       "model": "SUS01O-05",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "52.8"
     },
     {
       "model": "SUS01O-09",
-      "watt": 1
+      "watt": 1,
+      "dcVoltage": "52.8"
     }
   ],
   "tdr-240": [
     {
       "model": "TDR-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "TDR-240-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     }
   ],
   "tdr-480": [
     {
       "model": "TDR-480-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "TDR-480-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     }
   ],
   "tdr-960": [
     {
       "model": "TDR-960-24",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "24"
     },
     {
       "model": "TDR-960-48",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "48"
     }
   ],
   "tka30": [
     {
       "model": "TKA30A-B",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "TKA30A-C",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "15"
     },
     {
       "model": "TKA30B-B",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "TKA30B-C",
@@ -12694,7 +15142,8 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "TKA30C-B",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "5"
     },
     {
       "model": "TKA30C-C",
@@ -12704,19 +15153,23 @@ export const modelOptionWattageMap = {
   "tn-1500": [
     {
       "model": "TN-1500-112",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "24"
     },
     {
       "model": "TN-1500-124",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "48"
     },
     {
       "model": "TN-1500-148",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "24"
     },
     {
       "model": "TN-1500-212",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "48"
     },
     {
       "model": "TN-1500-224",
@@ -12730,27 +15183,33 @@ export const modelOptionWattageMap = {
   "tn-3000": [
     {
       "model": "TN-3000-112",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "10.5"
     },
     {
       "model": "TN-3000-124",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "21"
     },
     {
       "model": "TN-3000-148",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "42"
     },
     {
       "model": "TN-3000-212",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "10.5"
     },
     {
       "model": "TN-3000-224",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "21"
     },
     {
       "model": "TN-3000-248",
-      "watt": 3000
+      "watt": 3000,
+      "dcVoltage": "42"
     }
   ],
   "uhp-200(r)": [
@@ -12768,15 +15227,18 @@ export const modelOptionWattageMap = {
   "uhp-200a": [
     {
       "model": "UHP-200A-4.2",
-      "watt": 168
+      "watt": 168,
+      "dcVoltage": "4.2"
     },
     {
       "model": "UHP-200A-4.5",
-      "watt": 180
+      "watt": 180,
+      "dcVoltage": "4.5"
     },
     {
       "model": "UHP-200A-5",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "5"
     }
   ],
   "uhp-350(r)": [
@@ -12806,21 +15268,25 @@ export const modelOptionWattageMap = {
   "uhp-750": [
     {
       "model": "UHP-750-36",
-      "watt": 752.4
+      "watt": 752.4,
+      "dcVoltage": "36"
     },
     {
       "model": "UHP-750-48",
-      "watt": 753.6
+      "watt": 753.6,
+      "dcVoltage": "48"
     }
   ],
   "uhp-1000": [
     {
       "model": "UHP-1000-12",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "36"
     },
     {
       "model": "UHP-1000-24",
-      "watt": 1008
+      "watt": 1008,
+      "dcVoltage": "48"
     },
     {
       "model": "UHP-1000-36",
@@ -12834,19 +15300,23 @@ export const modelOptionWattageMap = {
   "uhp-1500": [
     {
       "model": "UHP-1500-24",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "24"
     },
     {
       "model": "UHP-1500-48",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "48"
     },
     {
       "model": "UHP-1500-115",
-      "watt": 1500.75
+      "watt": 1500.75,
+      "dcVoltage": "115"
     },
     {
       "model": "UHP-1500-230",
-      "watt": 1500
+      "watt": 1500,
+      "dcVoltage": "230"
     },
     {
       "model": "UHP-1500-380",
@@ -12862,11 +15332,13 @@ export const modelOptionWattageMap = {
   "uhp-2500": [
     {
       "model": "UHP-2500-24",
-      "watt": 2500
+      "watt": 2500,
+      "dcVoltage": "36"
     },
     {
       "model": "UHP-2500-36",
-      "watt": 2500
+      "watt": 2500,
+      "dcVoltage": "48"
     },
     {
       "model": "UHP-2500-48",
@@ -12876,11 +15348,13 @@ export const modelOptionWattageMap = {
   "ump-400": [
     {
       "model": "UMP-400-24",
-      "watt": 400
+      "watt": 400,
+      "dcVoltage": "24"
     },
     {
       "model": "UMP-400-48",
-      "watt": 400
+      "watt": 400,
+      "dcVoltage": "48"
     }
   ],
   "vfd-150p-48": [
@@ -12892,7 +15366,8 @@ export const modelOptionWattageMap = {
   "vfd-200c-230": [
     {
       "model": "VFD-200C-230-380VMAX",
-      "watt": 200
+      "watt": 200,
+      "dcVoltage": "68"
     }
   ],
   "vfd-250p-48": [
@@ -12904,13 +15379,15 @@ export const modelOptionWattageMap = {
   "vfd-250p-230": [
     {
       "model": "VFD-250P-230-380VMAX",
-      "watt": 250
+      "watt": 250,
+      "dcVoltage": "68"
     }
   ],
   "vfd-350c-230": [
     {
       "model": "VFD-350C-230-380VMAX",
-      "watt": 350
+      "watt": 350,
+      "dcVoltage": "68"
     }
   ],
   "vfd-350p-48": [
@@ -12922,71 +15399,84 @@ export const modelOptionWattageMap = {
   "vfd-350p-230": [
     {
       "model": "VFD-350P-230-380VMAX",
-      "watt": 350
+      "watt": 350,
+      "dcVoltage": "68"
     }
   ],
   "vfd-750c-230": [
     {
       "model": "VFD-750C-230-380VMAX",
-      "watt": 750
+      "watt": 750,
+      "dcVoltage": "68"
     }
   ],
   "wdr-60": [
     {
       "model": "WDR-60-24",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     }
   ],
   "wdr-120": [
     {
       "model": "WDR-120-12",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "12"
     },
     {
       "model": "WDR-120-24",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "24"
     },
     {
       "model": "WDR-120-48",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "48"
     }
   ],
   "wdr-240": [
     {
       "model": "WDR-240-24",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "24"
     },
     {
       "model": "WDR-240-48",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "48"
     }
   ],
   "wdr-480": [
     {
       "model": "WDR-480-24",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "24"
     },
     {
       "model": "WDR-480-48",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "48"
     }
   ],
   "xbg-100": [
     {
       "model": "XBG-100-2100MA",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "56"
     }
   ],
   "xbg-160": [
     {
       "model": "XBG-160-3300MA",
-      "watt": 160
+      "watt": 160,
+      "dcVoltage": "56"
     }
   ],
   "xbg-240": [
     {
       "model": "XBG-240-4900MA",
-      "watt": 240
+      "watt": 240,
+      "dcVoltage": "60"
     }
   ],
   "xdr-75": [
@@ -13010,37 +15500,45 @@ export const modelOptionWattageMap = {
   "xdr-120e": [
     {
       "model": "XDR-120E-5",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "5"
     },
     {
       "model": "XDR-120E-9",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "9"
     },
     {
       "model": "XDR-120E-42",
-      "watt": 119.88
+      "watt": 119.88,
+      "dcVoltage": "42"
     },
     {
       "model": "XDR-120E-55",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "55"
     }
   ],
   "xdr-150e": [
     {
       "model": "XDR-150E-5",
-      "watt": 120
+      "watt": 120,
+      "dcVoltage": "5"
     },
     {
       "model": "XDR-150E-9",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "9"
     },
     {
       "model": "XDR-150E-42",
-      "watt": 56
+      "watt": 56,
+      "dcVoltage": "42"
     },
     {
       "model": "XDR-150E-55",
-      "watt": 8
+      "watt": 8,
+      "dcVoltage": "55"
     }
   ],
   "xdr-240": [
@@ -13064,19 +15562,23 @@ export const modelOptionWattageMap = {
   "xdr-480e": [
     {
       "model": "XDR-480E-5",
-      "watt": 360
+      "watt": 360,
+      "dcVoltage": "5"
     },
     {
       "model": "XDR-480E-9",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "9"
     },
     {
       "model": "XDR-480E-42",
-      "watt": 478.8
+      "watt": 478.8,
+      "dcVoltage": "42"
     },
     {
       "model": "XDR-480E-55",
-      "watt": 480
+      "watt": 480,
+      "dcVoltage": "55"
     }
   ],
   "xdr-960": [
@@ -13088,25 +15590,30 @@ export const modelOptionWattageMap = {
   "xdr-960e": [
     {
       "model": "XDR-960E-9",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "9"
     },
     {
       "model": "XDR-960E-42",
-      "watt": 6
+      "watt": 6,
+      "dcVoltage": "42"
     },
     {
       "model": "XDR-960E-55",
-      "watt": 960
+      "watt": 960,
+      "dcVoltage": "55"
     }
   ],
   "xlc-25": [
     {
       "model": "XLC-25-H-KN",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "60"
     },
     {
       "model": "XLC-25-H-MA",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "60"
     }
   ],
   "xlc-25-kn": [
@@ -13124,11 +15631,13 @@ export const modelOptionWattageMap = {
   "xlc-40": [
     {
       "model": "XLC-40-H-KN",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "60"
     },
     {
       "model": "XLC-40-H-MA",
-      "watt": 40
+      "watt": 40,
+      "dcVoltage": "60"
     }
   ],
   "xlc-40-kn": [
@@ -13146,19 +15655,23 @@ export const modelOptionWattageMap = {
   "xlc-60": [
     {
       "model": "XLC-60-24-MA",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "12"
     },
     {
       "model": "XLC-60-48-MA",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "24"
     },
     {
       "model": "XLC-60-H-KN",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "60"
     },
     {
       "model": "XLC-60-H-KN-NOTE2",
-      "watt": 60
+      "watt": 60,
+      "dcVoltage": "60"
     }
   ],
   "xlc-60-kn": [
@@ -13188,7 +15701,8 @@ export const modelOptionWattageMap = {
   "xlg-50": [
     {
       "model": "XLG-50-L-DA2",
-      "watt": 50
+      "watt": 50,
+      "dcVoltage": "60"
     }
   ],
   "xlg-50-da2": [
@@ -13200,7 +15714,8 @@ export const modelOptionWattageMap = {
   "xlg-75": [
     {
       "model": "XLG-75-H-DA2",
-      "watt": 75.6
+      "watt": 75.6,
+      "dcVoltage": "60"
     }
   ],
   "xlg-75-da2": [
@@ -13212,7 +15727,8 @@ export const modelOptionWattageMap = {
   "xlg-100": [
     {
       "model": "XLG-100-L-DA2",
-      "watt": 100
+      "watt": 100,
+      "dcVoltage": "60"
     }
   ],
   "xlg-100-da2": [
@@ -13284,21 +15800,25 @@ export const modelOptionWattageMap = {
   "xln-25": [
     {
       "model": "XLN-25-12",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "12"
     },
     {
       "model": "XLN-25-24",
-      "watt": 25
+      "watt": 25,
+      "dcVoltage": "24"
     }
   ],
   "xln-40": [
     {
       "model": "XLN-40-12",
-      "watt": 40.8
+      "watt": 40.8,
+      "dcVoltage": "12"
     },
     {
       "model": "XLN-40-24",
-      "watt": 40.8
+      "watt": 40.8,
+      "dcVoltage": "24"
     }
   ],
   "xln-60": [

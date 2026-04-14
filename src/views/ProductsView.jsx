@@ -42,13 +42,6 @@ function hasPdfAsset(asset) {
   return String(asset?.pdfUrl ?? '').trim().length > 0
 }
 
-function formatWatt(value) {
-  const number = Number(value)
-  if (!Number.isFinite(number)) return '-'
-  const rounded = Math.round(number * 1000) / 1000
-  return String(rounded)
-}
-
 function findModelOptionKey(modelName = '') {
   let key = normalizeLabel(modelName)
   if (!key) return ''
@@ -1049,9 +1042,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
                       {selectedModelOptions.map((option) => (
                         <div key={option.model} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                          <p className="m-0 text-[13px] font-semibold text-slate-900">{option.model}</p>
-                          <p className="mt-1 text-[12px] text-slate-600">
-                            <strong>W:</strong> {formatWatt(option.watt)}W
+                          <p className="m-0 text-[13px] font-semibold text-slate-900">
+                            {option.model}
+                            {String(option?.dcVoltage ?? '').trim() ? ` (${String(option.dcVoltage).trim()}VDC)` : ''}
                           </p>
                         </div>
                       ))}

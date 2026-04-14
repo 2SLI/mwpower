@@ -389,6 +389,17 @@ function getPowerPositionsFromRowItems(rowItems) {
   return output
 }
 
+function getVoltagePositionsFromRowItems(rowItems) {
+  const output = []
+  for (const item of rowItems) {
+    const values = extractVoltageValues(item.str)
+    for (const value of values) {
+      output.push({ x: item.x, dcVoltage: value })
+    }
+  }
+  return output
+}
+
 function mapModelsToPower(models, powers, modelRow, powerRow) {
   if (!models.length || !powers.length) return []
   if (models.length === powers.length) {
@@ -430,6 +441,47 @@ function mapModelsToPower(models, powers, modelRow, powerRow) {
   return models.slice(0, min).map((model, i) => ({ model, watt: powers[i], method: 'ordered-truncated' }))
 }
 
+function mapModelsToVoltage(models, voltages, modelRow, voltageRow) {
+  if (!models.length || !voltages.length) return []
+  if (models.length === voltages.length) {
+    return models.map((model, i) => ({ model, dcVoltage: voltages[i], method: 'ordered' }))
+  }
+  if (voltages.length === 1) {
+    return models.map((model) => ({ model, dcVoltage: voltages[0], method: 'single-voltage-for-all' }))
+  }
+  if (models.length === 1) {
+    return [{ model: models[0], dcVoltage: voltages[0], method: 'single-model-first-voltage' }]
+  }
+
+  if (modelRow && voltageRow) {
+    const modelPositions = getPositionsFromRowItems(modelRow.items, models)
+    const voltagePositions = getVoltagePositionsFromRowItems(voltageRow.items)
+    if (modelPositions.length && voltagePositions.length) {
+      const used = new Set()
+      const mapped = []
+      for (const mp of modelPositions) {
+        let best = null
+        for (let i = 0; i < voltagePositions.length; i += 1) {
+          if (used.has(i)) continue
+          const vp = voltagePositions[i]
+          const distance = Math.abs(mp.x - vp.x)
+          if (!best || distance < best.distance) {
+            best = { idx: i, dcVoltage: vp.dcVoltage, distance }
+          }
+        }
+        if (best) {
+          used.add(best.idx)
+          mapped.push({ model: mp.model, dcVoltage: best.dcVoltage, method: 'x-position' })
+        }
+      }
+      if (mapped.length) return mapped
+    }
+  }
+
+  const min = Math.min(models.length, voltages.length)
+  return models.slice(0, min).map((model, i) => ({ model, dcVoltage: voltages[i], method: 'ordered-truncated' }))
+}
+
 function deriveFallbackPowerFromFilename(fileNameBase) {
   const normalized = safeUpper(fileNameBase).replace(/-SPEC$/i, '')
   const match = normalized.match(/-(\d+(?:\.\d+)?)(?:[A-Z].*)?$/)
@@ -440,15 +492,25 @@ function deriveFallbackPowerFromFilename(fileNameBase) {
 }
 
 function dedupeModelRows(rows) {
-  const seen = new Set()
-  const output = []
+  const byKey = new Map()
   for (const row of rows) {
     const key = `${row.pdf}|${row.model}`
-    if (seen.has(key)) continue
-    seen.add(key)
-    output.push(row)
+    const prev = byKey.get(key)
+    if (!prev) {
+      byKey.set(key, { ...row })
+      continue
+    }
+
+    if (
+      (prev.dcVoltage === '' || prev.dcVoltage === undefined || prev.dcVoltage === null) &&
+      row.dcVoltage !== '' &&
+      row.dcVoltage !== undefined &&
+      row.dcVoltage !== null
+    ) {
+      prev.dcVoltage = row.dcVoltage
+    }
   }
-  return output
+  return [...byKey.values()]
 }
 
 async function listPdfFiles(dir) {
@@ -564,15 +626,28 @@ async function extractForPdf(filePath) {
       reason: 'No mappable model/power pairs',
       modelCount: extractedModels.length,
       powerCount: extractedPowers.length,
+      voltageCount: extractedVoltages.length,
       sampleModelRow: modelSelection?.row?.text ?? '',
       samplePowerRow: powerSelection?.row?.text ?? '',
+      sampleVoltageRow: voltageSelection?.row?.text ?? '',
     }
   }
+
+  const mappedVoltages = mapModelsToVoltage(extractedModels, extractedVoltages, modelSelection?.row, voltageSelection?.row)
+  const voltageByModel = new Map()
+  mappedVoltages.forEach((item) => {
+    const key = String(item?.model ?? '').trim()
+    if (!key || voltageByModel.has(key)) return
+    const dcVoltage = String(item?.dcVoltage ?? '').trim()
+    if (!dcVoltage) return
+    voltageByModel.set(key, dcVoltage)
+  })
 
   const rowsOut = mapped.map((item) => ({
     pdf: fileName,
     model: item.model,
     watt: item.watt,
+    dcVoltage: voltageByModel.get(item.model) ?? '',
     method: item.method,
   }))
 
@@ -580,9 +655,10 @@ async function extractForPdf(filePath) {
     ok: true,
     fileName,
     rows: rowsOut,
-    modelCount: extractedModels.length,
-    powerCount: extractedPowers.length,
-  }
+      modelCount: extractedModels.length,
+      powerCount: extractedPowers.length,
+      voltageCount: extractedVoltages.length,
+    }
 }
 
 async function main() {
@@ -608,8 +684,10 @@ async function main() {
           reason: result.reason,
           modelCount: result.modelCount,
           powerCount: result.powerCount,
+          voltageCount: result.voltageCount,
           sampleModelRow: result.sampleModelRow,
           samplePowerRow: result.samplePowerRow,
+          sampleVoltageRow: result.sampleVoltageRow,
         })
         console.log(`${progress} FAIL ${result.fileName} -> ${result.reason}`)
       }
@@ -619,8 +697,10 @@ async function main() {
         reason: error?.message ?? String(error),
         modelCount: 0,
         powerCount: 0,
+        voltageCount: 0,
         sampleModelRow: '',
         samplePowerRow: '',
+        sampleVoltageRow: '',
       })
       console.log(`${progress} ERROR ${path.basename(relativePath)} -> ${error?.message ?? String(error)}`)
     }
@@ -632,19 +712,23 @@ async function main() {
       return a.pdf.localeCompare(b.pdf)
     })
 
-  const outputRows = [['PDF', 'Model', 'Watt(W)', 'Method']]
-  deduped.forEach((item) => outputRows.push([item.pdf, item.model, item.watt, item.method]))
+  const outputRows = [['PDF', 'Model', 'Watt(W)', 'DC Voltage(V)', 'Method']]
+  deduped.forEach((item) => outputRows.push([item.pdf, item.model, item.watt, item.dcVoltage ?? '', item.method]))
   await fs.writeFile(OUT_CSV, toCsv(outputRows), 'utf8')
 
-  const unresolvedRows = [['PDF', 'Reason', 'DetectedModels', 'DetectedPowers', 'ModelRowSample', 'PowerRowSample']]
+  const unresolvedRows = [
+    ['PDF', 'Reason', 'DetectedModels', 'DetectedPowers', 'DetectedVoltages', 'ModelRowSample', 'PowerRowSample', 'VoltageRowSample'],
+  ]
   unresolved.forEach((item) => {
     unresolvedRows.push([
       item.pdf,
       item.reason,
       item.modelCount,
       item.powerCount,
+      item.voltageCount,
       item.sampleModelRow,
       item.samplePowerRow,
+      item.sampleVoltageRow,
     ])
   })
   await fs.writeFile(OUT_UNRESOLVED_CSV, toCsv(unresolvedRows), 'utf8')
