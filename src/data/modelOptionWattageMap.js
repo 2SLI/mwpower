@@ -244,44 +244,80 @@ export const modelOptionWattageMap = {
     {
       "model": "BIC-5K-24",
       "watt": 4992,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "MOD",
+        "MODBUS"
+      ]
     },
     {
       "model": "BIC-5K-48",
       "watt": 4992,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "MOD",
+        "MODBUS"
+      ]
     },
     {
       "model": "BIC-5K-96",
       "watt": 4992,
-      "dcVoltage": "96"
+      "dcVoltage": "96",
+      "additionalOptions": [
+        "Blank",
+        "MOD",
+        "MODBUS"
+      ]
     },
     {
       "model": "BIC-5K-380",
       "watt": 5025,
-      "dcVoltage": "380"
+      "dcVoltage": "380",
+      "additionalOptions": [
+        "Blank",
+        "MOD",
+        "MODBUS"
+      ]
     }
   ],
   "bic-2200": [
     {
       "model": "BIC-2200-12",
       "watt": 2160,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "BIC-2200-24",
       "watt": 2160,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "BIC-2200-48",
       "watt": 2160,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "BIC-2200-96",
       "watt": 2160,
-      "dcVoltage": "96"
+      "dcVoltage": "96",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "cmu2": [
@@ -316,24 +352,40 @@ export const modelOptionWattageMap = {
     {
       "model": "DBR-3200-24",
       "watt": 3200,
-      "dcVoltage": "28.8"
+      "dcVoltage": "28.8",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "DBR-3200-48",
       "watt": 3200,
-      "dcVoltage": "57.6"
+      "dcVoltage": "57.6",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "dbu-3200": [
     {
       "model": "DBU-3200-24",
       "watt": 3200,
-      "dcVoltage": "28.8"
+      "dcVoltage": "28.8",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "DBU-3200-48",
       "watt": 3200,
-      "dcVoltage": "57.6"
+      "dcVoltage": "57.6",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "dbuf20": [
@@ -1034,12 +1086,22 @@ export const modelOptionWattageMap = {
     {
       "model": "DPU-3200-24",
       "watt": 3192,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "CAN",
+        "PM"
+      ]
     },
     {
       "model": "DPU-3200-48",
       "watt": 3216,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "CAN",
+        "PM"
+      ]
     }
   ],
   "dpu01": [
@@ -1136,12 +1198,20 @@ export const modelOptionWattageMap = {
     {
       "model": "DRP-3200-24",
       "watt": 3192,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "DRP-3200-48",
       "watt": 3216,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "drs-240": [
@@ -1237,22 +1307,58 @@ export const modelOptionWattageMap = {
     {
       "model": "ELG-75-42",
       "watt": 75.6,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-75-48",
       "watt": 75.6,
-      "dcVoltage": "36"
+      "dcVoltage": "36",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-75-C350",
       "watt": 0.5,
-      "dcVoltage": "107"
+      "dcVoltage": "107",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-75-C350-700MA",
       "watt": 0.5,
-      "dcVoltage": "71"
+      "dcVoltage": "71",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     }
   ],
   "elg-75-c": [
@@ -1265,27 +1371,72 @@ export const modelOptionWattageMap = {
     {
       "model": "ELG-100-24",
       "watt": 96,
-      "dcVoltage": "42"
+      "dcVoltage": "42",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-100-36",
       "watt": 95.76,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-100-42",
       "watt": 95.76,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-100-C700",
       "watt": 0.5,
-      "dcVoltage": "143"
+      "dcVoltage": "143",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-100-C1050",
       "watt": 0.5,
-      "dcVoltage": "95"
+      "dcVoltage": "95",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     }
   ],
   "elg-100-c": [
@@ -1312,12 +1463,30 @@ export const modelOptionWattageMap = {
     {
       "model": "ELG-150-C1050",
       "watt": 105,
-      "dcVoltage": "315"
+      "dcVoltage": "315",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-150-C1400",
       "watt": 105,
-      "dcVoltage": "225"
+      "dcVoltage": "225",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     }
   ],
   "elg-150-c": [
@@ -1336,27 +1505,72 @@ export const modelOptionWattageMap = {
     {
       "model": "ELG-200-12",
       "watt": 144,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-200-24",
       "watt": 149.76,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-200-36",
       "watt": 149.94,
-      "dcVoltage": "36"
+      "dcVoltage": "36",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-200-42",
       "watt": 150.12,
-      "dcVoltage": "42"
+      "dcVoltage": "42",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-200-C700",
       "watt": 0.5,
-      "dcVoltage": "190"
+      "dcVoltage": "190",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     }
   ],
   "elg-200-c": [
@@ -1369,17 +1583,44 @@ export const modelOptionWattageMap = {
     {
       "model": "ELG-240-24",
       "watt": 240,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-240-36",
       "watt": 239.76,
-      "dcVoltage": "36"
+      "dcVoltage": "36",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "ELG-240-42",
       "watt": 239.82,
-      "dcVoltage": "42"
+      "dcVoltage": "42",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D2",
+        "DA",
+        "DX"
+      ]
     }
   ],
   "elg-240-c": [
@@ -1392,7 +1633,10 @@ export const modelOptionWattageMap = {
     {
       "model": "ELG-300-12A",
       "watt": 300,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A"
+      ]
     }
   ],
   "elgc-300": [
@@ -2227,9 +2471,9 @@ export const modelOptionWattageMap = {
   ],
   "gd2": [
     {
-      "model": "GD2-121503",
+      "model": "GD2-SIP7",
       "watt": 2,
-      "dcVoltage": "15"
+      "dcVoltage": "12"
     }
   ],
   "gp25a": [
@@ -3845,12 +4089,20 @@ export const modelOptionWattageMap = {
     {
       "model": "HBG-240P-36",
       "watt": 241.2,
-      "dcVoltage": "36"
+      "dcVoltage": "36",
+      "additionalOptions": [
+        "A",
+        "B"
+      ]
     },
     {
       "model": "HBG-240P-48",
       "watt": 240,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "B"
+      ]
     }
   ],
   "hbgc-300": [
@@ -4179,27 +4431,52 @@ export const modelOptionWattageMap = {
     {
       "model": "HEP-2300-55",
       "watt": 2300,
-      "dcVoltage": "57.6"
+      "dcVoltage": "57.6",
+      "additionalOptions": [
+        "Blank",
+        "PM",
+        "TERMINAL"
+      ]
     },
     {
       "model": "HEP-2300-55-400AH",
       "watt": 2300,
-      "dcVoltage": "57.6"
+      "dcVoltage": "57.6",
+      "additionalOptions": [
+        "Blank",
+        "PM",
+        "TERMINAL"
+      ]
     },
     {
       "model": "HEP-2300-115",
       "watt": 2300,
-      "dcVoltage": "115"
+      "dcVoltage": "115",
+      "additionalOptions": [
+        "Blank",
+        "PM",
+        "TERMINAL"
+      ]
     },
     {
       "model": "HEP-2300-230",
       "watt": 2300,
-      "dcVoltage": "230"
+      "dcVoltage": "230",
+      "additionalOptions": [
+        "Blank",
+        "PM",
+        "TERMINAL"
+      ]
     },
     {
       "model": "HEP-2300-380",
       "watt": 2300,
-      "dcVoltage": "380"
+      "dcVoltage": "380",
+      "additionalOptions": [
+        "Blank",
+        "PM",
+        "TERMINAL"
+      ]
     }
   ],
   "hep-2300-hv": [
@@ -4212,83 +4489,192 @@ export const modelOptionWattageMap = {
     {
       "model": "HLG-40H-12",
       "watt": 39.96,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-40H-15",
       "watt": 40.05,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-40H-20",
       "watt": 40,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-40H-24",
       "watt": 40.08,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-40H-30",
       "watt": 40.2,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-40H-36",
       "watt": 40.32,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-40H-42",
       "watt": 40.5,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     }
   ],
   "hlg-60h": [
     {
       "model": "HLG-60H-15",
       "watt": 60,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-60H-20",
       "watt": 60,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-60H-24",
       "watt": 60,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-60H-30",
       "watt": 60,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-60H-36",
       "watt": 62.4,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-60H-42",
       "watt": 62.1,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-60H-C350",
       "watt": 70,
-      "dcVoltage": "200"
+      "dcVoltage": "200",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-60H-C700",
       "watt": 70,
-      "dcVoltage": "100"
+      "dcVoltage": "100",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-60H-C700-350MA",
-      "watt": 70
+      "watt": 70,
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hlg-60h-c": [
@@ -4301,47 +4687,115 @@ export const modelOptionWattageMap = {
     {
       "model": "HLG-80H-12",
       "watt": 60,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "BL",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-80H-15",
       "watt": 75,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "BL",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-80H-20",
       "watt": 80,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "BL",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-80H-24",
       "watt": 81.6,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "BL",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-80H-30",
       "watt": 81,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "BL",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-80H-36",
       "watt": 81.6,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "BL",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-80H-42",
       "watt": 81,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "BL",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-80H-C350",
       "watt": 89.95,
-      "dcVoltage": "128"
+      "dcVoltage": "128",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-80H-C700",
       "watt": 90.3,
-      "dcVoltage": "257"
+      "dcVoltage": "257",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hlg-80h-c": [
@@ -4354,89 +4808,203 @@ export const modelOptionWattageMap = {
     {
       "model": "HLG-100H-20",
       "watt": 96,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-100H-24",
       "watt": 96,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-100H-30",
       "watt": 96,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-100H-36",
       "watt": 96,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-100H-42",
       "watt": 95.58,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     }
   ],
   "hlg-120h": [
     {
       "model": "HLG-120H-12",
       "watt": 120,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-15",
       "watt": 120,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-20",
       "watt": 120,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-24",
       "watt": 120,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-30",
       "watt": 120,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-48",
       "watt": 120,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-54",
       "watt": 124.2,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-C350",
       "watt": 150.5,
-      "dcVoltage": "430"
+      "dcVoltage": "430",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-C500",
       "watt": 150,
-      "dcVoltage": "150"
+      "dcVoltage": "150",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-C700",
       "watt": 150.5,
-      "dcVoltage": "300"
+      "dcVoltage": "300",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-C1050",
       "watt": 155.4,
-      "dcVoltage": "107"
+      "dcVoltage": "107",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-120H-C1400",
       "watt": 151.2,
-      "dcVoltage": "215"
+      "dcVoltage": "215",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hlg-120h-c": [
@@ -4449,94 +5017,216 @@ export const modelOptionWattageMap = {
     {
       "model": "HLG-150H-12",
       "watt": 150,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-150H-15",
       "watt": 150,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-150H-20",
       "watt": 150,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-150H-24",
       "watt": 151.2,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-150H-30",
       "watt": 150,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-150H-48",
       "watt": 153.6,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-150H-54",
       "watt": 151.2,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     }
   ],
   "hlg-185h": [
     {
       "model": "HLG-185H-12",
       "watt": 156,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-15",
       "watt": 172.5,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-20",
       "watt": 186,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-24",
       "watt": 187.2,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-30",
       "watt": 186,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-48",
       "watt": 187.2,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-54",
       "watt": 186.3,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-C500",
       "watt": 200,
-      "dcVoltage": "200"
+      "dcVoltage": "200",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-C700",
       "watt": 200.2,
-      "dcVoltage": "143"
+      "dcVoltage": "143",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-C1050",
       "watt": 199.5,
-      "dcVoltage": "95"
+      "dcVoltage": "95",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HLG-185H-C1400",
       "watt": 200.2,
-      "dcVoltage": "71"
+      "dcVoltage": "71",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hlg-185h-c": [
@@ -4549,52 +5239,129 @@ export const modelOptionWattageMap = {
     {
       "model": "HLG-240H-12",
       "watt": 192,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-240H-15",
       "watt": 225,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-240H-20",
       "watt": 240,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-240H-24",
       "watt": 240,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-240H-30",
       "watt": 240,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-240H-48",
       "watt": 240,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-240H-54",
       "watt": 240.3,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-240H-C700",
       "watt": 249.9,
-      "dcVoltage": "360"
+      "dcVoltage": "360",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HLG-240H-C1050",
       "watt": 250.25,
-      "dcVoltage": "241"
+      "dcVoltage": "241",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HLG-240H-C1400",
       "watt": 249.9,
-      "dcVoltage": "182"
+      "dcVoltage": "182",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     }
   ],
   "hlg-240h-c": [
@@ -4607,62 +5374,153 @@ export const modelOptionWattageMap = {
     {
       "model": "HLG-320H-12",
       "watt": 264,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-320H-15",
       "watt": 285,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-320H-20",
       "watt": 300,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-320H-24",
       "watt": 320.16,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-320H-30",
       "watt": 321,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-320H-48",
       "watt": 321.6,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-320H-54",
       "watt": 321.3,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "C",
+        "D"
+      ]
     },
     {
       "model": "HLG-320H-C700",
       "watt": 299.6,
-      "dcVoltage": "435"
+      "dcVoltage": "435",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "HLG-320H-C1050",
       "watt": 320.25,
-      "dcVoltage": "187"
+      "dcVoltage": "187",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "HLG-320H-C1400",
       "watt": 319.2,
-      "dcVoltage": "156"
+      "dcVoltage": "156",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "HLG-320H-C1750",
       "watt": 319.2,
-      "dcVoltage": "118"
+      "dcVoltage": "118",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "HLG-320H-C2100",
       "watt": 318.5,
-      "dcVoltage": "95"
+      "dcVoltage": "95",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DA",
+        "DX"
+      ]
     }
   ],
   "hlg-320h-c": [
@@ -4675,57 +5533,135 @@ export const modelOptionWattageMap = {
     {
       "model": "HLG-480H-24",
       "watt": 480,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "DX",
+        "D2"
+      ]
     },
     {
       "model": "HLG-480H-30",
       "watt": 480,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "DX",
+        "D2"
+      ]
     },
     {
       "model": "HLG-480H-36",
       "watt": 478.8,
-      "dcVoltage": "36"
+      "dcVoltage": "36",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "DX",
+        "D2"
+      ]
     },
     {
       "model": "HLG-480H-42",
       "watt": 478.8,
-      "dcVoltage": "42"
+      "dcVoltage": "42",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "DX",
+        "D2"
+      ]
     },
     {
       "model": "HLG-480H-48",
       "watt": 480,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "DX",
+        "D2"
+      ]
     },
     {
       "model": "HLG-480H-54",
       "watt": 480.6,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank",
+        "DX",
+        "D2"
+      ]
     },
     {
       "model": "HLG-480H-C1400",
       "watt": 480,
-      "dcVoltage": "420"
+      "dcVoltage": "420",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     },
     {
       "model": "HLG-480H-C1750",
       "watt": 480,
-      "dcVoltage": "340"
+      "dcVoltage": "340",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     },
     {
       "model": "HLG-480H-C2100",
       "watt": 481,
-      "dcVoltage": "280"
+      "dcVoltage": "280",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     },
     {
       "model": "HLG-480H-C2800",
       "watt": 479,
-      "dcVoltage": "210"
+      "dcVoltage": "210",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     },
     {
       "model": "HLG-480H-C3500",
       "watt": 480,
-      "dcVoltage": "170"
+      "dcVoltage": "170",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     }
   ],
   "hlg-480h-c": [
@@ -4738,37 +5674,79 @@ export const modelOptionWattageMap = {
     {
       "model": "HLG-600H-12",
       "watt": 480,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank"
+      ]
     },
     {
       "model": "HLG-600H-15",
       "watt": 540,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank"
+      ]
     },
     {
       "model": "HLG-600H-20",
       "watt": 560,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank"
+      ]
     },
     {
       "model": "HLG-600H-24",
       "watt": 600,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank"
+      ]
     },
     {
       "model": "HLG-600H-30",
       "watt": 600,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank"
+      ]
     },
     {
       "model": "HLG-600H-48",
       "watt": 600,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank"
+      ]
     },
     {
       "model": "HLG-600H-54",
       "watt": 604.8,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "Blank"
+      ]
     }
   ],
   "hln-40h": [
@@ -5578,293 +6556,645 @@ export const modelOptionWattageMap = {
     {
       "model": "HVG-65-12",
       "watt": 60,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-65-15",
       "watt": 64.5,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-65-20",
       "watt": 65,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-65-24",
       "watt": 65,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-65-30",
       "watt": 65.1,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-65-36",
       "watt": 65.3,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-65-42",
       "watt": 65.3,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hvg-100": [
     {
       "model": "HVG-100-15",
       "watt": 75,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-100-20",
       "watt": 96,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-100-24",
       "watt": 96,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-100-30",
       "watt": 96,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-100-36",
       "watt": 96,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-100-42",
       "watt": 95.58,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hvg-150": [
     {
       "model": "HVG-150-12",
       "watt": 120,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-150-15",
       "watt": 150,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-150-20",
       "watt": 150,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-150-24",
       "watt": 150,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-150-30",
       "watt": 150,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-150-36",
       "watt": 150.24,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVG-150-42",
       "watt": 150.12,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hvg-240": [
     {
       "model": "HVG-240-24",
       "watt": 240,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVG-240-30",
       "watt": 240,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVG-240-36",
       "watt": 240,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVG-240-42",
       "watt": 243,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     }
   ],
   "hvg-320": [
     {
       "model": "HVG-320-24",
       "watt": 321.6,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVG-320-30",
       "watt": 321,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVG-320-36",
       "watt": 321.6,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVG-320-42",
       "watt": 324,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     }
   ],
   "hvg-480": [
     {
       "model": "HVG-480-24",
       "watt": 480,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     },
     {
       "model": "HVG-480-30",
       "watt": 480,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     },
     {
       "model": "HVG-480-36",
       "watt": 480,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     },
     {
       "model": "HVG-480-42",
       "watt": 480.6,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "DX"
+      ]
     }
   ],
   "hvgc-65": [
     {
       "model": "HVGC-65-350",
       "watt": 65.1,
-      "dcVoltage": "150"
+      "dcVoltage": "150",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVGC-65-500",
       "watt": 65,
-      "dcVoltage": "107"
+      "dcVoltage": "107",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVGC-65-700",
       "watt": 65.1,
-      "dcVoltage": "72"
+      "dcVoltage": "72",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVGC-65-1050",
-      "watt": 65.1
+      "watt": 65.1,
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hvgc-150": [
     {
       "model": "HVGC-150-350",
       "watt": 149.8,
-      "dcVoltage": "346"
+      "dcVoltage": "346",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVGC-150-500",
       "watt": 150,
-      "dcVoltage": "247"
+      "dcVoltage": "247",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVGC-150-700",
       "watt": 150.5,
-      "dcVoltage": "165"
+      "dcVoltage": "165",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVGC-150-1050",
       "watt": 150.15,
-      "dcVoltage": "124"
+      "dcVoltage": "124",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     },
     {
       "model": "HVGC-150-1400",
-      "watt": 149.8
+      "watt": 149.8,
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D"
+      ]
     }
   ],
   "hvgc-240": [
     {
       "model": "HVGC-240-700",
       "watt": 240,
-      "dcVoltage": "354"
+      "dcVoltage": "354",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-240-1050",
       "watt": 240,
-      "dcVoltage": "235"
+      "dcVoltage": "235",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-240-1400",
       "watt": 240,
-      "dcVoltage": "176"
+      "dcVoltage": "176",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-240-1750",
       "watt": 240,
-      "dcVoltage": "141"
+      "dcVoltage": "141",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-240-2100",
       "watt": 240,
-      "dcVoltage": "117"
+      "dcVoltage": "117",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-240-2800",
       "watt": 240,
-      "dcVoltage": "88"
+      "dcVoltage": "88",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-240-3500",
       "watt": 240.1,
-      "dcVoltage": "71"
+      "dcVoltage": "71",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     }
   ],
   "hvgc-320": [
     {
       "model": "HVGC-320-700",
       "watt": 300,
-      "dcVoltage": "442"
+      "dcVoltage": "442",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-320-1050",
       "watt": 320,
-      "dcVoltage": "311"
+      "dcVoltage": "311",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-320-1400",
       "watt": 320,
-      "dcVoltage": "234"
+      "dcVoltage": "234",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-320-1750",
       "watt": 320,
-      "dcVoltage": "187"
+      "dcVoltage": "187",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-320-2100",
       "watt": 320,
-      "dcVoltage": "156"
+      "dcVoltage": "156",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-320-2800",
       "watt": 320,
-      "dcVoltage": "118"
+      "dcVoltage": "118",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-320-3500",
       "watt": 320,
-      "dcVoltage": "94"
+      "dcVoltage": "94",
+      "additionalOptions": [
+        "A",
+        "AB",
+        "B",
+        "D2",
+        "DX"
+      ]
     }
   ],
   "hvgc-480": [
@@ -5883,17 +7213,35 @@ export const modelOptionWattageMap = {
     {
       "model": "HVGC-1000A-H-",
       "watt": 1008,
-      "dcVoltage": "190"
+      "dcVoltage": "190",
+      "additionalOptions": [
+        "AB",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-1000A-L-",
       "watt": 1003.2,
-      "dcVoltage": "400"
+      "dcVoltage": "400",
+      "additionalOptions": [
+        "AB",
+        "D2",
+        "DA",
+        "DX"
+      ]
     },
     {
       "model": "HVGC-1000A-M-",
       "watt": 1008,
-      "dcVoltage": "250"
+      "dcVoltage": "250",
+      "additionalOptions": [
+        "AB",
+        "D2",
+        "DA",
+        "DX"
+      ]
     }
   ],
   "icl-16l": [
@@ -6341,7 +7689,10 @@ export const modelOptionWattageMap = {
     {
       "model": "KAA-8R-S-10MA",
       "watt": 8,
-      "dcVoltage": "31"
+      "dcVoltage": "31",
+      "additionalOptions": [
+        "Blank"
+      ]
     }
   ],
   "knx-20e-640": [
@@ -6353,7 +7704,12 @@ export const modelOptionWattageMap = {
   "knx-40e-1280": [
     {
       "model": "KNX-40E-1280",
-      "watt": 1280
+      "watt": 1280,
+      "additionalOptions": [
+        "1280MA",
+        "Blank",
+        "D"
+      ]
     }
   ],
   "ksc-01l": [
@@ -6499,7 +7855,11 @@ export const modelOptionWattageMap = {
     {
       "model": "LCM-40KN-350MA",
       "watt": 40,
-      "dcVoltage": "80"
+      "dcVoltage": "80",
+      "additionalOptions": [
+        "AUX",
+        "Blank"
+      ]
     }
   ],
   "lcm-40tw": [
@@ -6524,7 +7884,11 @@ export const modelOptionWattageMap = {
     {
       "model": "LCM-40UDA-350MA",
       "watt": 35,
-      "dcVoltage": "70"
+      "dcVoltage": "70",
+      "additionalOptions": [
+        "AUX",
+        "Blank"
+      ]
     }
   ],
   "lcm-60(eo)": [
@@ -6549,7 +7913,11 @@ export const modelOptionWattageMap = {
     {
       "model": "LCM-60KN-500MA",
       "watt": 60,
-      "dcVoltage": "90"
+      "dcVoltage": "90",
+      "additionalOptions": [
+        "AUX",
+        "Blank"
+      ]
     }
   ],
   "lcm-60u(eo)": [
@@ -6568,25 +7936,46 @@ export const modelOptionWattageMap = {
     {
       "model": "LCM-60UDA-500MA",
       "watt": 50,
-      "dcVoltage": "84"
+      "dcVoltage": "84",
+      "additionalOptions": [
+        "AUX",
+        "Blank"
+      ]
     }
   ],
   "ldc-35": [
     {
       "model": "LDC-35",
-      "watt": 35
+      "watt": 35,
+      "additionalOptions": [
+        "Blank",
+        "B",
+        "DA"
+      ]
     }
   ],
   "ldc-55": [
     {
       "model": "LDC-55",
-      "watt": 55
+      "watt": 55,
+      "additionalOptions": [
+        "Blank",
+        "B",
+        "DA",
+        "DA2"
+      ]
     }
   ],
   "ldc-80": [
     {
       "model": "LDC-80",
-      "watt": 80
+      "watt": 80,
+      "additionalOptions": [
+        "Blank",
+        "B",
+        "DALI",
+        "DA"
+      ]
     }
   ],
   "ldh-25": [
@@ -6880,32 +8269,56 @@ export const modelOptionWattageMap = {
     {
       "model": "LPF-16-12",
       "watt": 16.05,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "Blank",
+        "P"
+      ]
     },
     {
       "model": "LPF-16-15",
       "watt": 16,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "Blank",
+        "P"
+      ]
     },
     {
       "model": "LPF-16-20",
       "watt": 16.08,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "Blank",
+        "P"
+      ]
     },
     {
       "model": "LPF-16-24",
       "watt": 16.2,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "P"
+      ]
     },
     {
       "model": "LPF-16-30",
       "watt": 16.32,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "Blank",
+        "P"
+      ]
     },
     {
       "model": "LPF-16-36",
       "watt": 16.2,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "P"
+      ]
     }
   ],
   "lpf-16d": [
@@ -7587,14 +9000,8 @@ export const modelOptionWattageMap = {
   ],
   "lpvl-150": [
     {
-      "model": "LPVL-150-12",
-      "watt": 120,
-      "dcVoltage": "15"
-    },
-    {
-      "model": "LPVL-150-12-LPV-150-24",
-      "watt": 120,
-      "dcVoltage": "24"
+      "model": "LPVL-150",
+      "watt": 150
     }
   ],
   "lrs-35": [
@@ -7795,45 +9202,65 @@ export const modelOptionWattageMap = {
   "lrs-450": [
     {
       "model": "LRS-450-5",
-      "watt": 450,
+      "watt": 200,
       "dcVoltage": "5"
     },
     {
       "model": "LRS-450-12",
-      "watt": 450,
+      "watt": 200,
       "dcVoltage": "15"
     },
     {
       "model": "LRS-450-15",
-      "watt": 450
+      "watt": 200
     },
     {
       "model": "LRS-450-24",
-      "watt": 450
+      "watt": 200
     },
     {
       "model": "LRS-450-36",
-      "watt": 450
+      "watt": 200
     },
     {
       "model": "LRS-450-48",
-      "watt": 450
+      "watt": 200
     }
   ],
   "lrs-600": [
     {
       "model": "LRS-600-5",
-      "watt": 600,
+      "watt": 200,
       "dcVoltage": "48"
     },
     {
       "model": "LRS-600-12",
-      "watt": 597.6,
+      "watt": 200,
       "dcVoltage": "48"
     },
     {
       "model": "LRS-600-15",
-      "watt": 600,
+      "watt": 200,
+      "dcVoltage": "48"
+    },
+    {
+      "model": "LRS-600-24",
+      "watt": 200,
+      "dcVoltage": "48"
+    },
+    {
+      "model": "LRS-600-27",
+      "watt": 200,
+      "dcVoltage": "48"
+    },
+    {
+      "model": "LRS-600-36",
+      "watt": 200,
+      "dcVoltage": "48"
+    },
+    {
+      "model": "LRS-600-48",
+      "watt": 200,
       "dcVoltage": "48"
     }
   ],
@@ -7884,21 +9311,45 @@ export const modelOptionWattageMap = {
     {
       "model": "LSP-160-12",
       "watt": 160,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "Blank",
+        "BUILT",
+        "ENCLOSED",
+        "R"
+      ]
     },
     {
       "model": "LSP-160-24",
       "watt": 160,
-      "dcVoltage": "4.2"
+      "dcVoltage": "4.2",
+      "additionalOptions": [
+        "Blank",
+        "BUILT",
+        "ENCLOSED",
+        "R"
+      ]
     },
     {
       "model": "LSP-160-36",
       "watt": 160,
-      "dcVoltage": "3.3"
+      "dcVoltage": "3.3",
+      "additionalOptions": [
+        "Blank",
+        "BUILT",
+        "ENCLOSED",
+        "R"
+      ]
     },
     {
       "model": "LSP-160-48",
-      "watt": 160
+      "watt": 160,
+      "additionalOptions": [
+        "Blank",
+        "BUILT",
+        "ENCLOSED",
+        "R"
+      ]
     }
   ],
   "mdd01-n": [
@@ -8961,12 +10412,20 @@ export const modelOptionWattageMap = {
     {
       "model": "NCP-3200-24",
       "watt": 3192,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "NCP-3200-48",
       "watt": 3216,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "ndr-75": [
@@ -9277,75 +10736,75 @@ export const modelOptionWattageMap = {
   ],
   "npb-450": [
     {
-      "model": "NPB-450-12NFC",
+      "model": "NPB-450-12",
       "watt": 420,
-      "dcVoltage": "13.8"
+      "dcVoltage": "16.8"
     },
     {
-      "model": "NPB-450-24NFC",
+      "model": "NPB-450-24",
       "watt": 453.6,
-      "dcVoltage": "27.6"
+      "dcVoltage": "12"
     },
     {
-      "model": "NPB-450-48NFC",
+      "model": "NPB-450-48",
       "watt": 456.96,
-      "dcVoltage": "55.2"
+      "dcVoltage": "33.6"
     },
     {
-      "model": "NPB-450-72NFC",
+      "model": "NPB-450-72",
       "watt": 462,
-      "dcVoltage": "69"
+      "dcVoltage": "24"
     }
   ],
   "npb-750": [
     {
       "model": "NPB-750-12",
       "watt": 722.4,
-      "dcVoltage": "14.4"
+      "dcVoltage": "16.8"
     },
     {
       "model": "NPB-750-24",
       "watt": 756,
-      "dcVoltage": "28.8"
+      "dcVoltage": "12"
     },
     {
       "model": "NPB-750-48",
       "watt": 759.4,
-      "dcVoltage": "57.6"
+      "dcVoltage": "33.6"
     }
   ],
   "npb-1200": [
     {
       "model": "NPB-1200-12",
       "watt": 1176,
-      "dcVoltage": "14.4"
+      "dcVoltage": "16.8"
     },
     {
       "model": "NPB-1200-24",
       "watt": 1209.6,
-      "dcVoltage": "28.8"
+      "dcVoltage": "12"
     },
     {
       "model": "NPB-1200-48",
       "watt": 1209.6,
-      "dcVoltage": "57.6"
+      "dcVoltage": "33.6"
     }
   ],
   "npb-1700": [
     {
       "model": "NPB-1700-12",
       "watt": 1428,
-      "dcVoltage": "14.4"
+      "dcVoltage": "16.8"
     },
     {
       "model": "NPB-1700-24",
       "watt": 1680,
-      "dcVoltage": "28.8"
+      "dcVoltage": "12"
     },
     {
       "model": "NPB-1700-48",
       "watt": 1680,
-      "dcVoltage": "57.6"
+      "dcVoltage": "33.6"
     }
   ],
   "npf-40": [
@@ -9611,37 +11070,65 @@ export const modelOptionWattageMap = {
     {
       "model": "NPF-120D-12",
       "watt": 120,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "BE",
+        "Blank"
+      ]
     },
     {
       "model": "NPF-120D-15",
       "watt": 120,
-      "dcVoltage": "15"
+      "dcVoltage": "15",
+      "additionalOptions": [
+        "BE",
+        "Blank"
+      ]
     },
     {
       "model": "NPF-120D-20",
       "watt": 120,
-      "dcVoltage": "20"
+      "dcVoltage": "20",
+      "additionalOptions": [
+        "BE",
+        "Blank"
+      ]
     },
     {
       "model": "NPF-120D-24",
       "watt": 120,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "BE",
+        "Blank"
+      ]
     },
     {
       "model": "NPF-120D-30",
       "watt": 120,
-      "dcVoltage": "30"
+      "dcVoltage": "30",
+      "additionalOptions": [
+        "BE",
+        "Blank"
+      ]
     },
     {
       "model": "NPF-120D-36",
       "watt": 120,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "BE",
+        "Blank"
+      ]
     },
     {
       "model": "NPF-120D-42",
       "watt": 124.2,
-      "dcVoltage": "54"
+      "dcVoltage": "54",
+      "additionalOptions": [
+        "BE",
+        "Blank"
+      ]
     }
   ],
   "npf-200": [
@@ -9654,22 +11141,22 @@ export const modelOptionWattageMap = {
     {
       "model": "NPP-450-12",
       "watt": 450,
-      "dcVoltage": "14.4"
+      "dcVoltage": "16.8"
     },
     {
       "model": "NPP-450-24",
       "watt": 450,
-      "dcVoltage": "28.8"
+      "dcVoltage": "12"
     },
     {
       "model": "NPP-450-48",
       "watt": 450,
-      "dcVoltage": "57.6"
+      "dcVoltage": "33.6"
     },
     {
       "model": "NPP-450-72",
       "watt": 450,
-      "dcVoltage": "72"
+      "dcVoltage": "24"
     }
   ],
   "npp-750": [
@@ -10090,15 +11577,30 @@ export const modelOptionWattageMap = {
   "ntn-5k": [
     {
       "model": "NTN-5K-224",
-      "watt": 5000
+      "watt": 5000,
+      "dcVoltage": "0.5",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "NTN-5K-248",
-      "watt": 5000
+      "watt": 5000,
+      "dcVoltage": "1",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "NTN-5K-2380",
-      "watt": 5000
+      "watt": 5000,
+      "dcVoltage": "5",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "nts-250p": [
@@ -10874,27 +12376,47 @@ export const modelOptionWattageMap = {
     {
       "model": "PHP-3500-24",
       "watt": 3500,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "PHP-3500-48",
       "watt": 3500,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "PHP-3500-115",
       "watt": 3500,
-      "dcVoltage": "133"
+      "dcVoltage": "133",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "PHP-3500-230",
       "watt": 3500,
-      "dcVoltage": "115"
+      "dcVoltage": "115",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "PHP-3500-380",
       "watt": 3500,
-      "dcVoltage": "217"
+      "dcVoltage": "217",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "php-3500-hv": [
@@ -11715,17 +13237,29 @@ export const modelOptionWattageMap = {
     {
       "model": "RCB-1600-12",
       "watt": 1440,
-      "dcVoltage": "14.4"
+      "dcVoltage": "14.4",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "RCB-1600-24",
       "watt": 1584,
-      "dcVoltage": "28.8"
+      "dcVoltage": "28.8",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "RCB-1600-48",
       "watt": 1584,
-      "dcVoltage": "57.6"
+      "dcVoltage": "57.6",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "rcp-1u": [
@@ -11755,17 +13289,29 @@ export const modelOptionWattageMap = {
     {
       "model": "RCP-1600-12",
       "watt": 1500,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "RCP-1600-24",
       "watt": 1608,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "RCP-1600-48",
       "watt": 1608,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "rcp-2000": [
@@ -11895,7 +13441,11 @@ export const modelOptionWattageMap = {
     {
       "model": "RHP-1UI-A",
       "watt": 8040,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "rid-50": [
@@ -11968,17 +13518,29 @@ export const modelOptionWattageMap = {
     {
       "model": "RPB-1600-12",
       "watt": 1600,
-      "dcVoltage": "14.4"
+      "dcVoltage": "14.4",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "RPB-1600-24",
       "watt": 1600,
-      "dcVoltage": "28.8"
+      "dcVoltage": "28.8",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     },
     {
       "model": "RPB-1600-48",
       "watt": 1600,
-      "dcVoltage": "57.6"
+      "dcVoltage": "57.6",
+      "additionalOptions": [
+        "Blank",
+        "CAN"
+      ]
     }
   ],
   "rpd-60": [
@@ -13516,27 +15078,52 @@ export const modelOptionWattageMap = {
     {
       "model": "RSP-1600-12",
       "watt": 1500,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "Blank",
+        "CAN",
+        "PM"
+      ]
     },
     {
       "model": "RSP-1600-24",
       "watt": 1608,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "CAN",
+        "PM"
+      ]
     },
     {
       "model": "RSP-1600-27",
       "watt": 1593,
-      "dcVoltage": "27"
+      "dcVoltage": "27",
+      "additionalOptions": [
+        "Blank",
+        "CAN",
+        "PM"
+      ]
     },
     {
       "model": "RSP-1600-36",
       "watt": 1602,
-      "dcVoltage": "36"
+      "dcVoltage": "36",
+      "additionalOptions": [
+        "Blank",
+        "CAN",
+        "PM"
+      ]
     },
     {
       "model": "RSP-1600-48",
       "watt": 1608,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "CAN",
+        "PM"
+      ]
     }
   ],
   "rsp-2000": [
@@ -13732,8 +15319,14 @@ export const modelOptionWattageMap = {
   ],
   "sbtn01": [
     {
-      "model": "SBTN01",
-      "watt": 1
+      "model": "SBTN01K",
+      "watt": 1,
+      "dcVoltage": "3.3"
+    },
+    {
+      "model": "SBTN01L",
+      "watt": 1,
+      "dcVoltage": "5"
     }
   ],
   "sbtn01-n": [
@@ -15010,36 +16603,72 @@ export const modelOptionWattageMap = {
     {
       "model": "SPWM-75-12",
       "watt": 75,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "Blank",
+        "DA2",
+        "DA2Q",
+        "DALI"
+      ]
     },
     {
       "model": "SPWM-75-24",
       "watt": 75,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "DA2",
+        "DA2Q",
+        "DALI"
+      ]
     }
   ],
   "spwm-150": [
     {
       "model": "SPWM-150-12",
       "watt": 150,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "Blank",
+        "DA2",
+        "DA2Q",
+        "DALI"
+      ]
     },
     {
       "model": "SPWM-150-24",
       "watt": 150,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "DA2",
+        "DA2Q",
+        "DALI"
+      ]
     }
   ],
   "spwm-240": [
     {
       "model": "SPWM-240-24",
       "watt": 240,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "DA2",
+        "DA2Q",
+        "DALI"
+      ]
     },
     {
       "model": "SPWM-240-48",
       "watt": 240,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "DA2",
+        "DA2Q",
+        "DALI"
+      ]
     }
   ],
   "sus01": [
@@ -15301,26 +16930,49 @@ export const modelOptionWattageMap = {
     {
       "model": "UHP-1500-24",
       "watt": 1500,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "Blank",
+        "PM"
+      ]
     },
     {
       "model": "UHP-1500-48",
       "watt": 1500,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "PM"
+      ]
     },
     {
       "model": "UHP-1500-115",
       "watt": 1500.75,
-      "dcVoltage": "115"
+      "dcVoltage": "115",
+      "additionalOptions": [
+        "Blank",
+        "E",
+        "PM"
+      ]
     },
     {
       "model": "UHP-1500-230",
       "watt": 1500,
-      "dcVoltage": "230"
+      "dcVoltage": "230",
+      "additionalOptions": [
+        "Blank",
+        "E",
+        "PM"
+      ]
     },
     {
       "model": "UHP-1500-380",
-      "watt": 1500
+      "watt": 1500,
+      "additionalOptions": [
+        "Blank",
+        "E",
+        "PM"
+      ]
     }
   ],
   "uhp-1500-hv": [
@@ -15333,16 +16985,28 @@ export const modelOptionWattageMap = {
     {
       "model": "UHP-2500-24",
       "watt": 2500,
-      "dcVoltage": "36"
+      "dcVoltage": "36",
+      "additionalOptions": [
+        "Blank",
+        "PM"
+      ]
     },
     {
       "model": "UHP-2500-36",
       "watt": 2500,
-      "dcVoltage": "48"
+      "dcVoltage": "48",
+      "additionalOptions": [
+        "Blank",
+        "PM"
+      ]
     },
     {
       "model": "UHP-2500-48",
-      "watt": 2500
+      "watt": 2500,
+      "additionalOptions": [
+        "Blank",
+        "PM"
+      ]
     }
   ],
   "ump-400": [
@@ -15462,21 +17126,33 @@ export const modelOptionWattageMap = {
     {
       "model": "XBG-100-2100MA",
       "watt": 100,
-      "dcVoltage": "56"
+      "dcVoltage": "56",
+      "additionalOptions": [
+        "A",
+        "AB"
+      ]
     }
   ],
   "xbg-160": [
     {
       "model": "XBG-160-3300MA",
       "watt": 160,
-      "dcVoltage": "56"
+      "dcVoltage": "56",
+      "additionalOptions": [
+        "A",
+        "AB"
+      ]
     }
   ],
   "xbg-240": [
     {
       "model": "XBG-240-4900MA",
       "watt": 240,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "A",
+        "AB"
+      ]
     }
   ],
   "xdr-75": [
@@ -15499,46 +17175,14 @@ export const modelOptionWattageMap = {
   ],
   "xdr-120e": [
     {
-      "model": "XDR-120E-5",
-      "watt": 120,
-      "dcVoltage": "5"
-    },
-    {
-      "model": "XDR-120E-9",
-      "watt": 120,
-      "dcVoltage": "9"
-    },
-    {
-      "model": "XDR-120E-42",
-      "watt": 119.88,
-      "dcVoltage": "42"
-    },
-    {
-      "model": "XDR-120E-55",
-      "watt": 120,
-      "dcVoltage": "55"
+      "model": "XDR-120E",
+      "watt": 120
     }
   ],
   "xdr-150e": [
     {
-      "model": "XDR-150E-5",
-      "watt": 120,
-      "dcVoltage": "5"
-    },
-    {
-      "model": "XDR-150E-9",
-      "watt": 8,
-      "dcVoltage": "9"
-    },
-    {
-      "model": "XDR-150E-42",
-      "watt": 56,
-      "dcVoltage": "42"
-    },
-    {
-      "model": "XDR-150E-55",
-      "watt": 8,
-      "dcVoltage": "55"
+      "model": "XDR-150E",
+      "watt": 150
     }
   ],
   "xdr-240": [
@@ -15589,31 +17233,28 @@ export const modelOptionWattageMap = {
   ],
   "xdr-960e": [
     {
-      "model": "XDR-960E-9",
-      "watt": 960,
-      "dcVoltage": "9"
-    },
-    {
-      "model": "XDR-960E-42",
-      "watt": 6,
-      "dcVoltage": "42"
-    },
-    {
-      "model": "XDR-960E-55",
-      "watt": 960,
-      "dcVoltage": "55"
+      "model": "XDR-960E",
+      "watt": 960
     }
   ],
   "xlc-25": [
     {
       "model": "XLC-25-H-KN",
       "watt": 25,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "BUILT",
+        "KN",
+        "KNS"
+      ]
     },
     {
       "model": "XLC-25-H-MA",
       "watt": 25,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "MA"
+      ]
     }
   ],
   "xlc-25-kn": [
@@ -15632,12 +17273,20 @@ export const modelOptionWattageMap = {
     {
       "model": "XLC-40-H-KN",
       "watt": 40,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "BUILT",
+        "KN",
+        "KNS"
+      ]
     },
     {
       "model": "XLC-40-H-MA",
       "watt": 40,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "MA"
+      ]
     }
   ],
   "xlc-40-kn": [
@@ -15656,22 +17305,42 @@ export const modelOptionWattageMap = {
     {
       "model": "XLC-60-24-MA",
       "watt": 60,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "H",
+        "MA",
+        "MAS"
+      ]
     },
     {
       "model": "XLC-60-48-MA",
       "watt": 60,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "H",
+        "MA",
+        "MAS"
+      ]
     },
     {
       "model": "XLC-60-H-KN",
       "watt": 60,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "BUILT",
+        "KN",
+        "KNS"
+      ]
     },
     {
       "model": "XLC-60-H-KN-NOTE2",
       "watt": 60,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "BUILT",
+        "KN",
+        "KNS"
+      ]
     }
   ],
   "xlc-60-kn": [
@@ -15695,14 +17364,22 @@ export const modelOptionWattageMap = {
   "xlg-25": [
     {
       "model": "XLG-25",
-      "watt": 25
+      "watt": 25,
+      "additionalOptions": [
+        "A",
+        "AB"
+      ]
     }
   ],
   "xlg-50": [
     {
       "model": "XLG-50-L-DA2",
       "watt": 50,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "DA2",
+        "DALI"
+      ]
     }
   ],
   "xlg-50-da2": [
@@ -15715,7 +17392,11 @@ export const modelOptionWattageMap = {
     {
       "model": "XLG-75-H-DA2",
       "watt": 75.6,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "DA2",
+        "DALI"
+      ]
     }
   ],
   "xlg-75-da2": [
@@ -15728,7 +17409,11 @@ export const modelOptionWattageMap = {
     {
       "model": "XLG-100-L-DA2",
       "watt": 100,
-      "dcVoltage": "60"
+      "dcVoltage": "60",
+      "additionalOptions": [
+        "DA2",
+        "DALI"
+      ]
     }
   ],
   "xlg-100-da2": [
@@ -15740,7 +17425,11 @@ export const modelOptionWattageMap = {
   "xlg-150": [
     {
       "model": "XLG-150",
-      "watt": 150
+      "watt": 150,
+      "additionalOptions": [
+        "DALI",
+        "DA2"
+      ]
     }
   ],
   "xlg-150-da2": [
@@ -15752,7 +17441,11 @@ export const modelOptionWattageMap = {
   "xlg-200": [
     {
       "model": "XLG-200",
-      "watt": 200
+      "watt": 200,
+      "additionalOptions": [
+        "DALI",
+        "DA2"
+      ]
     }
   ],
   "xlg-200-da2": [
@@ -15764,7 +17457,11 @@ export const modelOptionWattageMap = {
   "xlg-240": [
     {
       "model": "XLG-240",
-      "watt": 239.4
+      "watt": 239.4,
+      "additionalOptions": [
+        "DALI",
+        "DA2"
+      ]
     }
   ],
   "xlg-240-48-abv": [
@@ -15782,13 +17479,20 @@ export const modelOptionWattageMap = {
   "xlg-320": [
     {
       "model": "XLG-320",
-      "watt": 315
+      "watt": 315,
+      "additionalOptions": [
+        "DALI",
+        "DA2"
+      ]
     }
   ],
   "xlg-320-48-abv": [
     {
       "model": "XLG-320-48-ABV",
-      "watt": 48
+      "watt": 48,
+      "additionalOptions": [
+        "Blank"
+      ]
     }
   ],
   "xlg-320-da2": [
@@ -15801,24 +17505,48 @@ export const modelOptionWattageMap = {
     {
       "model": "XLN-25-12",
       "watt": 25,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "B",
+        "Blank",
+        "DA2",
+        "H"
+      ]
     },
     {
       "model": "XLN-25-24",
       "watt": 25,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "B",
+        "Blank",
+        "DA2",
+        "H"
+      ]
     }
   ],
   "xln-40": [
     {
       "model": "XLN-40-12",
       "watt": 40.8,
-      "dcVoltage": "12"
+      "dcVoltage": "12",
+      "additionalOptions": [
+        "B",
+        "Blank",
+        "DA2",
+        "H"
+      ]
     },
     {
       "model": "XLN-40-24",
       "watt": 40.8,
-      "dcVoltage": "24"
+      "dcVoltage": "24",
+      "additionalOptions": [
+        "B",
+        "Blank",
+        "DA2",
+        "H"
+      ]
     }
   ],
   "xln-60": [

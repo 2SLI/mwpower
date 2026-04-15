@@ -55,6 +55,134 @@ function findModelOptionKey(modelName = '') {
   return ''
 }
 
+function collectUniqueOptionValues(values = []) {
+  const output = []
+  const seen = new Set()
+  values.forEach((value) => {
+    const text = String(value ?? '').trim()
+    const key = normalizeLabel(text)
+    if (!key || seen.has(key)) return
+    seen.add(key)
+    output.push(text)
+  })
+  return output
+}
+
+const COMBINED_OPTION_TYPE_STOP_WORDS = new Set([
+  'ALL',
+  'AND',
+  'APPLYING',
+  'BATTERY',
+  'BY',
+  'CLASS',
+  'COMMUNICATION',
+  'CONTROL',
+  'DIRECT',
+  'DIMMING',
+  'FOR',
+  'FUNCTION',
+  'GTIN',
+  'HAZARDOUS',
+  'HTTPS',
+  'IN',
+  'INPUT',
+  'LEVEL',
+  'MODEL',
+  'MW',
+  'NONE',
+  'NORMAL',
+  'NOTE',
+  'OPTION',
+  'OUTPUT',
+  'PLEASE',
+  'PROTOCOL',
+  'REQUEST',
+  'STOCK',
+  'THE',
+  'TYPE',
+  'WITH',
+])
+
+function normalizeCombinedTypeToken(value = '') {
+  return String(value ?? '').trim().replace(/[–—]/g, '-').replace(/\s+/g, '').toUpperCase()
+}
+
+function formatCombinedTypeToken(value = '') {
+  const upper = normalizeCombinedTypeToken(value)
+  if (!upper) return ''
+  if (!/^[A-Z0-9]{1,8}$/.test(upper)) return ''
+  if (COMBINED_OPTION_TYPE_STOP_WORDS.has(upper)) return ''
+  if (upper === 'BLANK') return 'Blank'
+  if (upper === 'DX') return 'Dx'
+  return upper
+}
+
+function collectTypeTokensFromOptionItem(item) {
+  const rawValues = []
+
+  if (Array.isArray(item?.additionalOptions)) rawValues.push(...item.additionalOptions)
+  if (Array.isArray(item?.protocolOptions)) rawValues.push(...item.protocolOptions)
+
+  const singleAdditional = String(item?.additionalOption ?? item?.protocolOption ?? '').trim()
+  if (singleAdditional) rawValues.push(singleAdditional)
+
+  return collectUniqueOptionValues(rawValues.map((value) => formatCombinedTypeToken(value)).filter(Boolean))
+}
+
+function buildVoltageOptionLabel({ optionModel = '', dcVoltage = '', selectedModel = '' }) {
+  const voltageText = String(dcVoltage ?? '').trim()
+  if (!voltageText) return ''
+
+  const optionModelText = String(optionModel ?? '').trim()
+  if (optionModelText && optionModelText.toUpperCase().endsWith(`-${voltageText}`.toUpperCase())) {
+    return optionModelText
+  }
+
+  const selectedModelText = String(selectedModel ?? '').trim()
+  const selectedHyphenCount = (selectedModelText.match(/-/g) ?? []).length
+  const selectedBase = selectedHyphenCount >= 2 ? selectedModelText.replace(/-\d+(?:\.\d+)?$/, '') : selectedModelText
+  if (selectedBase) return `${selectedBase}-${voltageText}`
+  return voltageText
+}
+
+function buildCombinedOptionModelLabels({ options = [], selectedModel = '' }) {
+  const labels = []
+
+  options.forEach((item) => {
+    const baseLabel =
+      buildVoltageOptionLabel({
+        optionModel: item?.model,
+        dcVoltage: item?.dcVoltage,
+        selectedModel,
+      }) ||
+      String(item?.model ?? '').trim() ||
+      String(selectedModel ?? '').trim()
+
+    if (!baseLabel) return
+
+    const typeTokens = collectTypeTokensFromOptionItem(item)
+    if (typeTokens.length === 0) {
+      labels.push(baseLabel)
+      return
+    }
+
+    let hasBlank = false
+    typeTokens.forEach((token) => {
+      if (normalizeLabel(token) === 'blank') {
+        hasBlank = true
+        return
+      }
+      labels.push(`${baseLabel}-${token}`)
+    })
+
+    if (hasBlank) labels.push(baseLabel)
+  })
+
+  return collectUniqueOptionValues(labels).sort((a, b) =>
+    String(a ?? '').localeCompare(String(b ?? ''), undefined, { numeric: true, sensitivity: 'base' })
+  )
+}
+
 export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onNavigate }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
@@ -433,6 +561,14 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const options = Array.isArray(modelOptionWattageMap[optionKey]) ? modelOptionWattageMap[optionKey] : []
     return options.filter((item) => String(item?.model ?? '').trim())
   }, [selectedModelCard?.modelName])
+  const selectedCombinedOptionModels = useMemo(
+    () =>
+      buildCombinedOptionModelLabels({
+        options: selectedModelOptions,
+        selectedModel: selectedModelCard?.modelName,
+      }),
+    [selectedModelOptions, selectedModelCard?.modelName]
+  )
   const selectedPdfUrl = useMemo(() => decodeAssetUrl(selectedModelCard?.asset?.pdfUrl), [selectedModelCard?.asset?.pdfUrl])
   const mobilePdfPageWidth = useMemo(() => {
     const width = mobilePdfViewportWidth - 16
@@ -508,6 +644,35 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const backButtonAriaLabel = canGoBack ? '뒤로가기' : '홈으로'
   const backButtonIconClass = canGoBack ? 'fa-solid fa-arrow-left' : 'fa-solid fa-house'
   const mobilePathText = [activeMajor?.name, activeSubcategory, activeLeaf, activeModel].filter(Boolean).join(' / ') || '카테고리를 선택하세요'
+
+  const renderAdditionalOptionsPanel = ({ isModelSelected = false } = {}) => {
+    const combinedDisabled = !isModelSelected || selectedCombinedOptionModels.length === 0
+
+    return (
+      <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
+        <p className="m-0 text-[15px] font-bold text-slate-800">추가 옵션</p>
+        <div className="mt-3 grid gap-2.5">
+          <label className="grid gap-1.5">
+            <span className="text-[13px] font-semibold text-slate-700">옵션 모델</span>
+            <select
+              className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-[14px] text-slate-700 outline-none focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:bg-slate-100 disabled:text-slate-400"
+              defaultValue=""
+              disabled={combinedDisabled}
+            >
+              <option value="">
+                {!isModelSelected ? '모델 선택' : selectedCombinedOptionModels.length > 0 ? '옵션 모델 선택' : '데이터 없음'}
+              </option>
+              {selectedCombinedOptionModels.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      </div>
+    )
+  }
 
   const handleMajorClick = (majorId) => {
     setActiveMajorId(majorId)
@@ -1033,23 +1198,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                       </div>
                     </div>
 
-                    <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
-                      <div className="flex items-center justify-between gap-2">
-                        <p className="m-0 text-[15px] font-bold text-slate-800">옵션 모델</p>
-                        <p className="m-0 text-[12px] text-slate-500">{selectedModelOptions.length}개</p>
-                      </div>
-                      {selectedModelOptions.length > 0 ? (
-                        <div className="mt-3 grid gap-2">
-                          {selectedModelOptions.map((option) => (
-                            <div key={option.model} className="rounded-lg border border-slate-200 bg-white px-3 py-2">
-                              <p className="m-0 text-[13px] font-semibold text-slate-900">{option.model}</p>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="mb-0 mt-3 text-[14px] text-slate-500">등록된 옵션 모델이 없습니다.</p>
-                      )}
-                    </div>
+                    {renderAdditionalOptionsPanel({ isModelSelected: true })}
                   </div>
                 </section>
 
@@ -1161,23 +1310,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     </div>
                   </div>
 
-                  <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="m-0 text-[15px] font-bold text-slate-800">옵션 모델</p>
-                      <p className="m-0 text-[12px] text-slate-500">{selectedModelOptions.length}개</p>
-                    </div>
-                    {selectedModelOptions.length > 0 ? (
-                      <div className="mt-3 grid gap-2">
-                        {selectedModelOptions.map((option) => (
-                          <div key={option.model} className="rounded-lg border border-slate-200 bg-white px-3 py-2">
-                            <p className="m-0 text-[13px] font-semibold text-slate-900">{option.model}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="mb-0 mt-3 text-[14px] text-slate-500">모델을 선택하면 옵션 모델이 표시됩니다.</p>
-                    )}
-                  </div>
+                  {renderAdditionalOptionsPanel({ isModelSelected: false })}
                 </div>
               </article>
             ) : (

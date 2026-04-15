@@ -76,8 +76,15 @@ function toCsv(rows) {
   return rows.map((row) => row.map((cell) => toCsvValue(cell)).join(',')).join('\n') + '\n'
 }
 
+function decodePdfGlyphText(value) {
+  return String(value ?? '')
+    .replace(/[\uF000-\uF0FF]/g, (char) => String.fromCharCode(char.charCodeAt(0) - 0xf000))
+    .replace(/\u00A0/g, ' ')
+    .normalize('NFKC')
+}
+
 function safeUpper(value) {
-  return String(value ?? '').trim().toUpperCase()
+  return decodePdfGlyphText(value).trim().toUpperCase()
 }
 
 function normalizeModelToken(token) {
@@ -236,12 +243,193 @@ function extractVoltageValues(text) {
   return result
 }
 
+const ADDITIONAL_TYPE_STOP_WORDS = new Set([
+  'TYPE',
+  'COMMUNICATION',
+  'PROTOCOL',
+  'OPTION',
+  'NOTE',
+  'IN',
+  'STOCK',
+  'BY',
+  'REQUEST',
+  'NONE',
+  'ALL',
+  'THE',
+  'FOR',
+  'WITH',
+  'AND',
+  'PLEASE',
+  'APPLYING',
+  'DIRECT',
+  'PROTECTION',
+  'PROTECTIONS',
+  'HAZARDOUS',
+  'GTIN',
+  'HTTPS',
+  'MW',
+  'CLASS',
+  'IS',
+  'NO',
+  'PARAMETER',
+  'TEST',
+  'LEVEL',
+])
+
+function formatAdditionalType(value) {
+  const upper = safeUpper(value)
+  if (!upper) return ''
+  if (upper === 'BLANK') return 'Blank'
+  return upper
+}
+
+function cleanAdditionalTypeToken(value) {
+  const upper = safeUpper(value)
+    .replace(/[\u0000-\u001F]+/g, ' ')
+    .replace(/[–—]/g, '-')
+  const match = upper.match(/^[^A-Z0-9]*([A-Z0-9][A-Z0-9]{0,7})/)
+  if (!match) return ''
+
+  const token = String(match[1] ?? '').trim()
+  if (!token) return ''
+  if (!/[A-Z]/.test(token)) return ''
+  if (ADDITIONAL_TYPE_STOP_WORDS.has(token)) return ''
+  if (/^(?:COMMUNIC|PROTOCOL|OPTION|FUNCTION|NOTE|MODEL|INPUT|OUTPUT)/.test(token)) return ''
+  if (/^\d+(?:\.\d+)?$/.test(token)) return ''
+  if (/^(?:IP\d+|CLASS\d+)$/i.test(token)) return ''
+  return formatAdditionalType(token)
+}
+
+function normalizeAdditionalRowText(value) {
+  return safeUpper(value)
+    .replace(/[\u0000-\u001F]+/g, ' ')
+    .replace(/[–—]/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+const ADDITIONAL_HEADER_WORDS = new Set(['TYPE', 'COMMUNICATION', 'PROTOCOL', 'OPTION', 'NOTE', 'FUNCTION', 'IP', 'LEVEL'])
+
+function isAdditionalTypeHeaderRow(text) {
+  if (!text) return false
+  const tokens = text.split(/[^A-Z0-9]+/g).filter(Boolean)
+  if (tokens.length === 0 || tokens.length > 12) return false
+  if (!tokens.every((token) => ADDITIONAL_HEADER_WORDS.has(token))) return false
+  if (!tokens.includes('TYPE')) return false
+  return tokens.some((token) => ['OPTION', 'FUNCTION', 'PROTOCOL', 'COMMUNICATION', 'IP', 'LEVEL', 'NOTE'].includes(token))
+}
+
+function isAdditionalTypeHeaderFragmentRow(text) {
+  if (!text) return false
+  const tokens = text.split(/[^A-Z0-9]+/g).filter(Boolean)
+  if (tokens.length === 0 || tokens.length > 8) return false
+  return tokens.every((token) => ADDITIONAL_HEADER_WORDS.has(token))
+}
+
+function findTypeColumnXFromRowItems(rowItems) {
+  if (!Array.isArray(rowItems) || rowItems.length === 0) return null
+
+  for (const item of rowItems) {
+    const text = normalizeAdditionalRowText(item?.str)
+    if (!text) continue
+    if (/\bTYPE\b/.test(text) && Number.isFinite(item?.x)) return item.x
+  }
+
+  const first = rowItems.find((item) => Number.isFinite(item?.x))
+  return Number.isFinite(first?.x) ? first.x : null
+}
+
+function extractTypeFromTypeColumn(rowItems, typeColumnX) {
+  if (!Number.isFinite(typeColumnX)) return ''
+  if (!Array.isArray(rowItems) || rowItems.length === 0) return ''
+
+  let best = null
+  for (const item of rowItems) {
+    if (!Number.isFinite(item?.x)) continue
+    const distance = Math.abs(item.x - typeColumnX)
+    if (distance > 85) continue
+    if (!best || distance < best.distance) {
+      best = { distance, text: String(item?.str ?? '') }
+    }
+  }
+
+  if (!best?.text) return ''
+  return cleanAdditionalTypeToken(best.text)
+}
+
+function extractAdditionalTypesFromRows(rows) {
+  const types = []
+  const seen = new Set()
+  let lastHeaderIndex = -99
+
+  const pushType = (raw) => {
+    const cleaned = cleanAdditionalTypeToken(raw)
+    const key = safeUpper(cleaned)
+    if (!key || seen.has(key)) return
+    seen.add(key)
+    types.push(cleaned)
+  }
+
+  for (let i = 0; i < rows.length; i += 1) {
+    const normalized = normalizeAdditionalRowText(rows[i]?.text)
+    if (!normalized) continue
+    if (!isAdditionalTypeHeaderFragmentRow(normalized)) continue
+
+    const prev = normalizeAdditionalRowText(rows[i - 1]?.text)
+    const next = normalizeAdditionalRowText(rows[i + 1]?.text)
+    const headerWindow = [prev, normalized, next]
+      .filter((value) => isAdditionalTypeHeaderFragmentRow(value))
+      .join(' ')
+    const hasAdditionalOptionHeader = isAdditionalTypeHeaderRow(headerWindow)
+    if (!hasAdditionalOptionHeader) continue
+    if (i - lastHeaderIndex <= 2) continue
+    lastHeaderIndex = i
+
+    const headerItems = [
+      ...(Array.isArray(rows[i - 1]?.items) ? rows[i - 1].items : []),
+      ...(Array.isArray(rows[i]?.items) ? rows[i].items : []),
+      ...(Array.isArray(rows[i + 1]?.items) ? rows[i + 1].items : []),
+    ]
+    const typeColumnX = findTypeColumnXFromRowItems(headerItems)
+
+    for (let j = i + 1; j < rows.length && j <= i + 20; j += 1) {
+      const rawText = String(rows[j]?.text ?? '').trim()
+      if (!rawText) continue
+      const candidate = normalizeAdditionalRowText(rawText)
+      if (!candidate) continue
+
+      if (/COMMUNICATION\s*PROTOCOL\s*OPTION/.test(candidate)) continue
+      if (isAdditionalTypeHeaderRow(candidate) || isAdditionalTypeHeaderFragmentRow(candidate)) continue
+
+      const reachedAnotherSection =
+        /^(?:MODEL|ORDER|RATED|OUTPUT(?:\s+VOLTAGE)?|INPUT|FEATURE|SPECIFICATION|PROTECTION|DIMENSION|MECHANICAL|EMC|EMI|WIRING|BLOCK\s+DIAGRAM|DERATING)\b/.test(
+          candidate
+        )
+      if (reachedAnotherSection) break
+
+      const typeFromColumn = extractTypeFromTypeColumn(rows[j]?.items, typeColumnX)
+      if (typeFromColumn) pushType(typeFromColumn)
+
+      const hasRowHint =
+        /\bPROTOCOL\b/.test(candidate) ||
+        /\bIN\s*STOCK\b/.test(candidate) ||
+        /\bBY\s*REQUEST\b/.test(candidate) ||
+        /\bREQUEST\b/.test(candidate) ||
+        /\bIP\d+\b/.test(candidate)
+
+      if (hasRowHint) pushType(candidate)
+    }
+  }
+
+  return types
+}
+
 function toRowsFromPageItems(items) {
   const byY = new Map()
   for (const item of items) {
     const y = Math.round(item.transform[5] * 10) / 10
     const x = item.transform[4]
-    const str = String(item.str ?? '').trim()
+    const str = decodePdfGlyphText(item.str ?? '').trim()
     if (!str) continue
     if (!byY.has(y)) byY.set(y, [])
     byY.get(y).push({ x, str })
@@ -509,6 +697,15 @@ function dedupeModelRows(rows) {
     ) {
       prev.dcVoltage = row.dcVoltage
     }
+
+    if (
+      (prev.additionalOption === '' || prev.additionalOption === undefined || prev.additionalOption === null) &&
+      row.additionalOption !== '' &&
+      row.additionalOption !== undefined &&
+      row.additionalOption !== null
+    ) {
+      prev.additionalOption = row.additionalOption
+    }
   }
   return [...byKey.values()]
 }
@@ -532,6 +729,25 @@ async function readPageRows(pdfDoc, pageNumber) {
   const page = await pdfDoc.getPage(pageNumber)
   const content = await page.getTextContent()
   return toRowsFromPageItems(content.items)
+}
+
+async function extractAdditionalTypesFromPdf(pdfDoc) {
+  const result = []
+  const seen = new Set()
+  const maxPages = Math.min(pdfDoc.numPages, 4)
+
+  for (let pageNumber = 1; pageNumber <= maxPages; pageNumber += 1) {
+    const rows = await readPageRows(pdfDoc, pageNumber)
+    const extracted = extractAdditionalTypesFromRows(rows)
+    extracted.forEach((value) => {
+      const key = safeUpper(value)
+      if (!key || seen.has(key)) return
+      seen.add(key)
+      result.push(value)
+    })
+  }
+
+  return result
 }
 
 async function chooseBestSelections(pdf, baseCandidates) {
@@ -590,6 +806,7 @@ async function extractForPdf(filePath) {
   const modelSelection = bestSelections?.modelSelection ?? null
   const powerSelection = bestSelections?.powerSelection ?? null
   const voltageSelection = bestSelections?.voltageSelection ?? null
+  const extractedAdditionalTypes = await extractAdditionalTypesFromPdf(pdf)
 
   let extractedModels = [...(modelSelection?.models ?? [])]
   let extractedPowers = powerSelection?.powers ?? []
@@ -630,6 +847,7 @@ async function extractForPdf(filePath) {
       sampleModelRow: modelSelection?.row?.text ?? '',
       samplePowerRow: powerSelection?.row?.text ?? '',
       sampleVoltageRow: voltageSelection?.row?.text ?? '',
+      additionalTypeCount: extractedAdditionalTypes.length,
     }
   }
 
@@ -648,6 +866,7 @@ async function extractForPdf(filePath) {
     model: item.model,
     watt: item.watt,
     dcVoltage: voltageByModel.get(item.model) ?? '',
+    additionalOption: extractedAdditionalTypes.join('|'),
     method: item.method,
   }))
 
@@ -655,10 +874,11 @@ async function extractForPdf(filePath) {
     ok: true,
     fileName,
     rows: rowsOut,
-      modelCount: extractedModels.length,
-      powerCount: extractedPowers.length,
-      voltageCount: extractedVoltages.length,
-    }
+    modelCount: extractedModels.length,
+    powerCount: extractedPowers.length,
+    voltageCount: extractedVoltages.length,
+    additionalTypeCount: extractedAdditionalTypes.length,
+  }
 }
 
 async function main() {
@@ -685,6 +905,7 @@ async function main() {
           modelCount: result.modelCount,
           powerCount: result.powerCount,
           voltageCount: result.voltageCount,
+          additionalTypeCount: result.additionalTypeCount,
           sampleModelRow: result.sampleModelRow,
           samplePowerRow: result.samplePowerRow,
           sampleVoltageRow: result.sampleVoltageRow,
@@ -698,6 +919,7 @@ async function main() {
         modelCount: 0,
         powerCount: 0,
         voltageCount: 0,
+        additionalTypeCount: 0,
         sampleModelRow: '',
         samplePowerRow: '',
         sampleVoltageRow: '',
@@ -712,12 +934,24 @@ async function main() {
       return a.pdf.localeCompare(b.pdf)
     })
 
-  const outputRows = [['PDF', 'Model', 'Watt(W)', 'DC Voltage(V)', 'Method']]
-  deduped.forEach((item) => outputRows.push([item.pdf, item.model, item.watt, item.dcVoltage ?? '', item.method]))
+  const outputRows = [['PDF', 'Model', 'Watt(W)', 'DC Voltage(V)', 'Additional Option(Type)', 'Method']]
+  deduped.forEach((item) =>
+    outputRows.push([item.pdf, item.model, item.watt, item.dcVoltage ?? '', item.additionalOption ?? '', item.method])
+  )
   await fs.writeFile(OUT_CSV, toCsv(outputRows), 'utf8')
 
   const unresolvedRows = [
-    ['PDF', 'Reason', 'DetectedModels', 'DetectedPowers', 'DetectedVoltages', 'ModelRowSample', 'PowerRowSample', 'VoltageRowSample'],
+    [
+      'PDF',
+      'Reason',
+      'DetectedModels',
+      'DetectedPowers',
+      'DetectedVoltages',
+      'DetectedAdditionalTypes',
+      'ModelRowSample',
+      'PowerRowSample',
+      'VoltageRowSample',
+    ],
   ]
   unresolved.forEach((item) => {
     unresolvedRows.push([
@@ -726,6 +960,7 @@ async function main() {
       item.modelCount,
       item.powerCount,
       item.voltageCount,
+      item.additionalTypeCount,
       item.sampleModelRow,
       item.samplePowerRow,
       item.sampleVoltageRow,

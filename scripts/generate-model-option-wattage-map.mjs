@@ -182,6 +182,54 @@ function getMostFrequentValue(valueCounts) {
   return chosenValue
 }
 
+function formatAdditionalType(value = '') {
+  const upper = String(value ?? '').trim().toUpperCase()
+  if (!upper) return ''
+  if (upper === 'BLANK') return 'Blank'
+  return upper
+}
+
+function parseAdditionalTypeList(value = '') {
+  const items = String(value ?? '')
+    .split(/[|,;/]+/g)
+    .map((item) => formatAdditionalType(item))
+    .filter(Boolean)
+
+  const output = []
+  const seen = new Set()
+  items.forEach((item) => {
+    const key = normalizeLabel(item)
+    if (!key || seen.has(key)) return
+    seen.add(key)
+    output.push(item)
+  })
+  return output
+}
+
+function getSortedValuesByFrequency(valueCounts = new Map()) {
+  return [...valueCounts.entries()]
+    .sort((a, b) => {
+      if (b[1] !== a[1]) return b[1] - a[1]
+      return naturalCompare(a[0], b[0])
+    })
+    .map(([value]) => value)
+}
+
+function mergeProtocolTypeLists(left = [], right = []) {
+  const output = []
+  const seen = new Set()
+
+  ;[...left, ...right].forEach((item) => {
+    const text = formatAdditionalType(item)
+    const key = normalizeLabel(text)
+    if (!key || seen.has(key)) return
+    seen.add(key)
+    output.push(text)
+  })
+
+  return output
+}
+
 function naturalCompare(a, b) {
   return String(a ?? '').localeCompare(String(b ?? ''), undefined, { numeric: true, sensitivity: 'base' })
 }
@@ -301,6 +349,7 @@ async function main() {
   const baseCandidatesByLength = [...baseModelSet].sort((a, b) => b.length - a.length)
 
   const modelWattStats = new Map()
+  const additionalTypesByCanonicalModel = new Map()
 
   parsedRows.forEach((row) => {
     const method = String(row?.Method ?? '').trim().toLowerCase()
@@ -321,11 +370,23 @@ async function main() {
     if (!Number.isFinite(watt) || watt <= 0) return
 
     const dcVoltage = String(row?.['DC Voltage(V)'] ?? '').trim()
+    const additionalTypes = parseAdditionalTypeList(
+      row?.['Additional Option(Type)'] ?? row?.['Protocol Option(Type)'] ?? ''
+    )
+
+    if (additionalTypes.length > 0) {
+      const existingAdditionalTypes = additionalTypesByCanonicalModel.get(canonicalModel) ?? []
+      additionalTypesByCanonicalModel.set(
+        canonicalModel,
+        mergeProtocolTypeLists(existingAdditionalTypes, additionalTypes)
+      )
+    }
 
     const current = modelWattStats.get(canonicalModel) ?? {
       displayModel: rawModel,
       wattCounts: new Map(),
       dcVoltageCounts: new Map(),
+      additionalTypeCounts: new Map(),
     }
 
     if (rawModel.length > current.displayModel.length) {
@@ -336,6 +397,9 @@ async function main() {
     if (dcVoltage) {
       current.dcVoltageCounts.set(dcVoltage, (current.dcVoltageCounts.get(dcVoltage) ?? 0) + 1)
     }
+    additionalTypes.forEach((type) => {
+      current.additionalTypeCounts.set(type, (current.additionalTypeCounts.get(type) ?? 0) + 1)
+    })
     modelWattStats.set(canonicalModel, current)
   })
 
@@ -366,6 +430,7 @@ async function main() {
     if (!Number.isFinite(watt)) return
 
     const dcVoltage = String(getMostFrequentValue(stats.dcVoltageCounts) ?? '').trim()
+    const additionalOptions = getSortedValuesByFrequency(stats.additionalTypeCounts)
     const optionModel = hasHyphenSuffix ? `${baseCandidate}-${suffix}` : `${baseCandidate}${suffix}`
 
     if (!optionMap.has(baseCandidate)) optionMap.set(baseCandidate, [])
@@ -373,6 +438,7 @@ async function main() {
       model: optionModel,
       watt,
       dcVoltage,
+      additionalOptions,
     })
   })
 
@@ -415,7 +481,7 @@ async function main() {
 
     if (!isFinitePositive(fallbackWatt)) return
 
-    optionMap.set(baseCanonical, [{ model: normalizeModelName(baseDisplay), watt: fallbackWatt, dcVoltage: '' }])
+    optionMap.set(baseCanonical, [{ model: normalizeModelName(baseDisplay), watt: fallbackWatt, dcVoltage: '', additionalOptions: [] }])
   })
 
   const output = {}
@@ -437,11 +503,13 @@ async function main() {
         }
         const prev = dedupedByModel.get(key)
         if (!prev.dcVoltage && item.dcVoltage) prev.dcVoltage = item.dcVoltage
+        prev.additionalOptions = mergeProtocolTypeLists(prev.additionalOptions, item.additionalOptions)
 
         if (Number(item.watt) < Number(prev.watt)) {
           dedupedByModel.set(key, {
             ...item,
             dcVoltage: item.dcVoltage || prev.dcVoltage || '',
+            additionalOptions: mergeProtocolTypeLists(prev.additionalOptions, item.additionalOptions),
           })
         }
       })
@@ -455,6 +523,10 @@ async function main() {
           }
           const dcVoltage = String(item.dcVoltage ?? '').trim()
           if (dcVoltage) result.dcVoltage = dcVoltage
+          const canonicalOptionModel = normalizeModelName(item.model)
+          const csvAdditionalOptions = additionalTypesByCanonicalModel.get(canonicalOptionModel) ?? []
+          const additionalOptions = mergeProtocolTypeLists(item.additionalOptions, csvAdditionalOptions)
+          if (additionalOptions.length > 0) result.additionalOptions = additionalOptions
           return result
         })
 
