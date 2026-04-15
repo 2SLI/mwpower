@@ -130,17 +130,28 @@ function collectTypeTokensFromOptionItem(item) {
 }
 
 function buildVoltageOptionLabel({ optionModel = '', dcVoltage = '', selectedModel = '' }) {
-  const voltageText = String(dcVoltage ?? '').trim()
-  if (!voltageText) return ''
-
   const optionModelText = String(optionModel ?? '').trim()
-  if (optionModelText && optionModelText.toUpperCase().endsWith(`-${voltageText}`.toUpperCase())) {
-    return optionModelText
-  }
-
   const selectedModelText = String(selectedModel ?? '').trim()
   const selectedHyphenCount = (selectedModelText.match(/-/g) ?? []).length
   const selectedBase = selectedHyphenCount >= 2 ? selectedModelText.replace(/-\d+(?:\.\d+)?$/, '') : selectedModelText
+  const selectedBaseUpper = String(selectedBase ?? '').toUpperCase()
+  const optionModelUpper = optionModelText.toUpperCase()
+
+  if (
+    optionModelText &&
+    (!selectedBaseUpper || (optionModelUpper.startsWith(`${selectedBaseUpper}-`) && optionModelUpper !== selectedBaseUpper))
+  ) {
+    return optionModelText
+  }
+
+  const voltageText = String(dcVoltage ?? '').trim()
+  if (!voltageText) return optionModelText
+
+  const escapedVoltage = String(voltageText).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  if (optionModelText && new RegExp(`-${escapedVoltage}(?:[A-Z]{0,4})$`, 'i').test(optionModelText)) {
+    return optionModelText
+  }
+
   if (selectedBase) return `${selectedBase}-${voltageText}`
   return voltageText
 }
@@ -170,6 +181,14 @@ function buildCombinedOptionModelLabels({ options = [], selectedModel = '' }) {
     typeTokens.forEach((token) => {
       if (normalizeLabel(token) === 'blank') {
         hasBlank = true
+        return
+      }
+      const normalizedToken = normalizeLabel(token).toUpperCase()
+      const upperBaseLabel = String(baseLabel ?? '').toUpperCase()
+      const escapedToken = normalizedToken.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      const hasSuffixInBaseLabel = new RegExp(`(?:-|\\d|\\))${escapedToken}$`).test(upperBaseLabel)
+      if (hasSuffixInBaseLabel) {
+        labels.push(baseLabel)
         return
       }
       labels.push(`${baseLabel}-${token}`)

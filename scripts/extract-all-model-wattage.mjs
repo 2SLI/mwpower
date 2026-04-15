@@ -143,6 +143,51 @@ function combineBaseWithSuffix(baseToken, suffixToken) {
   return `${base}-${suffix}`
 }
 
+function expandSlashModelToken(token, baseCandidates) {
+  const normalized = normalizeModelToken(token)
+  if (!normalized.includes('/')) return [normalized]
+
+  const parts = normalized
+    .split('/')
+    .map((part) => normalizeModelToken(part))
+    .filter(Boolean)
+  if (parts.length <= 1) return [normalized]
+
+  const first = parts[0]
+  if (!matchBaseToken(first, baseCandidates)) return [normalized]
+
+  const prefixMatch = first.match(/^(.*-)([A-Z0-9().+-]+)$/)
+  if (!prefixMatch) return [normalized]
+
+  const prefix = String(prefixMatch[1] ?? '')
+  if (!prefix) return [normalized]
+
+  const expanded = []
+  const seen = new Set()
+  const push = (value) => {
+    const text = normalizeModelToken(value)
+    if (!text || seen.has(text)) return
+    seen.add(text)
+    expanded.push(text)
+  }
+
+  push(first)
+
+  for (let i = 1; i < parts.length; i += 1) {
+    const rawPart = String(parts[i] ?? '').replace(/^[-/]+/, '')
+    if (!rawPart) continue
+
+    const direct = normalizeModelToken(rawPart)
+    const candidate = matchBaseToken(direct, baseCandidates) ? direct : normalizeModelToken(`${prefix}${rawPart}`)
+    if (!candidate) continue
+    if (!isLikelyModelToken(candidate)) continue
+    if (!matchBaseToken(candidate, baseCandidates)) continue
+    push(candidate)
+  }
+
+  return expanded.length > 0 ? expanded : [normalized]
+}
+
 function extractModelsFromText(text, baseCandidates, options = {}) {
   const allowUnmatched = Boolean(options.allowUnmatched)
   const upper = safeUpper(text)
@@ -151,7 +196,11 @@ function extractModelsFromText(text, baseCandidates, options = {}) {
   for (const m of upper.matchAll(pattern)) {
     const token = normalizeModelToken(m[0])
     if (!isLikelyModelToken(token)) continue
-    tokens.push(token)
+    const expanded = expandSlashModelToken(token, baseCandidates)
+    expanded.forEach((value) => {
+      if (!isLikelyModelToken(value)) return
+      tokens.push(value)
+    })
   }
 
   const seen = new Set()
@@ -472,7 +521,23 @@ function chooseModelRow(rows, baseCandidates) {
         }
       }
 
-      const neighborOffsets = [1, 2, -1]
+      const aroundTexts = [row.text]
+      const aroundOffsets = [-3, -2, -1, 1, 2, 3]
+      aroundOffsets.forEach((offset) => {
+        const neighbor = rows[i + offset]
+        if (!neighbor?.text) return
+        if (stopPattern.test(neighbor.text)) return
+        aroundTexts.push(neighbor.text)
+      })
+      if (aroundTexts.length > 1) {
+        const aroundModels = extractModelsFromText(aroundTexts.join(' '), baseCandidates)
+        if (aroundModels.length > models.length) {
+          models = aroundModels
+          usedNeighborRow = true
+        }
+      }
+
+      const neighborOffsets = [1, 2, -1, -2]
       for (const offset of neighborOffsets) {
         const neighbor = rows[i + offset]
         if (!neighbor) continue
@@ -488,9 +553,11 @@ function chooseModelRow(rows, baseCandidates) {
     if (hasModelKeyword) score += 12
     if (hasOrderKeyword) score += 10
     score += Math.min(models.length, 20) * 2
+    if (models.length >= 2) score += 4
     if (models.length === 0) score -= 12
-    if (usedNeighborRow) score += 8
+    if (usedNeighborRow) score += 4
     if (matchBaseToken(safeUpper(row.text), baseCandidates)) score += 2
+    if (/MODEL\s*ENCODING|ORDER\s*INFORMATION/i.test(row.text)) score -= 6
     if (/^\s*FILE NAME[:\s]/i.test(row.text)) score -= 8
     if (/SINGLE OUTPUT|DUAL OUTPUT|TRIPLE OUTPUT|QUAD OUTPUT/i.test(row.text)) score -= 4
     if (/FEATURE|NOTE|WARRANTY|PACKING|DIMENSION|DERATING/i.test(row.text)) score -= 3
@@ -753,6 +820,7 @@ async function extractAdditionalTypesFromPdf(pdfDoc) {
 async function chooseBestSelections(pdf, baseCandidates) {
   const maxPages = Math.min(pdf.numPages, 3)
   let best = null
+  const pageSelections = []
 
   for (let pageNumber = 1; pageNumber <= maxPages; pageNumber += 1) {
     const rows = await readPageRows(pdf, pageNumber)
@@ -774,16 +842,34 @@ async function chooseBestSelections(pdf, baseCandidates) {
     if (countAligned) score += 10
     if (modelCount === 1 && powerCount > 1 && powerCount === voltageCount) score += 4
 
-    if (!best || score > best.score) {
-      best = {
-        score,
-        rows,
-        pageNumber,
-        modelSelection,
-        powerSelection,
-        voltageSelection,
-      }
+    const candidate = {
+      score,
+      rows,
+      pageNumber,
+      modelSelection,
+      powerSelection,
+      voltageSelection,
     }
+
+    pageSelections.push(candidate)
+    if (!best || score > best.score) best = candidate
+  }
+
+  const bestModelCount = best?.modelSelection?.models?.length ?? 0
+  if (bestModelCount <= 1) {
+    const richer = pageSelections
+      .filter((item) => (item?.modelSelection?.models?.length ?? 0) > bestModelCount)
+      .sort((a, b) => {
+        const aCount = a?.modelSelection?.models?.length ?? 0
+        const bCount = b?.modelSelection?.models?.length ?? 0
+        if (bCount !== aCount) return bCount - aCount
+        const aModelScore = Number(a?.modelSelection?.score ?? 0)
+        const bModelScore = Number(b?.modelSelection?.score ?? 0)
+        if (bModelScore !== aModelScore) return bModelScore - aModelScore
+        return Number(b?.score ?? 0) - Number(a?.score ?? 0)
+      })[0]
+
+    if ((richer?.modelSelection?.models?.length ?? 0) >= 2) best = richer
   }
 
   return best

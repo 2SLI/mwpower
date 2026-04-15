@@ -68,18 +68,28 @@ export const leafModelTreeFallback = [
     ],
     "thumbnailUrl": "/catalog/meanwell/thumbnails/erg-5000.jpg",
     "models": [
-      "ERG-5000(H)"
+      "ERG-5000"
     ],
     "modelAssets": [
       {
-        "model": "ERG-5000(H)",
+        "model": "ERG-5000",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
+      },
+      {
+        "model": "ERG-5000H",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
+      "erg-5000": {
+        "model": "ERG-5000",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
+      },
       "erg-5000h": {
-        "model": "ERG-5000(H)",
+        "model": "ERG-5000H",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
       }
@@ -12063,18 +12073,28 @@ export const leafModelTreeFallback = [
     ],
     "thumbnailUrl": "/catalog/meanwell/thumbnails/erg-5000-2.jpg",
     "models": [
-      "ERG-5000(H)"
+      "ERG-5000"
     ],
     "modelAssets": [
       {
-        "model": "ERG-5000(H)",
+        "model": "ERG-5000",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
+      },
+      {
+        "model": "ERG-5000H",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
       }
     ],
     "modelAssetsByKey": {
+      "erg-5000": {
+        "model": "ERG-5000",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
+      },
       "erg-5000h": {
-        "model": "ERG-5000(H)",
+        "model": "ERG-5000H",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/ERG-5000(H)-SPEC.pdf"
       }
