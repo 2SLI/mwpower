@@ -970,17 +970,43 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     {activeMajor?.name} / {activeSubcategory} / {selectedModelCard.modelName}
                   </p>
                   <div className="mt-3 grid gap-4 lg:grid-cols-[280px_1fr_320px]">
-                    <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
-                      {leafView.thumbnailUrl ? (
-                        <img
-                          src={decodeAssetUrl(leafView.thumbnailUrl)}
-                          alt={activeLeaf}
-                          className="block h-[220px] w-full object-contain p-3"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
-                      )}
+                    <div className="grid content-start gap-3">
+                      <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+                        {leafView.thumbnailUrl ? (
+                          <img
+                            src={decodeAssetUrl(leafView.thumbnailUrl)}
+                            alt={activeLeaf}
+                            className="block h-[220px] w-full object-contain p-3"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
+                        )}
+                      </div>
+
+                      <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
+                        <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
+                        {modelCards.length > 0 ? (
+                          <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
+                            {modelCards.map((item, index) => (
+                              <button
+                                key={item.modelName}
+                                type="button"
+                                className={`underline-offset-2 hover:underline ${
+                                  normalizeLabel(item.modelName) === normalizeLabel(activeModel) ? 'font-bold text-[#c83a3a]' : 'text-slate-700'
+                                }`}
+                                onClick={() => handleModelClick(item.modelName)}
+                              >
+                                {item.modelName}
+                                {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
+                                {index < modelCards.length - 1 ? ' /' : ''}
+                              </button>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
+                        )}
+                      </div>
                     </div>
 
                     <div className="grid content-start gap-3">
@@ -1008,46 +1034,24 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     </div>
 
                     <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
-                      <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
-                      {modelCards.length > 0 ? (
-                        <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
-                          {modelCards.map((item, index) => (
-                            <button
-                              key={item.modelName}
-                              type="button"
-                              className={`underline-offset-2 hover:underline ${
-                                normalizeLabel(item.modelName) === normalizeLabel(activeModel) ? 'font-bold text-[#c83a3a]' : 'text-slate-700'
-                              }`}
-                              onClick={() => handleModelClick(item.modelName)}
-                            >
-                              {item.modelName}
-                              {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
-                              {index < modelCards.length - 1 ? ' /' : ''}
-                            </button>
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="m-0 text-[15px] font-bold text-slate-800">옵션 모델</p>
+                        <p className="m-0 text-[12px] text-slate-500">{selectedModelOptions.length}개</p>
+                      </div>
+                      {selectedModelOptions.length > 0 ? (
+                        <div className="mt-3 grid gap-2">
+                          {selectedModelOptions.map((option) => (
+                            <div key={option.model} className="rounded-lg border border-slate-200 bg-white px-3 py-2">
+                              <p className="m-0 text-[13px] font-semibold text-slate-900">{option.model}</p>
+                            </div>
                           ))}
                         </div>
                       ) : (
-                        <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
+                        <p className="mb-0 mt-3 text-[14px] text-slate-500">등록된 옵션 모델이 없습니다.</p>
                       )}
                     </div>
                   </div>
                 </section>
-
-                {selectedModelOptions.length > 0 ? (
-                  <section className="rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="m-0 text-[15px] font-bold text-slate-800">옵션 모델</p>
-                      <p className="m-0 text-[12px] text-slate-500">{selectedModelOptions.length}개</p>
-                    </div>
-                    <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-                      {selectedModelOptions.map((option) => (
-                        <div key={option.model} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                          <p className="m-0 text-[13px] font-semibold text-slate-900">{option.model}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                ) : null}
 
                 {selectedModelCard.asset?.pdfUrl ? (
                   <>
@@ -1096,17 +1100,43 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   {activeMajor?.name} / {activeSubcategory} / {activeLeaf}
                 </p>
                 <div className="mt-3 grid gap-4 lg:grid-cols-[280px_1fr_320px]">
-                  <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
-                    {leafView.thumbnailUrl ? (
-                      <img
-                        src={decodeAssetUrl(leafView.thumbnailUrl)}
-                        alt={activeLeaf}
-                        className="block h-[220px] w-full object-contain p-3"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
-                    )}
+                  <div className="grid content-start gap-3">
+                    <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+                      {leafView.thumbnailUrl ? (
+                        <img
+                          src={decodeAssetUrl(leafView.thumbnailUrl)}
+                          alt={activeLeaf}
+                          className="block h-[220px] w-full object-contain p-3"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
+                      )}
+                    </div>
+
+                    <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
+                      <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
+                      {modelCards.length > 0 ? (
+                        <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
+                          {modelCards.map((item, index) => (
+                            <button
+                              key={item.modelName}
+                              type="button"
+                              className={`underline-offset-2 hover:underline ${
+                                normalizeLabel(item.modelName) === normalizeLabel(activeModel) ? 'font-bold text-[#c83a3a]' : 'text-slate-700'
+                              }`}
+                              onClick={() => handleModelClick(item.modelName)}
+                            >
+                              {item.modelName}
+                              {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
+                              {index < modelCards.length - 1 ? ' /' : ''}
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
+                      )}
+                    </div>
                   </div>
 
                   <div className="grid content-start gap-3">
@@ -1132,26 +1162,20 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   </div>
 
                   <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
-                    <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
-                    {modelCards.length > 0 ? (
-                      <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[14px]">
-                        {modelCards.map((item, index) => (
-                          <button
-                            key={item.modelName}
-                            type="button"
-                            className={`underline-offset-2 hover:underline ${
-                              normalizeLabel(item.modelName) === normalizeLabel(activeModel) ? 'font-bold text-[#c83a3a]' : 'text-slate-700'
-                            }`}
-                            onClick={() => handleModelClick(item.modelName)}
-                          >
-                            {item.modelName}
-                            {!hasPdfAsset(item.asset) ? ' (PDF 준비중)' : ''}
-                            {index < modelCards.length - 1 ? ' /' : ''}
-                          </button>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="m-0 text-[15px] font-bold text-slate-800">옵션 모델</p>
+                      <p className="m-0 text-[12px] text-slate-500">{selectedModelOptions.length}개</p>
+                    </div>
+                    {selectedModelOptions.length > 0 ? (
+                      <div className="mt-3 grid gap-2">
+                        {selectedModelOptions.map((option) => (
+                          <div key={option.model} className="rounded-lg border border-slate-200 bg-white px-3 py-2">
+                            <p className="m-0 text-[13px] font-semibold text-slate-900">{option.model}</p>
+                          </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
+                      <p className="mb-0 mt-3 text-[14px] text-slate-500">모델을 선택하면 옵션 모델이 표시됩니다.</p>
                     )}
                   </div>
                 </div>
