@@ -9574,22 +9574,22 @@ export const modelOptionWattageMap = {
   "lrs-200n2": [
     {
       "model": "LRS-200N2-12",
-      "watt": 200,
-      "dcVoltage": "48"
-    },
-    {
-      "model": "LRS-200N2-12-200N2-36",
-      "watt": 200,
-      "dcVoltage": "48"
+      "watt": 204,
+      "dcVoltage": "12"
     },
     {
       "model": "LRS-200N2-24",
-      "watt": 200,
-      "dcVoltage": "48"
+      "watt": 211.2,
+      "dcVoltage": "24"
+    },
+    {
+      "model": "LRS-200N2-36",
+      "watt": 212.4,
+      "dcVoltage": "36"
     },
     {
       "model": "LRS-200N2-48",
-      "watt": 200,
+      "watt": 211.2,
       "dcVoltage": "48"
     }
   ],
