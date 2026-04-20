@@ -9,6 +9,9 @@ const navItems = [
   { key: 'contact-tech', label: '기술문의', view: 'contact-tech' },
 ]
 
+const LOGO_SRC = '/logo/mwpower_logo.png'
+const LOGO_ALT = '민웰파워 로고'
+
 function NavLink({ item, isActive, onNavigate }) {
   const isExternal = Boolean(item.href)
 
@@ -68,16 +71,14 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
         <div className="flex min-w-0 items-center gap-7 max-[1280px]:gap-3">
           <a
             href="#"
-            className="flex h-[74px] min-w-0 w-auto items-center justify-center bg-transparent"
+            className="flex h-[74px] w-[74px] shrink-0 items-center justify-center bg-transparent max-[1280px]:h-[52px] max-[1280px]:w-[52px] max-[640px]:h-[42px] max-[640px]:w-[42px]"
             aria-label="MEAN WELL"
             onClick={(event) => {
               event.preventDefault()
               onNavigate('home')
             }}
           >
-            <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[44px] font-black leading-none tracking-[-0.03em] text-[#d9252a] max-[1280px]:text-[30px] max-[640px]:max-w-[calc(100vw-132px)] max-[640px]:text-[22px] max-[400px]:text-[19px]">
-              MEANWELL POWER
-            </span>
+            <img src={LOGO_SRC} alt={LOGO_ALT} className="h-full w-full object-contain" />
           </a>
 
           <nav className="main-nav ml-0 flex flex-wrap items-center max-[980px]:hidden">
@@ -165,7 +166,9 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
             <header className="relative overflow-hidden bg-[linear-gradient(135deg,#e53a33_0%,#c6252e_55%,#8d161f_100%)] px-5 pb-5 pt-6 text-white">
               <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-white/12"></div>
               <p className="m-0 text-[10px] font-black tracking-[0.14em] text-rose-100">MENU</p>
-              <h2 className="m-0 mt-1 text-[22px] font-black leading-tight tracking-[-0.02em]">MEANWELL POWER</h2>
+              <h2 className="m-0 mt-2">
+                <img src={LOGO_SRC} alt={LOGO_ALT} className="h-[56px] w-[56px] object-contain" />
+              </h2>
               <p className="mb-0 mt-2 text-xs font-semibold text-rose-100">제품/서비스 메뉴를 빠르게 이동하세요.</p>
             </header>
 

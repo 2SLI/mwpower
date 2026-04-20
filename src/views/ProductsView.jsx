@@ -103,6 +103,9 @@ const COMBINED_OPTION_TYPE_STOP_WORDS = new Set([
   'WITH',
 ])
 
+const ELG_150_FUNCTION_TOKENS = new Set(['A', 'B', 'AB', 'DA', 'D2', 'DX'])
+const ELG_150_DEFAULT_WIRING_TOKENS = ['3Y']
+
 function normalizeCombinedTypeToken(value = '') {
   return String(value ?? '').trim().replace(/[–—]/g, '-').replace(/\s+/g, '').toUpperCase()
 }
@@ -127,6 +130,84 @@ function collectTypeTokensFromOptionItem(item) {
   if (singleAdditional) rawValues.push(singleAdditional)
 
   return collectUniqueOptionValues(rawValues.map((value) => formatCombinedTypeToken(value)).filter(Boolean))
+}
+
+function hasTokenSuffixInLabel(label = '', token = '') {
+  const normalizedToken = normalizeLabel(token).toUpperCase()
+  if (!normalizedToken) return false
+  const escapedToken = normalizedToken.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`(?:-|\\d|\\))${escapedToken}$`).test(String(label ?? '').toUpperCase())
+}
+
+function isElg150Model(value = '') {
+  return /^ELG-150(?:-|$)/i.test(String(value ?? '').trim())
+}
+
+function buildElg150CombinedLabels({ baseLabel = '', typeTokens = [] }) {
+  const functionTokens = []
+  const wiringTokens = []
+  const extraTokens = []
+  let hasBlankFunction = false
+
+  typeTokens.forEach((token) => {
+    const normalizedToken = normalizeLabel(token).toUpperCase()
+    if (!normalizedToken) return
+
+    if (normalizedToken === 'BLANK') {
+      hasBlankFunction = true
+      return
+    }
+
+    if (ELG_150_FUNCTION_TOKENS.has(normalizedToken)) {
+      functionTokens.push(token)
+      return
+    }
+
+    if (/^\d+[A-Z]{1,3}$/.test(normalizedToken)) {
+      wiringTokens.push(token)
+      return
+    }
+
+    extraTokens.push(token)
+  })
+
+  const functionVariants = []
+
+  if (hasBlankFunction || functionTokens.length === 0) functionVariants.push(baseLabel)
+
+  functionTokens.forEach((token) => {
+    if (hasTokenSuffixInLabel(baseLabel, token)) {
+      functionVariants.push(baseLabel)
+      return
+    }
+    functionVariants.push(`${baseLabel}${token}`)
+  })
+
+  const normalizedWiringTokens = collectUniqueOptionValues([...wiringTokens, ...ELG_150_DEFAULT_WIRING_TOKENS])
+  const normalizedExtraTokens = collectUniqueOptionValues(extraTokens)
+  const labels = []
+
+  collectUniqueOptionValues(functionVariants).forEach((variant) => {
+    labels.push(variant)
+
+    normalizedWiringTokens.forEach((token) => {
+      if (hasTokenSuffixInLabel(variant, token)) {
+        labels.push(variant)
+        return
+      }
+      labels.push(`${variant}-${token}`)
+    })
+
+    normalizedExtraTokens.forEach((token) => {
+      if (hasTokenSuffixInLabel(variant, token)) {
+        labels.push(variant)
+        return
+      }
+      labels.push(`${variant}-${token}`)
+    })
+  })
+
+  return labels
 }
 
 function buildVoltageOptionLabel({ optionModel = '', dcVoltage = '', selectedModel = '' }) {
@@ -177,17 +258,21 @@ function buildCombinedOptionModelLabels({ options = [], selectedModel = '' }) {
       return
     }
 
+    const shouldApplyElg150Rule =
+      isElg150Model(baseLabel) || isElg150Model(item?.model) || isElg150Model(selectedModel)
+
+    if (shouldApplyElg150Rule) {
+      labels.push(...buildElg150CombinedLabels({ baseLabel, typeTokens }))
+      return
+    }
+
     let hasBlank = false
     typeTokens.forEach((token) => {
       if (normalizeLabel(token) === 'blank') {
         hasBlank = true
         return
       }
-      const normalizedToken = normalizeLabel(token).toUpperCase()
-      const upperBaseLabel = String(baseLabel ?? '').toUpperCase()
-      const escapedToken = normalizedToken.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      const hasSuffixInBaseLabel = new RegExp(`(?:-|\\d|\\))${escapedToken}$`).test(upperBaseLabel)
-      if (hasSuffixInBaseLabel) {
+      if (hasTokenSuffixInLabel(baseLabel, token)) {
         labels.push(baseLabel)
         return
       }

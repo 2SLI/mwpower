@@ -1,11 +1,15 @@
 export function Footer() {
+  const logoSrc = '/logo/mwpower_logo.png'
+
   return (
     <footer className="border-t border-slate-300 bg-slate-100 px-4 py-6 max-[980px]:px-4 max-[980px]:py-5">
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 max-[980px]:flex-col max-[980px]:items-start">
-        <div className="flex min-w-0 items-baseline gap-3.5 max-[640px]:flex-wrap max-[640px]:items-center max-[640px]:gap-2">
-          <strong className="text-[clamp(34px,2.2vw,54px)] font-extrabold leading-[0.9] tracking-[0.4px] text-[#e12f27] max-[640px]:text-[clamp(28px,8vw,34px)]">
-            MEANWELL POWER
-          </strong>
+        <div className="flex min-w-0 items-center gap-3.5 max-[640px]:flex-wrap max-[640px]:gap-2">
+          <img
+            src={logoSrc}
+            alt="민웰파워 로고"
+            className="h-[72px] w-[72px] object-contain max-[640px]:h-[56px] max-[640px]:w-[56px]"
+          />
           <span className="text-[clamp(18px,1.1vw,24px)] font-medium text-slate-600 max-[640px]:text-base">Korea</span>
         </div>
       </div>
