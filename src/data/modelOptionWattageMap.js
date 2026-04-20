@@ -9519,15 +9519,25 @@ export const modelOptionWattageMap = {
     {
       "model": "LRS-150-12",
       "watt": 150,
-      "dcVoltage": "48"
+      "dcVoltage": "12"
     },
     {
       "model": "LRS-150-15",
-      "watt": 154.8,
-      "dcVoltage": "48"
+      "watt": 150,
+      "dcVoltage": "15"
     },
     {
       "model": "LRS-150-24",
+      "watt": 156,
+      "dcVoltage": "24"
+    },
+    {
+      "model": "LRS-150-36",
+      "watt": 154.8,
+      "dcVoltage": "36"
+    },
+    {
+      "model": "LRS-150-48",
       "watt": 158.4,
       "dcVoltage": "48"
     }
