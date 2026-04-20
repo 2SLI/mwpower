@@ -9585,13 +9585,43 @@ export const modelOptionWattageMap = {
   ],
   "lrs-350": [
     {
-      "model": "LRS-350-4.2",
-      "watt": 200,
+      "model": "LRS-350-3.3",
+      "watt": 198,
       "dcVoltage": "3.3"
     },
     {
+      "model": "LRS-350-4.2",
+      "watt": 252,
+      "dcVoltage": "4.2"
+    },
+    {
       "model": "LRS-350-5",
-      "watt": 200,
+      "watt": 300,
+      "dcVoltage": "5"
+    },
+    {
+      "model": "LRS-350-12",
+      "watt": 348,
+      "dcVoltage": "12"
+    },
+    {
+      "model": "LRS-350-15",
+      "watt": 348,
+      "dcVoltage": "15"
+    },
+    {
+      "model": "LRS-350-24",
+      "watt": 350.4,
+      "dcVoltage": "24"
+    },
+    {
+      "model": "LRS-350-36",
+      "watt": 349.2,
+      "dcVoltage": "36"
+    },
+    {
+      "model": "LRS-350-48",
+      "watt": 350.4,
       "dcVoltage": "48"
     }
   ],
