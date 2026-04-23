@@ -44,6 +44,8 @@ function setMetaByProperty(property, content) {
   tag.setAttribute('content', content)
 }
 
+const SOCIAL_PREVIEW_IMAGE_URL = 'https://meanwellpower-103ae.web.app/logo/mwpower_logo.png'
+
 export default function App() {
   const [activeView, setActiveView] = useState('home')
   const [productSearchRequest, setProductSearchRequest] = useState(null)
@@ -97,8 +99,10 @@ export default function App() {
     setMetaByName('description', current.description)
     setMetaByProperty('og:title', current.title)
     setMetaByProperty('og:description', current.description)
+    setMetaByProperty('og:image', SOCIAL_PREVIEW_IMAGE_URL)
     setMetaByName('twitter:title', current.title)
     setMetaByName('twitter:description', current.description)
+    setMetaByName('twitter:image', SOCIAL_PREVIEW_IMAGE_URL)
   }, [activeView, isAdminRoute])
 
   function handleNavigate(view) {
