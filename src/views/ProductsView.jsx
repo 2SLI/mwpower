@@ -318,7 +318,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const mobilePdfViewportRef = useRef(null)
   const wasActiveRef = useRef(isActive)
   const lastAppliedPresetAtRef = useRef(null)
-  const lastAutoMatchedSearchKeyRef = useRef('')
   const searchInput = String(search ?? '').trim()
   const singleSearchToken = getSingleSearchToken(searchInput)
   const hasSearchInput = searchInput.length > 0
@@ -735,31 +734,39 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       })
   }, [hasSearch, searchKeywords, leafTreeMap])
 
-  useEffect(() => {
-    const key = normalizeLabel(singleSearchToken)
-    if (!key) {
-      lastAutoMatchedSearchKeyRef.current = ''
-      return
-    }
+  const modelShortcutList = useMemo(() => {
+    const tokenKey = normalizeLabel(singleSearchToken)
+    if (!tokenKey) return []
 
-    const matchedRoute = modelRouteIndex[key]
-    if (!matchedRoute) return
-    if (lastAutoMatchedSearchKeyRef.current === key) return
+    return Object.entries(modelRouteIndex)
+      .filter(([modelKey]) => modelKey.includes(tokenKey))
+      .map(([modelKey, route]) => ({
+        modelKey,
+        majorId: route.majorId,
+        subcategory: route.subcategory,
+        leaf: route.leaf,
+        groupName: route.groupName,
+        model: route.model,
+        optionModel: route.optionModel,
+        displayModel: route.optionModel || route.model,
+      }))
+      .sort((a, b) => {
+        const aExact = a.modelKey === tokenKey ? 0 : 1
+        const bExact = b.modelKey === tokenKey ? 0 : 1
+        if (aExact !== bExact) return aExact - bExact
 
-    setActiveMajorId((prev) => matchedRoute.majorId || prev || majorCategories[0]?.id || '')
-    setActiveSubcategory(matchedRoute.subcategory || null)
-    setActiveLeaf(matchedRoute.leaf || null)
-    setActiveGroup(matchedRoute.groupName || null)
-    setActiveModel(matchedRoute.model || null)
-    setSelectedOptionModel(matchedRoute.optionModel || '')
-    setSearch('')
-    setIsMajorPanelOpen(false)
-    setIsSubPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
+        const aStarts = a.modelKey.startsWith(tokenKey) ? 0 : 1
+        const bStarts = b.modelKey.startsWith(tokenKey) ? 0 : 1
+        if (aStarts !== bStarts) return aStarts - bStarts
 
-    lastAutoMatchedSearchKeyRef.current = key
-  }, [singleSearchToken, modelRouteIndex, majorCategories])
+        const aLen = a.modelKey.length
+        const bLen = b.modelKey.length
+        if (aLen !== bLen) return aLen - bLen
+
+        return a.displayModel.localeCompare(b.displayModel, undefined, { numeric: true, sensitivity: 'base' })
+      })
+      .slice(0, 8)
+  }, [singleSearchToken, modelRouteIndex])
 
   const selectedModelCard = useMemo(
     () => modelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
@@ -861,9 +868,11 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const showMajorTitle = Boolean(majorTitle) && normalizeLabel(majorTitle) !== normalizeLabel(pageHeading)
 
   const searchMetaText = hasSearch
-    ? searchLeafRecords.length > 0
-      ? `${searchLeafRecords.length}개 시리즈가 검색되었습니다. 모델을 클릭하면 해당 상세로 이동합니다.`
-      : '일치하는 검색 결과가 없습니다.'
+    ? modelShortcutList.length > 0
+      ? `${modelShortcutList.length}개 모델 바로가기를 찾았습니다. 항목을 선택해 상세로 이동하세요.`
+      : searchLeafRecords.length > 0
+        ? `${searchLeafRecords.length}개 시리즈가 검색되었습니다. 모델을 클릭하면 해당 상세로 이동합니다.`
+        : '일치하는 검색 결과가 없습니다.'
     : activeLeaf
       ? modelCards.length > 0
         ? `총 ${modelCards.length}개 모델 (PDF 제공 ${pdfReadyModelCount}개 / PDF 준비중 ${modelCards.length - pdfReadyModelCount}개)`
@@ -964,6 +973,22 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setActiveGroup(null)
     setActiveModel(model)
     setSelectedOptionModel('')
+    setSearch('')
+    setIsMajorPanelOpen(false)
+    setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+  }
+
+  const handleShortcutModelClick = (shortcut) => {
+    if (!shortcut) return
+
+    setActiveMajorId((prev) => shortcut.majorId || prev || majorCategories[0]?.id || '')
+    setActiveSubcategory(shortcut.subcategory || null)
+    setActiveLeaf(shortcut.leaf || null)
+    setActiveGroup(shortcut.groupName || null)
+    setActiveModel(shortcut.model || null)
+    setSelectedOptionModel(shortcut.optionModel || '')
     setSearch('')
     setIsMajorPanelOpen(false)
     setIsSubPanelOpen(false)
@@ -1335,6 +1360,25 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               Clear
             </button>
           </div>
+
+          {hasSearchInput && modelShortcutList.length > 0 ? (
+            <div className="mb-3 rounded-xl border border-[#efc9cf] bg-[#fff8f9] px-3.5 py-3">
+              <p className="mb-2 mt-0 text-[12px] font-black uppercase tracking-[0.06em] text-[#b22b37]">바로가기</p>
+              <div className="flex flex-wrap gap-2">
+                {modelShortcutList.map((shortcut) => (
+                  <button
+                    key={`${shortcut.modelKey}-${shortcut.displayModel}`}
+                    type="button"
+                    className="rounded-full border border-[#d9a0a8] bg-white px-3 py-1.5 text-[12px] font-bold text-[#b52c37] transition hover:border-[#c9252f] hover:bg-[#fff3f4] hover:text-[#c9252f]"
+                    onClick={() => handleShortcutModelClick(shortcut)}
+                  >
+                    {shortcut.displayModel}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
           <p className="mb-8 min-h-[18px] text-[13px] text-slate-500 max-[980px]:mb-6" aria-live="polite">{searchMetaText}</p>
 
           {showMajorTitle ? (
