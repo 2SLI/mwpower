@@ -64,6 +64,33 @@ function getSingleSearchToken(value = '') {
   return tokens.length === 1 ? tokens[0] : ''
 }
 
+function buildSearchKeywords(value = '') {
+  const normalizedTokens = String(value ?? '')
+    .split(/[,\uFF0C]/)
+    .map((token) => normalizeLabel(token))
+    .filter(Boolean)
+
+  const seen = new Set()
+  const keywords = []
+
+  normalizedTokens.forEach((token) => {
+    if (!seen.has(token)) {
+      seen.add(token)
+      keywords.push(token)
+    }
+
+    let current = token
+    while ((current.match(/-/g) ?? []).length > 1) {
+      current = current.slice(0, current.lastIndexOf('-'))
+      if (!current || seen.has(current)) continue
+      seen.add(current)
+      keywords.push(current)
+    }
+  })
+
+  return keywords
+}
+
 function collectUniqueOptionValues(values = []) {
   const output = []
   const seen = new Set()
@@ -321,14 +348,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const searchInput = String(search ?? '').trim()
   const singleSearchToken = getSingleSearchToken(searchInput)
   const hasSearchInput = searchInput.length > 0
-  const searchKeywords = Array.from(
-    new Set(
-      searchInput
-        .split(/[,\uFF0C]/)
-        .map((keyword) => normalizeLabel(keyword))
-        .filter(Boolean)
-    )
-  )
+  const searchKeywords = buildSearchKeywords(searchInput)
   const hasSearch = searchKeywords.length > 0
 
   useEffect(() => {
@@ -739,7 +759,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     if (!tokenKey) return []
 
     return Object.entries(modelRouteIndex)
-      .filter(([modelKey]) => modelKey.includes(tokenKey))
+      .filter(([modelKey]) => modelKey.includes(tokenKey) || tokenKey.startsWith(`${modelKey}-`))
       .map(([modelKey, route]) => ({
         modelKey,
         majorId: route.majorId,
