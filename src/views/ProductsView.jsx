@@ -55,6 +55,15 @@ function findModelOptionKey(modelName = '') {
   return ''
 }
 
+function getSingleSearchToken(value = '') {
+  const tokens = String(value ?? '')
+    .split(/[,\uFF0C]/)
+    .map((token) => String(token ?? '').trim())
+    .filter(Boolean)
+
+  return tokens.length === 1 ? tokens[0] : ''
+}
+
 function collectUniqueOptionValues(values = []) {
   const output = []
   const seen = new Set()
@@ -296,6 +305,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const [activeLeaf, setActiveLeaf] = useState(null)
   const [activeGroup, setActiveGroup] = useState(null)
   const [activeModel, setActiveModel] = useState(null)
+  const [selectedOptionModel, setSelectedOptionModel] = useState('')
   const [search, setSearch] = useState('')
   const [isMajorPanelOpen, setIsMajorPanelOpen] = useState(false)
   const [isSubPanelOpen, setIsSubPanelOpen] = useState(false)
@@ -308,7 +318,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const mobilePdfViewportRef = useRef(null)
   const wasActiveRef = useRef(isActive)
   const lastAppliedPresetAtRef = useRef(null)
+  const lastAutoMatchedSearchKeyRef = useRef('')
   const searchInput = String(search ?? '').trim()
+  const singleSearchToken = getSingleSearchToken(searchInput)
   const hasSearchInput = searchInput.length > 0
   const searchKeywords = Array.from(
     new Set(
@@ -350,6 +362,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const hasFreshPreset = presetAt != null && presetAt !== lastAppliedPresetAtRef.current
     if (hasFreshPreset) {
       setSearch('')
+      setSelectedOptionModel('')
       setIsMajorPanelOpen(false)
       setIsSubPanelOpen(false)
       setIsLeafPanelOpen(false)
@@ -365,6 +378,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setActiveLeaf(null)
     setActiveGroup(null)
     setActiveModel(null)
+    setSelectedOptionModel('')
     setSearch('')
     setIsMajorPanelOpen(false)
     setIsSubPanelOpen(false)
@@ -395,6 +409,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setActiveLeaf(leaf || subcategory || null)
     setActiveGroup(group || null)
     setActiveModel(model || null)
+    setSelectedOptionModel('')
     lastAppliedPresetAtRef.current = externalPresetRequest?.at ?? null
   }, [externalPresetRequest])
 
@@ -583,6 +598,72 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     return dedupedModels
   }
 
+  const modelRouteIndex = useMemo(() => {
+    const routesByModelKey = {}
+    const baseRouteByKey = {}
+    const majorIdByName = majorCategories.reduce((acc, item) => {
+      const id = String(item?.id ?? '').trim()
+      const nameKey = normalizeLabel(item?.name)
+      if (!id || !nameKey || acc[nameKey]) return acc
+      acc[nameKey] = id
+      return acc
+    }, {})
+
+    const registerModelRoute = (modelName, route) => {
+      const model = String(modelName ?? '').trim()
+      const key = normalizeLabel(model)
+      if (!model || !key) return
+      if (!routesByModelKey[key]) routesByModelKey[key] = { ...route, model, optionModel: '' }
+      if (!baseRouteByKey[key]) baseRouteByKey[key] = { ...route, model, optionModel: '' }
+    }
+
+    Object.values(leafTreeMap?.byKey ?? {}).forEach((record) => {
+      const majorName = String(record?.major ?? '').trim()
+      const majorNameKey = normalizeLabel(majorName)
+      const subcategory = String(record?.subcategory ?? '').trim()
+      const leaf = String(record?.leaf ?? '').trim()
+      if (!majorNameKey || !subcategory || !leaf) return
+
+      const routeBase = {
+        majorId: majorIdByName[majorNameKey] ?? '',
+        subcategory,
+        leaf,
+        groupName: null,
+      }
+
+      if (Array.isArray(record?.groups) && record.groups.length > 1) {
+        record.groups.forEach((group) => {
+          const groupName = String(group?.name ?? '').trim()
+          const models = Array.isArray(group?.models) ? group.models : []
+          models.forEach((modelName) => registerModelRoute(modelName, { ...routeBase, groupName: groupName || null }))
+        })
+        return
+      }
+
+      const models = Array.isArray(record?.models) ? record.models : []
+      models.forEach((modelName) => registerModelRoute(modelName, routeBase))
+    })
+
+    Object.entries(modelOptionWattageMap).forEach(([baseModelKey, options]) => {
+      const normalizedBaseKey = normalizeLabel(baseModelKey)
+      const baseRoute = baseRouteByKey[normalizedBaseKey]
+      if (!baseRoute || !Array.isArray(options)) return
+
+      options.forEach((item) => {
+        const optionModel = String(item?.model ?? '').trim()
+        const optionKey = normalizeLabel(optionModel)
+        if (!optionKey || routesByModelKey[optionKey]) return
+
+        routesByModelKey[optionKey] = {
+          ...baseRoute,
+          optionModel,
+        }
+      })
+    })
+
+    return routesByModelKey
+  }, [leafTreeMap, majorCategories])
+
   const toLeafCardRecord = (record, modelNames = getRecordModelNames(record)) => {
     const modelList = modelNames.map((modelName) => ({
       modelName,
@@ -654,6 +735,32 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       })
   }, [hasSearch, searchKeywords, leafTreeMap])
 
+  useEffect(() => {
+    const key = normalizeLabel(singleSearchToken)
+    if (!key) {
+      lastAutoMatchedSearchKeyRef.current = ''
+      return
+    }
+
+    const matchedRoute = modelRouteIndex[key]
+    if (!matchedRoute) return
+    if (lastAutoMatchedSearchKeyRef.current === key) return
+
+    setActiveMajorId((prev) => matchedRoute.majorId || prev || majorCategories[0]?.id || '')
+    setActiveSubcategory(matchedRoute.subcategory || null)
+    setActiveLeaf(matchedRoute.leaf || null)
+    setActiveGroup(matchedRoute.groupName || null)
+    setActiveModel(matchedRoute.model || null)
+    setSelectedOptionModel(matchedRoute.optionModel || '')
+    setSearch('')
+    setIsMajorPanelOpen(false)
+    setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+
+    lastAutoMatchedSearchKeyRef.current = key
+  }, [singleSearchToken, modelRouteIndex, majorCategories])
+
   const selectedModelCard = useMemo(
     () => modelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null,
     [modelCards, activeModel]
@@ -683,14 +790,35 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   useEffect(() => {
     if (modelCards.length === 0) {
       if (activeModel) setActiveModel(null)
+      if (selectedOptionModel) setSelectedOptionModel('')
       return
     }
 
-    if (!activeModel) return
+    if (!activeModel) {
+      if (selectedOptionModel) setSelectedOptionModel('')
+      return
+    }
 
     const exists = modelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel))
-    if (!exists) setActiveModel(null)
-  }, [modelCards, activeModel])
+    if (!exists) {
+      setActiveModel(null)
+      if (selectedOptionModel) setSelectedOptionModel('')
+    }
+  }, [modelCards, activeModel, selectedOptionModel])
+
+  useEffect(() => {
+    if (!selectedOptionModel) return
+
+    const matchedOption = findMatchingLabel(selectedCombinedOptionModels, selectedOptionModel)
+    if (!matchedOption) {
+      setSelectedOptionModel('')
+      return
+    }
+
+    if (matchedOption !== selectedOptionModel) {
+      setSelectedOptionModel(matchedOption)
+    }
+  }, [selectedCombinedOptionModels, selectedOptionModel])
 
   useEffect(() => {
     setMobilePdfNumPages(0)
@@ -760,7 +888,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             <span className="text-[13px] font-semibold text-slate-700">옵션 모델</span>
             <select
               className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-[14px] text-slate-700 outline-none focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:bg-slate-100 disabled:text-slate-400"
-              defaultValue=""
+              value={selectedOptionModel}
+              onChange={(event) => setSelectedOptionModel(String(event.target.value ?? ''))}
               disabled={combinedDisabled}
             >
               <option value="">
@@ -784,6 +913,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setActiveLeaf(null)
     setActiveGroup(null)
     setActiveModel(null)
+    setSelectedOptionModel('')
     setIsMajorPanelOpen(false)
     setIsLeafPanelOpen(false)
     setIsModelPanelOpen(false)
@@ -795,6 +925,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setActiveLeaf(null)
     setActiveGroup(null)
     setActiveModel(null)
+    setSelectedOptionModel('')
     setIsSubPanelOpen(false)
     setIsLeafPanelOpen(false)
     setIsModelPanelOpen(false)
@@ -804,6 +935,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setActiveLeaf(leafName)
     setActiveGroup(null)
     setActiveModel(null)
+    setSelectedOptionModel('')
     setIsLeafPanelOpen(false)
     setIsModelPanelOpen(false)
     if (hasSearch) setSearch('')
@@ -813,6 +945,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const exists = modelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(modelName))
     if (!exists) return
     setActiveModel(modelName)
+    setSelectedOptionModel('')
     setIsModelPanelOpen(false)
     if (hasSearch) setSearch('')
   }
@@ -830,6 +963,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setActiveLeaf(leaf)
     setActiveGroup(null)
     setActiveModel(model)
+    setSelectedOptionModel('')
     setSearch('')
     setIsMajorPanelOpen(false)
     setIsSubPanelOpen(false)
@@ -845,11 +979,13 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
     if (hasSearchInput) {
       setSearch('')
+      setSelectedOptionModel('')
       return
     }
 
     if (activeModel) {
       setActiveModel(null)
+      setSelectedOptionModel('')
       return
     }
 
@@ -857,6 +993,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       setActiveLeaf(null)
       setActiveGroup(null)
       setActiveModel(null)
+      setSelectedOptionModel('')
       return
     }
 
@@ -865,6 +1002,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       setActiveLeaf(null)
       setActiveGroup(null)
       setActiveModel(null)
+      setSelectedOptionModel('')
     }
   }
 
