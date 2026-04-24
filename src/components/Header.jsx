@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ProductSearchModal } from './ProductSearchModal'
+import { lockBodyScroll } from '../utils/bodyScrollLock'
 
 const navItems = [
   { key: 'products', label: '제품', view: 'products' },
@@ -53,11 +54,7 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
 
   useEffect(() => {
     if (!isMenuOpen) return undefined
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prevOverflow
-    }
+    return lockBodyScroll()
   }, [isMenuOpen])
 
   const handleInternalMenuClick = (view) => {

@@ -1510,7 +1510,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
                 {selectedModelCard.asset?.pdfUrl ? (
                   <>
-                    <div className="pdf-viewer-shell h-[1290px] rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100vh-170px)] max-[640px]:min-h-[560px]">
+                    <div className="pdf-viewer-shell h-[1290px] rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100dvh-170px)] max-[640px]:min-h-[560px]">
                       {isMobileViewport ? (
                         <div ref={mobilePdfViewportRef} className="pdf-react-viewer h-full w-full">
                           <Document

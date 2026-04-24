@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import { findSearchResults, loadLeafModelTreeMap, loadMajorCategories } from '../features/productCatalogService'
+import { lockBodyScroll } from '../utils/bodyScrollLock'
 
 const EMPTY_TREE = { byKey: {}, byLeaf: {} }
 
@@ -28,13 +29,12 @@ export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
   useEffect(() => {
     if (!isOpen) return undefined
 
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    const releaseBodyScrollLock = lockBodyScroll()
     const timer = setTimeout(() => inputRef.current?.focus(), 30)
 
     return () => {
       clearTimeout(timer)
-      document.body.style.overflow = prevOverflow
+      releaseBodyScrollLock()
     }
   }, [isOpen])
 
