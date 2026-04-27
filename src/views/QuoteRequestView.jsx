@@ -1,7 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { formatQuoteItemPath, getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
+import { lockBodyScroll } from '../utils/bodyScrollLock'
 
 const initialForm = {
   companyName: '',
@@ -47,21 +49,30 @@ function QuoteField({ label, required = false, children }) {
   )
 }
 
-export function QuoteRequestView({
-  isActive,
-  items,
-  onNavigate,
-  onUpdateQuantity,
-  onUpdateNote,
-  onRemoveItem,
-  onClearItems,
-}) {
+export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onUpdateNote, onRemoveItem, onClearItems }) {
   const [form, setForm] = useState(initialForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
   const [submitError, setSubmitError] = useState('')
   const normalizedItems = useMemo(() => normalizeQuoteItems(items), [items])
   const quoteSummary = useMemo(() => getQuoteItemSummary(normalizedItems), [normalizedItems])
+
+  useEffect(() => {
+    if (!isOpen) return undefined
+    return lockBodyScroll()
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!isOpen) return undefined
+
+    const handleEscape = (event) => {
+      if (event.key !== 'Escape') return
+      onClose?.()
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [isOpen, onClose])
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -74,7 +85,7 @@ export function QuoteRequestView({
 
     const payload = normalizeForm(form)
     if (normalizedItems.length === 0) {
-      setSubmitError('먼저 제품 페이지에서 주문목록 항목을 추가해주세요.')
+      setSubmitError('먼저 제품 상세에서 필요한 수량을 담아주세요.')
       setSubmitMessage('')
       return
     }
@@ -128,58 +139,66 @@ export function QuoteRequestView({
     }
   }
 
-  return (
-    <section className={`${isActive ? '' : 'is-hidden'} bg-slate-100 px-4 pb-12 pt-[clamp(34px,4vw,56px)] max-[640px]:px-3.5 max-[640px]:pb-10 max-[640px]:pt-[28px]`} id="quote-request-page">
-      <div className="mx-auto grid max-w-[1180px] gap-5">
-        <div className="overflow-hidden rounded-[28px] border border-[#e7c6ca] bg-[linear-gradient(135deg,#fff8f7_0%,#fff1f1_48%,#f8fafc_100%)] p-5 shadow-[0_24px_46px_rgba(15,23,42,0.08)] max-[640px]:rounded-3xl max-[640px]:p-4">
-          <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#be272f]">B2B Quote Flow</p>
-          <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-[700px]">
-              <h1 className="m-0 text-[clamp(34px,3vw,52px)] font-black leading-[1.04] tracking-[-0.03em] text-slate-900">견적요청</h1>
-              <p className="m-0 mt-3 text-[15px] leading-7 text-slate-600">
-                구매 결제가 아니라 주문목록 기준으로 견적서를 요청하는 별도 B2B 프로세스입니다. 여러 품목을 한 번에 담거나,
-                한 품목의 수량을 크게 잡아 프로젝트 단위로 접수할 수 있습니다.
+  if (!isOpen || typeof document === 'undefined') return null
+
+  return createPortal(
+    <div className="fixed inset-0 z-[1200] p-4 max-[640px]:p-2.5">
+      <button
+        type="button"
+        className="absolute inset-0 bg-slate-950/45"
+        onClick={() => onClose?.()}
+        aria-label="견적요청 모달 닫기"
+      ></button>
+
+      <section
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="quote-request-modal-title"
+        className="relative mx-auto flex h-[calc(100dvh-32px)] max-w-[1380px] flex-col overflow-hidden rounded-[32px] border border-slate-200 bg-slate-100 shadow-[0_32px_80px_rgba(15,23,42,0.34)] max-[640px]:h-[calc(100dvh-20px)] max-[640px]:rounded-[28px]"
+      >
+        <header className="border-b border-[#edd2d6] bg-[linear-gradient(135deg,#fff8f7_0%,#fff1f1_48%,#f8fafc_100%)] px-5 py-4 max-[640px]:px-4 max-[640px]:py-3.5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="max-w-[820px]">
+              <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#be272f]">B2B Quote Flow</p>
+              <h1 id="quote-request-modal-title" className="m-0 mt-2 text-[clamp(28px,2.5vw,42px)] font-black leading-[1.05] tracking-[-0.03em] text-slate-900">
+                견적요청서
+              </h1>
+              <p className="m-0 mt-2 text-sm leading-6 text-slate-600">
+                현재 보고 있던 화면은 그대로 유지한 채 견적서를 정리할 수 있게 모달로 열립니다. 품목별 수량과 메모를 확인한 뒤 바로 전송하세요.
               </p>
             </div>
-            <button
-              type="button"
-              className="inline-flex h-11 items-center rounded-full border border-[#d6a4aa] bg-white px-4 text-sm font-extrabold text-[#b4262e] transition hover:border-[#cf4a53] hover:bg-[#fff6f7]"
-              onClick={() => onNavigate?.('products')}
-            >
-              제품 더 담기
-            </button>
-          </div>
 
-          <div className="mt-5 grid gap-3 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/80 bg-white/80 p-4 backdrop-blur-sm">
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">Step 1</p>
-              <strong className="mt-1 block text-base font-black text-slate-900">주문목록 구성</strong>
-              <p className="m-0 mt-1 text-sm leading-6 text-slate-600">제품 화면에서 필요한 모델을 주문목록에 계속 추가하세요.</p>
-            </div>
-            <div className="rounded-2xl border border-white/80 bg-white/80 p-4 backdrop-blur-sm">
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">Step 2</p>
-              <strong className="mt-1 block text-base font-black text-slate-900">회사 정보 입력</strong>
-              <p className="m-0 mt-1 text-sm leading-6 text-slate-600">담당자와 회사 정보를 함께 남기면 B2B 견적 대응이 빨라집니다.</p>
-            </div>
-            <div className="rounded-2xl border border-white/80 bg-white/80 p-4 backdrop-blur-sm">
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">Step 3</p>
-              <strong className="mt-1 block text-base font-black text-slate-900">견적 요청 전송</strong>
-              <p className="m-0 mt-1 text-sm leading-6 text-slate-600">담긴 목록과 수량 기준으로 견적서를 검토해 회신드립니다.</p>
+            <div className="flex items-center gap-2 self-start">
+              <span className="rounded-full bg-[#fff3f4] px-3 py-1.5 text-xs font-black text-[#b4262e]">
+                {quoteSummary.lineCount}개 항목 / 총 {quoteSummary.totalQuantity}개
+              </span>
+              <button
+                type="button"
+                className="inline-flex h-11 items-center rounded-full border border-slate-300 bg-white px-4 text-sm font-extrabold text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
+                onClick={() => onClose?.()}
+              >
+                계속 담기
+              </button>
+              <button
+                type="button"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-xl font-black text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
+                onClick={() => onClose?.()}
+                aria-label="견적요청 모달 닫기"
+              >
+                ×
+              </button>
             </div>
           </div>
-        </div>
+        </header>
 
-        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
-          <section className="grid gap-3 rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_16px_34px_rgba(15,23,42,0.06)] max-[640px]:rounded-3xl max-[640px]:p-3.5">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">Order List</p>
-                <h2 className="m-0 mt-1 text-[24px] font-black tracking-[-0.02em] text-slate-900">주문목록</h2>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="rounded-full bg-[#fff3f4] px-3 py-1.5 text-xs font-black text-[#b4262e]">
-                  {quoteSummary.lineCount}개 항목 / 총 {quoteSummary.totalQuantity}개
-                </span>
+        <div className="flex-1 overflow-y-auto px-5 py-5 max-[640px]:px-3.5 max-[640px]:py-3.5">
+          <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
+            <section className="grid gap-3 rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_16px_34px_rgba(15,23,42,0.06)] max-[640px]:rounded-3xl max-[640px]:p-3.5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">Order List</p>
+                  <h2 className="m-0 mt-1 text-[24px] font-black tracking-[-0.02em] text-slate-900">주문목록</h2>
+                </div>
                 {normalizedItems.length > 0 ? (
                   <button
                     type="button"
@@ -190,187 +209,188 @@ export function QuoteRequestView({
                   </button>
                 ) : null}
               </div>
-            </div>
 
-            {normalizedItems.length === 0 ? (
-              <div className="grid gap-3 rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
-                <strong className="text-lg font-black text-slate-900">아직 담긴 품목이 없습니다.</strong>
-                <p className="m-0 text-sm leading-6 text-slate-500">제품 화면에서 모델별로 주문목록에 추가한 뒤 견적요청서를 보내주세요.</p>
-                <div>
-                  <button
-                    type="button"
-                    className="inline-flex h-11 items-center rounded-full bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-5 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(185,37,45,0.24)]"
-                    onClick={() => onNavigate?.('products')}
-                  >
-                    제품 보러가기
-                  </button>
+              {normalizedItems.length === 0 ? (
+                <div className="grid gap-3 rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
+                  <strong className="text-lg font-black text-slate-900">아직 담긴 품목이 없습니다.</strong>
+                  <p className="m-0 text-sm leading-6 text-slate-500">제품 상세에서 수량을 정한 뒤 주문목록에 담아주세요.</p>
+                  <div>
+                    <button
+                      type="button"
+                      className="inline-flex h-11 items-center rounded-full bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-5 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(185,37,45,0.24)]"
+                      onClick={() => onClose?.()}
+                    >
+                      제품으로 돌아가기
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="grid gap-3">
-                {normalizedItems.map((item) => (
-                  <article key={item.id} className="grid gap-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">{formatQuoteItemPath(item) || '제품 정보'}</p>
-                        <h3 className="m-0 mt-1 break-all text-[22px] font-black tracking-[-0.02em] text-slate-900">{item.displayModel}</h3>
-                        {item.optionModel && item.optionModel !== item.baseModel ? (
-                          <p className="m-0 mt-1 text-xs font-semibold text-slate-500">기본 모델: {item.baseModel}</p>
-                        ) : null}
-                        {item.wattage ? <p className="m-0 mt-2 text-sm font-semibold text-slate-600">Wattage: {item.wattage}</p> : null}
+              ) : (
+                <div className="grid gap-3">
+                  {normalizedItems.map((item) => (
+                    <article key={item.id} className="grid gap-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">{formatQuoteItemPath(item) || '제품 정보'}</p>
+                          <h3 className="m-0 mt-1 break-all text-[22px] font-black tracking-[-0.02em] text-slate-900">{item.displayModel}</h3>
+                          {item.optionModel && item.optionModel !== item.baseModel ? (
+                            <p className="m-0 mt-1 text-xs font-semibold text-slate-500">기본 모델: {item.baseModel}</p>
+                          ) : null}
+                          {item.wattage ? <p className="m-0 mt-2 text-sm font-semibold text-slate-600">Wattage: {item.wattage}</p> : null}
+                        </div>
+                        <button
+                          type="button"
+                          className="inline-flex h-10 items-center rounded-full border border-[#e6b1b7] bg-white px-3 text-xs font-extrabold text-[#b4262e] transition hover:bg-[#fff5f6]"
+                          onClick={() => onRemoveItem?.(item.id)}
+                        >
+                          항목 삭제
+                        </button>
                       </div>
-                      <button
-                        type="button"
-                        className="inline-flex h-10 items-center rounded-full border border-[#e6b1b7] bg-white px-3 text-xs font-extrabold text-[#b4262e] transition hover:bg-[#fff5f6]"
-                        onClick={() => onRemoveItem?.(item.id)}
-                      >
-                        항목 삭제
-                      </button>
-                    </div>
 
-                    <div className="grid gap-3 md:grid-cols-[130px_minmax(0,1fr)]">
-                      <QuoteField label="수량" required>
-                        <input
-                          type="number"
-                          min="1"
-                          inputMode="numeric"
-                          value={item.quantity}
-                          onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)}
-                          className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-base font-bold text-slate-900 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
-                        />
-                      </QuoteField>
+                      <div className="grid gap-3 md:grid-cols-[130px_minmax(0,1fr)]">
+                        <QuoteField label="수량" required>
+                          <input
+                            type="number"
+                            min="1"
+                            inputMode="numeric"
+                            value={item.quantity}
+                            onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)}
+                            className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-base font-bold text-slate-900 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
+                          />
+                        </QuoteField>
 
-                      <QuoteField label="품목 메모">
-                        <textarea
-                          value={item.note}
-                          onChange={(event) => onUpdateNote?.(item.id, event.target.value)}
-                          className="min-h-[88px] rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-800 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
-                          placeholder="예: 4주 납기 가능 여부, 특정 옵션 확인 요청"
-                        ></textarea>
-                      </QuoteField>
-                    </div>
-                  </article>
-                ))}
+                        <QuoteField label="품목 메모">
+                          <textarea
+                            value={item.note}
+                            onChange={(event) => onUpdateNote?.(item.id, event.target.value)}
+                            className="min-h-[88px] rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-800 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
+                            placeholder="예: 4주 납기 가능 여부, 특정 옵션 확인 요청"
+                          ></textarea>
+                        </QuoteField>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <form className="grid gap-3 rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_16px_34px_rgba(15,23,42,0.06)] max-[640px]:rounded-3xl max-[640px]:p-3.5" onSubmit={handleSubmit} noValidate>
+              <div>
+                <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">Company Information</p>
+                <h2 className="m-0 mt-1 text-[24px] font-black tracking-[-0.02em] text-slate-900">견적 요청 정보</h2>
+                <p className="m-0 mt-2 text-sm leading-6 text-slate-500">제품문의/기술문의와 분리된 B2B 견적 검토 전용 정보입니다.</p>
               </div>
-            )}
-          </section>
 
-          <form className="grid gap-3 rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_16px_34px_rgba(15,23,42,0.06)] max-[640px]:rounded-3xl max-[640px]:p-3.5" onSubmit={handleSubmit} noValidate>
-            <div>
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">Company Information</p>
-              <h2 className="m-0 mt-1 text-[24px] font-black tracking-[-0.02em] text-slate-900">견적 요청 정보</h2>
-              <p className="m-0 mt-2 text-sm leading-6 text-slate-500">제품문의/기술문의와 별개로 B2B 견적 검토용 정보만 받습니다.</p>
-            </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                <QuoteField label="회사명" required>
+                  <input
+                    name="companyName"
+                    value={form.companyName}
+                    onChange={handleChange}
+                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  />
+                </QuoteField>
 
-            <div className="grid gap-3 md:grid-cols-2">
-              <QuoteField label="회사명" required>
+                <QuoteField label="담당자명" required>
+                  <input
+                    name="contactName"
+                    value={form.contactName}
+                    onChange={handleChange}
+                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  />
+                </QuoteField>
+
+                <QuoteField label="부서 / 직함">
+                  <input
+                    name="department"
+                    value={form.department}
+                    onChange={handleChange}
+                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  />
+                </QuoteField>
+
+                <QuoteField label="사업자등록번호">
+                  <input
+                    name="businessNumber"
+                    value={form.businessNumber}
+                    onChange={handleChange}
+                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  />
+                </QuoteField>
+
+                <QuoteField label="이메일" required>
+                  <input
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  />
+                </QuoteField>
+
+                <QuoteField label="연락처" required>
+                  <input
+                    name="phone"
+                    type="tel"
+                    value={form.phone}
+                    onChange={handleChange}
+                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  />
+                </QuoteField>
+
+                <QuoteField label="프로젝트명">
+                  <input
+                    name="projectName"
+                    value={form.projectName}
+                    onChange={handleChange}
+                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  />
+                </QuoteField>
+
+                <QuoteField label="희망 회신일">
+                  <input
+                    name="requestDeadline"
+                    type="date"
+                    value={form.requestDeadline}
+                    onChange={handleChange}
+                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  />
+                </QuoteField>
+              </div>
+
+              <QuoteField label="납품 지역 / 현장">
                 <input
-                  name="companyName"
-                  value={form.companyName}
+                  name="shippingRegion"
+                  value={form.shippingRegion}
                   onChange={handleChange}
                   className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
                 />
               </QuoteField>
 
-              <QuoteField label="담당자명" required>
-                <input
-                  name="contactName"
-                  value={form.contactName}
+              <QuoteField label="요청 메모">
+                <textarea
+                  name="message"
+                  value={form.message}
                   onChange={handleChange}
-                  className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                />
+                  className="min-h-[148px] rounded-2xl border border-slate-300 bg-slate-50 px-3 py-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  placeholder="예: 인증서 필요 여부, 예상 발주 시점, 납기 조건, 프로젝트 개요"
+                ></textarea>
               </QuoteField>
 
-              <QuoteField label="부서 / 직함">
-                <input
-                  name="department"
-                  value={form.department}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                />
-              </QuoteField>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="h-[52px] rounded-2xl bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-base font-extrabold text-white shadow-[0_16px_30px_rgba(185,37,45,0.28)] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSubmitting ? '견적요청 전송 중...' : '견적요청서 보내기'}
+              </button>
 
-              <QuoteField label="사업자등록번호">
-                <input
-                  name="businessNumber"
-                  value={form.businessNumber}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                />
-              </QuoteField>
-
-              <QuoteField label="이메일" required>
-                <input
-                  name="email"
-                  type="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                />
-              </QuoteField>
-
-              <QuoteField label="연락처" required>
-                <input
-                  name="phone"
-                  type="tel"
-                  value={form.phone}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                />
-              </QuoteField>
-
-              <QuoteField label="프로젝트명">
-                <input
-                  name="projectName"
-                  value={form.projectName}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                />
-              </QuoteField>
-
-              <QuoteField label="희망 회신일">
-                <input
-                  name="requestDeadline"
-                  type="date"
-                  value={form.requestDeadline}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                />
-              </QuoteField>
-            </div>
-
-            <QuoteField label="납품 지역 / 현장">
-              <input
-                name="shippingRegion"
-                value={form.shippingRegion}
-                onChange={handleChange}
-                className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-              />
-            </QuoteField>
-
-            <QuoteField label="요청 메모">
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                className="min-h-[148px] rounded-2xl border border-slate-300 bg-slate-50 px-3 py-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                placeholder="예: 인증서 필요 여부, 예상 발주 시점, 납기 조건, 프로젝트 개요"
-              ></textarea>
-            </QuoteField>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="h-[52px] rounded-2xl bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-base font-extrabold text-white shadow-[0_16px_30px_rgba(185,37,45,0.28)] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isSubmitting ? '견적요청 전송 중...' : '견적요청서 보내기'}
-            </button>
-
-            {submitMessage ? <p className="m-0 rounded-2xl bg-[#effcf3] px-3 py-3 text-sm font-semibold text-[#0f6d3d]">{submitMessage}</p> : null}
-            {submitError ? <p className="m-0 rounded-2xl bg-[#fff1f2] px-3 py-3 text-sm font-semibold text-[#b42323]">{submitError}</p> : null}
-          </form>
+              {submitMessage ? <p className="m-0 rounded-2xl bg-[#effcf3] px-3 py-3 text-sm font-semibold text-[#0f6d3d]">{submitMessage}</p> : null}
+              {submitError ? <p className="m-0 rounded-2xl bg-[#fff1f2] px-3 py-3 text-sm font-semibold text-[#b42323]">{submitError}</p> : null}
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>,
+    document.body
   )
 }

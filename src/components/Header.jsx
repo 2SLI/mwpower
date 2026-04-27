@@ -175,18 +175,6 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
                 </ul>
               </div>
 
-              <footer className="border-t border-slate-200 bg-white p-3">
-                <button
-                  type="button"
-                  className="w-full rounded-xl bg-[linear-gradient(135deg,#e63c35_0%,#c3272f_100%)] px-4 py-3 text-sm font-extrabold text-white shadow-[0_10px_22px_rgba(195,39,47,0.28)]"
-                  onClick={() => {
-                    setIsMenuOpen(false)
-                    onNavigate('quote-request')
-                  }}
-                >
-                  견적요청서 바로가기
-                </button>
-              </footer>
             </aside>
           </div>,
           document.body

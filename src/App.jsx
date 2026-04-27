@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { HomeView } from './views/HomeView'
@@ -80,6 +80,7 @@ function setMetaByProperty(property, content) {
 }
 
 const SOCIAL_PREVIEW_IMAGE_URL = 'https://meanwellpower-103ae.web.app/logo/mwpower_logo.png'
+const QUOTE_MODAL_FALLBACK_VIEW = 'products'
 
 function getPathForView(view) {
   return VIEW_PATHS[normalizeView(view)] ?? VIEW_PATHS.home
@@ -95,17 +96,34 @@ function isKnownAppPath(pathname = '/') {
   return normalized === '/admin' || Boolean(PATH_VIEW_ALIASES[normalized])
 }
 
+function normalizeBackgroundView(view) {
+  const normalized = normalizeView(view)
+  return normalized === 'quote-request' ? QUOTE_MODAL_FALLBACK_VIEW : normalized
+}
+
 export default function App() {
   const initialPathname = typeof window === 'undefined' ? '/' : normalizePathname(window.location.pathname)
-  const [activeView, setActiveView] = useState(() => getViewForPathname(initialPathname))
+  const initialHistoryState = typeof window === 'undefined' ? null : window.history.state
+  const initialView = getViewForPathname(initialPathname)
+  const initialQuoteBackgroundView = normalizeBackgroundView(initialHistoryState?.backgroundView || initialView)
+  const [activeView, setActiveView] = useState(() => initialView)
   const [productSearchRequest, setProductSearchRequest] = useState(null)
   const [productPresetRequest, setProductPresetRequest] = useState(null)
   const [newsRequest, setNewsRequest] = useState(null)
   const [quoteItems, setQuoteItems] = useState(() => readStoredQuoteItems())
   const [pathname, setPathname] = useState(initialPathname)
+  const [quoteBackgroundView, setQuoteBackgroundView] = useState(initialQuoteBackgroundView)
   const isAdminRoute = pathname === '/admin'
-  const shouldHideFloatingActions = activeView === 'contact-product' || activeView === 'contact-tech' || activeView === 'quote-request'
+  const isQuoteRequestOpen = activeView === 'quote-request'
+  const visibleView = isQuoteRequestOpen ? quoteBackgroundView : activeView
+  const shouldHideFloatingActions = activeView === 'contact-product' || activeView === 'contact-tech' || isQuoteRequestOpen
   const quoteSummary = useMemo(() => getQuoteItemSummary(quoteItems), [quoteItems])
+  const lastNonQuoteViewRef = useRef(normalizeBackgroundView(visibleView))
+
+  useEffect(() => {
+    if (isQuoteRequestOpen) return
+    lastNonQuoteViewRef.current = normalizeBackgroundView(visibleView)
+  }, [isQuoteRequestOpen, visibleView])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -120,13 +138,30 @@ export default function App() {
 
       const nextView = getViewForPathname(nextPath)
       const canonicalPath = getPathForView(nextView)
+      const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
+      const fallbackBackgroundView = normalizeBackgroundView(currentHistoryState.backgroundView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
+      const nextBackgroundView = nextView === 'quote-request' ? fallbackBackgroundView : normalizeBackgroundView(nextView)
+      const nextHistoryState = { ...currentHistoryState, view: nextView }
 
-      if (!isKnownAppPath(nextPath) || nextPath !== canonicalPath) {
-        window.history.replaceState({ view: nextView }, '', canonicalPath)
+      if (nextView === 'quote-request') {
+        nextHistoryState.backgroundView = nextBackgroundView
+      } else {
+        if ('backgroundView' in nextHistoryState) delete nextHistoryState.backgroundView
+        if ('modalEntry' in nextHistoryState) delete nextHistoryState.modalEntry
+      }
+
+      if (
+        !isKnownAppPath(nextPath) ||
+        nextPath !== canonicalPath ||
+        (nextView === 'quote-request' && normalizeBackgroundView(currentHistoryState.backgroundView) !== nextBackgroundView)
+      ) {
+        window.history.replaceState(nextHistoryState, '', canonicalPath)
       }
 
       setPathname(canonicalPath)
+      setQuoteBackgroundView(nextBackgroundView)
       setActiveView(nextView)
+      lastNonQuoteViewRef.current = nextBackgroundView
     }
 
     syncPath()
@@ -186,20 +221,58 @@ export default function App() {
   function handleNavigate(view, options = {}) {
     const nextView = normalizeView(view)
     const nextPath = getPathForView(nextView)
+    const useReplace = options.replace === true
+    const historyMethod = useReplace ? 'replaceState' : 'pushState'
 
+    if (nextView === 'quote-request') {
+      const nextBackgroundView = normalizeBackgroundView(options.backgroundView || visibleView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
+      setQuoteBackgroundView(nextBackgroundView)
+      setActiveView(nextView)
+      setPathname(nextPath)
+      lastNonQuoteViewRef.current = nextBackgroundView
+
+      if (typeof window !== 'undefined') {
+        const currentPath = normalizePathname(window.location.pathname)
+        const currentBackgroundView = normalizeBackgroundView(window.history.state?.backgroundView)
+        if (useReplace || currentPath !== nextPath || currentBackgroundView !== nextBackgroundView || activeView !== nextView) {
+          window.history[historyMethod]({ view: nextView, backgroundView: nextBackgroundView, modalEntry: true }, '', nextPath)
+        }
+      }
+
+      return
+    }
+
+    const nextBackgroundView = normalizeBackgroundView(nextView)
     setActiveView(nextView)
     setPathname(nextPath)
+    setQuoteBackgroundView(nextBackgroundView)
+    lastNonQuoteViewRef.current = nextBackgroundView
 
     if (typeof window !== 'undefined') {
       const currentPath = normalizePathname(window.location.pathname)
-      if (currentPath !== nextPath) {
-        window.history.pushState({ view: nextView }, '', nextPath)
+      if (useReplace || currentPath !== nextPath) {
+        window.history[historyMethod]({ view: nextView }, '', nextPath)
       }
 
       if (options.scrollTop !== false) {
         window.scrollTo({ top: 0, behavior: 'auto' })
       }
     }
+  }
+
+  function handleCloseQuoteRequest() {
+    const fallbackView = normalizeBackgroundView(quoteBackgroundView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
+
+    if (typeof window !== 'undefined') {
+      const currentPath = normalizePathname(window.location.pathname)
+      const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
+      if (currentPath === VIEW_PATHS['quote-request'] && currentHistoryState.modalEntry) {
+        window.history.back()
+        return
+      }
+    }
+
+    handleNavigate(fallbackView, { replace: true, scrollTop: false })
   }
 
   function handleProductSearch(keyword) {
@@ -267,7 +340,7 @@ export default function App() {
           aria-label="B2B quote request"
           onClick={(event) => {
             event.preventDefault()
-            handleNavigate('quote-request')
+            handleNavigate('quote-request', { scrollTop: false })
           }}
         >
           <i className="fa-regular fa-clipboard text-[18px] text-white" aria-hidden="true"></i>
@@ -300,34 +373,33 @@ export default function App() {
         />
         <main className="pt-[92px] max-[1280px]:pt-[62px]">
           <HomeView
-            isActive={activeView === 'home'}
+            isActive={visibleView === 'home'}
             bannerImages={bannerImages}
             onNavigate={handleNavigate}
             onOpenProductPreset={handleOpenProductPreset}
             onOpenProductSearch={handleProductSearch}
             onOpenNewsArticle={handleOpenNewsArticle}
           />
-          <NewsView isActive={activeView === 'news'} onNavigate={handleNavigate} externalNewsRequest={newsRequest} />
+          <NewsView isActive={visibleView === 'news'} onNavigate={handleNavigate} externalNewsRequest={newsRequest} />
           <ProductsView
-            isActive={activeView === 'products'}
+            isActive={visibleView === 'products'}
             externalSearchRequest={productSearchRequest}
             externalPresetRequest={productPresetRequest}
-            onNavigate={handleNavigate}
             onAddQuoteItem={handleAddQuoteItem}
             quoteItemCount={quoteSummary.totalQuantity}
           />
-          <ServiceView isActive={activeView === 'service'} />
+          <ServiceView isActive={visibleView === 'service'} />
           <QuoteRequestView
-            isActive={activeView === 'quote-request'}
+            isOpen={isQuoteRequestOpen}
             items={quoteItems}
-            onNavigate={handleNavigate}
+            onClose={handleCloseQuoteRequest}
             onUpdateQuantity={handleUpdateQuoteItemQuantity}
             onUpdateNote={handleUpdateQuoteItemNote}
             onRemoveItem={handleRemoveQuoteItem}
             onClearItems={handleClearQuoteItems}
           />
-          <ContactView isActive={activeView === 'contact-product'} />
-          <TechnicalContactView isActive={activeView === 'contact-tech'} />
+          <ContactView isActive={visibleView === 'contact-product'} />
+          <TechnicalContactView isActive={visibleView === 'contact-tech'} />
         </main>
         <Footer />
       </div>

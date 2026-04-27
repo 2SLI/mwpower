@@ -339,6 +339,12 @@ function normalizeHistoryTextValue(value) {
   return text || null
 }
 
+function normalizeRequestedQuoteQuantity(value, fallback = 1) {
+  const parsed = Number.parseInt(value, 10)
+  if (!Number.isFinite(parsed) || parsed <= 0) return fallback
+  return Math.min(parsed, 99999)
+}
+
 function normalizeProductHistoryState(state) {
   if (!state || typeof state !== 'object') return null
 
@@ -366,7 +372,7 @@ function serializeProductHistoryState(state) {
   return JSON.stringify(normalizeProductHistoryState(state) ?? null)
 }
 
-export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onNavigate, onAddQuoteItem, quoteItemCount = 0 }) {
+export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onAddQuoteItem, quoteItemCount = 0 }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
 
@@ -385,6 +391,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const [mobilePdfNumPages, setMobilePdfNumPages] = useState(0)
   const [mobilePdfViewportWidth, setMobilePdfViewportWidth] = useState(0)
   const [quoteFeedback, setQuoteFeedback] = useState('')
+  const [selectedQuoteQuantity, setSelectedQuoteQuantity] = useState(1)
   const categoryCrumbRef = useRef(null)
   const mobilePdfViewportRef = useRef(null)
   const wasActiveRef = useRef(isActive)
@@ -965,11 +972,13 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     if (modelCards.length === 0) {
       if (activeModel) setActiveModel(null)
       if (selectedOptionModel) setSelectedOptionModel('')
+      setSelectedQuoteQuantity(1)
       return
     }
 
     if (!activeModel) {
       if (selectedOptionModel) setSelectedOptionModel('')
+      setSelectedQuoteQuantity(1)
       return
     }
 
@@ -977,8 +986,13 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     if (!exists) {
       setActiveModel(null)
       if (selectedOptionModel) setSelectedOptionModel('')
+      setSelectedQuoteQuantity(1)
     }
   }, [modelCards, activeModel, selectedOptionModel])
+
+  useEffect(() => {
+    setSelectedQuoteQuantity(1)
+  }, [activeModel])
 
   useEffect(() => {
     if (!selectedOptionModel) return
@@ -1094,6 +1108,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     asset = null,
     thumbnailUrl = '',
     wattage = '',
+    quantity = 1,
   } = {}) => {
     const baseModel = String(modelName ?? '').trim()
     const displayModel = String(optionModel ?? '').trim() || baseModel
@@ -1115,7 +1130,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       thumbnailUrl: String(thumbnailUrl ?? '').trim(),
       wattage: String(wattage ?? '').trim(),
       pdfUrl: String(asset?.pdfUrl ?? '').trim(),
-      quantity: 1,
+      quantity: normalizeRequestedQuoteQuantity(quantity, 1),
       note: '',
       addedAt: new Date().toISOString(),
     }
@@ -1125,7 +1140,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const nextItem = buildQuoteItemPayload(payload)
     if (!nextItem) return
     onAddQuoteItem?.(nextItem)
-    setQuoteFeedback(`${nextItem.displayModel} 항목이 주문목록에 추가되었습니다.`)
+    setQuoteFeedback(`${nextItem.displayModel} ${nextItem.quantity}개가 주문목록에 추가되었습니다.`)
+    setSelectedQuoteQuantity(1)
   }
 
   const renderAdditionalOptionsPanel = ({ isModelSelected = false } = {}) => {
@@ -1160,6 +1176,36 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
           {canAddSelectedModel ? (
             <>
+              <label className="grid gap-1.5">
+                <span className="text-[13px] font-semibold text-slate-700">주문 수량</span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-lg font-black text-slate-700 transition hover:border-[#d4555b] hover:text-[#b4262e]"
+                    onClick={() => setSelectedQuoteQuantity((prev) => Math.max(1, normalizeRequestedQuoteQuantity(prev, 1) - 1))}
+                    aria-label="수량 감소"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    min="1"
+                    inputMode="numeric"
+                    value={selectedQuoteQuantity}
+                    onChange={(event) => setSelectedQuoteQuantity(normalizeRequestedQuoteQuantity(event.target.value, 1))}
+                    className="h-10 min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 text-center text-[15px] font-black text-slate-900 outline-none focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8]"
+                  />
+                  <button
+                    type="button"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-lg font-black text-slate-700 transition hover:border-[#d4555b] hover:text-[#b4262e]"
+                    onClick={() => setSelectedQuoteQuantity((prev) => Math.min(99999, normalizeRequestedQuoteQuantity(prev, 1) + 1))}
+                    aria-label="수량 증가"
+                  >
+                    +
+                  </button>
+                </div>
+              </label>
+
               <button
                 type="button"
                 className="inline-flex h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(185,37,45,0.22)] transition hover:brightness-105"
@@ -1175,22 +1221,15 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     asset: selectedModelCard.asset,
                     thumbnailUrl: leafView?.thumbnailUrl,
                     wattage: leafView?.wattage,
+                    quantity: selectedQuoteQuantity,
                   })
                 }
               >
-                주문목록 추가
-              </button>
-
-              <button
-                type="button"
-                className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 text-sm font-extrabold text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
-                onClick={() => onNavigate?.('quote-request')}
-              >
-                견적요청서 보기
+                주문목록에 담기
               </button>
 
               <p className="m-0 text-[12px] font-semibold leading-5 text-slate-500">
-                견적 대상: {selectedOptionModel || selectedModelCard.modelName}
+                견적 대상: {selectedOptionModel || selectedModelCard.modelName} / {selectedQuoteQuantity}개
               </p>
             </>
           ) : null}
@@ -1316,7 +1355,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     )
   }
 
-  const renderModelActionList = ({ items = [], onSelectModel, buildQuoteContext }) => {
+  const renderModelActionList = ({ items = [], onSelectModel }) => {
     if (items.length === 0) {
       return <p className="m-0 text-[14px] text-slate-500">등록된 모델이 없습니다.</p>
     }
@@ -1324,11 +1363,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     return (
       <div className="grid gap-2.5">
         {items.map((item) => {
-          const quoteContext = typeof buildQuoteContext === 'function' ? buildQuoteContext(item) : null
           const isCurrentModel = normalizeLabel(item.modelName) === normalizeLabel(activeModel)
 
           return (
-            <div key={item.modelName} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5">
+            <div key={item.modelName} className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2.5">
               <button
                 type="button"
                 className={`min-w-0 flex-1 text-left text-[14px] font-semibold underline-offset-2 transition hover:text-[#c02f2f] hover:underline ${
@@ -1340,20 +1378,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 {!hasPdfAsset(item.asset) ? <span className="ml-1 text-[12px] text-slate-400">(PDF 준비중)</span> : null}
               </button>
 
-              <button
-                type="button"
-                className="inline-flex h-9 shrink-0 items-center rounded-full border border-[#e5b1b6] bg-[#fff5f6] px-3 text-[12px] font-extrabold text-[#b4262e] transition hover:border-[#d2464f] hover:bg-white"
-                onClick={() => {
-                  if (!quoteContext) return
-                  handleAddQuoteLineItem({
-                    ...quoteContext,
-                    modelName: item.modelName,
-                    asset: item.asset,
-                  })
-                }}
-              >
-                주문목록 추가
-              </button>
+              <span className={`shrink-0 text-[11px] font-black uppercase tracking-[0.08em] ${isCurrentModel ? 'text-[#c83a3a]' : 'text-slate-400'}`}>
+                {isCurrentModel ? '선택됨' : '상세 보기'}
+              </span>
             </div>
           )
         })}
@@ -1407,19 +1434,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
           {renderModelActionList({
             items: record.modelList,
             onSelectModel: (item) => handleLeafRecordModelClick(record, item.modelName),
-            buildQuoteContext: (item) => {
-              const route = modelRouteIndex[normalizeLabel(item.modelName)] ?? null
-              return {
-                majorId: majorIdByName[normalizeLabel(record.major)] || activeMajorId || defaultMajorId,
-                majorName: record.major,
-                subcategory: record.subcategory,
-                leaf: record.leaf,
-                groupName: route?.groupName || '',
-                optionModel: '',
-                thumbnailUrl: record.thumbnailUrl,
-                wattage: record.wattage,
-              }
-            },
           })}
         </div>
       </div>
@@ -1681,17 +1695,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">Order List</p>
                   <p className="m-0 mt-1 text-sm font-extrabold text-slate-900">현재 주문목록에 {quoteItemCount}개 수량이 담겨 있습니다.</p>
                   <p className="m-0 mt-1 text-[13px] font-semibold text-slate-600">
-                    {quoteFeedback || '모델별로 주문목록에 담은 뒤 견적요청서에서 수량과 메모를 정리해 전송할 수 있습니다.'}
+                    {quoteFeedback || '모델 상세에서 수량을 정해 담고, 우측 견적 아이콘에서 바로 견적요청서를 확인할 수 있습니다.'}
                   </p>
                 </div>
-
-                <button
-                  type="button"
-                  className="inline-flex h-10 items-center rounded-full bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-sm font-extrabold text-white shadow-[0_10px_20px_rgba(185,37,45,0.2)]"
-                  onClick={() => onNavigate?.('quote-request')}
-                >
-                  견적요청서 보기
-                </button>
               </div>
             </div>
           ) : null}
@@ -1775,17 +1781,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                         {renderModelActionList({
                           items: modelCards,
                           onSelectModel: (item) => handleModelClick(item.modelName),
-                          buildQuoteContext: (item) => ({
-                            majorId: activeMajorId,
-                            majorName: activeMajor?.name,
-                            subcategory: activeSubcategory,
-                            leaf: activeLeaf,
-                            groupName: selectedGroupName ?? activeGroup,
-                            optionModel:
-                              normalizeLabel(item.modelName) === normalizeLabel(selectedModelCard?.modelName) ? selectedOptionModel : '',
-                            thumbnailUrl: leafView?.thumbnailUrl,
-                            wattage: leafView?.wattage,
-                          }),
                         })}
                       </div>
                     </div>
@@ -1884,16 +1879,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                       {renderModelActionList({
                         items: modelCards,
                         onSelectModel: (item) => handleModelClick(item.modelName),
-                        buildQuoteContext: () => ({
-                          majorId: activeMajorId,
-                          majorName: activeMajor?.name,
-                          subcategory: activeSubcategory,
-                          leaf: activeLeaf,
-                          groupName: selectedGroupName ?? activeGroup,
-                          optionModel: '',
-                          thumbnailUrl: leafView?.thumbnailUrl,
-                          wattage: leafView?.wattage,
-                        }),
                       })}
                     </div>
                   </div>
