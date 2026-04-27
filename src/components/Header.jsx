@@ -212,7 +212,7 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
         <div className="fixed inset-0 z-[1000]">
           <button
             type="button"
-            className="absolute inset-0 bg-slate-950/82 backdrop-blur-[2px]"
+            className="absolute inset-0 bg-slate-950/58"
             onClick={() => setIsMenuOpen(false)}
             aria-label="메뉴 닫기"
           ></button>

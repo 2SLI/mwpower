@@ -28,25 +28,21 @@ export function lockBodyScroll() {
   }
 
   if (lockCount === 0) {
-    const scrollY = window.scrollY || window.pageYOffset || 0
     const scrollbarWidth = Math.max(0, window.innerWidth - html.clientWidth)
 
     savedState = {
-      scrollY,
-      body: readInlineStyleSnapshot(body, ['overflow', 'position', 'top', 'left', 'right', 'width', 'paddingRight']),
-      html: readInlineStyleSnapshot(html, ['overflow']),
+      body: readInlineStyleSnapshot(body, ['overflow', 'paddingRight', 'touchAction', 'overscrollBehavior']),
+      html: readInlineStyleSnapshot(html, ['overflow', 'overscrollBehavior']),
     }
 
     body.style.overflow = 'hidden'
-    body.style.position = 'fixed'
-    body.style.top = `-${scrollY}px`
-    body.style.left = '0'
-    body.style.right = '0'
-    body.style.width = '100%'
+    body.style.touchAction = 'none'
+    body.style.overscrollBehavior = 'none'
     if (scrollbarWidth > 0) {
       body.style.paddingRight = `${scrollbarWidth}px`
     }
     html.style.overflow = 'hidden'
+    html.style.overscrollBehavior = 'none'
   }
 
   lockCount += 1
@@ -61,8 +57,6 @@ export function lockBodyScroll() {
 
     applyInlineStyleSnapshot(body, savedState.body)
     applyInlineStyleSnapshot(html, savedState.html)
-    window.scrollTo(0, savedState.scrollY)
     savedState = null
   }
 }
-
