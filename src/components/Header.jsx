@@ -50,6 +50,25 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
   }, [activeView])
 
   useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    const query = window.matchMedia('(max-width: 980px)')
+    const sync = () => {
+      if (!query.matches) setIsMenuOpen(false)
+    }
+
+    sync()
+
+    if (typeof query.addEventListener === 'function') {
+      query.addEventListener('change', sync)
+      return () => query.removeEventListener('change', sync)
+    }
+
+    query.addListener(sync)
+    return () => query.removeListener(sync)
+  }, [])
+
+  useEffect(() => {
     const handleEscape = (event) => {
       if (event.key !== 'Escape') return
       setIsSearchOpen(false)
@@ -156,8 +175,8 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
           </button>
           <button
             type="button"
-            className={`relative inline-flex h-10 w-10 items-center justify-center border-0 p-0 transition hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9 ${
-              isMenuOpen ? 'z-[1040] rounded-full bg-white text-slate-900 shadow-[0_10px_30px_rgba(15,23,42,0.25)]' : 'bg-transparent text-current'
+            className={`relative hidden h-10 w-10 items-center justify-center border-0 p-0 transition hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[980px]:inline-flex max-[640px]:h-9 max-[640px]:w-9 ${
+              isMenuOpen ? 'rounded-full bg-white text-slate-900 shadow-[0_10px_30px_rgba(15,23,42,0.25)]' : 'bg-transparent text-current'
             }`}
             aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴'}
             aria-expanded={isMenuOpen}
@@ -197,18 +216,6 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
             onClick={() => setIsMenuOpen(false)}
             aria-label="메뉴 닫기"
           ></button>
-
-          <button
-            type="button"
-            className="fixed right-3 top-3 z-[1030] inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white text-slate-900 shadow-[0_14px_28px_rgba(15,23,42,0.26)] transition hover:bg-slate-50"
-            onClick={() => setIsMenuOpen(false)}
-            aria-label="메뉴 닫기"
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-              <path d="M6 6 18 18"></path>
-              <path d="M18 6 6 18"></path>
-            </svg>
-          </button>
 
           <aside
             id="mobile-header-menu"
