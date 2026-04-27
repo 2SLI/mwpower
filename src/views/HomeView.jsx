@@ -271,13 +271,10 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               <img className="absolute inset-0 h-full w-full object-cover" src={item.image} alt={item.alt} />
               <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.26)_0%,rgba(15,23,42,0.84)_66%,rgba(2,6,23,0.95)_100%)]"></span>
 
-              <div className="absolute inset-x-4 bottom-14 z-10 rounded-2xl border border-white/20 bg-black/28 p-5 backdrop-blur-sm">
+              <div className="absolute left-1/2 top-1/2 z-10 w-[min(calc(100%-5rem),24rem)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/20 bg-black/28 p-5 backdrop-blur-sm">
                 <p className="m-0 text-[11px] font-black tracking-[0.14em] text-rose-200">MEAN WELL POWER</p>
                 <h3 className="m-0 mt-2 text-[30px] font-black leading-tight tracking-[-0.02em] text-white">{item.mobileTitle}</h3>
                 {item.mobileSubtitle ? <p className="m-0 mt-2 text-sm font-semibold text-slate-100">{item.mobileSubtitle}</p> : null}
-                <span className="mt-4 inline-flex h-10 items-center rounded-full bg-[#e6392f] px-4 text-[13px] font-extrabold text-white">
-                  열기
-                </span>
               </div>
             </a>
           ))}

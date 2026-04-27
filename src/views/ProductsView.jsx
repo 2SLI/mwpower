@@ -911,8 +911,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const canGoBack = hasSearch || Boolean(activeModel) || Boolean(activeLeaf) || Boolean(activeSubcategory)
   const backButtonAriaLabel = canGoBack ? '뒤로가기' : '홈으로'
   const backButtonIconClass = canGoBack ? 'fa-solid fa-arrow-left' : 'fa-solid fa-house'
-  const mobilePathText = [activeMajor?.name, activeSubcategory, activeLeaf, activeModel].filter(Boolean).join(' / ') || '카테고리를 선택하세요'
-
   const renderAdditionalOptionsPanel = ({ isModelSelected = false } = {}) => {
     const combinedDisabled = !isModelSelected || selectedCombinedOptionModels.length === 0
 
@@ -1279,16 +1277,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             </div>
 
             <div className="mobile-crumb hidden max-[640px]:block">
-              <div className="mobile-crumb-top">
-                <button type="button" className="mobile-home" aria-label={backButtonAriaLabel} onClick={handleBackOrHome}>
-                  <i className={backButtonIconClass} aria-hidden="true"></i>
-                </button>
-
-                <p className="mobile-path" title={mobilePathText}>
-                  {mobilePathText}
-                </p>
-              </div>
-
               <div className="mobile-tab-bar" role="tablist" aria-label="카테고리 선택 탭">
                 <button
                   type="button"
