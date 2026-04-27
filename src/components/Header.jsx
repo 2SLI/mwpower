@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ProductSearchModal } from './ProductSearchModal'
 import { lockBodyScroll } from '../utils/bodyScrollLock'
 
@@ -91,8 +92,109 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
     setIsMenuOpen(false)
   }
 
+  const mobileMenuPortal =
+    isMenuOpen && typeof document !== 'undefined'
+      ? createPortal(
+          <div className="fixed inset-0 z-[1000] px-3 py-3 max-[640px]:px-2.5 max-[640px]:py-2.5">
+            <button
+              type="button"
+              className="absolute inset-0 bg-black/[0.12]"
+              onClick={() => setIsMenuOpen(false)}
+              aria-label="메뉴 닫기"
+            ></button>
+
+            <aside
+              id="mobile-header-menu"
+              className="absolute bottom-3 right-3 top-3 z-[1010] flex w-[min(72vw,320px)] flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_28px_60px_rgba(2,8,23,0.28)] max-[640px]:bottom-2.5 max-[640px]:right-2.5 max-[640px]:top-2.5 max-[640px]:w-[min(74vw,308px)]"
+              aria-label="Header menu"
+            >
+              <header className="relative overflow-hidden bg-[linear-gradient(135deg,#e53a33_0%,#c6252e_55%,#8d161f_100%)] px-5 pb-5 pr-16 pt-6 text-white">
+                <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-white/[0.12]"></div>
+                <button
+                  type="button"
+                  className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/[0.12] text-2xl leading-none text-white transition hover:bg-white/20"
+                  onClick={() => setIsMenuOpen(false)}
+                  aria-label="메뉴 닫기"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+                <p className="m-0 text-[10px] font-black tracking-[0.14em] text-rose-100">MENU</p>
+                <h2 className="m-0 mt-2">
+                  <img src={LOGO_SRC} alt={LOGO_ALT} className="h-[56px] w-[56px] object-contain" />
+                </h2>
+                <p className="mb-0 mt-2 text-xs font-semibold text-rose-100">제품/서비스 메뉴를 빠르게 이동하세요.</p>
+                <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-black text-white">
+                  <span>주문목록</span>
+                  <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-[#b92a31]">{quoteItemCount > 99 ? '99+' : quoteItemCount}</span>
+                </div>
+              </header>
+
+              <div className="flex-1 overflow-y-auto bg-white px-3 py-3.5">
+                <ul className="m-0 list-none space-y-1.5 p-0">
+                  {navItems.map((item) => {
+                    const baseClass =
+                      'flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left text-sm font-bold text-slate-700 transition hover:border-[#d45252] hover:bg-[#fff5f5] hover:text-[#c83434]'
+
+                    if (item.href) {
+                      return (
+                        <li key={`drawer-${item.label}`}>
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={baseClass}
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <span>{item.label}</span>
+                            <span aria-hidden="true">↗</span>
+                          </a>
+                        </li>
+                      )
+                    }
+
+                    return (
+                      <li key={`drawer-${item.view ?? item.label}`}>
+                        <button
+                          type="button"
+                          className={`${baseClass} ${item.key === activeView ? 'border-[#d94a4a] bg-[#fff0f0] text-[#c42f2f]' : ''}`}
+                          onClick={() => handleInternalMenuClick(item.view)}
+                        >
+                          <span className="flex items-center gap-2">
+                            <span>{item.label}</span>
+                            {item.key === 'quote-request' && quoteItemCount > 0 ? (
+                              <span className="rounded-full bg-[#ffe26c] px-2 py-0.5 text-[10px] font-black leading-none text-slate-900">
+                                {quoteItemCount > 99 ? '99+' : quoteItemCount}
+                              </span>
+                            ) : null}
+                          </span>
+                          <span aria-hidden="true">›</span>
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+
+              <footer className="border-t border-slate-200 bg-white p-3">
+                <button
+                  type="button"
+                  className="w-full rounded-xl bg-[linear-gradient(135deg,#e63c35_0%,#c3272f_100%)] px-4 py-3 text-sm font-extrabold text-white shadow-[0_10px_22px_rgba(195,39,47,0.28)]"
+                  onClick={() => {
+                    setIsMenuOpen(false)
+                    onNavigate('quote-request')
+                  }}
+                >
+                  견적요청서 바로가기
+                </button>
+              </footer>
+            </aside>
+          </div>,
+          document.body
+        )
+      : null
+
   return (
-    <header className="absolute inset-x-0 top-0 z-[500] isolate border-b border-[#d6dbe2] bg-[#f2f3f5]">
+    <header className="absolute inset-x-0 top-0 z-[500] border-b border-[#d6dbe2] bg-[#f2f3f5]">
       <div className="relative flex h-[92px] w-full items-center justify-between pl-7 pr-6 max-[1280px]:h-[62px] max-[980px]:pl-4 max-[980px]:pr-4 max-[640px]:pl-2.5 max-[640px]:pr-2.5">
         <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 max-[640px]:block">
           <p className="m-0 text-[18px] font-black tracking-[-0.02em] text-black">민웰파워</p>
@@ -207,103 +309,7 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
           onProductSearch?.(keyword)
         }}
       />
-
-      {isMenuOpen ? (
-        <div className="fixed inset-0 z-[1000] px-3 py-3 max-[640px]:px-2.5 max-[640px]:py-2.5">
-          <button
-            type="button"
-            className="absolute inset-0 bg-black/18"
-            onClick={() => setIsMenuOpen(false)}
-            aria-label="메뉴 닫기"
-          ></button>
-
-          <aside
-            id="mobile-header-menu"
-            className="absolute bottom-3 right-3 top-3 z-[1010] flex w-[min(76vw,340px)] flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_28px_60px_rgba(2,8,23,0.28)] max-[640px]:bottom-2.5 max-[640px]:right-2.5 max-[640px]:top-2.5 max-[640px]:w-[min(78vw,332px)]"
-            aria-label="Header menu"
-          >
-            <header className="relative overflow-hidden bg-[linear-gradient(135deg,#e53a33_0%,#c6252e_55%,#8d161f_100%)] px-5 pb-5 pr-16 pt-6 text-white">
-              <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-white/12"></div>
-              <button
-                type="button"
-                className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/12 text-2xl leading-none text-white backdrop-blur-sm transition hover:bg-white/20"
-                onClick={() => setIsMenuOpen(false)}
-                aria-label="메뉴 닫기"
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-              <p className="m-0 text-[10px] font-black tracking-[0.14em] text-rose-100">MENU</p>
-              <h2 className="m-0 mt-2">
-                <img src={LOGO_SRC} alt={LOGO_ALT} className="h-[56px] w-[56px] object-contain" />
-              </h2>
-              <p className="mb-0 mt-2 text-xs font-semibold text-rose-100">제품/서비스 메뉴를 빠르게 이동하세요.</p>
-              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-black text-white">
-                <span>주문목록</span>
-                <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-[#b92a31]">{quoteItemCount > 99 ? '99+' : quoteItemCount}</span>
-              </div>
-            </header>
-
-            <div className="flex-1 overflow-y-auto bg-white px-3 py-3.5">
-              <ul className="m-0 list-none space-y-1.5 p-0">
-                {navItems.map((item) => {
-                  const baseClass =
-                    'flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left text-sm font-bold text-slate-700 transition hover:border-[#d45252] hover:bg-[#fff5f5] hover:text-[#c83434]'
-
-                  if (item.href) {
-                    return (
-                      <li key={`drawer-${item.label}`}>
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={baseClass}
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          <span>{item.label}</span>
-                          <span aria-hidden="true">↗</span>
-                        </a>
-                      </li>
-                    )
-                  }
-
-                  return (
-                    <li key={`drawer-${item.view ?? item.label}`}>
-                      <button
-                        type="button"
-                        className={`${baseClass} ${item.key === activeView ? 'border-[#d94a4a] bg-[#fff0f0] text-[#c42f2f]' : ''}`}
-                        onClick={() => handleInternalMenuClick(item.view)}
-                      >
-                        <span className="flex items-center gap-2">
-                          <span>{item.label}</span>
-                          {item.key === 'quote-request' && quoteItemCount > 0 ? (
-                            <span className="rounded-full bg-[#ffe26c] px-2 py-0.5 text-[10px] font-black leading-none text-slate-900">
-                              {quoteItemCount > 99 ? '99+' : quoteItemCount}
-                            </span>
-                          ) : null}
-                        </span>
-                        <span aria-hidden="true">›</span>
-                      </button>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-
-            <footer className="border-t border-slate-200 bg-white p-3">
-              <button
-                type="button"
-                className="w-full rounded-xl bg-[linear-gradient(135deg,#e63c35_0%,#c3272f_100%)] px-4 py-3 text-sm font-extrabold text-white shadow-[0_10px_22px_rgba(195,39,47,0.28)]"
-                onClick={() => {
-                  setIsMenuOpen(false)
-                  onNavigate('quote-request')
-                }}
-              >
-                견적요청서 바로가기
-              </button>
-            </footer>
-          </aside>
-        </div>
-      ) : null}
+      {mobileMenuPortal}
     </header>
   )
 }
