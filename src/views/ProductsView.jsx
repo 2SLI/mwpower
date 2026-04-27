@@ -4,6 +4,7 @@ import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import { modelOptionWattageMap } from '../data/modelOptionWattageMap'
+import { lockBodyScroll } from '../utils/bodyScrollLock'
 import {
   findMatchingLabel,
   getLeafChips,
@@ -467,14 +468,20 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       setIsModelPanelOpen(false)
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('pointerdown', handleClickOutside)
     document.addEventListener('keydown', handleEscape)
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('pointerdown', handleClickOutside)
       document.removeEventListener('keydown', handleEscape)
     }
   }, [])
+
+  useEffect(() => {
+    const isMobilePanelOpen = isMobileViewport && (isMajorPanelOpen || isSubPanelOpen || isLeafPanelOpen || isModelPanelOpen)
+    if (!isMobilePanelOpen) return undefined
+    return lockBodyScroll()
+  }, [isMobileViewport, isMajorPanelOpen, isSubPanelOpen, isLeafPanelOpen, isModelPanelOpen])
 
   const activeMajor = useMemo(
     () => majorCategories.find((item) => item.id === activeMajorId) ?? majorCategories[0] ?? null,
@@ -1364,7 +1371,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             <i className="fa-solid fa-magnifying-glass text-sm text-slate-500" aria-hidden="true"></i>
             <input
               id="product-search-input"
-              className="min-w-0 flex-1 border-0 bg-transparent text-[15px] text-slate-700 outline-none placeholder:text-slate-400"
+              className="min-w-0 flex-1 border-0 bg-transparent text-[15px] text-slate-700 outline-none placeholder:text-slate-400 max-[640px]:text-base"
               type="text"
               placeholder="상품명/시리즈/그룹 검색 (예: LED, MEDICAL)"
               autoComplete="off"

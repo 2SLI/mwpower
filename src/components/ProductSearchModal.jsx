@@ -107,7 +107,7 @@ export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="시리즈/모델명 검색 (예: RS-35)"
-              className="h-11 w-full border-0 bg-transparent px-2 text-sm font-semibold text-slate-800 outline-none placeholder:font-medium placeholder:text-slate-400"
+              className="h-11 w-full border-0 bg-transparent px-2 text-sm font-semibold text-slate-800 outline-none placeholder:font-medium placeholder:text-slate-400 max-[640px]:text-base"
             />
             {trimmedQuery ? (
               <button
