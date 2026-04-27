@@ -449,6 +449,20 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     return Object.keys(snapshot).length > 0 ? snapshot : null
   }
 
+  function pushProductHistorySnapshot(rawState = null) {
+    if (typeof window === 'undefined' || !isProductsRoutePath(window.location.pathname)) return
+
+    const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
+    const nextHistoryState = { ...currentHistoryState, view: 'products' }
+    const nextProductState = buildHistoryProductState(rawState)
+
+    if (nextProductState) nextHistoryState.productState = nextProductState
+    else if ('productState' in nextHistoryState) delete nextHistoryState.productState
+
+    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`
+    window.history.pushState(nextHistoryState, '', currentUrl)
+  }
+
   function applyProductRouteState(rawState = null, { history = 'replace' } = {}) {
     const resolved = resolveProductRouteState(rawState)
     historyActionRef.current = history
@@ -1057,9 +1071,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         ? `${activeMajor?.name ?? ''}${activeSubcategory ? ` / ${activeSubcategory}` : ''} 하위의 전체 품목을 표시중입니다. (${majorAllLeafRecords.length}개 시리즈)`
         : '상단 카테고리 바에서 대분류 -> 중분류 -> 소분류 -> 모델 순서로 선택하세요.'
 
-  const canGoBack = hasSearch || Boolean(activeModel) || Boolean(activeLeaf) || Boolean(activeSubcategory)
-  const backButtonAriaLabel = canGoBack ? '뒤로가기' : '홈으로'
-  const backButtonIconClass = canGoBack ? 'fa-solid fa-arrow-left' : 'fa-solid fa-house'
   const renderAdditionalOptionsPanel = ({ isModelSelected = false } = {}) => {
     const combinedDisabled = !isModelSelected || selectedCombinedOptionModels.length === 0
 
@@ -1155,15 +1166,27 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     if (!subcategory || !leaf || !model) return
 
     const matchedMajorId = majorCategories.find((item) => normalizeLabel(item?.name) === normalizeLabel(majorName))?.id
+    const modelRoute = modelRouteIndex[normalizeLabel(model)] ?? null
+    const groupName = modelRoute?.groupName || null
+    const baseRouteState = {
+      majorId: matchedMajorId || activeMajorId || defaultMajorId,
+      subcategory,
+      leaf,
+      groupName,
+      search: '',
+    }
+
+    pushProductHistorySnapshot({
+      ...baseRouteState,
+      model: null,
+      optionModel: '',
+    })
+
     applyProductRouteState(
       {
-        majorId: matchedMajorId || activeMajorId || defaultMajorId,
-        subcategory,
-        leaf,
-        groupName: null,
+        ...baseRouteState,
         model,
         optionModel: '',
-        search: '',
       },
       { history: 'push' }
     )
@@ -1172,76 +1195,30 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const handleShortcutModelClick = (shortcut) => {
     if (!shortcut) return
 
+    const baseRouteState = {
+      majorId: shortcut.majorId || activeMajorId || defaultMajorId,
+      subcategory: shortcut.subcategory || null,
+      leaf: shortcut.leaf || null,
+      groupName: shortcut.groupName || null,
+      search: '',
+    }
+
+    if (baseRouteState.leaf) {
+      pushProductHistorySnapshot({
+        ...baseRouteState,
+        model: null,
+        optionModel: '',
+      })
+    }
+
     applyProductRouteState(
       {
-        majorId: shortcut.majorId || activeMajorId || defaultMajorId,
-        subcategory: shortcut.subcategory || null,
-        leaf: shortcut.leaf || null,
-        groupName: shortcut.groupName || null,
+        ...baseRouteState,
         model: shortcut.model || null,
         optionModel: shortcut.optionModel || '',
-        search: '',
       },
       { history: 'push' }
     )
-  }
-
-  const handleBack = () => {
-    if (hasSearchInput) {
-      applyProductRouteState(
-        buildCurrentProductRouteState({
-          search: '',
-          optionModel: '',
-        }),
-        { history: 'replace' }
-      )
-      return
-    }
-
-    if (activeModel) {
-      applyProductRouteState(
-        buildCurrentProductRouteState({
-          model: null,
-          optionModel: '',
-        }),
-        { history: 'replace' }
-      )
-      return
-    }
-
-    if (activeLeaf) {
-      applyProductRouteState(
-        buildCurrentProductRouteState({
-          leaf: null,
-          groupName: null,
-          model: null,
-          optionModel: '',
-        }),
-        { history: 'replace' }
-      )
-      return
-    }
-
-    if (activeSubcategory) {
-      applyProductRouteState(
-        buildCurrentProductRouteState({
-          subcategory: null,
-          leaf: null,
-          groupName: null,
-          model: null,
-          optionModel: '',
-        }),
-        { history: 'replace' }
-      )
-    }
-  }
-
-  const handleBackOrHome = () => {
-    if (canGoBack) {
-      handleBack()
-      return
-    }
-    onNavigate?.('home')
   }
 
   const renderLeafRecordCard = (record) => (
@@ -1316,10 +1293,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         <div className="w-full">
           <div className="product-category-crumb" ref={categoryCrumbRef}>
             <div className="inner max-[640px]:hidden">
-              <button type="button" className="home" aria-label={backButtonAriaLabel} onClick={handleBackOrHome}>
-                <i className={backButtonIconClass} aria-hidden="true"></i>
-              </button>
-
               <dl className={`g ${isMajorPanelOpen ? 'open' : ''}`}>
                 <dt>
                   <button

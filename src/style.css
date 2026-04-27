@@ -100,20 +100,6 @@
     background: #fff;
   }
 
-  #product-page .product-category-crumb .home {
-    display: grid;
-    place-items: center;
-    width: 66px;
-    color: #fff;
-    background: #d71f2b;
-    border-right: 1px solid #be1b25;
-  }
-
-  #product-page .product-category-crumb .home i {
-    font-size: 15px;
-    line-height: 1;
-  }
-
   #product-page .product-category-crumb dl {
     position: relative;
     margin: 0;
@@ -259,10 +245,6 @@
 
     #product-page .product-category-crumb .inner {
       display: none;
-    }
-
-    #product-page .product-category-crumb .home {
-      width: 52px;
     }
 
     #product-page .product-category-crumb dl {
