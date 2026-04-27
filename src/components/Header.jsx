@@ -40,6 +40,10 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
+    setIsMenuOpen(false)
+  }, [activeView])
+
+  useEffect(() => {
     const handleEscape = (event) => {
       if (event.key !== 'Escape') return
       setIsSearchOpen(false)
@@ -63,7 +67,7 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
   }
 
   return (
-    <header className="absolute inset-x-0 top-0 z-20 border-b border-[#d6dbe2] bg-[#f2f3f5]">
+    <header className="absolute inset-x-0 top-0 z-[120] border-b border-[#d6dbe2] bg-[#f2f3f5]">
       <div className="relative flex h-[92px] w-full items-center justify-between pl-7 pr-6 max-[1280px]:h-[62px] max-[980px]:pl-4 max-[980px]:pr-4 max-[640px]:pl-2.5 max-[640px]:pr-2.5">
         <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 max-[640px]:block">
           <p className="m-0 text-[18px] font-black tracking-[-0.02em] text-black">민웰파워</p>
@@ -119,8 +123,10 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           </button>
           <button
             type="button"
-            className="relative inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
-            aria-label="메뉴"
+            className={`relative inline-flex h-10 w-10 items-center justify-center border-0 p-0 transition hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9 ${
+              isMenuOpen ? 'z-[160] rounded-full bg-white text-slate-900 shadow-[0_10px_30px_rgba(15,23,42,0.25)]' : 'bg-transparent text-current'
+            }`}
+            aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴'}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-header-menu"
             onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -151,7 +157,7 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
       />
 
       {isMenuOpen ? (
-        <div className="fixed inset-0 z-[70]">
+        <div className="fixed inset-0 z-[140]">
           <button
             type="button"
             className="absolute inset-0 bg-black/55 backdrop-blur-[1px]"
@@ -161,11 +167,19 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
 
           <aside
             id="mobile-header-menu"
-            className="absolute right-0 top-0 flex h-full w-[min(88vw,360px)] flex-col border-l border-slate-200 bg-white shadow-[0_18px_40px_rgba(2,8,23,0.35)]"
+            className="absolute right-0 top-0 z-[150] flex h-full w-[min(88vw,360px)] flex-col border-l border-slate-200 bg-white shadow-[0_18px_40px_rgba(2,8,23,0.35)]"
             aria-label="Header menu"
           >
-            <header className="relative overflow-hidden bg-[linear-gradient(135deg,#e53a33_0%,#c6252e_55%,#8d161f_100%)] px-5 pb-5 pt-6 text-white">
+            <header className="relative overflow-hidden bg-[linear-gradient(135deg,#e53a33_0%,#c6252e_55%,#8d161f_100%)] px-5 pb-5 pr-16 pt-6 text-white">
               <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-white/12"></div>
+              <button
+                type="button"
+                className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/12 text-2xl leading-none text-white backdrop-blur-sm transition hover:bg-white/20"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="메뉴 닫기"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
               <p className="m-0 text-[10px] font-black tracking-[0.14em] text-rose-100">MENU</p>
               <h2 className="m-0 mt-2">
                 <img src={LOGO_SRC} alt={LOGO_ALT} className="h-[56px] w-[56px] object-contain" />

@@ -10,6 +10,27 @@ import { TechnicalContactView } from './views/TechnicalContactView'
 import { AdminView } from './views/AdminView'
 import { bannerImages } from './data/bannerImages'
 
+const VIEW_PATHS = {
+  home: '/',
+  products: '/products',
+  news: '/news',
+  service: '/service',
+  'contact-product': '/contact/product',
+  'contact-tech': '/contact/tech',
+}
+
+const PATH_VIEW_ALIASES = {
+  '/': 'home',
+  '/products': 'products',
+  '/news': 'news',
+  '/service': 'service',
+  '/contact': 'contact-product',
+  '/contact-product': 'contact-product',
+  '/contact/product': 'contact-product',
+  '/contact-tech': 'contact-tech',
+  '/contact/tech': 'contact-tech',
+}
+
 function normalizeView(view) {
   if (view === 'contact') return 'contact-product'
   if (view === 'news' || view === 'products' || view === 'service' || view === 'contact-product' || view === 'contact-tech') return view
@@ -46,19 +67,52 @@ function setMetaByProperty(property, content) {
 
 const SOCIAL_PREVIEW_IMAGE_URL = 'https://meanwellpower-103ae.web.app/logo/mwpower_logo.png'
 
+function getPathForView(view) {
+  return VIEW_PATHS[normalizeView(view)] ?? VIEW_PATHS.home
+}
+
+function getViewForPathname(pathname = '/') {
+  const normalized = normalizePathname(pathname)
+  return PATH_VIEW_ALIASES[normalized] ?? 'home'
+}
+
+function isKnownAppPath(pathname = '/') {
+  const normalized = normalizePathname(pathname)
+  return normalized === '/admin' || Boolean(PATH_VIEW_ALIASES[normalized])
+}
+
 export default function App() {
-  const [activeView, setActiveView] = useState('home')
+  const initialPathname = typeof window === 'undefined' ? '/' : normalizePathname(window.location.pathname)
+  const [activeView, setActiveView] = useState(() => getViewForPathname(initialPathname))
   const [productSearchRequest, setProductSearchRequest] = useState(null)
   const [productPresetRequest, setProductPresetRequest] = useState(null)
   const [newsRequest, setNewsRequest] = useState(null)
-  const [pathname, setPathname] = useState(() => (typeof window === 'undefined' ? '/' : normalizePathname(window.location.pathname)))
+  const [pathname, setPathname] = useState(initialPathname)
   const isAdminRoute = pathname === '/admin'
   const isContactView = activeView === 'contact-product' || activeView === 'contact-tech'
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
 
-    const syncPath = () => setPathname(normalizePathname(window.location.pathname))
+    const syncPath = () => {
+      const nextPath = normalizePathname(window.location.pathname)
+
+      if (nextPath === '/admin') {
+        setPathname(nextPath)
+        return
+      }
+
+      const nextView = getViewForPathname(nextPath)
+      const canonicalPath = getPathForView(nextView)
+
+      if (!isKnownAppPath(nextPath) || nextPath !== canonicalPath) {
+        window.history.replaceState({ view: nextView }, '', canonicalPath)
+      }
+
+      setPathname(canonicalPath)
+      setActiveView(nextView)
+    }
+
     syncPath()
     window.addEventListener('popstate', syncPath)
     return () => window.removeEventListener('popstate', syncPath)
@@ -105,29 +159,44 @@ export default function App() {
     setMetaByName('twitter:image', SOCIAL_PREVIEW_IMAGE_URL)
   }, [activeView, isAdminRoute])
 
-  function handleNavigate(view) {
-    setActiveView(normalizeView(view))
+  function handleNavigate(view, options = {}) {
+    const nextView = normalizeView(view)
+    const nextPath = getPathForView(nextView)
+
+    setActiveView(nextView)
+    setPathname(nextPath)
+
+    if (typeof window !== 'undefined') {
+      const currentPath = normalizePathname(window.location.pathname)
+      if (currentPath !== nextPath) {
+        window.history.pushState({ view: nextView }, '', nextPath)
+      }
+
+      if (options.scrollTop !== false) {
+        window.scrollTo({ top: 0, behavior: 'auto' })
+      }
+    }
   }
 
   function handleProductSearch(keyword) {
     const term = String(keyword ?? '').trim()
     if (!term) return
     setProductSearchRequest({ keyword: term, at: Date.now() })
-    setActiveView('products')
+    handleNavigate('products')
   }
 
   function handleOpenProductPreset(preset = {}) {
     const majorId = String(preset.majorId ?? '').trim()
     if (!majorId) return
     setProductPresetRequest({ ...preset, at: Date.now() })
-    setActiveView('products')
+    handleNavigate('products')
   }
 
   function handleOpenNewsArticle(articleId, category) {
     const id = String(articleId ?? '').trim()
     if (!id) return
     setNewsRequest({ articleId: id, category: String(category ?? ''), at: Date.now() })
-    setActiveView('news')
+    handleNavigate('news')
   }
 
   if (isAdminRoute) {
