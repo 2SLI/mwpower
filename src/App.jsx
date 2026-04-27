@@ -182,7 +182,7 @@ export default function App() {
       },
       news: {
         title: '뉴스 | 민웰파워',
-        description: '민웰파워 기술 노트, 제품 공지, 신제품 출시 소식을 확인하세요.',
+        description: '민웰파워의 제품 소식, 적용 사례, 블로그 콘텐츠를 뉴스 형식으로 확인하세요.',
       },
       service: {
         title: '기술/정품 서비스 | 민웰파워',
@@ -274,6 +274,10 @@ export default function App() {
     handleNavigate(fallbackView, { replace: true, scrollTop: false })
   }
 
+  function handleNavigateProductsFromQuote() {
+    handleNavigate('products', { replace: true })
+  }
+
   function handleProductSearch(keyword) {
     const term = String(keyword ?? '').trim()
     if (!term) return
@@ -288,10 +292,10 @@ export default function App() {
     handleNavigate('products')
   }
 
-  function handleOpenNewsArticle(articleId, category) {
+  function handleOpenNewsArticle(articleId) {
     const id = String(articleId ?? '').trim()
     if (!id) return
-    setNewsRequest({ articleId: id, category: String(category ?? ''), at: Date.now() })
+    setNewsRequest({ articleId: id, at: Date.now() })
     handleNavigate('news')
   }
 
@@ -388,6 +392,7 @@ export default function App() {
             isOpen={isQuoteRequestOpen}
             items={quoteItems}
             onClose={handleCloseQuoteRequest}
+            onNavigateProducts={handleNavigateProductsFromQuote}
             onUpdateQuantity={handleUpdateQuoteItemQuantity}
             onRemoveItem={handleRemoveQuoteItem}
             onClearItems={handleClearQuoteItems}

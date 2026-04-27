@@ -15,6 +15,7 @@ export const iconByMajor = {
 }
 
 const leafChipIndexFromLeafTree = buildLeafChipIndexFromLeafTree(leafModelTreeFallback)
+const leafThumbnailIndexFromLeafTree = buildLeafThumbnailIndexFromLeafTree(leafModelTreeFallback)
 
 export async function loadMajorCategories() {
   return { categories: defaultMajorCategories, source: 'local' }
@@ -44,6 +45,12 @@ export function getLeafChips(majorName, subcategoryName, { includeFallback = tru
   if (fromLeafTree.length > 0) return fromLeafTree
   if (!includeFallback) return []
   return []
+}
+
+export function resolveLeafThumbnailUrl({ majorName = '', subcategoryName = '', leafName = '' } = {}) {
+  const key = normalizeLeafTreeKey([majorName, subcategoryName, leafName].map((value) => normalizeLabel(value)).join('|'))
+  if (leafThumbnailIndexFromLeafTree.byKey[key]) return leafThumbnailIndexFromLeafTree.byKey[key]
+  return leafThumbnailIndexFromLeafTree.byLeaf[normalizeLabel(leafName)] ?? ''
 }
 
 export function getLeafView({ majorName, subcategoryName, leafName, treeMap }) {
@@ -306,6 +313,7 @@ function normalizeLeafTreeRecord(record) {
 
   const models = uniqueModels(Array.isArray(record.models) ? record.models : [])
   const modelAssetsByKey = normalizeModelAssetsByKey(record)
+  const assetModels = uniqueModels(Object.values(modelAssetsByKey).map((item) => item?.model))
   const wattage = String(record.wattage ?? '').trim()
   const features = normalizeFeatures(record.features)
   const thumbnailUrl = String(record.thumbnailUrl ?? '').trim()
@@ -317,7 +325,7 @@ function normalizeLeafTreeRecord(record) {
       subcategory,
       leaf,
       groups: [],
-      models: uniqueModels([...models, ...groups.flatMap((group) => group.models)]),
+      models: uniqueModels([...models, ...groups.flatMap((group) => group.models), ...assetModels]),
       modelAssetsByKey,
       wattage,
       features,
@@ -325,7 +333,18 @@ function normalizeLeafTreeRecord(record) {
     }
   }
 
-  return { key, major, subcategory, leaf, groups, models, modelAssetsByKey, wattage, features, thumbnailUrl }
+  return {
+    key,
+    major,
+    subcategory,
+    leaf,
+    groups,
+    models: uniqueModels([...models, ...assetModels]),
+    modelAssetsByKey,
+    wattage,
+    features,
+    thumbnailUrl,
+  }
 }
 
 function normalizeLeafTreeKey(key) {
@@ -448,4 +467,22 @@ function buildLeafChipIndexFromLeafTree(records) {
   })
 
   return index
+}
+
+function buildLeafThumbnailIndexFromLeafTree(records) {
+  const byKey = {}
+  const byLeaf = {}
+
+  records
+    .map((record) => normalizeLeafTreeRecord(record))
+    .filter(Boolean)
+    .forEach((record) => {
+      const thumbnailUrl = String(record.thumbnailUrl ?? '').trim()
+      if (!thumbnailUrl) return
+      byKey[record.key] = thumbnailUrl
+      const leafKey = normalizeLabel(record.leaf)
+      if (leafKey && !byLeaf[leafKey]) byLeaf[leafKey] = thumbnailUrl
+    })
+
+  return { byKey, byLeaf }
 }

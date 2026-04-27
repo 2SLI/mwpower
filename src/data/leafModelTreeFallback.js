@@ -114,11 +114,17 @@ export const leafModelTreeFallback = [
     ],
     "thumbnailUrl": "/catalog/meanwell/thumbnails/ers.jpg",
     "models": [
-      "ERS-1400"
+      "ERS-1400",
+      "ERS-1400H"
     ],
     "modelAssets": [
       {
         "model": "ERS-1400",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
+      },
+      {
+        "model": "ERS-1400H",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
       }
@@ -126,6 +132,11 @@ export const leafModelTreeFallback = [
     "modelAssetsByKey": {
       "ers-1400": {
         "model": "ERS-1400",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
+      },
+      "ers-1400h": {
+        "model": "ERS-1400H",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
       }
@@ -12119,11 +12130,17 @@ export const leafModelTreeFallback = [
     ],
     "thumbnailUrl": "/catalog/meanwell/thumbnails/ers-2.jpg",
     "models": [
-      "ERS-1400"
+      "ERS-1400",
+      "ERS-1400H"
     ],
     "modelAssets": [
       {
         "model": "ERS-1400",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
+      },
+      {
+        "model": "ERS-1400H",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
       }
@@ -12131,6 +12148,11 @@ export const leafModelTreeFallback = [
     "modelAssetsByKey": {
       "ers-1400": {
         "model": "ERS-1400",
+        "imageUrl": "",
+        "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
+      },
+      "ers-1400h": {
+        "model": "ERS-1400H",
         "imageUrl": "",
         "pdfUrl": "/catalog/meanwell/ERS-1400-spec.pdf"
       }

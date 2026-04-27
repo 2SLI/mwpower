@@ -1,33 +1,23 @@
 import { useEffect, useMemo, useState } from 'react'
-import { NEWS_ALL_CATEGORY, formatNewsDate, getAllNewsSorted, newsCategories as defaultNewsCategories } from '../data/newsContent'
-import { buildNewsCategories, loadNewsArticlesForPublic } from '../features/newsService'
+import { formatNewsDate, getAllNewsSorted } from '../data/newsContent'
+import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsService'
 
-const PAGE_SIZE = 5
-
-function clampPage(page, totalPages) {
-  if (totalPages <= 0) return 1
-  return Math.min(Math.max(page, 1), totalPages)
-}
-
-function getNewsByCategory(articles, category) {
-  if (!category || category === NEWS_ALL_CATEGORY) return articles
-  return articles.filter((item) => item.category === category)
-}
-
-function getNewsById(articles, articleId) {
+function getArticleById(items, articleId) {
   const id = String(articleId ?? '').trim()
   if (!id) return null
-  return articles.find((item) => item.id === id) ?? null
+  return items.find((item) => item.id === id) ?? null
+}
+
+function openExternalArticle(url = '') {
+  const link = String(url ?? '').trim()
+  if (!link || typeof window === 'undefined') return
+  window.open(link, '_blank', 'noopener,noreferrer')
 }
 
 export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
-  const [articles, setArticles] = useState(() => getAllNewsSorted())
-  const [availableCategories, setAvailableCategories] = useState(defaultNewsCategories)
-  const [activeCategory, setActiveCategory] = useState(NEWS_ALL_CATEGORY)
+  const [articles, setArticles] = useState(() => normalizeNewsItems(getAllNewsSorted()))
   const [keyword, setKeyword] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
   const [activeArticleId, setActiveArticleId] = useState(null)
-  const [isDetailOpen, setIsDetailOpen] = useState(false)
   const [isLoadingArticles, setIsLoadingArticles] = useState(false)
   const [loadError, setLoadError] = useState('')
 
@@ -39,20 +29,14 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
       const result = await loadNewsArticlesForPublic()
       if (!alive) return
 
-      const nextArticles = Array.isArray(result?.articles) && result.articles.length > 0 ? result.articles : getAllNewsSorted()
-      const nextCategories = buildNewsCategories(nextArticles)
-
+      const nextArticles = Array.isArray(result?.articles) ? result.articles : []
       setArticles(nextArticles)
-      setAvailableCategories(nextCategories)
-      setActiveCategory((prev) => (nextCategories.includes(prev) ? prev : NEWS_ALL_CATEGORY))
       setLoadError('')
       setIsLoadingArticles(false)
     })().catch(() => {
       if (!alive) return
-      const fallback = getAllNewsSorted()
-      setArticles(fallback)
-      setAvailableCategories(buildNewsCategories(fallback))
-      setLoadError('뉴스 데이터를 불러오지 못했습니다. 로컬 데이터로 표시합니다.')
+      setArticles(normalizeNewsItems(getAllNewsSorted()))
+      setLoadError('뉴스 데이터를 불러오지 못했습니다. 기본 목록으로 표시합니다.')
       setIsLoadingArticles(false)
     })
 
@@ -61,333 +45,196 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
     }
   }, [])
 
-  const categoryArticles = useMemo(() => getNewsByCategory(articles, activeCategory), [articles, activeCategory])
-
   const filteredArticles = useMemo(() => {
     const term = keyword.trim().toLowerCase()
-    if (!term) return categoryArticles
+    if (!term) return articles
 
-    return categoryArticles.filter((article) => {
-      const haystack = `${article.title} ${article.summary ?? ''}`.toLowerCase()
+    return articles.filter((item) => {
+      const haystack = `${item.title} ${item.summary ?? ''} ${item.sourceLabel ?? ''}`.toLowerCase()
       return haystack.includes(term)
     })
-  }, [categoryArticles, keyword])
-
-  const totalPages = Math.ceil(filteredArticles.length / PAGE_SIZE)
+  }, [articles, keyword])
 
   useEffect(() => {
-    setCurrentPage((prev) => clampPage(prev, totalPages))
-  }, [totalPages])
+    if (!filteredArticles.length) {
+      setActiveArticleId(null)
+      return
+    }
 
-  const pagedArticles = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE
-    return filteredArticles.slice(start, start + PAGE_SIZE)
-  }, [filteredArticles, currentPage])
-
-  const activeArticle = useMemo(() => {
-    if (!activeArticleId) return null
-    return filteredArticles.find((article) => article.id === activeArticleId) ?? categoryArticles.find((article) => article.id === activeArticleId) ?? null
-  }, [activeArticleId, filteredArticles, categoryArticles])
-
-  const categoryArticleIndex = useMemo(() => {
-    if (!activeArticle) return -1
-    return categoryArticles.findIndex((article) => article.id === activeArticle.id)
-  }, [categoryArticles, activeArticle])
-
-  const prevArticle = categoryArticleIndex > 0 ? categoryArticles[categoryArticleIndex - 1] : null
-  const nextArticle =
-    categoryArticleIndex >= 0 && categoryArticleIndex < categoryArticles.length - 1
-      ? categoryArticles[categoryArticleIndex + 1]
-      : null
+    if (!filteredArticles.some((item) => item.id === activeArticleId)) {
+      setActiveArticleId(filteredArticles[0].id)
+    }
+  }, [filteredArticles, activeArticleId])
 
   useEffect(() => {
     if (!externalNewsRequest) return
-
-    const target = getNewsById(articles, externalNewsRequest.articleId)
+    const target = getArticleById(articles, externalNewsRequest.articleId)
     if (!target) return
-
-    const nextCategory = availableCategories.includes(externalNewsRequest.category)
-      ? externalNewsRequest.category
-      : NEWS_ALL_CATEGORY
-
-    setActiveCategory(nextCategory)
     setActiveArticleId(target.id)
-    setIsDetailOpen(true)
-    setCurrentPage(1)
-  }, [externalNewsRequest, articles, availableCategories])
+  }, [externalNewsRequest, articles])
 
-  useEffect(() => {
-    if (!activeArticleId) return
-
-    const index = filteredArticles.findIndex((article) => article.id === activeArticleId)
-    if (index < 0) return
-
-    setCurrentPage(Math.floor(index / PAGE_SIZE) + 1)
-  }, [filteredArticles, activeArticleId])
-
-  const pageNumbers = useMemo(() => Array.from({ length: totalPages }, (_, idx) => idx + 1), [totalPages])
+  const activeArticle = useMemo(() => {
+    if (!activeArticleId) return filteredArticles[0] ?? null
+    return filteredArticles.find((item) => item.id === activeArticleId) ?? filteredArticles[0] ?? null
+  }, [activeArticleId, filteredArticles])
 
   return (
-    <section
-      className={`${isActive ? '' : 'is-hidden'} bg-[#efefef] text-[#505050]`}
-      id="news-page"
-      style={{ fontFamily: 'Microsoft JhengHei, "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif' }}
-    >
-      <div className="relative h-[350px] overflow-hidden">
-        <img src="/meanwell/news/news-hero.jpg" alt="" className="h-full w-full object-cover object-center" />
+    <section className={`${isActive ? '' : 'is-hidden'} bg-[#f5f7fa] text-slate-700`} id="news-page">
+      <div className="relative overflow-hidden bg-slate-950">
+        <img src="/meanwell/news/news-hero.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-20" />
+        <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(8,15,26,0.96)_0%,rgba(14,34,56,0.9)_48%,rgba(201,37,47,0.72)_100%)]"></div>
+
+        <div className="relative mx-auto w-full max-w-[1540px] px-5 py-14 text-white md:px-8 md:py-16">
+          <p className="m-0 text-[11px] font-black uppercase tracking-[0.18em] text-rose-200">NEWS</p>
+          <h1 className="m-0 mt-3 text-[clamp(2.2rem,4vw,4.4rem)] font-black tracking-[-0.03em]">최신 뉴스</h1>
+          <p className="m-0 mt-4 max-w-[60ch] text-sm leading-7 text-slate-100 md:text-base">
+            블로그, 티스토리, 제품 적용 소식을 한눈에 볼 수 있도록 썸네일과 요약 중심의 미리보기 형태로 구성했습니다.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              type="button"
+              className="inline-flex h-11 items-center rounded-full bg-[#e5332a] px-5 text-sm font-extrabold text-white shadow-[0_18px_38px_rgba(229,51,42,0.32)] transition hover:bg-[#cb2b23]"
+              onClick={() => onNavigate('home')}
+            >
+              홈으로 돌아가기
+            </button>
+          </div>
+        </div>
       </div>
 
-      <header className="mx-auto w-full max-w-[1280px] px-[15px] pt-[14px]">
-        <div className="relative border-b border-[#c8c8c8] pb-[12px]">
-          <h1 className="m-0 text-[44px] font-semibold text-[#4b4b4b]">뉴스</h1>
-          <ol className="absolute right-0 top-1/2 m-0 hidden -translate-y-1/2 list-none items-center gap-2 p-0 text-[14px] text-[#666] lg:flex">
-            <li className="text-[#d63a33]">»</li>
-            <li>Home</li>
-            <li className="text-[#888]">&gt;</li>
-            <li>뉴스</li>
-            <li className="text-[#888]">&gt;</li>
-            <li>{activeCategory}</li>
-          </ol>
+      <div className="mx-auto w-full max-w-[1540px] px-5 pb-14 pt-6 md:px-8 md:pb-16">
+        <div className="rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_20px_50px_-32px_rgba(15,23,42,0.34)] md:p-5">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div className="min-w-0">
+              <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#c9252f]">News Preview</p>
+              <h2 className="m-0 mt-2 text-[1.8rem] font-black tracking-[-0.03em] text-slate-900 md:text-[2.2rem]">썸네일과 요약으로 먼저 확인하세요.</h2>
+            </div>
+
+            <div className="flex flex-col gap-3 md:flex-row md:items-center">
+              <label className="flex h-11 min-w-[min(100%,320px)] items-center overflow-hidden rounded-full border border-slate-200 bg-slate-50 px-4">
+                <i className="fa-solid fa-magnifying-glass text-sm text-slate-400" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  value={keyword}
+                  onChange={(event) => setKeyword(event.target.value)}
+                  placeholder="제목 또는 요약 검색"
+                  className="h-full w-full border-0 bg-transparent px-3 text-sm text-slate-700 outline-none"
+                />
+              </label>
+              <span className="inline-flex h-11 items-center rounded-full bg-[#fff4f4] px-4 text-sm font-black text-[#c9252f]">
+                총 {filteredArticles.length}개 뉴스
+              </span>
+            </div>
+          </div>
         </div>
-      </header>
 
-      <div className="mx-auto w-full max-w-[1280px] px-[15px] pb-[72px] pt-[20px]">
-        <div className="grid gap-8 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-[40px]">
-          <aside className="hidden lg:block">
-            <ul className="m-0 list-none border border-[#d0d0d0] bg-[#efefef] p-0">
-              {availableCategories.map((category) => {
-                const isActiveCategory = category === activeCategory
-                return (
-                  <li key={category} className="border-b border-[#d0d0d0] last:border-b-0">
-                    <button
-                      type="button"
-                      className={`appearance-none border-0 flex h-[42px] w-full items-center px-4 text-left text-[14px] ${
-                        isActiveCategory ? 'bg-[#e72e25] font-semibold text-white' : 'bg-[#efefef] text-[#424242] hover:bg-[#f7f7f7]'
-                      }`}
-                      onClick={() => {
-                        setActiveCategory(category)
-                        setCurrentPage(1)
-                        setActiveArticleId(null)
-                        setIsDetailOpen(false)
-                      }}
-                    >
-                      <span className="mr-2 text-[12px]">›</span>
-                      <span>{category}</span>
-                    </button>
-                  </li>
-                )
-              })}
-            </ul>
-
-            <div className="mt-3 flex h-[40px] overflow-hidden rounded border border-[#cdcdcd] bg-white">
-              <input
-                type="text"
-                value={keyword}
-                onChange={(event) => {
-                  setKeyword(event.target.value)
-                  setCurrentPage(1)
-                  setIsDetailOpen(false)
-                }}
-                placeholder="News Search.."
-                className="h-full w-full border-0 bg-transparent px-3 text-[13px] text-[#444] outline-none"
-              />
-              <button type="button" className="appearance-none border-0 grid h-full w-[40px] place-items-center bg-[#b5b5b5] text-white" aria-label="Search news">
-                <i className="fa-solid fa-magnifying-glass text-[12px]" aria-hidden="true"></i>
-              </button>
-            </div>
-          </aside>
-
-          <article className="min-w-0">
-            <div className="flex items-center justify-between border-b border-[#c8c8c8] pb-[10px]">
-              <h2 className="m-0 text-[26px] font-semibold text-[#4b4b4b]">{activeCategory}</h2>
-              <button type="button" className="appearance-none border-0 bg-transparent p-0 text-[13px] text-[#666]" onClick={() => onNavigate('home')}>
-                ↩ Back
-              </button>
+        {activeArticle ? (
+          <article className="mt-6 overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_20px_50px_-32px_rgba(15,23,42,0.34)] lg:grid lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="relative min-h-[280px] overflow-hidden bg-slate-100">
+              {activeArticle.image ? (
+                <img src={activeArticle.image} alt={activeArticle.title} className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <div className="grid h-full min-h-[280px] place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
+              )}
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.05)_0%,rgba(15,23,42,0.7)_100%)]"></div>
             </div>
 
-            {isDetailOpen && activeArticle ? (
-              <div className="mt-4 rounded-sm border border-[#dcdcdc] bg-[#f9f9f9] p-4">
-                <div className="mb-3 flex items-center justify-between border-b border-[#dddddd] pb-2">
-                  <button type="button" className="appearance-none border-0 bg-transparent p-0 text-[13px] text-[#555]" onClick={() => setIsDetailOpen(false)}>
-                    ↩ 목록으로
-                  </button>
-                  <div className="flex items-center gap-1.5">
-                    <a href={`mailto:?subject=${encodeURIComponent(activeArticle.title)}`} className="inline-grid h-[28px] w-[28px] place-items-center rounded-full bg-[#777] text-[12px] text-white">
-                      <i className="fa-solid fa-envelope" aria-hidden="true"></i>
-                    </a>
-                    <a href="#" onClick={(event) => event.preventDefault()} className="inline-grid h-[28px] w-[28px] place-items-center rounded-full bg-[#777] text-[12px] text-white">
-                      <i className="fa-brands fa-facebook-f" aria-hidden="true"></i>
-                    </a>
-                  </div>
-                </div>
-
-                <h3 className="m-0 text-[32px] font-semibold leading-[1.35] text-[#4b4b4b]">{activeArticle.title}</h3>
-                <p className="m-0 mt-2 text-[24px] text-[#666]">Date : {formatNewsDate(activeArticle.date)}</p>
-                <div className="mt-4 text-right">
-                  <strong className="block text-[13px] text-[#555]">{activeArticle.author}</strong>
-                  <a href={`mailto:${activeArticle.email}`} className="text-[12px] text-[#555] underline">
-                    {activeArticle.email}
-                  </a>
-                </div>
-
-                <div className="mt-5 text-[13px] leading-[1.9] text-[#555]">
-                  <p>{activeArticle.summary}</p>
-                  {activeArticle.paragraphs?.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-
-                {activeArticle.image ? (
-                  <figure className="mx-auto mt-5 max-w-[700px]">
-                    <img src={activeArticle.image} alt={activeArticle.title} className="block w-full rounded-sm border border-[#d6d6d6]" />
-                    <figcaption className="mt-2 text-center text-[12px] text-[#777]">{activeArticle.imageCaption ?? activeArticle.title}</figcaption>
-                  </figure>
-                ) : null}
-
-                {activeArticle.bullets?.length ? (
-                  <ul className="mt-5 list-disc pl-5 text-[13px] text-[#555]">
-                    {activeArticle.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
-                    ))}
-                  </ul>
-                ) : null}
-
-                {activeArticle.articleUrl ? (
-                  <p className="mt-5 text-[13px] text-[#666]">
-                    For more detailed information, please refer to the full{' '}
-                    <a href={activeArticle.articleUrl} target="_blank" rel="noopener noreferrer" className="text-[#1f5dd2] underline">
-                      article
-                    </a>
-                  </p>
-                ) : null}
-
-                <div className="mt-6 flex items-center justify-center gap-2">
-                  <button
-                    type="button"
-                    className="appearance-none rounded border border-[#cfcfcf] bg-white px-3 py-1 text-[12px] text-[#666] disabled:opacity-40"
-                    onClick={() => {
-                      if (!prevArticle) return
-                      setActiveArticleId(prevArticle.id)
-                    }}
-                    disabled={!prevArticle}
-                  >
-                    Prev Article
-                  </button>
-                  <button
-                    type="button"
-                    className="appearance-none rounded border border-[#cfcfcf] bg-white px-3 py-1 text-[12px] text-[#666] disabled:opacity-40"
-                    onClick={() => {
-                      if (!nextArticle) return
-                      setActiveArticleId(nextArticle.id)
-                    }}
-                    disabled={!nextArticle}
-                  >
-                    Next Article
-                  </button>
-                </div>
+            <div className="grid gap-4 p-6 md:p-7">
+              <div>
+                <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#c9252f]">Featured News</p>
+                <h3 className="m-0 mt-3 text-[clamp(1.7rem,2.4vw,2.8rem)] font-black leading-tight tracking-[-0.03em] text-slate-900">
+                  {activeArticle.title}
+                </h3>
+                <p className="m-0 mt-4 text-sm leading-7 text-slate-600">{activeArticle.summary || '등록된 요약이 없습니다.'}</p>
               </div>
-            ) : (
-              <>
-                {isLoadingArticles ? (
-                  <p className="mt-3 text-sm font-semibold text-[#666]">뉴스 데이터를 불러오는 중입니다...</p>
-                ) : null}
-                {loadError ? <p className="mt-3 text-sm font-semibold text-[#b42323]">{loadError}</p> : null}
-                <div className="mt-4 rounded-sm border border-[#dcdcdc] bg-[#f4f4f4]">
-                  <div className="grid grid-cols-[130px_110px_1fr] items-center border-b border-[#dfdfdf] bg-[#e9e9e9] px-3 py-2 text-[13px] text-[#5a5a5a]">
-                    <span>Date</span>
-                    <span>Photo</span>
-                    <span>Title</span>
-                  </div>
 
-                  {pagedArticles.length ? (
-                    <ul className="m-0 list-none p-0">
-                      {pagedArticles.map((article) => (
-                        <li key={article.id} className="border-b border-[#e1e1e1] last:border-b-0">
-                          <button
-                            type="button"
-                            className={`appearance-none border-0 grid w-full grid-cols-[130px_110px_1fr] items-center gap-0 px-3 py-3 text-left transition ${
-                              article.id === activeArticleId ? 'bg-[#fff1f0]' : 'bg-[#f8f8f8] hover:bg-[#f1f1f1]'
-                            }`}
-                            onClick={() => {
-                              setActiveArticleId(article.id)
-                              setIsDetailOpen(true)
-                            }}
-                          >
-                            <span className="text-[14px] text-[#5f5f5f]">
-                              <span className="mr-1.5 text-[11px]">›</span>
-                              {formatNewsDate(article.date)}
-                            </span>
-                            <span>
-                              <img src={article.image ?? '/meanwell/index_1.jpg'} alt={article.title} className="h-[62px] w-[92px] rounded-sm border border-[#d9d9d9] object-cover" />
-                            </span>
-                            <span className="pr-2 text-[13px] leading-[1.45] text-[#444]">{article.title}</span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <div className="px-4 py-8 text-center text-[14px] text-[#6a6a6a]">검색 결과가 없습니다.</div>
-                  )}
-                </div>
+              <div className="grid gap-2 rounded-2xl bg-slate-50 p-4 text-sm">
+                <p className="m-0">
+                  <strong className="text-slate-900">등록일:</strong> {formatNewsDate(activeArticle.date)}
+                </p>
+                <p className="m-0">
+                  <strong className="text-slate-900">출처:</strong> {activeArticle.sourceLabel || '외부 뉴스'}
+                </p>
+              </div>
 
-                {totalPages > 1 ? (
-                  <div className="mt-4 flex items-center justify-center gap-1.5">
-                    <button
-                      type="button"
-                      className="appearance-none grid h-7 w-7 place-items-center rounded-full border border-[#d1d1d1] bg-[#f4f4f4] text-[11px] text-[#9a9a9a] disabled:opacity-40"
-                      onClick={() => setCurrentPage(1)}
-                      disabled={currentPage === 1}
-                      aria-label="First page"
-                    >
-                      «
-                    </button>
-                    <button
-                      type="button"
-                      className="appearance-none grid h-7 w-7 place-items-center rounded-full border border-[#d1d1d1] bg-[#f4f4f4] text-[11px] text-[#9a9a9a] disabled:opacity-40"
-                      onClick={() => setCurrentPage((prev) => clampPage(prev - 1, totalPages))}
-                      disabled={currentPage === 1}
-                      aria-label="Previous page"
-                    >
-                      ‹
-                    </button>
-
-                    {pageNumbers.map((pageNo) => (
-                      <button
-                        key={`page-${pageNo}`}
-                        type="button"
-                        className={`appearance-none grid h-7 w-7 place-items-center rounded-full border text-[11px] ${
-                          pageNo === currentPage ? 'border-[#e72e25] bg-[#e72e25] text-white' : 'border-[#d1d1d1] bg-[#f4f4f4] text-[#666]'
-                        }`}
-                        onClick={() => setCurrentPage(pageNo)}
-                      >
-                        {pageNo}
-                      </button>
-                    ))}
-
-                    <button
-                      type="button"
-                      className="appearance-none grid h-7 w-7 place-items-center rounded-full border border-[#d1d1d1] bg-[#f4f4f4] text-[11px] text-[#9a9a9a] disabled:opacity-40"
-                      onClick={() => setCurrentPage((prev) => clampPage(prev + 1, totalPages))}
-                      disabled={currentPage === totalPages}
-                      aria-label="Next page"
-                    >
-                      ›
-                    </button>
-                    <button
-                      type="button"
-                      className="appearance-none grid h-7 w-7 place-items-center rounded-full border border-[#d1d1d1] bg-[#f4f4f4] text-[11px] text-[#9a9a9a] disabled:opacity-40"
-                      onClick={() => setCurrentPage(totalPages)}
-                      disabled={currentPage === totalPages}
-                      aria-label="Last page"
-                    >
-                      »
-                    </button>
-                  </div>
-                ) : null}
-              </>
-            )}
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  className="inline-flex h-11 items-center rounded-full bg-[#e5332a] px-5 text-sm font-extrabold text-white transition hover:bg-[#ca2c24]"
+                  onClick={() => openExternalArticle(activeArticle.articleUrl)}
+                >
+                  원문 보기
+                </button>
+              </div>
+            </div>
           </article>
-        </div>
+        ) : (
+          <div className="mt-6 rounded-[28px] border border-dashed border-slate-300 bg-white px-6 py-14 text-center shadow-sm">
+            <p className="m-0 text-lg font-black text-slate-900">등록된 뉴스가 없습니다.</p>
+            <p className="m-0 mt-2 text-sm font-semibold text-slate-500">관리자에서 뉴스 링크와 썸네일을 등록하면 이 영역에 미리보기가 표시됩니다.</p>
+          </div>
+        )}
+
+        {isLoadingArticles ? <p className="m-0 mt-5 text-sm font-semibold text-slate-500">뉴스 데이터를 불러오는 중입니다...</p> : null}
+        {loadError ? <p className="m-0 mt-2 text-sm font-semibold text-[#b42323]">{loadError}</p> : null}
+
+        {filteredArticles.length ? (
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {filteredArticles.map((item) => {
+              const isActiveCard = item.id === activeArticle?.id
+
+              return (
+                <article
+                  key={item.id}
+                  className={`overflow-hidden rounded-[24px] border bg-white shadow-sm transition ${
+                    isActiveCard
+                      ? 'border-[#d43a31] shadow-[0_18px_42px_-28px_rgba(212,58,49,0.55)]'
+                      : 'border-slate-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md'
+                  }`}
+                >
+                  <button type="button" className="block w-full text-left" onClick={() => setActiveArticleId(item.id)}>
+                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                      {item.image ? (
+                        <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+                      ) : (
+                        <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
+                      )}
+                    </div>
+
+                    <div className="p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</p>
+                        <span className="text-[11px] font-bold text-slate-400">{item.sourceLabel || '외부 뉴스'}</span>
+                      </div>
+                      <h4 className="m-0 mt-2 text-[1.02rem] font-black leading-snug text-slate-900">{item.title}</h4>
+                      <p
+                        className="m-0 mt-2 text-[13px] leading-6 text-slate-500"
+                        style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                      >
+                        {item.summary || '요약이 등록되지 않은 뉴스입니다.'}
+                      </p>
+                    </div>
+                  </button>
+
+                  <div className="px-4 pb-4">
+                    <button
+                      type="button"
+                      className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-extrabold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+                      onClick={() => openExternalArticle(item.articleUrl)}
+                    >
+                      원문 보기
+                    </button>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="mt-8 rounded-[28px] border border-dashed border-slate-300 bg-white px-6 py-14 text-center shadow-sm">
+            <p className="m-0 text-lg font-black text-slate-900">조건에 맞는 뉴스가 없습니다.</p>
+            <p className="m-0 mt-2 text-sm font-semibold text-slate-500">검색어를 바꿔 다시 확인해 주세요.</p>
+          </div>
+        )}
       </div>
     </section>
   )

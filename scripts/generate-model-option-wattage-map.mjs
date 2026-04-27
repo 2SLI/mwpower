@@ -135,6 +135,14 @@ function collectBaseModels(records) {
         if (Array.isArray(group?.models)) group.models.forEach(addModel)
       })
     }
+
+    if (Array.isArray(record?.modelAssets)) {
+      record.modelAssets.forEach((item) => addModel(item?.model))
+    }
+
+    if (record?.modelAssetsByKey && typeof record.modelAssetsByKey === 'object') {
+      Object.values(record.modelAssetsByKey).forEach((item) => addModel(item?.model))
+    }
   })
 
   return map
@@ -186,6 +194,7 @@ function formatAdditionalType(value = '') {
   const upper = String(value ?? '').trim().toUpperCase()
   if (!upper) return ''
   if (upper === 'BLANK') return 'Blank'
+  if (!/^[A-Z0-9]{1,4}$/.test(upper)) return ''
   return upper
 }
 

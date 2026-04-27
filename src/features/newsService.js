@@ -1,11 +1,25 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase'
-import { getAllNewsSorted, newsCategories as defaultNewsCategories, NEWS_ALL_CATEGORY } from '../data/newsContent'
+import { getAllNewsSorted } from '../data/newsContent'
+import { getNewsSourceLabel, isSupportedNewsLink, normalizeNewsLink } from './newsLink'
 
 const NEWS_COLLECTION = 'newsArticles'
+const DEFAULT_NEWS_TITLE = '새 뉴스'
+const DEFAULT_NEWS_SUMMARY = ''
 
 function normalizeText(value = '') {
   return String(value ?? '').trim()
+}
+
+function getTodayDateInSeoul() {
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+
+  return formatter.format(new Date())
 }
 
 function normalizeDate(value = '') {
@@ -15,21 +29,6 @@ function normalizeDate(value = '') {
   const match = text.match(/^(\d{4})[-/.](\d{2})[-/.](\d{2})$/)
   if (!match) return text
   return `${match[1]}-${match[2]}-${match[3]}`
-}
-
-function normalizeStringArray(value) {
-  if (Array.isArray(value)) {
-    return value.map((item) => normalizeText(item)).filter(Boolean)
-  }
-
-  if (typeof value === 'string') {
-    return value
-      .split(/\r?\n/)
-      .map((item) => normalizeText(item))
-      .filter(Boolean)
-  }
-
-  return []
 }
 
 function toTimestamp(dateText) {
@@ -49,42 +48,47 @@ function sortNewsArticles(items) {
 
 function normalizeNewsArticle(item = {}, idFromDoc = '') {
   const id = normalizeText(item.id || idFromDoc)
-  const category = normalizeText(item.category)
-  const date = normalizeDate(item.date)
-  const title = normalizeText(item.title)
-  if (!id || !category || !date || !title) return null
+  const articleUrl = normalizeNewsLink(item.articleUrl || item.externalUrl || item.url)
+  if (!id || !articleUrl || !isSupportedNewsLink(articleUrl)) return null
+
+  const date = normalizeDate(item.date || item.createdAtClient?.slice?.(0, 10)) || getTodayDateInSeoul()
+  const title = normalizeText(item.title) || DEFAULT_NEWS_TITLE
+  const summary = normalizeText(item.summary) || DEFAULT_NEWS_SUMMARY
+  const image = normalizeText(item.image || item.thumbnail)
 
   return {
     id,
-    category,
     date,
     title,
-    summary: normalizeText(item.summary),
-    author: normalizeText(item.author),
-    email: normalizeText(item.email),
-    image: normalizeText(item.image),
-    imageCaption: normalizeText(item.imageCaption),
-    paragraphs: normalizeStringArray(item.paragraphs),
-    bullets: normalizeStringArray(item.bullets),
-    articleUrl: normalizeText(item.articleUrl),
+    summary,
+    image,
+    thumbnail: image,
+    articleUrl,
+    externalUrl: articleUrl,
+    sourceLabel: normalizeText(item.sourceLabel) || getNewsSourceLabel(articleUrl),
     isPublished: item.isPublished !== false,
     source: normalizeText(item.source || 'firestore'),
   }
 }
 
+export function normalizeNewsItems(items = []) {
+  return items
+    .map((item, index) => normalizeNewsArticle(item, item?.id || `local-${index}`))
+    .filter(Boolean)
+}
+
 function toNewsWritePayload(input = {}) {
+  const articleUrl = normalizeNewsLink(input.articleUrl || input.externalUrl || input.url)
+
   return {
-    category: normalizeText(input.category),
-    date: normalizeDate(input.date),
-    title: normalizeText(input.title),
-    summary: normalizeText(input.summary),
-    author: normalizeText(input.author),
-    email: normalizeText(input.email),
-    image: normalizeText(input.image),
-    imageCaption: normalizeText(input.imageCaption),
-    paragraphs: normalizeStringArray(input.paragraphs),
-    bullets: normalizeStringArray(input.bullets),
-    articleUrl: normalizeText(input.articleUrl),
+    date: normalizeDate(input.date) || getTodayDateInSeoul(),
+    title: normalizeText(input.title) || DEFAULT_NEWS_TITLE,
+    summary: normalizeText(input.summary) || DEFAULT_NEWS_SUMMARY,
+    image: normalizeText(input.image || input.thumbnail),
+    thumbnail: normalizeText(input.thumbnail || input.image),
+    articleUrl,
+    externalUrl: articleUrl,
+    sourceLabel: getNewsSourceLabel(articleUrl),
     isPublished: input.isPublished !== false,
     updatedAt: serverTimestamp(),
   }
@@ -101,13 +105,13 @@ export async function loadNewsArticlesForAdmin() {
   try {
     const firestoreArticles = await fetchFirestoreNewsArticles()
     return { articles: sortNewsArticles(firestoreArticles), source: 'firestore' }
-  } catch (error) {
+  } catch {
     return { articles: [], source: 'error' }
   }
 }
 
 export async function loadNewsArticlesForPublic() {
-  const localArticles = getAllNewsSorted()
+  const localArticles = normalizeNewsItems(getAllNewsSorted())
 
   try {
     const firestoreArticles = await fetchFirestoreNewsArticles()
@@ -127,20 +131,21 @@ export async function loadNewsArticlesForPublic() {
       articles: sortNewsArticles(Array.from(merged.values())),
       source: firestoreArticles.length > 0 ? 'firestore+local' : 'local',
     }
-  } catch (error) {
+  } catch {
     return { articles: localArticles, source: 'local' }
   }
 }
 
 export async function createNewsArticle(input = {}) {
   const payload = toNewsWritePayload(input)
-  if (!payload.category || !payload.date || !payload.title) {
-    throw new Error('필수 항목(category, date, title)이 비어 있습니다.')
+  if (!payload.articleUrl) {
+    throw new Error('필수 항목(articleUrl)이 비어 있습니다.')
   }
 
   const created = await addDoc(collection(db, NEWS_COLLECTION), {
     ...payload,
     createdAt: serverTimestamp(),
+    createdAtClient: new Date().toISOString(),
   })
 
   return created.id
@@ -151,8 +156,8 @@ export async function updateNewsArticle(articleId, input = {}) {
   if (!id) throw new Error('수정할 뉴스 ID가 없습니다.')
 
   const payload = toNewsWritePayload(input)
-  if (!payload.category || !payload.date || !payload.title) {
-    throw new Error('필수 항목(category, date, title)이 비어 있습니다.')
+  if (!payload.articleUrl) {
+    throw new Error('필수 항목(articleUrl)이 비어 있습니다.')
   }
 
   await updateDoc(doc(db, NEWS_COLLECTION, id), payload)
@@ -162,23 +167,4 @@ export async function removeNewsArticle(articleId) {
   const id = normalizeText(articleId)
   if (!id) return
   await deleteDoc(doc(db, NEWS_COLLECTION, id))
-}
-
-export function buildNewsCategories(articles = []) {
-  const base = defaultNewsCategories.filter((item) => item !== NEWS_ALL_CATEGORY)
-  const seen = new Set(base.map((item) => normalizeText(item)))
-  const output = [...base]
-
-  articles.forEach((item) => {
-    const category = normalizeText(item?.category)
-    if (!category || seen.has(category)) return
-    seen.add(category)
-    output.push(category)
-  })
-
-  return [NEWS_ALL_CATEGORY, ...output]
-}
-
-export function toMultilineText(values) {
-  return normalizeStringArray(values).join('\n')
 }

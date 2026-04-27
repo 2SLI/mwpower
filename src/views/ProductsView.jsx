@@ -150,9 +150,9 @@ function normalizeCombinedTypeToken(value = '') {
 function formatCombinedTypeToken(value = '') {
   const upper = normalizeCombinedTypeToken(value)
   if (!upper) return ''
-  if (!/^[A-Z0-9]{1,8}$/.test(upper)) return ''
   if (COMBINED_OPTION_TYPE_STOP_WORDS.has(upper)) return ''
   if (upper === 'BLANK') return 'Blank'
+  if (!/^[A-Z0-9]{1,4}$/.test(upper)) return ''
   if (upper === 'DX') return 'Dx'
   return upper
 }
@@ -254,6 +254,10 @@ function buildVoltageOptionLabel({ optionModel = '', dcVoltage = '', selectedMod
   const selectedBase = selectedHyphenCount >= 2 ? selectedModelText.replace(/-\d+(?:\.\d+)?$/, '') : selectedModelText
   const selectedBaseUpper = String(selectedBase ?? '').toUpperCase()
   const optionModelUpper = optionModelText.toUpperCase()
+
+  if (optionModelText && selectedBaseUpper && optionModelUpper.startsWith(selectedBaseUpper) && optionModelUpper !== selectedBaseUpper) {
+    return optionModelText
+  }
 
   if (
     optionModelText &&
@@ -1127,7 +1131,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       baseModel,
       optionModel: String(optionModel ?? '').trim(),
       displayModel,
-      thumbnailUrl: String(thumbnailUrl ?? '').trim(),
+      thumbnailUrl: String(asset?.imageUrl ?? '').trim() || String(thumbnailUrl ?? '').trim(),
       wattage: String(wattage ?? '').trim(),
       pdfUrl: String(asset?.pdfUrl ?? '').trim(),
       quantity: normalizeRequestedQuoteQuantity(quantity, 1),

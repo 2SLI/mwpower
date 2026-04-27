@@ -45,7 +45,7 @@ function QuoteField({ label, required = false, children }) {
   )
 }
 
-export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onRemoveItem, onClearItems }) {
+export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, onUpdateQuantity, onRemoveItem, onClearItems }) {
   const [form, setForm] = useState(initialForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
@@ -213,9 +213,9 @@ export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onR
                     <button
                       type="button"
                       className="inline-flex h-11 items-center rounded-full bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-5 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(185,37,45,0.24)]"
-                      onClick={() => onClose?.()}
+                      onClick={() => onNavigateProducts?.()}
                     >
-                      제품으로 돌아가기
+                      제품 페이지로 이동
                     </button>
                   </div>
                 </div>
@@ -223,35 +223,47 @@ export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onR
                 <div className="grid gap-3">
                   {normalizedItems.map((item) => (
                     <article key={item.id} className="grid gap-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                      <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">{formatQuoteItemPath(item) || '제품 정보'}</p>
-                          <h3 className="m-0 mt-1 break-all text-[22px] font-black tracking-[-0.02em] text-slate-900">{item.displayModel}</h3>
-                          {item.optionModel && item.optionModel !== item.baseModel ? (
-                            <p className="m-0 mt-1 text-xs font-semibold text-slate-500">기본 모델: {item.baseModel}</p>
-                          ) : null}
-                          {item.wattage ? <p className="m-0 mt-2 text-sm font-semibold text-slate-600">Wattage: {item.wattage}</p> : null}
+                      <div className="grid gap-3 md:grid-cols-[116px_minmax(0,1fr)]">
+                        <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white">
+                          {item.thumbnailUrl ? (
+                            <img src={item.thumbnailUrl} alt={item.displayModel} className="aspect-[4/3] h-full w-full object-cover" loading="lazy" />
+                          ) : (
+                            <div className="grid aspect-[4/3] h-full w-full place-items-center text-[11px] font-black text-slate-400">NO IMAGE</div>
+                          )}
                         </div>
-                        <button
-                          type="button"
-                          className="inline-flex h-10 items-center rounded-full border border-[#e6b1b7] bg-white px-3 text-xs font-extrabold text-[#b4262e] transition hover:bg-[#fff5f6]"
-                          onClick={() => onRemoveItem?.(item.id)}
-                        >
-                          항목 삭제
-                        </button>
-                      </div>
 
-                      <div className="grid gap-3 md:grid-cols-[130px]">
-                        <QuoteField label="수량" required>
-                          <input
-                            type="number"
-                            min="1"
-                            inputMode="numeric"
-                            value={item.quantity}
-                            onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)}
-                            className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-base font-bold text-slate-900 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
-                          />
-                        </QuoteField>
+                        <div className="grid gap-3">
+                          <div className="flex flex-wrap items-start justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">{formatQuoteItemPath(item) || '제품 정보'}</p>
+                              <h3 className="m-0 mt-1 break-all text-[22px] font-black tracking-[-0.02em] text-slate-900">{item.displayModel}</h3>
+                              {item.optionModel && item.optionModel !== item.baseModel ? (
+                                <p className="m-0 mt-1 text-xs font-semibold text-slate-500">기본 모델: {item.baseModel}</p>
+                              ) : null}
+                              {item.wattage ? <p className="m-0 mt-2 text-sm font-semibold text-slate-600">Wattage: {item.wattage}</p> : null}
+                            </div>
+                            <button
+                              type="button"
+                              className="inline-flex h-10 items-center rounded-full border border-[#e6b1b7] bg-white px-3 text-xs font-extrabold text-[#b4262e] transition hover:bg-[#fff5f6]"
+                              onClick={() => onRemoveItem?.(item.id)}
+                            >
+                              항목 삭제
+                            </button>
+                          </div>
+
+                          <div className="grid gap-3 md:grid-cols-[130px]">
+                            <QuoteField label="수량" required>
+                              <input
+                                type="number"
+                                min="1"
+                                inputMode="numeric"
+                                value={item.quantity}
+                                onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)}
+                                className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-base font-bold text-slate-900 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
+                              />
+                            </QuoteField>
+                          </div>
+                        </div>
                       </div>
                     </article>
                   ))}

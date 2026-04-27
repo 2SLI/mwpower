@@ -1,3 +1,5 @@
+import { resolveLeafThumbnailUrl } from './productCatalogService'
+
 const QUOTE_CART_STORAGE_KEY = 'mwpower_quote_cart_v1'
 
 function normalizeText(value = '') {
@@ -37,6 +39,13 @@ export function normalizeQuoteLineItem(item = {}) {
   const baseModel = normalizeText(item.baseModel ?? item.model)
   const optionModel = normalizeText(item.optionModel)
   const displayModel = normalizeText(item.displayModel) || optionModel || baseModel
+  const thumbnailUrl =
+    normalizeText(item.thumbnailUrl) ||
+    resolveLeafThumbnailUrl({
+      majorName,
+      subcategoryName: subcategory,
+      leafName: leaf,
+    })
 
   if (!baseModel || !displayModel) return null
 
@@ -50,7 +59,7 @@ export function normalizeQuoteLineItem(item = {}) {
     baseModel,
     optionModel,
     displayModel,
-    thumbnailUrl: normalizeText(item.thumbnailUrl),
+    thumbnailUrl,
     wattage: normalizeText(item.wattage),
     pdfUrl: normalizeText(item.pdfUrl),
     note: normalizeText(item.note),

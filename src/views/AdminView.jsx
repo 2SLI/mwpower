@@ -1,37 +1,25 @@
 import { useEffect, useMemo, useState } from 'react'
 import { collection, doc, getDocs, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore'
-import { NEWS_ALL_CATEGORY, formatNewsDate } from '../data/newsContent'
+import { formatNewsDate } from '../data/newsContent'
 import { db } from '../firebase'
-import { buildNewsCategories, createNewsArticle, loadNewsArticlesForAdmin, removeNewsArticle, toMultilineText, updateNewsArticle } from '../features/newsService'
+import { createNewsArticle, loadNewsArticlesForAdmin, removeNewsArticle, updateNewsArticle } from '../features/newsService'
+import { getNewsSourceLabel, normalizeNewsLink } from '../features/newsLink'
 import { formatQuoteItemPath, getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
 
 const ADMIN_SESSION_KEY = 'mwpower_admin_authenticated'
 const ADMIN_PASSWORD = String(import.meta.env.VITE_ADMIN_PASSWORD ?? '').trim()
 
 const NEWS_FORM_INITIAL = {
-  category: '',
-  date: '',
+  articleUrl: '',
+  image: '',
   title: '',
   summary: '',
-  author: '',
-  email: '',
-  image: '',
-  imageCaption: '',
-  articleUrl: '',
-  paragraphsText: '',
-  bulletsText: '',
+  date: '',
   isPublished: true,
 }
 
 function normalizeText(value = '') {
   return String(value ?? '').trim()
-}
-
-function splitMultiline(value = '') {
-  return String(value ?? '')
-    .split(/\r?\n/)
-    .map((item) => normalizeText(item))
-    .filter(Boolean)
 }
 
 function resolveInquiryType(item) {
@@ -112,17 +100,11 @@ function mapQuoteRequestDocument(docSnap) {
 function normalizeNewsFormFromArticle(article) {
   if (!article) return NEWS_FORM_INITIAL
   return {
-    category: normalizeText(article.category),
-    date: normalizeText(article.date),
+    articleUrl: normalizeText(article.articleUrl || article.externalUrl),
+    image: normalizeText(article.image || article.thumbnail),
     title: normalizeText(article.title),
     summary: normalizeText(article.summary),
-    author: normalizeText(article.author),
-    email: normalizeText(article.email),
-    image: normalizeText(article.image),
-    imageCaption: normalizeText(article.imageCaption),
-    articleUrl: normalizeText(article.articleUrl),
-    paragraphsText: toMultilineText(article.paragraphs),
-    bulletsText: toMultilineText(article.bullets),
+    date: normalizeText(article.date),
     isPublished: article.isPublished !== false,
   }
 }
@@ -168,10 +150,7 @@ export function AdminView() {
     [quoteRequests, activeQuoteId]
   )
 
-  const availableNewsCategories = useMemo(
-    () => buildNewsCategories(newsItems).filter((item) => item !== NEWS_ALL_CATEGORY),
-    [newsItems]
-  )
+  const normalizedNewsFormLink = useMemo(() => normalizeNewsLink(newsForm.articleUrl), [newsForm.articleUrl])
 
   const loadInquiries = async () => {
     setIsLoadingInquiries(true)
@@ -329,22 +308,16 @@ export function AdminView() {
     if (isSavingNews) return
 
     const payload = {
-      category: newsForm.category,
-      date: newsForm.date,
-      title: newsForm.title,
-      summary: newsForm.summary,
-      author: newsForm.author,
-      email: newsForm.email,
-      image: newsForm.image,
-      imageCaption: newsForm.imageCaption,
-      articleUrl: newsForm.articleUrl,
-      paragraphs: splitMultiline(newsForm.paragraphsText),
-      bullets: splitMultiline(newsForm.bulletsText),
+      articleUrl: normalizedNewsFormLink,
+      image: normalizeText(newsForm.image),
+      title: normalizeText(newsForm.title),
+      summary: normalizeText(newsForm.summary),
+      date: normalizeText(newsForm.date),
       isPublished: newsForm.isPublished,
     }
 
-    if (!normalizeText(payload.category) || !normalizeText(payload.date) || !normalizeText(payload.title)) {
-      setNewsError('카테고리, 날짜, 제목은 필수입니다.')
+    if (!payload.articleUrl) {
+      setNewsError('유효한 뉴스 링크를 입력해주세요.')
       return
     }
 
@@ -468,7 +441,7 @@ export function AdminView() {
                 activeTab === 'news' ? 'bg-[#c9252f] text-white' : 'border border-slate-300 bg-white text-slate-700'
               }`}
             >
-              뉴스 관리
+              뉴스
             </button>
           </div>
         </section>
@@ -711,12 +684,23 @@ export function AdminView() {
                         <ul className="m-0 mt-3 grid list-none gap-2 p-0">
                           {activeQuoteRequest.items.map((item) => (
                             <li key={item.id} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
-                              <div className="flex flex-wrap items-center justify-between gap-2">
-                                <strong className="text-sm font-extrabold text-slate-900">{item.displayModel}</strong>
-                                <span className="text-xs font-black text-[#b42323]">{item.quantity}개</span>
+                              <div className="grid gap-3 sm:grid-cols-[88px_minmax(0,1fr)]">
+                                <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                                  {item.thumbnailUrl ? (
+                                    <img src={item.thumbnailUrl} alt={item.displayModel} className="aspect-[4/3] h-full w-full object-cover" loading="lazy" />
+                                  ) : (
+                                    <div className="grid aspect-[4/3] h-full w-full place-items-center text-[10px] font-black text-slate-400">NO IMAGE</div>
+                                  )}
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="flex flex-wrap items-center justify-between gap-2">
+                                    <strong className="text-sm font-extrabold text-slate-900">{item.displayModel}</strong>
+                                    <span className="text-xs font-black text-[#b42323]">{item.quantity}개</span>
+                                  </div>
+                                  <p className="m-0 mt-1 text-xs font-semibold text-slate-500">{formatQuoteItemPath(item) || '제품 정보 없음'}</p>
+                                  {item.note ? <p className="m-0 mt-2 whitespace-pre-wrap text-sm leading-6 text-slate-700">메모: {item.note}</p> : null}
+                                </div>
                               </div>
-                              <p className="m-0 mt-1 text-xs font-semibold text-slate-500">{formatQuoteItemPath(item) || '제품 정보 없음'}</p>
-                              {item.note ? <p className="m-0 mt-2 whitespace-pre-wrap text-sm leading-6 text-slate-700">메모: {item.note}</p> : null}
                             </li>
                           ))}
                         </ul>
@@ -735,7 +719,10 @@ export function AdminView() {
         ) : (
           <section className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_28px_rgba(15,23,42,0.06)]">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="m-0 text-xl font-black text-slate-900">뉴스 관리</h2>
+              <div>
+                <h2 className="m-0 text-xl font-black text-slate-900">뉴스 관리</h2>
+                <p className="m-0 mt-1 text-sm font-semibold text-slate-500">블로그나 티스토리 링크와 썸네일, 제목을 등록하면 홈과 뉴스 페이지에 미리보기 형태로 반영됩니다.</p>
+              </div>
               <div className="flex items-center gap-2">
                 <button type="button" onClick={loadNews} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">
                   새로고침
@@ -745,7 +732,7 @@ export function AdminView() {
                   onClick={resetNewsForm}
                   className="rounded-lg border border-[#c9252f] bg-[#c9252f] px-3 py-2 text-sm font-extrabold text-white hover:bg-[#b81f29]"
                 >
-                  새 뉴스 작성
+                  새 뉴스 등록
                 </button>
               </div>
             </div>
@@ -756,27 +743,54 @@ export function AdminView() {
             <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)]">
               <div className="max-h-[66vh] overflow-y-auto rounded-xl border border-slate-200">
                 {newsItems.length === 0 ? (
-                  <p className="m-0 px-4 py-8 text-center text-sm font-semibold text-slate-500">등록된 Firestore 뉴스가 없습니다.</p>
+                  <p className="m-0 px-4 py-8 text-center text-sm font-semibold text-slate-500">등록된 뉴스가 없습니다.</p>
                 ) : (
                   <ul className="m-0 list-none p-0">
                     {newsItems.map((item) => (
                       <li key={item.id} className="border-b border-slate-200 p-3 last:border-b-0">
-                        <div className="flex flex-wrap items-start justify-between gap-2">
-                          <div className="min-w-0">
-                            <p className="m-0 text-xs font-black text-[#b42323]">{item.category}</p>
-                            <h3 className="m-0 mt-1 text-sm font-extrabold text-slate-900">{item.title}</h3>
-                            <p className="m-0 mt-1 text-xs font-semibold text-slate-500">{formatNewsDate(item.date)}</p>
-                            <p className="m-0 mt-1 text-[11px] text-slate-400">ID: {item.id}</p>
+                        <div className="flex gap-3">
+                          <div className="h-[84px] w-[148px] shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+                            {item.thumbnail || item.image ? (
+                              <img src={item.thumbnail || item.image} alt={item.title} className="h-full w-full object-cover" />
+                            ) : (
+                              <div className="grid h-full w-full place-items-center text-xs font-black text-slate-400">NO PREVIEW</div>
+                            )}
                           </div>
-                          <span
-                            className={`rounded-full px-2 py-0.5 text-[11px] font-black ${
-                              item.isPublished ? 'bg-[#e9f9ef] text-[#0f6d3d]' : 'bg-[#fff3f4] text-[#b42323]'
-                            }`}
-                          >
-                            {item.isPublished ? '공개' : '비공개'}
-                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-start justify-between gap-2">
+                              <div className="min-w-0">
+                                <h3 className="m-0 mt-1 text-sm font-extrabold text-slate-900">{item.title}</h3>
+                                <p className="m-0 mt-1 text-xs font-semibold text-slate-500">
+                                  {formatNewsDate(item.date)} · {item.sourceLabel || getNewsSourceLabel(item.articleUrl) || '외부 뉴스'}
+                                </p>
+                                <p className="m-0 mt-1 text-[11px] text-slate-400">ID: {item.id}</p>
+                              </div>
+                              <span
+                                className={`rounded-full px-2 py-0.5 text-[11px] font-black ${
+                                  item.isPublished ? 'bg-[#e9f9ef] text-[#0f6d3d]' : 'bg-[#fff3f4] text-[#b42323]'
+                                }`}
+                              >
+                                {item.isPublished ? '공개' : '비공개'}
+                              </span>
+                            </div>
+                            <p className="m-0 mt-2 text-xs leading-5 text-slate-500">{item.summary || '요약이 없으면 카드에는 제목만 표시됩니다.'}</p>
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              {item.articleUrl ? (
+                                <a
+                                  href={item.articleUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-extrabold text-slate-700 hover:bg-slate-50"
+                                >
+                                  원문 확인
+                                </a>
+                              ) : (
+                                <span className="rounded-md border border-[#f0c2c8] bg-[#fff7f8] px-2.5 py-1 text-xs font-black text-[#b42323]">뉴스 링크 없음</span>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                        <div className="mt-2 flex gap-2">
+                        <div className="mt-3 flex gap-2">
                           <button
                             type="button"
                             onClick={() => handleNewsEdit(item)}
@@ -800,25 +814,45 @@ export function AdminView() {
 
               <form className="grid gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3" onSubmit={handleNewsSubmit}>
                 <h3 className="m-0 text-base font-black text-slate-900">{editingNewsId ? '뉴스 수정' : '뉴스 등록'}</h3>
+                <p className="m-0 text-xs leading-5 text-slate-500">블로그나 티스토리 링크와 썸네일 이미지를 입력하면 카드형 뉴스 미리보기로 노출됩니다.</p>
 
                 <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  카테고리*
+                  뉴스 링크*
                   <input
-                    list="news-category-list"
-                    value={newsForm.category}
-                    onChange={(event) => handleNewsFormChange('category', event.target.value)}
+                    value={newsForm.articleUrl}
+                    onChange={(event) => handleNewsFormChange('articleUrl', event.target.value)}
                     className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                    placeholder="예: 기술 노트"
+                    placeholder="https://blog.naver.com/... 또는 https://*.tistory.com/..."
                   />
                 </label>
-                <datalist id="news-category-list">
-                  {availableNewsCategories.map((category) => (
-                    <option key={category} value={category}></option>
-                  ))}
-                </datalist>
+                {newsForm.articleUrl ? (
+                  <p className={`m-0 text-[11px] font-bold ${normalizedNewsFormLink ? 'text-[#0f6d3d]' : 'text-[#b42323]'}`}>
+                    {normalizedNewsFormLink ? `등록 출처: ${getNewsSourceLabel(normalizedNewsFormLink)}` : '유효한 블로그/뉴스 링크를 입력해주세요.'}
+                  </p>
+                ) : null}
 
                 <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  날짜*
+                  썸네일 이미지 URL
+                  <input
+                    value={newsForm.image}
+                    onChange={(event) => handleNewsFormChange('image', event.target.value)}
+                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
+                    placeholder="https://example.com/news-thumbnail.jpg"
+                  />
+                </label>
+
+                <label className="grid gap-1 text-xs font-bold text-slate-700">
+                  제목
+                  <input
+                    value={newsForm.title}
+                    onChange={(event) => handleNewsFormChange('title', event.target.value)}
+                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
+                    placeholder="뉴스 카드에 표시할 제목"
+                  />
+                </label>
+
+                <label className="grid gap-1 text-xs font-bold text-slate-700">
+                  등록일
                   <input
                     type="date"
                     value={newsForm.date}
@@ -828,84 +862,12 @@ export function AdminView() {
                 </label>
 
                 <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  제목*
-                  <input
-                    value={newsForm.title}
-                    onChange={(event) => handleNewsFormChange('title', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                  />
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
                   요약
                   <textarea
                     value={newsForm.summary}
                     onChange={(event) => handleNewsFormChange('summary', event.target.value)}
-                    className="min-h-[74px] rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm outline-none focus:border-[#c9252f]"
-                  ></textarea>
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  작성자
-                  <input
-                    value={newsForm.author}
-                    onChange={(event) => handleNewsFormChange('author', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                  />
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  이메일
-                  <input
-                    type="email"
-                    value={newsForm.email}
-                    onChange={(event) => handleNewsFormChange('email', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                  />
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  이미지 URL
-                  <input
-                    value={newsForm.image}
-                    onChange={(event) => handleNewsFormChange('image', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                  />
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  이미지 캡션
-                  <input
-                    value={newsForm.imageCaption}
-                    onChange={(event) => handleNewsFormChange('imageCaption', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                  />
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  본문 단락(줄바꿈 단위)
-                  <textarea
-                    value={newsForm.paragraphsText}
-                    onChange={(event) => handleNewsFormChange('paragraphsText', event.target.value)}
-                    className="min-h-[94px] rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm outline-none focus:border-[#c9252f]"
-                  ></textarea>
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  불릿 목록(줄바꿈 단위)
-                  <textarea
-                    value={newsForm.bulletsText}
-                    onChange={(event) => handleNewsFormChange('bulletsText', event.target.value)}
-                    className="min-h-[74px] rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm outline-none focus:border-[#c9252f]"
-                  ></textarea>
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  원문 URL
-                  <input
-                    value={newsForm.articleUrl}
-                    onChange={(event) => handleNewsFormChange('articleUrl', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
+                    className="min-h-[108px] rounded-md border border-slate-300 bg-white px-2 py-2 text-sm outline-none focus:border-[#c9252f]"
+                    placeholder="카드와 상세 미리보기에 표시할 요약"
                   />
                 </label>
 

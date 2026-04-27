@@ -325,10 +325,18 @@ const ADDITIONAL_TYPE_STOP_WORDS = new Set([
   'LEVEL',
 ])
 
+function isLikelyCompactOptionType(value = '') {
+  const upper = safeUpper(value)
+  if (!upper) return false
+  if (upper === 'BLANK') return true
+  return /^[A-Z0-9]{1,4}$/.test(upper)
+}
+
 function formatAdditionalType(value) {
   const upper = safeUpper(value)
   if (!upper) return ''
   if (upper === 'BLANK') return 'Blank'
+  if (!isLikelyCompactOptionType(upper)) return ''
   return upper
 }
 
@@ -346,6 +354,7 @@ function cleanAdditionalTypeToken(value) {
   if (/^(?:COMMUNIC|PROTOCOL|OPTION|FUNCTION|NOTE|MODEL|INPUT|OUTPUT)/.test(token)) return ''
   if (/^\d+(?:\.\d+)?$/.test(token)) return ''
   if (/^(?:IP\d+|CLASS\d+)$/i.test(token)) return ''
+  if (!isLikelyCompactOptionType(token)) return ''
   return formatAdditionalType(token)
 }
 
