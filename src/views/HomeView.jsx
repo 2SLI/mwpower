@@ -96,8 +96,8 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
         if (index !== 0) return { ...item, mobileTitle: item.title, mobileSubtitle: '' }
         return {
           ...item,
-          mobileTitle: '제품 보기',
-          mobileSubtitle: item.title,
+          mobileTitle: '제품 사양서 보기',
+          mobileSubtitle: '민웰파워는 민웰 정품 제품만을 판매합니다.',
           forceProductsView: true,
         }
       }),
@@ -279,23 +279,6 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
             </a>
           ))}
         </div>
-
-        <button
-          type="button"
-          aria-label="이전 메뉴"
-          className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/35 bg-black/40 text-white"
-          onClick={() => scrollMobileSolutionsTo(mobileSolutionIndex - 1)}
-        >
-          ‹
-        </button>
-        <button
-          type="button"
-          aria-label="다음 메뉴"
-          className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/35 bg-black/40 text-white"
-          onClick={() => scrollMobileSolutionsTo(mobileSolutionIndex + 1)}
-        >
-          ›
-        </button>
 
         <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
           {mobileSolutionCards.map((item, index) => (
