@@ -324,6 +324,48 @@ function buildCombinedOptionModelLabels({ options = [], selectedModel = '' }) {
   )
 }
 
+function normalizeRoutePathname(pathname = '/') {
+  const raw = String(pathname ?? '/').trim().toLowerCase()
+  if (!raw || raw === '/') return '/'
+  return raw.replace(/\/+$/g, '') || '/'
+}
+
+function isProductsRoutePath(pathname = '/') {
+  return normalizeRoutePathname(pathname) === '/products'
+}
+
+function normalizeHistoryTextValue(value) {
+  const text = String(value ?? '').trim()
+  return text || null
+}
+
+function normalizeProductHistoryState(state) {
+  if (!state || typeof state !== 'object') return null
+
+  const snapshot = {}
+  const search = normalizeHistoryTextValue(state.search)
+  const majorId = normalizeHistoryTextValue(state.majorId)
+  const subcategory = normalizeHistoryTextValue(state.subcategory)
+  const leaf = normalizeHistoryTextValue(state.leaf)
+  const groupName = normalizeHistoryTextValue(state.groupName)
+  const model = normalizeHistoryTextValue(state.model)
+  const optionModel = normalizeHistoryTextValue(state.optionModel)
+
+  if (search) snapshot.search = search
+  if (majorId) snapshot.majorId = majorId
+  if (subcategory) snapshot.subcategory = subcategory
+  if (leaf) snapshot.leaf = leaf
+  if (groupName) snapshot.groupName = groupName
+  if (model) snapshot.model = model
+  if (optionModel) snapshot.optionModel = optionModel
+
+  return Object.keys(snapshot).length > 0 ? snapshot : null
+}
+
+function serializeProductHistoryState(state) {
+  return JSON.stringify(normalizeProductHistoryState(state) ?? null)
+}
+
 export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onNavigate }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
@@ -346,11 +388,80 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const mobilePdfViewportRef = useRef(null)
   const wasActiveRef = useRef(isActive)
   const lastAppliedPresetAtRef = useRef(null)
+  const historyActionRef = useRef('replace')
+  const historySyncReadyRef = useRef(false)
   const searchInput = String(search ?? '').trim()
   const singleSearchToken = getSingleSearchToken(searchInput)
   const hasSearchInput = searchInput.length > 0
   const searchKeywords = buildSearchKeywords(searchInput)
   const hasSearch = searchKeywords.length > 0
+  const defaultMajorId = majorCategories[0]?.id ?? defaultMajorCategories[0]?.id ?? ''
+
+  function closePanels() {
+    setIsMajorPanelOpen(false)
+    setIsSubPanelOpen(false)
+    setIsLeafPanelOpen(false)
+    setIsModelPanelOpen(false)
+  }
+
+  function resolveProductRouteState(rawState = null) {
+    const source = rawState && typeof rawState === 'object' ? rawState : {}
+    const requestedMajorId = String(source.majorId ?? source.activeMajorId ?? '').trim()
+    const majorId = requestedMajorId && majorCategories.some((item) => item.id === requestedMajorId) ? requestedMajorId : requestedMajorId || defaultMajorId
+
+    return {
+      majorId,
+      subcategory: normalizeHistoryTextValue(source.subcategory ?? source.activeSubcategory),
+      leaf: normalizeHistoryTextValue(source.leaf ?? source.activeLeaf),
+      groupName: normalizeHistoryTextValue(source.groupName ?? source.activeGroup),
+      model: normalizeHistoryTextValue(source.model ?? source.activeModel),
+      optionModel: String(source.optionModel ?? source.selectedOptionModel ?? '').trim(),
+      search: String(source.search ?? '').trim(),
+    }
+  }
+
+  function buildCurrentProductRouteState(overrides = {}) {
+    return resolveProductRouteState({
+      majorId: activeMajorId || defaultMajorId,
+      subcategory: activeSubcategory,
+      leaf: activeLeaf,
+      groupName: activeGroup,
+      model: activeModel,
+      optionModel: selectedOptionModel,
+      search,
+      ...overrides,
+    })
+  }
+
+  function buildHistoryProductState(rawState = null) {
+    const resolved = resolveProductRouteState(rawState)
+    const snapshot = {}
+    const hasSelection = Boolean(resolved.subcategory || resolved.leaf || resolved.groupName || resolved.model)
+
+    if (resolved.search) snapshot.search = resolved.search
+    if (resolved.majorId && (resolved.majorId !== defaultMajorId || resolved.search || hasSelection)) snapshot.majorId = resolved.majorId
+    if (resolved.subcategory) snapshot.subcategory = resolved.subcategory
+    if (resolved.leaf) snapshot.leaf = resolved.leaf
+    if (resolved.groupName) snapshot.groupName = resolved.groupName
+    if (resolved.model) snapshot.model = resolved.model
+    if (resolved.model && resolved.optionModel) snapshot.optionModel = resolved.optionModel
+
+    return Object.keys(snapshot).length > 0 ? snapshot : null
+  }
+
+  function applyProductRouteState(rawState = null, { history = 'replace' } = {}) {
+    const resolved = resolveProductRouteState(rawState)
+    historyActionRef.current = history
+
+    setActiveMajorId(resolved.majorId || defaultMajorId)
+    setActiveSubcategory(resolved.subcategory)
+    setActiveLeaf(resolved.leaf)
+    setActiveGroup(resolved.groupName)
+    setActiveModel(resolved.model)
+    setSelectedOptionModel(resolved.optionModel)
+    setSearch(resolved.search)
+    closePanels()
+  }
 
   useEffect(() => {
     let alive = true
@@ -372,8 +483,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   }, [])
 
   useEffect(() => {
-    const becameActive = isActive && !wasActiveRef.current
-    if (!becameActive) {
+    const shouldInitialize = isActive && (!wasActiveRef.current || !historySyncReadyRef.current)
+    if (!shouldInitialize) {
       wasActiveRef.current = isActive
       return
     }
@@ -381,36 +492,27 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const presetAt = externalPresetRequest?.at ?? null
     const hasFreshPreset = presetAt != null && presetAt !== lastAppliedPresetAtRef.current
     if (hasFreshPreset) {
-      setSearch('')
-      setSelectedOptionModel('')
-      setIsMajorPanelOpen(false)
-      setIsSubPanelOpen(false)
-      setIsLeafPanelOpen(false)
-      setIsModelPanelOpen(false)
-
+      historyActionRef.current = 'replace'
+      closePanels()
+      historySyncReadyRef.current = true
       wasActiveRef.current = isActive
       return
     }
 
-    const defaultMajorId = majorCategories[0]?.id ?? defaultMajorCategories[0]?.id ?? ''
-    setActiveMajorId(defaultMajorId)
-    setActiveSubcategory(null)
-    setActiveLeaf(null)
-    setActiveGroup(null)
-    setActiveModel(null)
-    setSelectedOptionModel('')
-    setSearch('')
-    setIsMajorPanelOpen(false)
-    setIsSubPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
+    const historyProductState =
+      typeof window !== 'undefined' && isProductsRoutePath(window.location.pathname)
+        ? normalizeProductHistoryState(window.history.state?.productState)
+        : null
 
+    applyProductRouteState(historyProductState, { history: 'replace' })
+    historySyncReadyRef.current = true
     wasActiveRef.current = isActive
-  }, [isActive, majorCategories, externalPresetRequest])
+  }, [isActive, externalPresetRequest, defaultMajorId, majorCategories])
 
   useEffect(() => {
     const externalKeyword = String(externalSearchRequest?.keyword ?? '').trim()
     if (!externalKeyword) return
+    historyActionRef.current = 'replace'
     setSearch(externalKeyword)
   }, [externalSearchRequest])
 
@@ -423,15 +525,20 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const group = String(externalPresetRequest?.groupName ?? '').trim()
     const model = String(externalPresetRequest?.model ?? '').trim()
 
-    setSearch('')
-    setActiveMajorId(majorId)
-    setActiveSubcategory(subcategory || null)
-    setActiveLeaf(leaf || subcategory || null)
-    setActiveGroup(group || null)
-    setActiveModel(model || null)
-    setSelectedOptionModel('')
+    applyProductRouteState(
+      {
+        majorId,
+        subcategory: subcategory || null,
+        leaf: leaf || subcategory || null,
+        groupName: group || null,
+        model: model || null,
+        optionModel: '',
+        search: '',
+      },
+      { history: 'replace' }
+    )
     lastAppliedPresetAtRef.current = externalPresetRequest?.at ?? null
-  }, [externalPresetRequest])
+  }, [externalPresetRequest, defaultMajorId, majorCategories])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -482,6 +589,19 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     if (!isMobilePanelOpen) return undefined
     return lockBodyScroll()
   }, [isMobileViewport, isMajorPanelOpen, isSubPanelOpen, isLeafPanelOpen, isModelPanelOpen])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    const syncFromHistory = () => {
+      if (!isProductsRoutePath(window.location.pathname)) return
+      historySyncReadyRef.current = true
+      applyProductRouteState(normalizeProductHistoryState(window.history.state?.productState), { history: 'replace' })
+    }
+
+    window.addEventListener('popstate', syncFromHistory)
+    return () => window.removeEventListener('popstate', syncFromHistory)
+  }, [defaultMajorId, majorCategories])
 
   const activeMajor = useMemo(
     () => majorCategories.find((item) => item.id === activeMajorId) ?? majorCategories[0] ?? null,
@@ -881,6 +1001,35 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     return () => window.removeEventListener('resize', syncWidth)
   }, [isMobileViewport, selectedPdfUrl])
 
+  useEffect(() => {
+    if (!isActive || !historySyncReadyRef.current || typeof window === 'undefined') return
+    if (!isProductsRoutePath(window.location.pathname)) return
+
+    const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
+    const currentProductState = normalizeProductHistoryState(currentHistoryState.productState)
+    const nextProductState = buildHistoryProductState()
+
+    historyActionRef.current = historyActionRef.current === 'push' ? 'push' : 'replace'
+
+    if (serializeProductHistoryState(currentProductState) === serializeProductHistoryState(nextProductState)) {
+      historyActionRef.current = 'replace'
+      return
+    }
+
+    const nextHistoryState = { ...currentHistoryState, view: 'products' }
+    if (nextProductState) nextHistoryState.productState = nextProductState
+    else if ('productState' in nextHistoryState) delete nextHistoryState.productState
+
+    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`
+    if (historyActionRef.current === 'push') {
+      window.history.pushState(nextHistoryState, '', currentUrl)
+    } else {
+      window.history.replaceState(nextHistoryState, '', currentUrl)
+    }
+
+    historyActionRef.current = 'replace'
+  }, [isActive, activeMajorId, activeSubcategory, activeLeaf, activeGroup, activeModel, selectedOptionModel, search, defaultMajorId])
+
   const showMajorAggregateView = !hasSearch && !activeLeaf && majorAllLeafRecords.length > 0
   const showNewProducts = !hasSearch && !activeLeaf && !showMajorAggregateView
 
@@ -923,7 +1072,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             <select
               className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-[14px] text-slate-700 outline-none focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:bg-slate-100 disabled:text-slate-400"
               value={selectedOptionModel}
-              onChange={(event) => setSelectedOptionModel(String(event.target.value ?? ''))}
+              onChange={(event) => {
+                historyActionRef.current = 'replace'
+                setSelectedOptionModel(String(event.target.value ?? ''))
+              }}
               disabled={combinedDisabled}
             >
               <option value="">
@@ -942,46 +1094,57 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   }
 
   const handleMajorClick = (majorId) => {
-    setActiveMajorId(majorId)
-    setActiveSubcategory(null)
-    setActiveLeaf(null)
-    setActiveGroup(null)
-    setActiveModel(null)
-    setSelectedOptionModel('')
-    setIsMajorPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
-    if (hasSearch) setSearch('')
+    applyProductRouteState(
+      buildCurrentProductRouteState({
+        majorId,
+        subcategory: null,
+        leaf: null,
+        groupName: null,
+        model: null,
+        optionModel: '',
+        search: hasSearch ? '' : search,
+      }),
+      { history: 'push' }
+    )
   }
 
   const handleSubcategoryClick = (subcategory) => {
-    setActiveSubcategory(subcategory)
-    setActiveLeaf(null)
-    setActiveGroup(null)
-    setActiveModel(null)
-    setSelectedOptionModel('')
-    setIsSubPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
+    applyProductRouteState(
+      buildCurrentProductRouteState({
+        subcategory,
+        leaf: null,
+        groupName: null,
+        model: null,
+        optionModel: '',
+      }),
+      { history: 'push' }
+    )
   }
 
   const handleLeafClick = (leafName) => {
-    setActiveLeaf(leafName)
-    setActiveGroup(null)
-    setActiveModel(null)
-    setSelectedOptionModel('')
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
-    if (hasSearch) setSearch('')
+    applyProductRouteState(
+      buildCurrentProductRouteState({
+        leaf: leafName,
+        groupName: null,
+        model: null,
+        optionModel: '',
+        search: hasSearch ? '' : search,
+      }),
+      { history: 'push' }
+    )
   }
 
   const handleModelClick = (modelName) => {
     const exists = modelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(modelName))
     if (!exists) return
-    setActiveModel(modelName)
-    setSelectedOptionModel('')
-    setIsModelPanelOpen(false)
-    if (hasSearch) setSearch('')
+    applyProductRouteState(
+      buildCurrentProductRouteState({
+        model: modelName,
+        optionModel: '',
+        search: hasSearch ? '' : search,
+      }),
+      { history: 'push' }
+    )
   }
 
   const handleLeafRecordModelClick = (record, modelName) => {
@@ -992,67 +1155,84 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     if (!subcategory || !leaf || !model) return
 
     const matchedMajorId = majorCategories.find((item) => normalizeLabel(item?.name) === normalizeLabel(majorName))?.id
-    if (matchedMajorId) setActiveMajorId(matchedMajorId)
-    setActiveSubcategory(subcategory)
-    setActiveLeaf(leaf)
-    setActiveGroup(null)
-    setActiveModel(model)
-    setSelectedOptionModel('')
-    setSearch('')
-    setIsMajorPanelOpen(false)
-    setIsSubPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
+    applyProductRouteState(
+      {
+        majorId: matchedMajorId || activeMajorId || defaultMajorId,
+        subcategory,
+        leaf,
+        groupName: null,
+        model,
+        optionModel: '',
+        search: '',
+      },
+      { history: 'push' }
+    )
   }
 
   const handleShortcutModelClick = (shortcut) => {
     if (!shortcut) return
 
-    setActiveMajorId((prev) => shortcut.majorId || prev || majorCategories[0]?.id || '')
-    setActiveSubcategory(shortcut.subcategory || null)
-    setActiveLeaf(shortcut.leaf || null)
-    setActiveGroup(shortcut.groupName || null)
-    setActiveModel(shortcut.model || null)
-    setSelectedOptionModel(shortcut.optionModel || '')
-    setSearch('')
-    setIsMajorPanelOpen(false)
-    setIsSubPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
+    applyProductRouteState(
+      {
+        majorId: shortcut.majorId || activeMajorId || defaultMajorId,
+        subcategory: shortcut.subcategory || null,
+        leaf: shortcut.leaf || null,
+        groupName: shortcut.groupName || null,
+        model: shortcut.model || null,
+        optionModel: shortcut.optionModel || '',
+        search: '',
+      },
+      { history: 'push' }
+    )
   }
 
   const handleBack = () => {
-    setIsMajorPanelOpen(false)
-    setIsSubPanelOpen(false)
-    setIsLeafPanelOpen(false)
-    setIsModelPanelOpen(false)
-
     if (hasSearchInput) {
-      setSearch('')
-      setSelectedOptionModel('')
+      applyProductRouteState(
+        buildCurrentProductRouteState({
+          search: '',
+          optionModel: '',
+        }),
+        { history: 'replace' }
+      )
       return
     }
 
     if (activeModel) {
-      setActiveModel(null)
-      setSelectedOptionModel('')
+      applyProductRouteState(
+        buildCurrentProductRouteState({
+          model: null,
+          optionModel: '',
+        }),
+        { history: 'replace' }
+      )
       return
     }
 
     if (activeLeaf) {
-      setActiveLeaf(null)
-      setActiveGroup(null)
-      setActiveModel(null)
-      setSelectedOptionModel('')
+      applyProductRouteState(
+        buildCurrentProductRouteState({
+          leaf: null,
+          groupName: null,
+          model: null,
+          optionModel: '',
+        }),
+        { history: 'replace' }
+      )
       return
     }
 
     if (activeSubcategory) {
-      setActiveSubcategory(null)
-      setActiveLeaf(null)
-      setActiveGroup(null)
-      setActiveModel(null)
-      setSelectedOptionModel('')
+      applyProductRouteState(
+        buildCurrentProductRouteState({
+          subcategory: null,
+          leaf: null,
+          groupName: null,
+          model: null,
+          optionModel: '',
+        }),
+        { history: 'replace' }
+      )
     }
   }
 
@@ -1365,12 +1545,18 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               autoComplete="off"
               spellCheck="false"
               value={search}
-              onChange={(event) => setSearch(event.target.value)}
+              onChange={(event) => {
+                historyActionRef.current = 'replace'
+                setSearch(event.target.value)
+              }}
             />
             <button
               type="button"
               className={`h-[34px] rounded-full bg-slate-200 px-3.5 text-xs font-bold text-slate-700 max-[640px]:h-[30px] max-[640px]:px-3 ${hasSearchInput ? '' : 'is-hidden'}`}
-              onClick={() => setSearch('')}
+              onClick={() => {
+                historyActionRef.current = 'replace'
+                setSearch('')
+              }}
             >
               Clear
             </button>
