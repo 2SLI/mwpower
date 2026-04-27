@@ -283,10 +283,6 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
           ))}
         </div>
 
-        <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/80 px-6 py-2.5">
-          <p className="m-0 text-2xl font-black tracking-[-0.02em] text-black">민웰파워</p>
-        </div>
-
         <button
           type="button"
           aria-label="이전 메뉴"
