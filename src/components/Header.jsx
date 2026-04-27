@@ -6,6 +6,7 @@ const navItems = [
   { key: 'products', label: '제품', view: 'products' },
   { key: 'news', label: '뉴스', view: 'news' },
   { key: 'service', label: '서비스', view: 'service' },
+  { key: 'quote-request', label: '견적요청', view: 'quote-request' },
   { key: 'contact-product', label: '제품문의', view: 'contact-product' },
   { key: 'contact-tech', label: '기술문의', view: 'contact-tech' },
 ]
@@ -13,7 +14,7 @@ const navItems = [
 const LOGO_SRC = '/logo/mwpower_logo.png'
 const LOGO_ALT = '민웰파워 로고'
 
-function NavLink({ item, isActive, onNavigate }) {
+function NavLink({ item, isActive, onNavigate, badgeCount = 0 }) {
   const isExternal = Boolean(item.href)
 
   return (
@@ -30,12 +31,17 @@ function NavLink({ item, isActive, onNavigate }) {
         onNavigate(item.view)
       }}
     >
-      {item.label}
+      <span>{item.label}</span>
+      {badgeCount > 0 ? (
+        <span className="ml-2 inline-flex min-w-[20px] items-center justify-center rounded-full bg-[#ffe26c] px-1.5 py-0.5 text-[10px] font-black leading-none text-slate-900">
+          {badgeCount > 99 ? '99+' : badgeCount}
+        </span>
+      ) : null}
     </a>
   )
 }
 
-export function Header({ activeView, onNavigate, onProductSearch }) {
+export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount = 0 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -67,7 +73,7 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
   }
 
   return (
-    <header className="absolute inset-x-0 top-0 z-[120] border-b border-[#d6dbe2] bg-[#f2f3f5]">
+    <header className="absolute inset-x-0 top-0 z-[500] isolate border-b border-[#d6dbe2] bg-[#f2f3f5]">
       <div className="relative flex h-[92px] w-full items-center justify-between pl-7 pr-6 max-[1280px]:h-[62px] max-[980px]:pl-4 max-[980px]:pr-4 max-[640px]:pl-2.5 max-[640px]:pr-2.5">
         <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 max-[640px]:block">
           <p className="m-0 text-[18px] font-black tracking-[-0.02em] text-black">민웰파워</p>
@@ -88,7 +94,13 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
 
           <nav className="main-nav ml-0 flex flex-wrap items-center max-[980px]:hidden">
             {navItems.map((item) => (
-              <NavLink key={`${item.label}-${item.view}`} item={item} isActive={item.key === activeView} onNavigate={onNavigate} />
+              <NavLink
+                key={`${item.label}-${item.view}`}
+                item={item}
+                isActive={item.key === activeView}
+                onNavigate={onNavigate}
+                badgeCount={item.key === 'quote-request' ? quoteItemCount : 0}
+              />
             ))}
           </nav>
         </div>
@@ -109,6 +121,27 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           </a>
           <button
             type="button"
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white p-0 text-slate-700 transition hover:border-[#d63b42] hover:text-[#c62f36] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
+            aria-label="견적요청"
+            onClick={() => {
+              onNavigate('quote-request')
+              setIsMenuOpen(false)
+            }}
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5 max-[640px]:h-[18px] max-[640px]:w-[18px]" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="6" y="4" width="12" height="16" rx="2"></rect>
+              <path d="M9 8h6"></path>
+              <path d="M9 12h6"></path>
+              <path d="M9 16h4"></path>
+            </svg>
+            {quoteItemCount > 0 ? (
+              <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#ffe26c] px-1 text-[10px] font-black leading-[18px] text-slate-900">
+                {quoteItemCount > 99 ? '99+' : quoteItemCount}
+              </span>
+            ) : null}
+          </button>
+          <button
+            type="button"
             className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
             aria-label="검색"
             onClick={() => {
@@ -124,25 +157,25 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
           <button
             type="button"
             className={`relative inline-flex h-10 w-10 items-center justify-center border-0 p-0 transition hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9 ${
-              isMenuOpen ? 'z-[160] rounded-full bg-white text-slate-900 shadow-[0_10px_30px_rgba(15,23,42,0.25)]' : 'bg-transparent text-current'
+              isMenuOpen ? 'z-[1040] rounded-full bg-white text-slate-900 shadow-[0_10px_30px_rgba(15,23,42,0.25)]' : 'bg-transparent text-current'
             }`}
             aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴'}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-header-menu"
             onClick={() => setIsMenuOpen((prev) => !prev)}
           >
-            <span
-              className={`absolute h-[2px] w-[18px] rounded-full bg-current transition ${isMenuOpen ? 'translate-y-0 rotate-45' : '-translate-y-[6px]'}`}
-              aria-hidden="true"
-            ></span>
-            <span
-              className={`absolute h-[2px] w-[18px] rounded-full bg-current transition ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}
-              aria-hidden="true"
-            ></span>
-            <span
-              className={`absolute h-[2px] w-[18px] rounded-full bg-current transition ${isMenuOpen ? 'translate-y-0 -rotate-45' : 'translate-y-[6px]'}`}
-              aria-hidden="true"
-            ></span>
+            {isMenuOpen ? (
+              <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round">
+                <path d="M6 6 18 18"></path>
+                <path d="M18 6 6 18"></path>
+              </svg>
+            ) : (
+              <>
+                <span className="absolute h-[2px] w-[18px] -translate-y-[6px] rounded-full bg-current transition" aria-hidden="true"></span>
+                <span className="absolute h-[2px] w-[18px] rounded-full bg-current transition" aria-hidden="true"></span>
+                <span className="absolute h-[2px] w-[18px] translate-y-[6px] rounded-full bg-current transition" aria-hidden="true"></span>
+              </>
+            )}
           </button>
         </div>
 
@@ -157,17 +190,29 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
       />
 
       {isMenuOpen ? (
-        <div className="fixed inset-0 z-[140]">
+        <div className="fixed inset-0 z-[1000]">
           <button
             type="button"
-            className="absolute inset-0 bg-black/55 backdrop-blur-[1px]"
+            className="absolute inset-0 bg-slate-950/82 backdrop-blur-[2px]"
             onClick={() => setIsMenuOpen(false)}
             aria-label="메뉴 닫기"
           ></button>
 
+          <button
+            type="button"
+            className="fixed right-3 top-3 z-[1030] inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white text-slate-900 shadow-[0_14px_28px_rgba(15,23,42,0.26)] transition hover:bg-slate-50"
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="메뉴 닫기"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <path d="M6 6 18 18"></path>
+              <path d="M18 6 6 18"></path>
+            </svg>
+          </button>
+
           <aside
             id="mobile-header-menu"
-            className="absolute right-0 top-0 z-[150] flex h-full w-[min(88vw,360px)] flex-col border-l border-slate-200 bg-white shadow-[0_18px_40px_rgba(2,8,23,0.35)]"
+            className="absolute right-0 top-0 z-[1010] flex h-full w-[min(88vw,360px)] flex-col border-l border-slate-200 bg-white shadow-[0_18px_40px_rgba(2,8,23,0.35)]"
             aria-label="Header menu"
           >
             <header className="relative overflow-hidden bg-[linear-gradient(135deg,#e53a33_0%,#c6252e_55%,#8d161f_100%)] px-5 pb-5 pr-16 pt-6 text-white">
@@ -185,6 +230,10 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
                 <img src={LOGO_SRC} alt={LOGO_ALT} className="h-[56px] w-[56px] object-contain" />
               </h2>
               <p className="mb-0 mt-2 text-xs font-semibold text-rose-100">제품/서비스 메뉴를 빠르게 이동하세요.</p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-black text-white">
+                <span>주문목록</span>
+                <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-[#b92a31]">{quoteItemCount > 99 ? '99+' : quoteItemCount}</span>
+              </div>
             </header>
 
             <div className="flex-1 overflow-y-auto px-3 py-3.5">
@@ -217,7 +266,14 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
                         className={`${baseClass} ${item.key === activeView ? 'border-[#d94a4a] bg-[#fff0f0] text-[#c42f2f]' : ''}`}
                         onClick={() => handleInternalMenuClick(item.view)}
                       >
-                        <span>{item.label}</span>
+                        <span className="flex items-center gap-2">
+                          <span>{item.label}</span>
+                          {item.key === 'quote-request' && quoteItemCount > 0 ? (
+                            <span className="rounded-full bg-[#ffe26c] px-2 py-0.5 text-[10px] font-black leading-none text-slate-900">
+                              {quoteItemCount > 99 ? '99+' : quoteItemCount}
+                            </span>
+                          ) : null}
+                        </span>
                         <span aria-hidden="true">›</span>
                       </button>
                     </li>
@@ -232,10 +288,10 @@ export function Header({ activeView, onNavigate, onProductSearch }) {
                 className="w-full rounded-xl bg-[linear-gradient(135deg,#e63c35_0%,#c3272f_100%)] px-4 py-3 text-sm font-extrabold text-white shadow-[0_10px_22px_rgba(195,39,47,0.28)]"
                 onClick={() => {
                   setIsMenuOpen(false)
-                  setIsSearchOpen(true)
+                  onNavigate('quote-request')
                 }}
               >
-                상품 바로 찾기
+                견적요청서 바로가기
               </button>
             </footer>
           </aside>

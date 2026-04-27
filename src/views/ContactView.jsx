@@ -68,9 +68,12 @@ export function ContactView({ isActive }) {
           <div>
             <h1 className="mb-3.5 mt-0 text-[clamp(42px,3.2vw,56px)] font-semibold tracking-[-0.8px] text-slate-900">제품문의</h1>
             <p className="m-0 max-w-[440px] text-[clamp(16px,1.1vw,20px)] leading-[1.4] text-slate-500">
-              제품 사양, 견적, 공급 일정 문의를 남겨주시면 입력하신 정보를 바탕으로
+              제품 사양, 재고, 공급 일정 문의를 남겨주시면 입력하신 정보를 바탕으로
               <br />
               빠르게 연락드리겠습니다.
+            </p>
+            <p className="m-0 mt-4 max-w-[520px] text-sm font-semibold leading-6 text-slate-500">
+              여러 품목을 한 번에 요청하는 B2B 견적서는 별도의 견적요청 메뉴를 이용해주세요.
             </p>
 
             <ul className="contact-info-list m-0 mt-12 grid list-none gap-6 p-0 max-[640px]:mt-[30px] max-[640px]:gap-[18px]">

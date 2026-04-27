@@ -3,6 +3,7 @@ import { collection, doc, getDocs, orderBy, query, serverTimestamp, updateDoc } 
 import { NEWS_ALL_CATEGORY, formatNewsDate } from '../data/newsContent'
 import { db } from '../firebase'
 import { buildNewsCategories, createNewsArticle, loadNewsArticlesForAdmin, removeNewsArticle, toMultilineText, updateNewsArticle } from '../features/newsService'
+import { formatQuoteItemPath, getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
 
 const ADMIN_SESSION_KEY = 'mwpower_admin_authenticated'
 const ADMIN_PASSWORD = String(import.meta.env.VITE_ADMIN_PASSWORD ?? '').trim()
@@ -73,12 +74,41 @@ function mapInquiryDocument(docSnap) {
   }
 }
 
-function sortInquiries(items) {
+function sortByCreatedAtDesc(items) {
   return [...items].sort((a, b) => {
     const at = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAtClient || 0).getTime()
     const bt = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAtClient || 0).getTime()
     return (Number.isFinite(bt) ? bt : 0) - (Number.isFinite(at) ? at : 0)
   })
+}
+
+function mapQuoteRequestDocument(docSnap) {
+  const data = docSnap.data() ?? {}
+  const items = normalizeQuoteItems(data.items)
+  const summary = getQuoteItemSummary(items)
+
+  return {
+    id: docSnap.id,
+    companyName: normalizeText(data.companyName),
+    contactName: normalizeText(data.contactName),
+    department: normalizeText(data.department),
+    email: normalizeText(data.email),
+    phone: normalizeText(data.phone),
+    businessNumber: normalizeText(data.businessNumber),
+    projectName: normalizeText(data.projectName),
+    requestDeadline: normalizeText(data.requestDeadline),
+    shippingRegion: normalizeText(data.shippingRegion),
+    message: normalizeText(data.message),
+    source: normalizeText(data.source),
+    requestType: normalizeText(data.requestType),
+    createdAt: data.createdAt ?? null,
+    createdAtClient: normalizeText(data.createdAtClient),
+    status: normalizeText(data.status || 'new').toLowerCase(),
+    resolvedAt: data.resolvedAt ?? null,
+    items,
+    itemCount: Number.isFinite(Number(data.itemCount)) ? Number(data.itemCount) : summary.lineCount,
+    totalQuantity: Number.isFinite(Number(data.totalQuantity)) ? Number(data.totalQuantity) : summary.totalQuantity,
+  }
 }
 
 function normalizeNewsFormFromArticle(article) {
@@ -111,6 +141,11 @@ export function AdminView() {
   const [inquiryError, setInquiryError] = useState('')
   const [activeInquiryId, setActiveInquiryId] = useState(null)
 
+  const [quoteRequests, setQuoteRequests] = useState([])
+  const [isLoadingQuotes, setIsLoadingQuotes] = useState(false)
+  const [quoteError, setQuoteError] = useState('')
+  const [activeQuoteId, setActiveQuoteId] = useState(null)
+
   const [newsItems, setNewsItems] = useState([])
   const [isLoadingNews, setIsLoadingNews] = useState(false)
   const [newsError, setNewsError] = useState('')
@@ -130,6 +165,11 @@ export function AdminView() {
     [filteredInquiries, activeInquiryId]
   )
 
+  const activeQuoteRequest = useMemo(
+    () => quoteRequests.find((item) => item.id === activeQuoteId) ?? null,
+    [quoteRequests, activeQuoteId]
+  )
+
   const availableNewsCategories = useMemo(
     () => buildNewsCategories(newsItems).filter((item) => item !== NEWS_ALL_CATEGORY),
     [newsItems]
@@ -141,13 +181,13 @@ export function AdminView() {
 
     try {
       const snapshot = await getDocs(query(collection(db, 'contactInquiries'), orderBy('createdAt', 'desc')))
-      const items = sortInquiries(snapshot.docs.map(mapInquiryDocument))
+      const items = sortByCreatedAtDesc(snapshot.docs.map(mapInquiryDocument))
       setInquiries(items)
       setActiveInquiryId((prev) => (items.some((item) => item.id === prev) ? prev : items[0]?.id ?? null))
     } catch (error) {
       try {
         const snapshot = await getDocs(collection(db, 'contactInquiries'))
-        const items = sortInquiries(snapshot.docs.map(mapInquiryDocument))
+        const items = sortByCreatedAtDesc(snapshot.docs.map(mapInquiryDocument))
         setInquiries(items)
         setActiveInquiryId((prev) => (items.some((item) => item.id === prev) ? prev : items[0]?.id ?? null))
         setInquiryError('정렬 조회가 실패하여 기본 조회 결과를 표시합니다.')
@@ -158,6 +198,32 @@ export function AdminView() {
       }
     } finally {
       setIsLoadingInquiries(false)
+    }
+  }
+
+  const loadQuoteRequests = async () => {
+    setIsLoadingQuotes(true)
+    setQuoteError('')
+
+    try {
+      const snapshot = await getDocs(query(collection(db, 'quoteRequests'), orderBy('createdAt', 'desc')))
+      const items = sortByCreatedAtDesc(snapshot.docs.map(mapQuoteRequestDocument))
+      setQuoteRequests(items)
+      setActiveQuoteId((prev) => (items.some((item) => item.id === prev) ? prev : items[0]?.id ?? null))
+    } catch (error) {
+      try {
+        const snapshot = await getDocs(collection(db, 'quoteRequests'))
+        const items = sortByCreatedAtDesc(snapshot.docs.map(mapQuoteRequestDocument))
+        setQuoteRequests(items)
+        setActiveQuoteId((prev) => (items.some((item) => item.id === prev) ? prev : items[0]?.id ?? null))
+        setQuoteError('정렬 조회가 실패하여 기본 조회 결과를 표시합니다.')
+      } catch (innerError) {
+        setQuoteError('견적요청 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.')
+        setQuoteRequests([])
+        setActiveQuoteId(null)
+      }
+    } finally {
+      setIsLoadingQuotes(false)
     }
   }
 
@@ -186,6 +252,7 @@ export function AdminView() {
   useEffect(() => {
     if (!isAuthenticated) return
     loadInquiries()
+    loadQuoteRequests()
     loadNews()
   }, [isAuthenticated])
 
@@ -226,6 +293,20 @@ export function AdminView() {
       await loadInquiries()
     } catch (error) {
       setInquiryError('문의 상태를 업데이트하지 못했습니다.')
+    }
+  }
+
+  const handleQuoteStatusToggle = async (quoteRequest) => {
+    const nextStatus = quoteRequest.status === 'done' ? 'new' : 'done'
+    try {
+      await updateDoc(doc(db, 'quoteRequests', quoteRequest.id), {
+        status: nextStatus,
+        resolvedAt: nextStatus === 'done' ? serverTimestamp() : null,
+        reviewedAt: serverTimestamp(),
+      })
+      await loadQuoteRequests()
+    } catch (error) {
+      setQuoteError('견적요청 상태를 업데이트하지 못했습니다.')
     }
   }
 
@@ -306,7 +387,7 @@ export function AdminView() {
         <section className="w-full max-w-[460px] rounded-2xl border border-[#e8b2b9] bg-white p-5 shadow-[0_18px_40px_rgba(185,28,28,0.12)]">
           <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b42323]">Admin</p>
           <h1 className="mb-0 mt-1 text-[28px] font-black tracking-[-0.02em] text-slate-900">관리자 로그인</h1>
-          <p className="mb-0 mt-1 text-sm font-semibold text-slate-500">문의함과 뉴스 관리를 위해 인증이 필요합니다.</p>
+          <p className="mb-0 mt-1 text-sm font-semibold text-slate-500">문의함, 견적함, 뉴스 관리를 위해 인증이 필요합니다.</p>
 
           <form className="mt-5 grid gap-3" onSubmit={handleAuthSubmit}>
             <label className="grid gap-1.5 text-sm font-bold text-slate-700" htmlFor="admin-password-input">
@@ -345,7 +426,7 @@ export function AdminView() {
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b42323]">Admin Console</p>
-              <h1 className="m-0 mt-1 text-[30px] font-black tracking-[-0.02em] text-slate-900">문의/뉴스 관리</h1>
+              <h1 className="m-0 mt-1 text-[30px] font-black tracking-[-0.02em] text-slate-900">문의/견적/뉴스 관리</h1>
             </div>
             <div className="flex items-center gap-2">
               <a href="/" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">
@@ -372,6 +453,15 @@ export function AdminView() {
               }`}
             >
               문의함
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('quotes')}
+              className={`rounded-full px-4 py-2 text-sm font-extrabold ${
+                activeTab === 'quotes' ? 'bg-[#c9252f] text-white' : 'border border-slate-300 bg-white text-slate-700'
+              }`}
+            >
+              견적함
             </button>
             <button
               type="button"
@@ -505,6 +595,145 @@ export function AdminView() {
                     <div className="rounded-lg border border-slate-200 bg-white p-3">
                       <p className="m-0 mb-2 text-sm font-black text-slate-700">문의 내용</p>
                       <p className="m-0 whitespace-pre-wrap text-sm leading-6 text-slate-700">{activeInquiry.message || '(내용 없음)'}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        ) : activeTab === 'quotes' ? (
+          <section className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_28px_rgba(15,23,42,0.06)]">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="m-0 text-xl font-black text-slate-900">견적함</h2>
+              <button type="button" onClick={loadQuoteRequests} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">
+                새로고침
+              </button>
+            </div>
+
+            {isLoadingQuotes ? <p className="m-0 text-sm font-semibold text-slate-500">견적요청 데이터를 불러오는 중입니다...</p> : null}
+            {quoteError ? <p className="m-0 text-sm font-semibold text-[#b42323]">{quoteError}</p> : null}
+
+            <div className="grid gap-3 lg:grid-cols-[360px_minmax(0,1fr)]">
+              <div className="max-h-[66vh] overflow-y-auto rounded-xl border border-slate-200">
+                {quoteRequests.length === 0 ? (
+                  <p className="m-0 px-4 py-8 text-center text-sm font-semibold text-slate-500">표시할 견적요청이 없습니다.</p>
+                ) : (
+                  <ul className="m-0 list-none p-0">
+                    {quoteRequests.map((item) => (
+                      <li key={item.id} className="border-b border-slate-200 last:border-b-0">
+                        <button
+                          type="button"
+                          className={`grid w-full gap-1 px-3 py-2.5 text-left ${
+                            activeQuoteId === item.id ? 'bg-[#fff3f4]' : 'bg-white hover:bg-slate-50'
+                          }`}
+                          onClick={() => setActiveQuoteId(item.id)}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <strong className="text-sm font-extrabold text-slate-800">{item.companyName || item.contactName || '(회사명 없음)'}</strong>
+                            <span
+                              className={`rounded-full px-2 py-0.5 text-[11px] font-black ${
+                                item.status === 'done' ? 'bg-[#e9f9ef] text-[#0f6d3d]' : 'bg-[#fff3f4] text-[#b42323]'
+                              }`}
+                            >
+                              {item.status === 'done' ? '처리완료' : '신규'}
+                            </span>
+                          </div>
+                          <span className="text-xs font-semibold text-slate-600">
+                            {item.contactName || '담당자 미입력'} · {item.itemCount}개 품목 / 총 {item.totalQuantity}개
+                          </span>
+                          <span className="text-xs text-slate-500">{formatDateTime(item.createdAt, item.createdAtClient || '-')}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-slate-200 p-3">
+                {!activeQuoteRequest ? (
+                  <p className="m-0 text-sm font-semibold text-slate-500">왼쪽 목록에서 견적요청을 선택해주세요.</p>
+                ) : (
+                  <div className="grid gap-2.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <h3 className="m-0 text-lg font-black text-slate-900">견적요청 상세</h3>
+                      <button
+                        type="button"
+                        onClick={() => handleQuoteStatusToggle(activeQuoteRequest)}
+                        className={`rounded-lg px-3 py-2 text-sm font-extrabold ${
+                          activeQuoteRequest.status === 'done'
+                            ? 'border border-slate-300 bg-white text-slate-700'
+                            : 'border border-[#c9252f] bg-[#c9252f] text-white'
+                        }`}
+                      >
+                        {activeQuoteRequest.status === 'done' ? '신규로 되돌리기' : '처리완료로 표시'}
+                      </button>
+                    </div>
+
+                    <div className="grid gap-1 rounded-lg bg-slate-50 p-3 text-sm">
+                      <p className="m-0">
+                        <strong>회사명:</strong> {activeQuoteRequest.companyName || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>담당자:</strong> {activeQuoteRequest.contactName || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>부서 / 직함:</strong> {activeQuoteRequest.department || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>이메일:</strong> {activeQuoteRequest.email || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>연락처:</strong> {activeQuoteRequest.phone || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>사업자등록번호:</strong> {activeQuoteRequest.businessNumber || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>프로젝트명:</strong> {activeQuoteRequest.projectName || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>희망 회신일:</strong> {activeQuoteRequest.requestDeadline || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>납품 지역 / 현장:</strong> {activeQuoteRequest.shippingRegion || '-'}
+                      </p>
+                      <p className="m-0">
+                        <strong>접수일:</strong> {formatDateTime(activeQuoteRequest.createdAt, activeQuoteRequest.createdAtClient || '-')}
+                      </p>
+                      <p className="m-0">
+                        <strong>처리일:</strong> {formatDateTime(activeQuoteRequest.resolvedAt, '-')}
+                      </p>
+                    </div>
+
+                    <div className="rounded-lg border border-slate-200 bg-white p-3">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="m-0 text-sm font-black text-slate-700">주문목록</p>
+                        <span className="rounded-full bg-[#fff3f4] px-2.5 py-1 text-xs font-black text-[#b42323]">
+                          {activeQuoteRequest.itemCount}개 품목 / 총 {activeQuoteRequest.totalQuantity}개
+                        </span>
+                      </div>
+
+                      {activeQuoteRequest.items.length === 0 ? (
+                        <p className="m-0 mt-3 text-sm text-slate-500">저장된 품목이 없습니다.</p>
+                      ) : (
+                        <ul className="m-0 mt-3 grid list-none gap-2 p-0">
+                          {activeQuoteRequest.items.map((item) => (
+                            <li key={item.id} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                              <div className="flex flex-wrap items-center justify-between gap-2">
+                                <strong className="text-sm font-extrabold text-slate-900">{item.displayModel}</strong>
+                                <span className="text-xs font-black text-[#b42323]">{item.quantity}개</span>
+                              </div>
+                              <p className="m-0 mt-1 text-xs font-semibold text-slate-500">{formatQuoteItemPath(item) || '제품 정보 없음'}</p>
+                              {item.note ? <p className="m-0 mt-2 whitespace-pre-wrap text-sm leading-6 text-slate-700">메모: {item.note}</p> : null}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+
+                    <div className="rounded-lg border border-slate-200 bg-white p-3">
+                      <p className="m-0 mb-2 text-sm font-black text-slate-700">요청 메모</p>
+                      <p className="m-0 whitespace-pre-wrap text-sm leading-6 text-slate-700">{activeQuoteRequest.message || '(내용 없음)'}</p>
                     </div>
                   </div>
                 )}

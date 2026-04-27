@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { HomeView } from './views/HomeView'
@@ -7,14 +7,26 @@ import { ProductsView } from './views/ProductsView'
 import { ServiceView } from './views/ServiceView'
 import { ContactView } from './views/ContactView'
 import { TechnicalContactView } from './views/TechnicalContactView'
+import { QuoteRequestView } from './views/QuoteRequestView'
 import { AdminView } from './views/AdminView'
 import { bannerImages } from './data/bannerImages'
+import {
+  addQuoteItem,
+  clearQuoteItems,
+  getQuoteItemSummary,
+  readStoredQuoteItems,
+  removeQuoteItem,
+  updateQuoteItemNote,
+  updateQuoteItemQuantity,
+  writeStoredQuoteItems,
+} from './features/quoteCart'
 
 const VIEW_PATHS = {
   home: '/',
   products: '/products',
   news: '/news',
   service: '/service',
+  'quote-request': '/quote-request',
   'contact-product': '/contact/product',
   'contact-tech': '/contact/tech',
 }
@@ -24,6 +36,8 @@ const PATH_VIEW_ALIASES = {
   '/products': 'products',
   '/news': 'news',
   '/service': 'service',
+  '/quote': 'quote-request',
+  '/quote-request': 'quote-request',
   '/contact': 'contact-product',
   '/contact-product': 'contact-product',
   '/contact/product': 'contact-product',
@@ -33,7 +47,7 @@ const PATH_VIEW_ALIASES = {
 
 function normalizeView(view) {
   if (view === 'contact') return 'contact-product'
-  if (view === 'news' || view === 'products' || view === 'service' || view === 'contact-product' || view === 'contact-tech') return view
+  if (view === 'news' || view === 'products' || view === 'service' || view === 'quote-request' || view === 'contact-product' || view === 'contact-tech') return view
   return 'home'
 }
 
@@ -87,9 +101,11 @@ export default function App() {
   const [productSearchRequest, setProductSearchRequest] = useState(null)
   const [productPresetRequest, setProductPresetRequest] = useState(null)
   const [newsRequest, setNewsRequest] = useState(null)
+  const [quoteItems, setQuoteItems] = useState(() => readStoredQuoteItems())
   const [pathname, setPathname] = useState(initialPathname)
   const isAdminRoute = pathname === '/admin'
-  const isContactView = activeView === 'contact-product' || activeView === 'contact-tech'
+  const shouldHideFloatingActions = activeView === 'contact-product' || activeView === 'contact-tech' || activeView === 'quote-request'
+  const quoteSummary = useMemo(() => getQuoteItemSummary(quoteItems), [quoteItems])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -138,9 +154,13 @@ export default function App() {
         title: '기술/정품 서비스 | 민웰파워',
         description: '민웰 정품 확인 방법과 기술 서비스 안내를 제공합니다.',
       },
+      'quote-request': {
+        title: 'B2B 견적요청 | 민웰파워',
+        description: '주문목록 기반으로 여러 품목과 수량을 한 번에 접수하는 민웰파워 B2B 견적요청 페이지입니다.',
+      },
       'contact-product': {
         title: '제품문의 | 민웰파워',
-        description: '민웰파워 제품 사양, 견적, 공급 일정 관련 문의를 접수하세요.',
+        description: '민웰파워 제품 사양, 재고, 공급 일정 관련 문의를 접수하세요.',
       },
       'contact-tech': {
         title: '기술문의 | 민웰파워',
@@ -158,6 +178,10 @@ export default function App() {
     setMetaByName('twitter:description', current.description)
     setMetaByName('twitter:image', SOCIAL_PREVIEW_IMAGE_URL)
   }, [activeView, isAdminRoute])
+
+  useEffect(() => {
+    writeStoredQuoteItems(quoteItems)
+  }, [quoteItems])
 
   function handleNavigate(view, options = {}) {
     const nextView = normalizeView(view)
@@ -199,13 +223,33 @@ export default function App() {
     handleNavigate('news')
   }
 
+  function handleAddQuoteItem(item) {
+    setQuoteItems((prev) => addQuoteItem(prev, item))
+  }
+
+  function handleUpdateQuoteItemQuantity(itemId, quantity) {
+    setQuoteItems((prev) => updateQuoteItemQuantity(prev, itemId, quantity))
+  }
+
+  function handleUpdateQuoteItemNote(itemId, note) {
+    setQuoteItems((prev) => updateQuoteItemNote(prev, itemId, note))
+  }
+
+  function handleRemoveQuoteItem(itemId) {
+    setQuoteItems((prev) => removeQuoteItem(prev, itemId))
+  }
+
+  function handleClearQuoteItems() {
+    setQuoteItems(clearQuoteItems())
+  }
+
   if (isAdminRoute) {
     return <AdminView />
   }
 
   return (
     <>
-      <div className={`fixed right-2.5 top-1/2 z-40 flex -translate-y-1/2 flex-col gap-2 max-[640px]:right-2 ${isContactView ? 'is-hidden' : ''}`}>
+      <div className={`fixed right-2.5 top-1/2 z-40 flex -translate-y-1/2 flex-col gap-2 max-[640px]:right-2 ${shouldHideFloatingActions ? 'is-hidden' : ''}`}>
         <button
           type="button"
           className="grid h-[46px] w-[46px] place-items-center rounded-full bg-slate-700 max-[640px]:h-10 max-[640px]:w-10"
@@ -216,6 +260,23 @@ export default function App() {
         >
           <i className="fa-solid fa-arrow-up text-[18px] text-white" aria-hidden="true"></i>
         </button>
+
+        <a
+          href="#"
+          className="relative grid h-[46px] w-[46px] place-items-center rounded-full bg-[#b9252d] max-[640px]:h-10 max-[640px]:w-10"
+          aria-label="B2B quote request"
+          onClick={(event) => {
+            event.preventDefault()
+            handleNavigate('quote-request')
+          }}
+        >
+          <i className="fa-regular fa-clipboard text-[18px] text-white" aria-hidden="true"></i>
+          {quoteSummary.totalQuantity > 0 ? (
+            <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#ffd84d] px-1 text-[10px] font-black leading-[18px] text-slate-900">
+              {quoteSummary.totalQuantity > 99 ? '99+' : quoteSummary.totalQuantity}
+            </span>
+          ) : null}
+        </a>
 
         <a
           href="#"
@@ -231,7 +292,12 @@ export default function App() {
       </div>
 
       <div className="min-h-screen bg-slate-100 text-slate-600">
-        <Header activeView={activeView} onNavigate={handleNavigate} onProductSearch={handleProductSearch} />
+        <Header
+          activeView={activeView}
+          onNavigate={handleNavigate}
+          onProductSearch={handleProductSearch}
+          quoteItemCount={quoteSummary.totalQuantity}
+        />
         <main className="pt-[92px] max-[1280px]:pt-[62px]">
           <HomeView
             isActive={activeView === 'home'}
@@ -247,8 +313,19 @@ export default function App() {
             externalSearchRequest={productSearchRequest}
             externalPresetRequest={productPresetRequest}
             onNavigate={handleNavigate}
+            onAddQuoteItem={handleAddQuoteItem}
+            quoteItemCount={quoteSummary.totalQuantity}
           />
           <ServiceView isActive={activeView === 'service'} />
+          <QuoteRequestView
+            isActive={activeView === 'quote-request'}
+            items={quoteItems}
+            onNavigate={handleNavigate}
+            onUpdateQuantity={handleUpdateQuoteItemQuantity}
+            onUpdateNote={handleUpdateQuoteItemNote}
+            onRemoveItem={handleRemoveQuoteItem}
+            onClearItems={handleClearQuoteItems}
+          />
           <ContactView isActive={activeView === 'contact-product'} />
           <TechnicalContactView isActive={activeView === 'contact-tech'} />
         </main>
