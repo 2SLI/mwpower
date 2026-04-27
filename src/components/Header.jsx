@@ -209,17 +209,17 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
       />
 
       {isMenuOpen ? (
-        <div className="fixed inset-0 z-[1000]">
+        <div className="fixed inset-0 z-[1000] px-3 py-3 max-[640px]:px-2.5 max-[640px]:py-2.5">
           <button
             type="button"
-            className="absolute inset-0 bg-slate-950/58"
+            className="absolute inset-0 bg-black/18"
             onClick={() => setIsMenuOpen(false)}
             aria-label="메뉴 닫기"
           ></button>
 
           <aside
             id="mobile-header-menu"
-            className="absolute right-0 top-0 z-[1010] flex h-full w-[min(88vw,360px)] flex-col border-l border-slate-200 bg-white shadow-[0_18px_40px_rgba(2,8,23,0.35)]"
+            className="absolute bottom-3 right-3 top-3 z-[1010] flex w-[min(76vw,340px)] flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_28px_60px_rgba(2,8,23,0.28)] max-[640px]:bottom-2.5 max-[640px]:right-2.5 max-[640px]:top-2.5 max-[640px]:w-[min(78vw,332px)]"
             aria-label="Header menu"
           >
             <header className="relative overflow-hidden bg-[linear-gradient(135deg,#e53a33_0%,#c6252e_55%,#8d161f_100%)] px-5 pb-5 pr-16 pt-6 text-white">
@@ -243,7 +243,7 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
               </div>
             </header>
 
-            <div className="flex-1 overflow-y-auto px-3 py-3.5">
+            <div className="flex-1 overflow-y-auto bg-white px-3 py-3.5">
               <ul className="m-0 list-none space-y-1.5 p-0">
                 {navItems.map((item) => {
                   const baseClass =
@@ -289,7 +289,7 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
               </ul>
             </div>
 
-            <footer className="border-t border-slate-200 bg-slate-50 p-3">
+            <footer className="border-t border-slate-200 bg-white p-3">
               <button
                 type="button"
                 className="w-full rounded-xl bg-[linear-gradient(135deg,#e63c35_0%,#c3272f_100%)] px-4 py-3 text-sm font-extrabold text-white shadow-[0_10px_22px_rgba(195,39,47,0.28)]"
