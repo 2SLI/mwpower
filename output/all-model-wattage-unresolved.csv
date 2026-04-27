@@ -1,0 +1,19 @@
+PDF,Reason,DetectedModels,DetectedPowers,DetectedVoltages,DetectedAdditionalTypes,ModelRowSample,PowerRowSample,VoltageRowSample
+CMU2-spec.pdf,No mappable model/power pairs,5,0,1,0,"9.Order model only CMU2C-P##, CMU2C-R-P##, CMU2C-C##, CMU2C-R-C## and optional CMU2A-#R# available .",,"4 user programmable channels, 30V/1A"
+DBUF20-spec.pdf,No mappable model/power pairs,2,0,1,0,MODEL,,"31 37 5V only,shut down o p voltage ~ . /"
+DBUF40-spec.pdf,No mappable model/power pairs,2,0,1,0,MODEL,,"31 37 5V only,shut down o p voltage ~ . /"
+DUPS20-spec.pdf,No mappable model/power pairs,1,0,1,0,MODEL,,"Relay contact : Short when DC voltage between 21~29V( ± 2%), relay contacts"
+DUPS20.pdf,No mappable model/power pairs,1,0,1,0,MODEL,,"Relay contact : Short when DC voltage between 21~29V( ± 2%), relay contacts"
+DUPS40-spec.pdf,No mappable model/power pairs,1,0,1,0,MODEL,,"Relay contact : Short when DC voltage between 21~29V( ± 2%), relay contacts"
+ERDN20-spec.pdf,No mappable model/power pairs,1,0,8,0,MODEL,,<4V or >6.5V ( ± 5 % ) <8.5V or >14.7V ( ± 5 % ) <18V or >31V ( ± 5 % ) <34.2V or >63V ( ± 5 % )
+IRC1-SPEC.PDF,No mappable model/power pairs,1,0,0,0,MODEL,,
+"IRC1,IRC2,IRC3-SPEC.pdf",No mappable model/power pairs,1,0,0,0,MODEL,,
+IRC2-SPEC.PDF,No mappable model/power pairs,1,0,0,0,MODEL,,
+IRC3-SPEC.PDF,No mappable model/power pairs,2,0,0,0,Model No : IRC3,,
+KSR series-spec.pdf,No mappable model/power pairs,1,0,0,0,Model No.,,
+LDB-L-SPEC.pdf,No mappable model/power pairs,4,0,2,0,ORDER NO.,,4. If input voltage is 36V then the output voltage operating range had better <38V.
+LDD-L-spec.pdf,No mappable model/power pairs,6,0,0,0,ORDER NO.,,
+LDDS-H-spec.pdf,No mappable model/power pairs,6,0,1,0,ORDER NO.,,0 ~ 10V / PWM / Resistor Dimming
+NLDD-H-spec.pdf,No mappable model/power pairs,6,0,0,0,ORDER NO.,,
+RCP-MU-SPEC.PDF,No mappable model/power pairs,2,0,3,0,"MONITORING INPUTS I C signal ( AC OK, DC OK, and over temperature alarm signals for each RCP-1000 unit ), output voltage of the RCP-1U rack",,"• Suitable for all kinds of RCP output (12V,24V,48V)"
+RKP-CMU1-spec.pdf,No mappable model/power pairs,3,0,1,0,MODEL,,"4 user programmable relay, relay contact rating(max.): 30V/1A resistive"

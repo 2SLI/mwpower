@@ -1,0 +1,8 @@
+{
+  "pdfCount": 909,
+  "extractedPairs": 3348,
+  "unresolvedPdfCount": 18,
+  "outputCsv": "output\\all-model-wattage.csv",
+  "unresolvedCsv": "output\\all-model-wattage-unresolved.csv",
+  "createdAt": "2026-04-15T11:51:58.865Z"
+}

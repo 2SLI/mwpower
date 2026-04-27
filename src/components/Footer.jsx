@@ -10,7 +10,7 @@ export function Footer() {
             alt="민웰파워 로고"
             className="h-[72px] w-[72px] object-contain max-[640px]:h-[56px] max-[640px]:w-[56px]"
           />
-          <span className="text-[clamp(18px,1.1vw,24px)] font-medium text-slate-600 max-[640px]:text-base">Korea</span>
+        
         </div>
       </div>
 
