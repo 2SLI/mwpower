@@ -1147,6 +1147,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const renderAdditionalOptionsPanel = ({ isModelSelected = false } = {}) => {
     const combinedDisabled = !isModelSelected || selectedCombinedOptionModels.length === 0
     const canAddSelectedModel = isModelSelected && selectedModelCard
+    const requiresOptionSelection = canAddSelectedModel && selectedCombinedOptionModels.length > 0
+    const isAddToQuoteDisabled = requiresOptionSelection && !selectedOptionModel
 
     return (
       <aside className="self-start rounded-[22px] border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)] p-4 shadow-[0_16px_34px_rgba(15,23,42,0.08)]">
@@ -1223,13 +1225,22 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
               <div className="rounded-[18px] border border-[#efc7cb] bg-white/90 p-3">
                 <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">견적 대상</p>
-                <p className="m-0 mt-1 break-all text-[16px] font-black leading-6 text-slate-900">{selectedOptionModel || selectedModelCard.modelName}</p>
-                <p className="m-0 mt-1 text-[12px] font-semibold text-slate-500">{selectedQuoteQuantity}개 기준으로 주문목록에 추가됩니다.</p>
+                <p className="m-0 mt-1 break-all text-[16px] font-black leading-6 text-slate-900">
+                  {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
+                </p>
+                <p className={`m-0 mt-1 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
+                  {isAddToQuoteDisabled ? '옵션 모델을 선택해야 주문목록에 담을 수 있습니다.' : `${selectedQuoteQuantity}개 기준으로 주문목록에 추가됩니다.`}
+                </p>
               </div>
 
               <button
                 type="button"
-                className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(185,37,45,0.22)] transition hover:brightness-105"
+                disabled={isAddToQuoteDisabled}
+                className={`inline-flex h-11 w-full items-center justify-center rounded-xl px-4 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(185,37,45,0.22)] transition ${
+                  isAddToQuoteDisabled
+                    ? 'cursor-not-allowed bg-slate-300 text-slate-100 shadow-none'
+                    : 'bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] hover:brightness-105'
+                }`}
                 onClick={() =>
                   handleAddQuoteLineItem({
                     majorId: activeMajorId,
