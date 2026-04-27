@@ -95,8 +95,6 @@ function mapQuoteRequestDocument(docSnap) {
     email: normalizeText(data.email),
     phone: normalizeText(data.phone),
     businessNumber: normalizeText(data.businessNumber),
-    projectName: normalizeText(data.projectName),
-    requestDeadline: normalizeText(data.requestDeadline),
     shippingRegion: normalizeText(data.shippingRegion),
     message: normalizeText(data.message),
     source: normalizeText(data.source),
@@ -687,12 +685,6 @@ export function AdminView() {
                       </p>
                       <p className="m-0">
                         <strong>사업자등록번호:</strong> {activeQuoteRequest.businessNumber || '-'}
-                      </p>
-                      <p className="m-0">
-                        <strong>프로젝트명:</strong> {activeQuoteRequest.projectName || '-'}
-                      </p>
-                      <p className="m-0">
-                        <strong>희망 회신일:</strong> {activeQuoteRequest.requestDeadline || '-'}
                       </p>
                       <p className="m-0">
                         <strong>납품 지역 / 현장:</strong> {activeQuoteRequest.shippingRegion || '-'}

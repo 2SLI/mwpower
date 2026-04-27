@@ -1149,9 +1149,24 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const canAddSelectedModel = isModelSelected && selectedModelCard
 
     return (
-      <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
-        <p className="m-0 text-[15px] font-bold text-slate-800">추가 옵션</p>
-        <div className="mt-3 grid gap-2.5">
+      <aside className="self-start rounded-[22px] border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)] p-4 shadow-[0_16px_34px_rgba(15,23,42,0.08)]">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">Quote Builder</p>
+            <p className="m-0 mt-1 text-[22px] font-black tracking-[-0.02em] text-slate-900">견적 담기</p>
+          </div>
+          {canAddSelectedModel ? (
+            <span className="rounded-full border border-[#efc3c7] bg-white px-3 py-1 text-[11px] font-black text-[#b4262e]">
+              {selectedQuoteQuantity} EA
+            </span>
+          ) : null}
+        </div>
+
+        <p className="m-0 mt-2 text-[12px] font-semibold leading-5 text-slate-500">
+          모델 상세를 확인한 뒤 옵션과 수량을 정해서 주문목록에 담을 수 있습니다.
+        </p>
+
+        <div className="mt-4 grid gap-3">
           <label className="grid gap-1.5">
             <span className="text-[13px] font-semibold text-slate-700">옵션 모델</span>
             <select
@@ -1178,10 +1193,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             <>
               <label className="grid gap-1.5">
                 <span className="text-[13px] font-semibold text-slate-700">주문 수량</span>
-                <div className="flex items-center gap-2">
+                <div className="grid grid-cols-[42px_minmax(0,1fr)_42px] items-center gap-2 rounded-[18px] border border-slate-300 bg-white p-1">
                   <button
                     type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-lg font-black text-slate-700 transition hover:border-[#d4555b] hover:text-[#b4262e]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-[14px] border border-slate-200 bg-slate-50 text-lg font-black text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
                     onClick={() => setSelectedQuoteQuantity((prev) => Math.max(1, normalizeRequestedQuoteQuantity(prev, 1) - 1))}
                     aria-label="수량 감소"
                   >
@@ -1193,11 +1208,11 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     inputMode="numeric"
                     value={selectedQuoteQuantity}
                     onChange={(event) => setSelectedQuoteQuantity(normalizeRequestedQuoteQuantity(event.target.value, 1))}
-                    className="h-10 min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 text-center text-[15px] font-black text-slate-900 outline-none focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8]"
+                    className="h-10 min-w-0 border-0 bg-transparent px-2 text-center text-[17px] font-black text-slate-900 outline-none"
                   />
                   <button
                     type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-lg font-black text-slate-700 transition hover:border-[#d4555b] hover:text-[#b4262e]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-[14px] border border-slate-200 bg-slate-50 text-lg font-black text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
                     onClick={() => setSelectedQuoteQuantity((prev) => Math.min(99999, normalizeRequestedQuoteQuantity(prev, 1) + 1))}
                     aria-label="수량 증가"
                   >
@@ -1206,9 +1221,15 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </div>
               </label>
 
+              <div className="rounded-[18px] border border-[#efc7cb] bg-white/90 p-3">
+                <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">견적 대상</p>
+                <p className="m-0 mt-1 break-all text-[16px] font-black leading-6 text-slate-900">{selectedOptionModel || selectedModelCard.modelName}</p>
+                <p className="m-0 mt-1 text-[12px] font-semibold text-slate-500">{selectedQuoteQuantity}개 기준으로 주문목록에 추가됩니다.</p>
+              </div>
+
               <button
                 type="button"
-                className="inline-flex h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(185,37,45,0.22)] transition hover:brightness-105"
+                className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(185,37,45,0.22)] transition hover:brightness-105"
                 onClick={() =>
                   handleAddQuoteLineItem({
                     majorId: activeMajorId,
@@ -1227,14 +1248,14 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               >
                 주문목록에 담기
               </button>
-
-              <p className="m-0 text-[12px] font-semibold leading-5 text-slate-500">
-                견적 대상: {selectedOptionModel || selectedModelCard.modelName} / {selectedQuoteQuantity}개
-              </p>
             </>
-          ) : null}
+          ) : (
+            <div className="rounded-[18px] border border-dashed border-slate-300 bg-white/80 px-3 py-4 text-center text-[13px] font-semibold leading-5 text-slate-500">
+              모델 상세를 선택하면 견적 담기 설정이 활성화됩니다.
+            </div>
+          )}
         </div>
-      </div>
+      </aside>
     )
   }
 

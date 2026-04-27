@@ -16,7 +16,6 @@ import {
   getQuoteItemSummary,
   readStoredQuoteItems,
   removeQuoteItem,
-  updateQuoteItemNote,
   updateQuoteItemQuantity,
   writeStoredQuoteItems,
 } from './features/quoteCart'
@@ -304,10 +303,6 @@ export default function App() {
     setQuoteItems((prev) => updateQuoteItemQuantity(prev, itemId, quantity))
   }
 
-  function handleUpdateQuoteItemNote(itemId, note) {
-    setQuoteItems((prev) => updateQuoteItemNote(prev, itemId, note))
-  }
-
   function handleRemoveQuoteItem(itemId) {
     setQuoteItems((prev) => removeQuoteItem(prev, itemId))
   }
@@ -394,7 +389,6 @@ export default function App() {
             items={quoteItems}
             onClose={handleCloseQuoteRequest}
             onUpdateQuantity={handleUpdateQuoteItemQuantity}
-            onUpdateNote={handleUpdateQuoteItemNote}
             onRemoveItem={handleRemoveQuoteItem}
             onClearItems={handleClearQuoteItems}
           />

@@ -12,8 +12,6 @@ const initialForm = {
   email: '',
   phone: '',
   businessNumber: '',
-  projectName: '',
-  requestDeadline: '',
   shippingRegion: '',
   message: '',
 }
@@ -30,8 +28,6 @@ function normalizeForm(form = {}) {
     email: normalizeText(form.email),
     phone: normalizeText(form.phone),
     businessNumber: normalizeText(form.businessNumber),
-    projectName: normalizeText(form.projectName),
-    requestDeadline: normalizeText(form.requestDeadline),
     shippingRegion: normalizeText(form.shippingRegion),
     message: normalizeText(form.message),
   }
@@ -49,7 +45,7 @@ function QuoteField({ label, required = false, children }) {
   )
 }
 
-export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onUpdateNote, onRemoveItem, onClearItems }) {
+export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onRemoveItem, onClearItems }) {
   const [form, setForm] = useState(initialForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
@@ -119,7 +115,6 @@ export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onU
           optionModel: item.optionModel,
           displayModel: item.displayModel,
           quantity: item.quantity,
-          note: item.note,
           thumbnailUrl: item.thumbnailUrl,
           wattage: item.wattage,
           pdfUrl: item.pdfUrl,
@@ -246,7 +241,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onU
                         </button>
                       </div>
 
-                      <div className="grid gap-3 md:grid-cols-[130px_minmax(0,1fr)]">
+                      <div className="grid gap-3 md:grid-cols-[130px]">
                         <QuoteField label="수량" required>
                           <input
                             type="number"
@@ -256,15 +251,6 @@ export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onU
                             onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)}
                             className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-base font-bold text-slate-900 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
                           />
-                        </QuoteField>
-
-                        <QuoteField label="품목 메모">
-                          <textarea
-                            value={item.note}
-                            onChange={(event) => onUpdateNote?.(item.id, event.target.value)}
-                            className="min-h-[88px] rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-800 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
-                            placeholder="예: 4주 납기 가능 여부, 특정 옵션 확인 요청"
-                          ></textarea>
                         </QuoteField>
                       </div>
                     </article>
@@ -337,24 +323,6 @@ export function QuoteRequestView({ isOpen, items, onClose, onUpdateQuantity, onU
                   />
                 </QuoteField>
 
-                <QuoteField label="프로젝트명">
-                  <input
-                    name="projectName"
-                    value={form.projectName}
-                    onChange={handleChange}
-                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                  />
-                </QuoteField>
-
-                <QuoteField label="희망 회신일">
-                  <input
-                    name="requestDeadline"
-                    type="date"
-                    value={form.requestDeadline}
-                    onChange={handleChange}
-                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                  />
-                </QuoteField>
               </div>
 
               <QuoteField label="납품 지역 / 현장">
