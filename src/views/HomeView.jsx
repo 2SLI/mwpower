@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { NEWS_ALL_CATEGORY, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
 
 const solutionCards = [
@@ -62,6 +62,8 @@ function normalizeIndex(index, length) {
 export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPreset, onOpenProductSearch, onOpenNewsArticle }) {
   const totalSlides = bannerImages.length
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [mobileSolutionIndex, setMobileSolutionIndex] = useState(0)
+  const mobileSolutionTrackRef = useRef(null)
 
   useEffect(() => {
     if (totalSlides < 2) return undefined
@@ -88,6 +90,67 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
   const allNewsItems = useMemo(() => getAllNewsSorted(), [])
   const featuredNews = allNewsItems[0] ?? null
   const latestNews = allNewsItems.slice(1, 5)
+  const mobileSolutionCards = useMemo(
+    () =>
+      solutionCards.map((item, index) => {
+        if (index !== 0) return { ...item, mobileTitle: item.title, mobileSubtitle: '' }
+        return {
+          ...item,
+          mobileTitle: '제품 보기',
+          mobileSubtitle: item.title,
+          forceProductsView: true,
+        }
+      }),
+    []
+  )
+
+  function navigateSolutionCard(item) {
+    if (item.forceProductsView) {
+      onNavigate('products')
+      return
+    }
+    if (item.productPreset) {
+      onOpenProductPreset?.(item.productPreset)
+      return
+    }
+    if (item.productSearch) {
+      onOpenProductSearch?.(item.productSearch)
+      return
+    }
+    onNavigate('products')
+  }
+
+  function scrollMobileSolutionsTo(nextIndex) {
+    const track = mobileSolutionTrackRef.current
+    if (!track) return
+    const width = track.clientWidth || 1
+    const maxIndex = mobileSolutionCards.length - 1
+    const safeIndex = Math.max(0, Math.min(nextIndex, maxIndex))
+    track.scrollTo({ left: width * safeIndex, behavior: 'smooth' })
+    setMobileSolutionIndex(safeIndex)
+  }
+
+  useEffect(() => {
+    const track = mobileSolutionTrackRef.current
+    if (!track) return undefined
+
+    const handleScroll = () => {
+      const width = track.clientWidth || 1
+      const nextIndex = Math.round(track.scrollLeft / width)
+      setMobileSolutionIndex((prev) => (prev === nextIndex ? prev : nextIndex))
+    }
+
+    track.addEventListener('scroll', handleScroll, { passive: true })
+    return () => track.removeEventListener('scroll', handleScroll)
+  }, [mobileSolutionCards.length])
+
+  useEffect(() => {
+    if (!isActive) return
+    const track = mobileSolutionTrackRef.current
+    if (!track) return
+    track.scrollTo({ left: 0, behavior: 'auto' })
+    setMobileSolutionIndex(0)
+  }, [isActive])
 
   function openNews(articleId) {
     if (!articleId) {
@@ -172,7 +235,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
         </div>
       </section>
 
-      <section className="grid w-full grid-cols-6 max-[1280px]:grid-cols-3 max-[980px]:grid-cols-3 max-[640px]:grid-cols-2 max-[480px]:grid-cols-1">
+      <section className="grid w-full grid-cols-6 max-[1280px]:grid-cols-3 max-[980px]:grid-cols-3 max-[640px]:hidden">
         {solutionCards.map((item) => (
           <a
             href="#"
@@ -180,21 +243,74 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
             className="relative block min-h-[252px] overflow-hidden border-r border-slate-300 bg-white transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#d13d3d] max-[640px]:min-h-[224px] max-[480px]:border-r-0 max-[480px]:border-t max-[480px]:border-slate-300"
             onClick={(event) => {
               event.preventDefault()
-              if (item.productPreset) {
-                onOpenProductPreset?.(item.productPreset)
-                return
-              }
-              if (item.productSearch) {
-                onOpenProductSearch?.(item.productSearch)
-                return
-              }
-              onNavigate('products')
+              navigateSolutionCard(item)
             }}
           >
             <img className="block h-48 w-full object-cover max-[640px]:h-40" src={item.image} alt={item.alt} />
             <h3 className="m-0 min-h-[70px] px-4 pt-4 text-center text-[clamp(13px,0.84vw,17px)] leading-[1.35] text-neutral-700">{item.title}</h3>
           </a>
         ))}
+      </section>
+
+      <section className="relative hidden bg-slate-950 max-[640px]:block" aria-label="모바일 솔루션 메뉴">
+        <div
+          ref={mobileSolutionTrackRef}
+          className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
+          style={{ scrollbarWidth: 'none' }}
+        >
+          {mobileSolutionCards.map((item) => (
+            <a
+              href="#"
+              key={`mobile-solution-${item.alt}-${item.mobileTitle}`}
+              className="relative block h-[calc(100dvh-84px)] min-h-[500px] w-full shrink-0 snap-start overflow-hidden"
+              onClick={(event) => {
+                event.preventDefault()
+                navigateSolutionCard(item)
+              }}
+            >
+              <img className="absolute inset-0 h-full w-full object-cover" src={item.image} alt={item.alt} />
+              <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.26)_0%,rgba(15,23,42,0.84)_66%,rgba(2,6,23,0.95)_100%)]"></span>
+
+              <div className="absolute inset-x-4 bottom-14 z-10 rounded-2xl border border-white/20 bg-black/28 p-5 backdrop-blur-sm">
+                <p className="m-0 text-[11px] font-black tracking-[0.14em] text-rose-200">MEAN WELL POWER</p>
+                <h3 className="m-0 mt-2 text-[30px] font-black leading-tight tracking-[-0.02em] text-white">{item.mobileTitle}</h3>
+                {item.mobileSubtitle ? <p className="m-0 mt-2 text-sm font-semibold text-slate-100">{item.mobileSubtitle}</p> : null}
+                <span className="mt-4 inline-flex h-10 items-center rounded-full bg-[#e6392f] px-4 text-[13px] font-extrabold text-white">
+                  열기
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          aria-label="이전 메뉴"
+          className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/35 bg-black/40 text-white"
+          onClick={() => scrollMobileSolutionsTo(mobileSolutionIndex - 1)}
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          aria-label="다음 메뉴"
+          className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/35 bg-black/40 text-white"
+          onClick={() => scrollMobileSolutionsTo(mobileSolutionIndex + 1)}
+        >
+          ›
+        </button>
+
+        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+          {mobileSolutionCards.map((item, index) => (
+            <button
+              key={`mobile-solution-dot-${item.alt}-${index}`}
+              type="button"
+              aria-label={`${index + 1}번 메뉴로 이동`}
+              className={`h-2.5 w-2.5 rounded-full border-0 p-0 ${mobileSolutionIndex === index ? 'bg-white' : 'bg-white/45'}`}
+              onClick={() => scrollMobileSolutionsTo(index)}
+            ></button>
+          ))}
+        </div>
       </section>
 
       <section className="w-full border-t border-slate-200 bg-slate-100/90 py-10 md:py-14" aria-label="News">

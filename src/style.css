@@ -40,6 +40,15 @@
     border: 0;
   }
 
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   .main-nav-link.active::before {
     content: "";
     position: absolute;
