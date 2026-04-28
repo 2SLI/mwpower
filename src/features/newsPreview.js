@@ -25,52 +25,6 @@ function withTimeout(promise, timeoutMs = PREVIEW_TIMEOUT_MS) {
   ])
 }
 
-function resolveUrl(value = '', baseUrl = '') {
-  const text = normalizeText(value)
-  if (!text) return ''
-
-  try {
-    return new URL(text, baseUrl).toString()
-  } catch {
-    return text
-  }
-}
-
-function getMetaContent(document, selectors = []) {
-  for (const selector of selectors) {
-    const content = normalizeText(document.querySelector(selector)?.getAttribute('content'))
-    if (content) return content
-  }
-
-  return ''
-}
-
-function extractPreviewFromHtml(html = '', articleUrl = '') {
-  if (typeof DOMParser === 'undefined') return null
-
-  const document = new DOMParser().parseFromString(String(html ?? ''), 'text/html')
-  const title = pickText(
-    getMetaContent(document, ['meta[property="og:title"]', 'meta[name="twitter:title"]', 'meta[name="title"]']),
-    document.querySelector('title')?.textContent
-  )
-  const summary = pickText(
-    getMetaContent(document, ['meta[property="og:description"]', 'meta[name="twitter:description"]', 'meta[name="description"]'])
-  )
-  const image = pickImage(
-    resolveUrl(getMetaContent(document, ['meta[property="og:image"]', 'meta[name="twitter:image"]', 'meta[property="og:image:url"]']), articleUrl)
-  )
-
-  if (!title && !summary && !image) return null
-
-  return {
-    articleUrl,
-    title,
-    summary,
-    image,
-    sourceLabel: getNewsSourceLabel(articleUrl),
-  }
-}
-
 function normalizePreviewTargetUrl(articleUrl = '') {
   try {
     const url = new URL(articleUrl)
@@ -99,18 +53,9 @@ function buildFallbackTitle(articleUrl = '') {
   return sourceLabel && sourceLabel !== '외부 뉴스' ? `${sourceLabel} 게시글` : '블로그 게시글'
 }
 
-async function fetchHtmlPreview(articleUrl = '') {
-  const targetUrl = normalizePreviewTargetUrl(articleUrl)
-  const response = await withTimeout(fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`))
-  if (!response.ok) throw new Error('HTML preview request failed')
-
-  const html = await response.text()
-  return extractPreviewFromHtml(html, articleUrl)
-}
-
 async function fetchMicrolinkPreview(articleUrl = '') {
   const targetUrl = normalizePreviewTargetUrl(articleUrl)
-  const response = await withTimeout(fetch(`https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false`))
+  const response = await withTimeout(fetch(`https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true`))
   if (!response.ok) throw new Error('Microlink preview request failed')
 
   const result = await response.json()
@@ -120,7 +65,7 @@ async function fetchMicrolinkPreview(articleUrl = '') {
     articleUrl,
     title: pickText(data.title, data.publisher),
     summary: pickText(data.description),
-    image: pickImage(data.image?.url, data.screenshot?.url, data.logo?.url),
+    image: pickImage(data.image?.url, data.logo?.url, data.screenshot?.url),
     sourceLabel: getNewsSourceLabel(articleUrl),
   }
 }
@@ -128,13 +73,6 @@ async function fetchMicrolinkPreview(articleUrl = '') {
 export async function fetchNewsLinkPreview(value = '') {
   const articleUrl = normalizeNewsLink(value)
   if (!articleUrl) return null
-
-  try {
-    const htmlPreview = await fetchHtmlPreview(articleUrl)
-    if (htmlPreview?.title || htmlPreview?.image) return htmlPreview
-  } catch {
-    // Continue to the metadata API fallback below.
-  }
 
   try {
     const apiPreview = await fetchMicrolinkPreview(articleUrl)

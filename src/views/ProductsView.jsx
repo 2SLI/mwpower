@@ -1397,27 +1397,25 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     }
 
     return (
-      <div className="grid gap-2.5">
+      <div className="flex flex-wrap gap-2">
         {items.map((item) => {
           const isCurrentModel = normalizeLabel(item.modelName) === normalizeLabel(activeModel)
 
           return (
-            <div key={item.modelName} className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2.5">
-              <button
-                type="button"
-                className={`min-w-0 flex-1 text-left text-[14px] font-semibold underline-offset-2 transition hover:text-[#c02f2f] hover:underline ${
-                  isCurrentModel ? 'text-[#c83a3a]' : 'text-slate-700'
-                }`}
-                onClick={() => onSelectModel?.(item)}
-              >
-                <span className="break-all">{item.modelName}</span>
-                {!hasPdfAsset(item.asset) ? <span className="ml-1 text-[12px] text-slate-400">(PDF 준비중)</span> : null}
-              </button>
-
-              <span className={`shrink-0 text-[11px] font-black uppercase tracking-[0.08em] ${isCurrentModel ? 'text-[#c83a3a]' : 'text-slate-400'}`}>
-                {isCurrentModel ? '선택됨' : '상세 보기'}
-              </span>
-            </div>
+            <button
+              key={item.modelName}
+              type="button"
+              className={`inline-flex min-h-9 max-w-full appearance-none items-center gap-1.5 rounded-full border px-3 py-1.5 text-left text-[13px] font-extrabold leading-5 shadow-none transition ${
+                isCurrentModel
+                  ? 'border-[#c9252f] bg-[#c9252f] text-white'
+                  : 'border-slate-300 bg-white text-slate-800 hover:border-[#c9252f] hover:bg-[#fff5f6] hover:text-[#c9252f]'
+              }`}
+              onClick={() => onSelectModel?.(item)}
+            >
+              <span className="truncate">{item.modelName}</span>
+              {isCurrentModel ? <span className="shrink-0 text-[10px] font-black opacity-90">선택</span> : null}
+              {!hasPdfAsset(item.asset) ? <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/80' : 'text-slate-400'}`}>PDF 준비중</span> : null}
+            </button>
           )
         })}
       </div>
