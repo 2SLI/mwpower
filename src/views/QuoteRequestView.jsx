@@ -158,9 +158,6 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
               <h1 id="quote-request-modal-title" className="m-0 mt-2 text-[clamp(28px,2.5vw,42px)] font-black leading-[1.05] tracking-[-0.03em] text-slate-900">
                 견적요청서
               </h1>
-              <p className="m-0 mt-2 text-sm leading-6 text-slate-600">
-                현재 보고 있던 화면은 그대로 유지한 채 견적서를 정리할 수 있게 모달로 열립니다. 품목별 수량과 메모를 확인한 뒤 바로 전송하세요.
-              </p>
             </div>
 
             <div className="flex items-center gap-2 self-start">

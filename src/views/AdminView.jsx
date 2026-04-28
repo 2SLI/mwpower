@@ -4,6 +4,7 @@ import { formatNewsDate } from '../data/newsContent'
 import { db } from '../firebase'
 import { createNewsArticle, loadNewsArticlesForAdmin, removeNewsArticle, updateNewsArticle } from '../features/newsService'
 import { getNewsSourceLabel, normalizeNewsLink } from '../features/newsLink'
+import { fetchNewsLinkPreview } from '../features/newsPreview'
 import { formatQuoteItemPath, getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
 
 const ADMIN_SESSION_KEY = 'mwpower_admin_authenticated'
@@ -132,6 +133,8 @@ export function AdminView() {
   const [editingNewsId, setEditingNewsId] = useState(null)
   const [newsForm, setNewsForm] = useState(NEWS_FORM_INITIAL)
   const [isSavingNews, setIsSavingNews] = useState(false)
+  const [isLoadingNewsPreview, setIsLoadingNewsPreview] = useState(false)
+  const [newsPreviewError, setNewsPreviewError] = useState('')
 
   const hasConfiguredPassword = ADMIN_PASSWORD.length > 0
 
@@ -151,6 +154,17 @@ export function AdminView() {
   )
 
   const normalizedNewsFormLink = useMemo(() => normalizeNewsLink(newsForm.articleUrl), [newsForm.articleUrl])
+  const newsFormPreview = useMemo(
+    () => ({
+      articleUrl: normalizedNewsFormLink,
+      image: normalizeText(newsForm.image),
+      title: normalizeText(newsForm.title) || (normalizedNewsFormLink ? `${getNewsSourceLabel(normalizedNewsFormLink)} 게시글` : '뉴스 미리보기'),
+      summary: normalizeText(newsForm.summary),
+      date: normalizeText(newsForm.date),
+      sourceLabel: normalizedNewsFormLink ? getNewsSourceLabel(normalizedNewsFormLink) : '',
+    }),
+    [newsForm, normalizedNewsFormLink]
+  )
 
   const loadInquiries = async () => {
     setIsLoadingInquiries(true)
@@ -288,7 +302,39 @@ export function AdminView() {
   }
 
   const handleNewsFormChange = (key, value) => {
+    if (key === 'articleUrl') setNewsPreviewError('')
     setNewsForm((prev) => ({ ...prev, [key]: value }))
+  }
+
+  const applyNewsPreview = (preview) => {
+    if (!preview) return
+
+    setNewsForm((prev) => ({
+      ...prev,
+      articleUrl: preview.articleUrl || prev.articleUrl,
+      image: normalizeText(prev.image) || preview.image || '',
+      title: normalizeText(prev.title) || preview.title || '',
+      summary: normalizeText(prev.summary) || preview.summary || '',
+    }))
+  }
+
+  const loadNewsPreviewFromLink = async () => {
+    if (!normalizedNewsFormLink || isLoadingNewsPreview) return null
+
+    setIsLoadingNewsPreview(true)
+    setNewsPreviewError('')
+
+    try {
+      const preview = await fetchNewsLinkPreview(normalizedNewsFormLink)
+      applyNewsPreview(preview)
+      if (!preview?.title && !preview?.image) setNewsPreviewError('미리보기 정보를 자동으로 가져오지 못했습니다. 링크만으로도 등록은 가능합니다.')
+      return preview
+    } catch {
+      setNewsPreviewError('미리보기 정보를 자동으로 가져오지 못했습니다. 링크만으로도 등록은 가능합니다.')
+      return null
+    } finally {
+      setIsLoadingNewsPreview(false)
+    }
   }
 
   const handleNewsEdit = (article) => {
@@ -301,19 +347,34 @@ export function AdminView() {
   const resetNewsForm = () => {
     setEditingNewsId(null)
     setNewsForm(NEWS_FORM_INITIAL)
+    setNewsPreviewError('')
   }
 
   const handleNewsSubmit = async (event) => {
     event.preventDefault()
     if (isSavingNews) return
 
+    let hydratedForm = newsForm
+    if (normalizedNewsFormLink && (!normalizeText(newsForm.title) || !normalizeText(newsForm.image) || !normalizeText(newsForm.summary))) {
+      const preview = await loadNewsPreviewFromLink()
+      if (preview) {
+        hydratedForm = {
+          ...newsForm,
+          articleUrl: preview.articleUrl || newsForm.articleUrl,
+          image: normalizeText(newsForm.image) || preview.image || '',
+          title: normalizeText(newsForm.title) || preview.title || '',
+          summary: normalizeText(newsForm.summary) || preview.summary || '',
+        }
+      }
+    }
+
     const payload = {
       articleUrl: normalizedNewsFormLink,
-      image: normalizeText(newsForm.image),
-      title: normalizeText(newsForm.title),
-      summary: normalizeText(newsForm.summary),
-      date: normalizeText(newsForm.date),
-      isPublished: newsForm.isPublished,
+      image: normalizeText(hydratedForm.image),
+      title: normalizeText(hydratedForm.title),
+      summary: normalizeText(hydratedForm.summary),
+      date: normalizeText(hydratedForm.date),
+      isPublished: hydratedForm.isPublished,
     }
 
     if (!payload.articleUrl) {
@@ -821,14 +882,52 @@ export function AdminView() {
                   <input
                     value={newsForm.articleUrl}
                     onChange={(event) => handleNewsFormChange('articleUrl', event.target.value)}
+                    onBlur={loadNewsPreviewFromLink}
                     className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
                     placeholder="https://blog.naver.com/... 또는 https://*.tistory.com/..."
                   />
                 </label>
                 {newsForm.articleUrl ? (
-                  <p className={`m-0 text-[11px] font-bold ${normalizedNewsFormLink ? 'text-[#0f6d3d]' : 'text-[#b42323]'}`}>
-                    {normalizedNewsFormLink ? `등록 출처: ${getNewsSourceLabel(normalizedNewsFormLink)}` : '유효한 블로그/뉴스 링크를 입력해주세요.'}
-                  </p>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className={`m-0 text-[11px] font-bold ${normalizedNewsFormLink ? 'text-[#0f6d3d]' : 'text-[#b42323]'}`}>
+                      {normalizedNewsFormLink ? `등록 출처: ${getNewsSourceLabel(normalizedNewsFormLink)}` : '유효한 블로그/뉴스 링크를 입력해주세요.'}
+                    </p>
+                    {normalizedNewsFormLink ? (
+                      <button
+                        type="button"
+                        onClick={loadNewsPreviewFromLink}
+                        disabled={isLoadingNewsPreview}
+                        className="rounded-md border border-slate-300 bg-white px-2 py-1 text-[11px] font-extrabold text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+                      >
+                        {isLoadingNewsPreview ? '가져오는 중...' : '미리보기 가져오기'}
+                      </button>
+                    ) : null}
+                  </div>
+                ) : null}
+                {newsPreviewError ? <p className="m-0 text-[11px] font-bold text-[#b42323]">{newsPreviewError}</p> : null}
+
+                {normalizedNewsFormLink ? (
+                  <a
+                    href={newsFormPreview.articleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="grid overflow-hidden rounded-lg border border-slate-200 bg-white text-inherit no-underline"
+                  >
+                    <div className="aspect-[16/9] bg-slate-100">
+                      {newsFormPreview.image ? (
+                        <img src={newsFormPreview.image} alt={newsFormPreview.title} className="h-full w-full object-cover" />
+                      ) : (
+                        <div className="grid h-full w-full place-items-center text-xs font-black text-slate-400">
+                          {isLoadingNewsPreview ? 'LOADING PREVIEW' : 'NO PREVIEW IMAGE'}
+                        </div>
+                      )}
+                    </div>
+                    <div className="grid gap-1 p-3">
+                      <p className="m-0 text-[11px] font-black uppercase tracking-[0.06em] text-[#b42323]">{newsFormPreview.sourceLabel || '외부 뉴스'}</p>
+                      <strong className="line-clamp-2 text-sm font-black leading-5 text-slate-900">{newsFormPreview.title}</strong>
+                      {newsFormPreview.summary ? <p className="m-0 line-clamp-2 text-xs leading-5 text-slate-500">{newsFormPreview.summary}</p> : null}
+                    </div>
+                  </a>
                 ) : null}
 
                 <label className="grid gap-1 text-xs font-bold text-slate-700">
