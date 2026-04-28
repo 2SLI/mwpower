@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { collection, doc, getDocs, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { formatNewsDate } from '../data/newsContent'
 import { db } from '../firebase'
@@ -135,6 +135,7 @@ export function AdminView() {
   const [isSavingNews, setIsSavingNews] = useState(false)
   const [isLoadingNewsPreview, setIsLoadingNewsPreview] = useState(false)
   const [newsPreviewError, setNewsPreviewError] = useState('')
+  const lastAutoPreviewLinkRef = useRef('')
 
   const hasConfiguredPassword = ADMIN_PASSWORD.length > 0
 
@@ -302,31 +303,36 @@ export function AdminView() {
   }
 
   const handleNewsFormChange = (key, value) => {
-    if (key === 'articleUrl') setNewsPreviewError('')
+    if (key === 'articleUrl') {
+      setNewsPreviewError('')
+      lastAutoPreviewLinkRef.current = ''
+    }
     setNewsForm((prev) => ({ ...prev, [key]: value }))
   }
 
-  const applyNewsPreview = (preview) => {
+  const applyNewsPreview = (preview, { overwrite = false } = {}) => {
     if (!preview) return
 
     setNewsForm((prev) => ({
       ...prev,
       articleUrl: preview.articleUrl || prev.articleUrl,
-      image: normalizeText(prev.image) || preview.image || '',
-      title: normalizeText(prev.title) || preview.title || '',
-      summary: normalizeText(prev.summary) || preview.summary || '',
+      image: overwrite ? preview.image || normalizeText(prev.image) : normalizeText(prev.image) || preview.image || '',
+      title: overwrite ? preview.title || normalizeText(prev.title) : normalizeText(prev.title) || preview.title || '',
+      summary: overwrite ? preview.summary || normalizeText(prev.summary) : normalizeText(prev.summary) || preview.summary || '',
     }))
   }
 
-  const loadNewsPreviewFromLink = async () => {
+  const loadNewsPreviewFromLink = async ({ force = false, overwrite = false } = {}) => {
     if (!normalizedNewsFormLink || isLoadingNewsPreview) return null
+    if (!force && lastAutoPreviewLinkRef.current === normalizedNewsFormLink) return null
 
     setIsLoadingNewsPreview(true)
     setNewsPreviewError('')
 
     try {
       const preview = await fetchNewsLinkPreview(normalizedNewsFormLink)
-      applyNewsPreview(preview)
+      applyNewsPreview(preview, { overwrite })
+      lastAutoPreviewLinkRef.current = normalizedNewsFormLink
       if (!preview?.title && !preview?.image) setNewsPreviewError('미리보기 정보를 자동으로 가져오지 못했습니다. 링크만으로도 등록은 가능합니다.')
       return preview
     } catch {
@@ -336,6 +342,16 @@ export function AdminView() {
       setIsLoadingNewsPreview(false)
     }
   }
+
+  useEffect(() => {
+    if (!normalizedNewsFormLink || activeTab !== 'news') return undefined
+
+    const timer = window.setTimeout(() => {
+      loadNewsPreviewFromLink({ overwrite: true })
+    }, 650)
+
+    return () => window.clearTimeout(timer)
+  }, [normalizedNewsFormLink, activeTab])
 
   const handleNewsEdit = (article) => {
     setEditingNewsId(article.id)
@@ -348,6 +364,7 @@ export function AdminView() {
     setEditingNewsId(null)
     setNewsForm(NEWS_FORM_INITIAL)
     setNewsPreviewError('')
+    lastAutoPreviewLinkRef.current = ''
   }
 
   const handleNewsSubmit = async (event) => {
@@ -356,7 +373,7 @@ export function AdminView() {
 
     let hydratedForm = newsForm
     if (normalizedNewsFormLink && (!normalizeText(newsForm.title) || !normalizeText(newsForm.image) || !normalizeText(newsForm.summary))) {
-      const preview = await loadNewsPreviewFromLink()
+      const preview = await loadNewsPreviewFromLink({ force: true })
       if (preview) {
         hydratedForm = {
           ...newsForm,
@@ -882,7 +899,7 @@ export function AdminView() {
                   <input
                     value={newsForm.articleUrl}
                     onChange={(event) => handleNewsFormChange('articleUrl', event.target.value)}
-                    onBlur={loadNewsPreviewFromLink}
+                    onBlur={() => loadNewsPreviewFromLink({ force: true, overwrite: true })}
                     className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
                     placeholder="https://blog.naver.com/... 또는 https://*.tistory.com/..."
                   />
@@ -895,7 +912,7 @@ export function AdminView() {
                     {normalizedNewsFormLink ? (
                       <button
                         type="button"
-                        onClick={loadNewsPreviewFromLink}
+                        onClick={() => loadNewsPreviewFromLink({ force: true, overwrite: true })}
                         disabled={isLoadingNewsPreview}
                         className="rounded-md border border-slate-300 bg-white px-2 py-1 text-[11px] font-extrabold text-slate-700 hover:bg-slate-50 disabled:opacity-60"
                       >
