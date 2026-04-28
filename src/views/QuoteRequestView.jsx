@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
-import { formatQuoteItemPath, getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
+import { getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
 import { lockBodyScroll } from '../utils/bodyScrollLock'
 
 const initialForm = {
@@ -223,10 +223,10 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                 <div className="grid gap-3">
                   {normalizedItems.map((item) => (
                     <article key={item.id} className="grid gap-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                      <div className="grid gap-3 md:grid-cols-[116px_minmax(0,1fr)]">
-                        <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white">
+                      <div className="grid gap-4 md:grid-cols-[180px_minmax(0,1fr)] max-[640px]:grid-cols-[132px_minmax(0,1fr)]">
+                        <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white p-2">
                           {item.thumbnailUrl ? (
-                            <img src={item.thumbnailUrl} alt={item.displayModel} className="aspect-[4/3] h-full w-full object-cover" loading="lazy" />
+                            <img src={item.thumbnailUrl} alt={item.displayModel} className="aspect-[4/3] h-full w-full object-contain" loading="lazy" />
                           ) : (
                             <div className="grid aspect-[4/3] h-full w-full place-items-center text-[11px] font-black text-slate-400">NO IMAGE</div>
                           )}
@@ -235,8 +235,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                         <div className="grid gap-3">
                           <div className="flex flex-wrap items-start justify-between gap-3">
                             <div className="min-w-0">
-                              <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">{formatQuoteItemPath(item) || '제품 정보'}</p>
-                              <h3 className="m-0 mt-1 break-all text-[22px] font-black tracking-[-0.02em] text-slate-900">{item.displayModel}</h3>
+                              <h3 className="m-0 break-all text-[22px] font-black tracking-[-0.02em] text-slate-900">{item.displayModel}</h3>
                               {item.optionModel && item.optionModel !== item.baseModel ? (
                                 <p className="m-0 mt-1 text-xs font-semibold text-slate-500">기본 모델: {item.baseModel}</p>
                               ) : null}
@@ -251,17 +250,20 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                             </button>
                           </div>
 
-                          <div className="grid gap-3 md:grid-cols-[130px]">
-                            <QuoteField label="수량" required>
+                          <div className="flex items-center gap-2">
+                            <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                              <span>
+                                수량<em className="not-italic text-[#d33131]"> *</em>
+                              </span>
                               <input
                                 type="number"
                                 min="1"
                                 inputMode="numeric"
                                 value={item.quantity}
                                 onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)}
-                                className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-base font-bold text-slate-900 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
+                                className="h-11 w-24 rounded-xl border border-slate-300 bg-white px-3 text-base font-bold text-slate-900 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
                               />
-                            </QuoteField>
+                            </label>
                           </div>
                         </div>
                       </div>
