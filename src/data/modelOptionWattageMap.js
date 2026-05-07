@@ -9434,12 +9434,28 @@ export const modelOptionWattageMap = {
     },
     {
       "model": "LRS-50-12",
+      "watt": 50.4,
+      "dcVoltage": "12"
+    },
+    {
+      "model": "LRS-50-15",
       "watt": 51,
       "dcVoltage": "15"
     },
     {
-      "model": "LRS-50-15",
-      "watt": 52.8
+      "model": "LRS-50-24",
+      "watt": 52.8,
+      "dcVoltage": "24"
+    },
+    {
+      "model": "LRS-50-36",
+      "watt": 52.2,
+      "dcVoltage": "36"
+    },
+    {
+      "model": "LRS-50-48",
+      "watt": 52.8,
+      "dcVoltage": "48"
     }
   ],
   "lrs-75": [
