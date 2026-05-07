@@ -4,6 +4,7 @@ import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import { modelOptionWattageMap } from '../data/modelOptionWattageMap'
+import { inventoryOptionModelsByBaseKey, productInventoryByModelKey, productInventorySummary } from '../data/productInventory'
 import { lockBodyScroll } from '../utils/bodyScrollLock'
 import {
   findMatchingLabel,
@@ -54,6 +55,50 @@ function findModelOptionKey(modelName = '') {
   }
 
   return ''
+}
+
+function getInventoryRecord(modelName = '') {
+  const key = normalizeLabel(modelName)
+  if (!key) return null
+  return productInventoryByModelKey[key] ?? null
+}
+
+function getInventoryOptionModels(baseModelName = '') {
+  const baseKey = findModelOptionKey(baseModelName) || normalizeLabel(baseModelName)
+  if (!baseKey) return []
+  return Array.isArray(inventoryOptionModelsByBaseKey[baseKey]) ? inventoryOptionModelsByBaseKey[baseKey] : []
+}
+
+function getInventoryQuantity(modelName = '') {
+  const exact = getInventoryRecord(modelName)
+  if (exact && Number.isFinite(Number(exact.quantity))) return Number(exact.quantity)
+
+  const baseKey = findModelOptionKey(modelName) || normalizeLabel(modelName)
+  const optionModels = Array.isArray(inventoryOptionModelsByBaseKey[baseKey]) ? inventoryOptionModelsByBaseKey[baseKey] : []
+  if (optionModels.length === 0) return null
+
+  return optionModels.reduce((sum, optionModel) => {
+    const optionRecord = getInventoryRecord(optionModel)
+    const quantity = Number(optionRecord?.quantity)
+    return Number.isFinite(quantity) ? sum + quantity : sum
+  }, 0)
+}
+
+function formatInventoryText(modelName = '', { aggregate = true } = {}) {
+  const exact = getInventoryRecord(modelName)
+  if (exact && Number.isFinite(Number(exact.quantity))) return `재고 ${Number(exact.quantity).toLocaleString('ko-KR')}개`
+
+  if (!aggregate) return '재고 미등록'
+
+  const quantity = getInventoryQuantity(modelName)
+  if (Number.isFinite(quantity)) return `옵션 재고 ${quantity.toLocaleString('ko-KR')}개`
+  return '재고 미등록'
+}
+
+function getInventoryTone(modelName = '') {
+  const quantity = getInventoryQuantity(modelName)
+  if (!Number.isFinite(quantity)) return 'unknown'
+  return quantity > 0 ? 'in-stock' : 'out-of-stock'
 }
 
 function getSingleSearchToken(value = '') {
@@ -838,6 +883,23 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       })
     })
 
+    Object.entries(inventoryOptionModelsByBaseKey).forEach(([baseModelKey, optionModels]) => {
+      const normalizedBaseKey = normalizeLabel(baseModelKey)
+      const baseRoute = baseRouteByKey[normalizedBaseKey]
+      if (!baseRoute || !Array.isArray(optionModels)) return
+
+      optionModels.forEach((optionModelName) => {
+        const optionModel = String(optionModelName ?? '').trim()
+        const optionKey = normalizeLabel(optionModel)
+        if (!optionKey || routesByModelKey[optionKey]) return
+
+        routesByModelKey[optionKey] = {
+          ...baseRoute,
+          optionModel,
+        }
+      })
+    })
+
     return routesByModelKey
   }, [leafTreeMap, majorIdByName])
 
@@ -958,11 +1020,16 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     return options.filter((item) => String(item?.model ?? '').trim())
   }, [selectedModelCard?.modelName])
   const selectedCombinedOptionModels = useMemo(
-    () =>
-      buildCombinedOptionModelLabels({
+    () => {
+      const labels = buildCombinedOptionModelLabels({
         options: selectedModelOptions,
         selectedModel: selectedModelCard?.modelName,
-      }),
+      })
+      const inventoryLabels = getInventoryOptionModels(selectedModelCard?.modelName)
+      return collectUniqueOptionValues([...labels, ...inventoryLabels]).sort((a, b) =>
+        a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+      )
+    },
     [selectedModelOptions, selectedModelCard?.modelName]
   )
   const selectedPdfUrl = useMemo(() => decodeAssetUrl(selectedModelCard?.asset?.pdfUrl), [selectedModelCard?.asset?.pdfUrl])
@@ -1081,7 +1148,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const pageDescription = hasSearch
     ? '카테고리, 시리즈, 그룹, 모델 검색 결과입니다.'
     : activeLeaf
-      ? ''
+      ? `재고 기준: ${productInventorySummary.updatedLabel || productInventorySummary.sourceFile}`
       : `${activeMajor?.name ?? 'Products'} 카테고리의 소분류와 시리즈 탐색 화면입니다.`
 
   const majorTitle = hasSearch ? 'Search Results' : activeLeaf || ''
@@ -1153,6 +1220,17 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const canAddSelectedModel = isModelSelected && selectedModelCard
     const requiresOptionSelection = canAddSelectedModel && selectedCombinedOptionModels.length > 0
     const isAddToQuoteDisabled = requiresOptionSelection && !selectedOptionModel
+    const inventoryTargetModel = selectedOptionModel || selectedModelCard?.modelName || ''
+    const inventoryText = inventoryTargetModel
+      ? formatInventoryText(inventoryTargetModel, { aggregate: !selectedOptionModel })
+      : '재고 미등록'
+    const inventoryTone = inventoryTargetModel ? getInventoryTone(inventoryTargetModel) : 'unknown'
+    const inventoryToneClass =
+      inventoryTone === 'in-stock'
+        ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+        : inventoryTone === 'out-of-stock'
+          ? 'border-slate-200 bg-slate-100 text-slate-500'
+          : 'border-amber-200 bg-amber-50 text-amber-700'
 
     return (
       <aside className="self-start rounded-[22px] border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)] p-4 shadow-[0_16px_34px_rgba(15,23,42,0.08)]">
@@ -1232,6 +1310,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 <p className="m-0 mt-1 break-all text-[16px] font-black leading-6 text-slate-900">
                   {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
                 </p>
+                <span className={`mt-2 inline-flex rounded-full border px-2.5 py-1 text-[11px] font-black ${inventoryToneClass}`}>
+                  {inventoryText}
+                </span>
                 <p className={`m-0 mt-1 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
                   {isAddToQuoteDisabled ? '옵션 모델을 선택해야 주문목록에 담을 수 있습니다.' : `${selectedQuoteQuantity}개 기준으로 주문목록에 추가됩니다.`}
                 </p>
@@ -1400,6 +1481,19 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       <div className="flex flex-wrap gap-2">
         {items.map((item) => {
           const isCurrentModel = normalizeLabel(item.modelName) === normalizeLabel(activeModel)
+          const inventoryTone = getInventoryTone(item.modelName)
+          const inventoryClass =
+            inventoryTone === 'in-stock'
+              ? isCurrentModel
+                ? 'text-white'
+                : 'text-emerald-700'
+              : inventoryTone === 'out-of-stock'
+                ? isCurrentModel
+                  ? 'text-white/75'
+                  : 'text-slate-400'
+                : isCurrentModel
+                  ? 'text-white/75'
+                  : 'text-amber-700'
 
           return (
             <button
@@ -1413,6 +1507,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               onClick={() => onSelectModel?.(item)}
             >
               <span className="truncate">{item.modelName}</span>
+              <span className={`shrink-0 text-[10px] font-black ${inventoryClass}`}>
+                {formatInventoryText(item.modelName)}
+              </span>
               {isCurrentModel ? <span className="shrink-0 text-[10px] font-black opacity-90">선택</span> : null}
               {!hasPdfAsset(item.asset) ? <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/80' : 'text-slate-400'}`}>PDF 준비중</span> : null}
             </button>
@@ -1827,6 +1924,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                         <p className="m-0">
                           <strong>Wattage:</strong> {leafView.wattage || '정보 없음'}
                         </p>
+                        <p className="m-0">
+                          <strong>Stock:</strong> {formatInventoryText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
+                        </p>
                       </div>
 
                       <div>
@@ -1922,6 +2022,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     <div className="grid gap-1.5 text-[15px] text-slate-700">
                       <p className="m-0">
                         <strong>Wattage:</strong> {leafView.wattage || '정보 없음'}
+                      </p>
+                      <p className="m-0">
+                        <strong>Stock:</strong> 모델을 선택하면 옵션별 재고를 확인할 수 있습니다.
                       </p>
                     </div>
 

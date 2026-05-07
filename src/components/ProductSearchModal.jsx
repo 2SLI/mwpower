@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
+import { inventoryOptionModelsByBaseKey } from '../data/productInventory'
 import { modelOptionWattageMap } from '../data/modelOptionWattageMap'
 import { findSearchResults, loadLeafModelTreeMap, loadMajorCategories, normalizeLabel } from '../features/productCatalogService'
 import { lockBodyScroll } from '../utils/bodyScrollLock'
@@ -120,6 +121,23 @@ export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
 
       options.forEach((item) => {
         const optionModel = String(item?.model ?? '').trim()
+        const optionKey = normalizeLabel(optionModel)
+        if (!optionKey || routesByModelKey[optionKey]) return
+
+        routesByModelKey[optionKey] = {
+          ...baseRoute,
+          optionModel,
+        }
+      })
+    })
+
+    Object.entries(inventoryOptionModelsByBaseKey).forEach(([baseModelKey, optionModels]) => {
+      const normalizedBaseKey = normalizeLabel(baseModelKey)
+      const baseRoute = baseRouteByKey[normalizedBaseKey]
+      if (!baseRoute || !Array.isArray(optionModels)) return
+
+      optionModels.forEach((optionModelName) => {
+        const optionModel = String(optionModelName ?? '').trim()
         const optionKey = normalizeLabel(optionModel)
         if (!optionKey || routesByModelKey[optionKey]) return
 
