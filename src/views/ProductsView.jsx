@@ -994,7 +994,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         groupName: route.groupName,
         model: route.model,
         optionModel: route.optionModel,
-        displayModel: route.optionModel || route.model,
+        displayModel: String(route.optionModel || route.model || '').toUpperCase(),
       }))
       .sort((a, b) => {
         const aExact = a.modelKey === tokenKey ? 0 : 1
@@ -1847,7 +1847,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   <button
                     key={`${shortcut.modelKey}-${shortcut.displayModel}`}
                     type="button"
-                    className="rounded-full border border-[#d9a0a8] bg-white px-3 py-1.5 text-[12px] font-bold text-[#b52c37] transition hover:border-[#c9252f] hover:bg-[#fff3f4] hover:text-[#c9252f]"
+                    className="rounded-full border border-[#d9a0a8] bg-white px-3 py-1.5 text-[12px] font-bold uppercase text-[#b52c37] transition hover:border-[#c9252f] hover:bg-[#fff3f4] hover:text-[#c9252f]"
                     onClick={() => handleShortcutModelClick(shortcut)}
                   >
                     {shortcut.displayModel}

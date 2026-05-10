@@ -1,5 +1,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import { inventoryOptionModelsByBaseKey, productInventoryByModelKey } from '../data/productInventory'
 import { NEWS_FALLBACK_IMAGE, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
+import { normalizeLabel } from '../features/productCatalogService'
 import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsService'
 
 const solutionCards = [
@@ -67,10 +69,20 @@ function handleNewsImageError(event) {
   image.src = NEWS_FALLBACK_IMAGE
 }
 
+function getSingleSearchToken(value = '') {
+  const tokens = String(value ?? '')
+    .split(/[,\uFF0C]/)
+    .map((token) => String(token ?? '').trim())
+    .filter(Boolean)
+
+  return tokens.length === 1 ? tokens[0] : ''
+}
+
 export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPreset, onOpenProductSearch, onOpenNewsArticle }) {
   const totalSlides = bannerImages.length
   const [currentSlide, setCurrentSlide] = useState(0)
   const [mobileSolutionIndex, setMobileSolutionIndex] = useState(0)
+  const [mobileSearchKeyword, setMobileSearchKeyword] = useState('')
   const [newsItems, setNewsItems] = useState(() => normalizeNewsItems(getAllNewsSorted()))
   const [newsPreviewError, setNewsPreviewError] = useState('')
   const mobileSolutionTrackRef = useRef(null)
@@ -120,6 +132,51 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
 
   const featuredNews = newsItems[0] ?? null
   const latestNews = newsItems.slice(1, 5)
+  const mobileSearchShortcutList = useMemo(() => {
+    const tokenKey = normalizeLabel(getSingleSearchToken(mobileSearchKeyword))
+    if (!tokenKey) return []
+
+    const shortcutMap = new Map()
+
+    Object.values(productInventoryByModelKey).forEach((record) => {
+      const displayModel = String(record?.model ?? '').trim().toUpperCase()
+      const modelKey = normalizeLabel(displayModel)
+      if (!displayModel || !modelKey) return
+      shortcutMap.set(modelKey, displayModel)
+    })
+
+    Object.entries(inventoryOptionModelsByBaseKey).forEach(([baseModelKey, optionModels]) => {
+      const baseKey = normalizeLabel(baseModelKey)
+      if (baseKey && !shortcutMap.has(baseKey)) shortcutMap.set(baseKey, String(baseModelKey ?? '').trim())
+
+      if (!Array.isArray(optionModels)) return
+      optionModels.forEach((optionModel) => {
+        const displayModel = String(optionModel ?? '').trim().toUpperCase()
+        const modelKey = normalizeLabel(displayModel)
+        if (!displayModel || !modelKey || shortcutMap.has(modelKey)) return
+        shortcutMap.set(modelKey, displayModel)
+      })
+    })
+
+    return Array.from(shortcutMap.entries())
+      .filter(([modelKey]) => modelKey.includes(tokenKey) || tokenKey.startsWith(`${modelKey}-`))
+      .map(([modelKey, displayModel]) => ({ modelKey, displayModel }))
+      .sort((a, b) => {
+        const aExact = a.modelKey === tokenKey ? 0 : 1
+        const bExact = b.modelKey === tokenKey ? 0 : 1
+        if (aExact !== bExact) return aExact - bExact
+
+        const aStarts = a.modelKey.startsWith(tokenKey) ? 0 : 1
+        const bStarts = b.modelKey.startsWith(tokenKey) ? 0 : 1
+        if (aStarts !== bStarts) return aStarts - bStarts
+
+        const lengthDiff = a.modelKey.length - b.modelKey.length
+        if (lengthDiff !== 0) return lengthDiff
+
+        return a.displayModel.localeCompare(b.displayModel, undefined, { numeric: true, sensitivity: 'base' })
+      })
+      .slice(0, 8)
+  }, [mobileSearchKeyword])
   const mobileSolutionCards = useMemo(
     () =>
       solutionCards.map((item, index) => {
@@ -148,6 +205,13 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
       return
     }
     onNavigate('products')
+  }
+
+  function handleMobileSearchSubmit(event) {
+    event.preventDefault()
+    const keyword = String(mobileSearchKeyword ?? '').trim()
+    if (!keyword) return
+    onOpenProductSearch?.(keyword)
   }
 
   function scrollMobileSolutionsTo(nextIndex) {
@@ -283,6 +347,47 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
       </section>
 
       <section className="relative hidden bg-slate-950 max-[640px]:block" aria-label="모바일 솔루션 메뉴">
+        <form
+          className="bg-[#fff7f8] px-3 pb-4 pt-3"
+          role="search"
+          aria-label="상품 검색"
+          onSubmit={handleMobileSearchSubmit}
+        >
+          <label className="flex h-11 items-center gap-2.5 rounded-full bg-white px-4 text-slate-500 shadow-[0_10px_24px_rgba(15,23,42,0.1)] ring-1 ring-slate-100">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-slate-500" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+            </svg>
+            <input
+              type="search"
+              value={mobileSearchKeyword}
+              onChange={(event) => setMobileSearchKeyword(event.target.value)}
+              aria-label="상품명/시리즈/그룹 검색"
+              className="min-w-0 flex-1 border-0 bg-transparent text-[15px] font-bold text-slate-800 outline-none placeholder:text-transparent"
+            />
+            <button type="submit" className="sr-only">
+              검색
+            </button>
+          </label>
+          {mobileSearchShortcutList.length > 0 ? (
+            <div className="mt-2.5">
+              <p className="m-0 text-[13px] font-black text-[#b4262e]">바로가기</p>
+              <div className="mt-1.5 flex flex-wrap justify-center gap-1.5 pb-0.5">
+                {mobileSearchShortcutList.map((shortcut) => (
+                  <button
+                    key={shortcut.modelKey}
+                    type="button"
+                    className="shrink-0 rounded-full border border-[#d79aa2] bg-white px-2.5 py-1 text-[11px] font-black uppercase leading-4 text-[#b4262e] shadow-[0_4px_10px_rgba(15,23,42,0.04)]"
+                    onClick={() => onOpenProductSearch?.(shortcut.displayModel)}
+                  >
+                    {shortcut.displayModel}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </form>
+
         <div
           ref={mobileSolutionTrackRef}
           className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
@@ -292,7 +397,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
             <a
               href="#"
               key={`mobile-solution-${item.alt}-${item.mobileTitle}`}
-              className="relative block h-[calc(100dvh-84px)] min-h-[500px] w-full shrink-0 snap-start overflow-hidden"
+              className="relative block h-[calc(100dvh-218px)] min-h-[368px] w-full shrink-0 snap-start overflow-hidden"
               onClick={(event) => {
                 event.preventDefault()
                 navigateSolutionCard(item)
@@ -346,13 +451,19 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
           <div className="grid gap-4 xl:grid-cols-[1.14fr_1fr]">
             {featuredNews ? (
               <article className="overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-[0_22px_45px_-28px_rgba(15,23,42,.22)]">
-                <div className="aspect-[16/9] overflow-hidden bg-slate-100">
+                <a
+                  href={featuredNews.articleUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block aspect-[16/9] overflow-hidden bg-slate-100"
+                  aria-label={`${featuredNews.title} 원문 보기`}
+                >
                   {featuredNews.image ? (
                     <img src={featuredNews.image} alt={featuredNews.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                   ) : (
                     <div className="grid h-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
                   )}
-                </div>
+                </a>
 
                 <div className="p-6">
                   <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">FEATURED NEWS</p>
@@ -376,14 +487,6 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                     >
                       뉴스에서 보기
                     </a>
-                    <a
-                      href={featuredNews.articleUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-10 items-center rounded-full bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-xs font-bold text-white"
-                    >
-                      원문 보기
-                    </a>
                   </div>
                 </div>
               </article>
@@ -398,28 +501,44 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
 
             <div className="grid gap-3 sm:grid-cols-2">
               {latestNews.map((item) => (
-                <button
+                <article
                   key={item.id}
-                  type="button"
-                  className="overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md"
-                  onClick={() => openNews(item.id)}
+                  className="group overflow-hidden rounded-[22px] border border-slate-200/80 bg-white text-left shadow-[0_16px_42px_-34px_rgba(15,23,42,0.45)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_22px_48px_-32px_rgba(15,23,42,0.55)]"
                 >
-                  <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
+                  <a
+                    href={item.articleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative block aspect-[16/9] overflow-hidden bg-slate-100"
+                    aria-label={`${item.title} 원문 보기`}
+                  >
                     {item.image ? (
-                      <img src={item.image} alt={item.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
+                      <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" onError={handleNewsImageError} />
                     ) : (
                       <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
                     )}
-                  </div>
-                  <div className="px-4 py-3.5">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <time className="text-xs font-bold text-[#d7322a]">{formatNewsDate(item.date)}</time>
-                      <span className="text-[11px] font-bold text-slate-400">{item.sourceLabel || '외부 뉴스'}</span>
+                  </a>
+                  <button type="button" className="block w-full min-h-[178px] px-5 py-4 text-left" onClick={() => openNews(item.id)}>
+                    <div className="flex items-center justify-between gap-3">
+                      <time className="shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</time>
+                      <span className="min-w-0 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-500">
+                        {item.sourceLabel || '외부 뉴스'}
+                      </span>
                     </div>
-                    <strong className="mt-1 block text-base font-extrabold leading-snug text-slate-800">{item.title}</strong>
-                    <p className="mt-2 text-[13px] leading-relaxed text-slate-500">{item.summary || '등록된 요약이 없습니다.'}</p>
-                  </div>
-                </button>
+                    <strong
+                      className="mt-3 block text-[1.08rem] font-black leading-[1.35] text-slate-900"
+                      style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                    >
+                      {item.title}
+                    </strong>
+                    <p
+                      className="mt-3 text-[14px] font-medium leading-6 text-slate-500"
+                      style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                    >
+                      {item.summary || '등록된 요약이 없습니다.'}
+                    </p>
+                  </button>
+                </article>
               ))}
 
               {latestNews.length === 0 && featuredNews ? (

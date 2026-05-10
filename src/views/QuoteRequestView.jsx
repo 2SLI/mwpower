@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { inventoryOptionModelsByBaseKey, productInventoryByModelKey } from '../data/productInventory'
 import { db } from '../firebase'
 import { getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
+import { normalizeLabel } from '../features/productCatalogService'
 import { lockBodyScroll } from '../utils/bodyScrollLock'
 
 const initialForm = {
@@ -25,6 +27,33 @@ function normalizeForm(form = {}) {
     phone: normalizeText(form.phone),
     message: normalizeText(form.message),
   }
+}
+
+function getInventoryRecord(modelName = '') {
+  const key = normalizeLabel(modelName)
+  if (!key) return null
+  return productInventoryByModelKey[key] ?? null
+}
+
+function getInventoryQuantity(modelName = '') {
+  const exact = getInventoryRecord(modelName)
+  if (exact && Number.isFinite(Number(exact.quantity))) return Number(exact.quantity)
+
+  const baseKey = normalizeLabel(modelName)
+  const optionModels = Array.isArray(inventoryOptionModelsByBaseKey[baseKey]) ? inventoryOptionModelsByBaseKey[baseKey] : []
+  if (optionModels.length === 0) return null
+
+  return optionModels.reduce((sum, optionModel) => {
+    const optionRecord = getInventoryRecord(optionModel)
+    const quantity = Number(optionRecord?.quantity)
+    return Number.isFinite(quantity) ? sum + quantity : sum
+  }, 0)
+}
+
+function isOutOfStockQuoteItem(item = {}) {
+  const modelName = normalizeText(item.optionModel || item.displayModel || item.baseModel)
+  const quantity = getInventoryQuantity(modelName)
+  return Number.isFinite(quantity) && quantity <= 0
 }
 
 function QuoteField({ label, required = false, children }) {
@@ -231,6 +260,11 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                                 <p className="m-0 mt-1 text-xs font-semibold text-slate-500">기본 모델: {item.baseModel}</p>
                               ) : null}
                               {item.wattage ? <p className="m-0 mt-2 text-sm font-semibold text-slate-600">Wattage: {item.wattage}</p> : null}
+                              {isOutOfStockQuoteItem(item) ? (
+                                <span className="mt-2 inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-[12px] font-black text-slate-500">
+                                  현재 재고 없음
+                                </span>
+                              ) : null}
                             </div>
                             <button
                               type="button"

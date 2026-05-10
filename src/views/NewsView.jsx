@@ -8,12 +8,6 @@ function getArticleById(items, articleId) {
   return items.find((item) => item.id === id) ?? null
 }
 
-function openExternalArticle(url = '') {
-  const link = String(url ?? '').trim()
-  if (!link || typeof window === 'undefined') return
-  window.open(link, '_blank', 'noopener,noreferrer')
-}
-
 function handleNewsImageError(event) {
   const image = event.currentTarget
   if (!image || image.dataset.fallbackApplied === 'true') return
@@ -137,7 +131,13 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
 
         {activeArticle ? (
           <article className="mt-6 overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_20px_50px_-32px_rgba(15,23,42,0.34)] lg:grid lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="relative min-h-[280px] overflow-hidden bg-slate-100">
+            <a
+              href={activeArticle.articleUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative block min-h-[280px] overflow-hidden bg-slate-100"
+              aria-label={`${activeArticle.title} 원문 보기`}
+            >
               {activeArticle.image ? (
                 <img
                   src={activeArticle.image}
@@ -149,7 +149,7 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                 <div className="grid h-full min-h-[280px] place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
               )}
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.05)_0%,rgba(15,23,42,0.7)_100%)]"></div>
-            </div>
+            </a>
 
             <div className="grid gap-4 p-6 md:p-7">
               <div>
@@ -167,16 +167,6 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                 <p className="m-0">
                   <strong className="text-slate-900">출처:</strong> {activeArticle.sourceLabel || '외부 뉴스'}
                 </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  className="inline-flex h-11 items-center rounded-full bg-[#e5332a] px-5 text-sm font-extrabold text-white transition hover:bg-[#ca2c24]"
-                  onClick={() => openExternalArticle(activeArticle.articleUrl)}
-                >
-                  원문 보기
-                </button>
               </div>
             </div>
           </article>
@@ -198,45 +188,44 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
               return (
                 <article
                   key={item.id}
-                  className={`overflow-hidden rounded-[24px] border bg-white shadow-sm transition ${
+                  className={`group overflow-hidden rounded-[24px] border bg-white transition ${
                     isActiveCard
-                      ? 'border-[#d43a31] shadow-[0_18px_42px_-28px_rgba(212,58,49,0.55)]'
-                      : 'border-slate-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md'
+                      ? 'border-[#d43a31] shadow-[0_20px_48px_-30px_rgba(212,58,49,0.55)]'
+                      : 'border-slate-200/80 shadow-[0_16px_42px_-34px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_22px_48px_-32px_rgba(15,23,42,0.55)]'
                   }`}
                 >
-                  <button type="button" className="block w-full text-left" onClick={() => setActiveArticleId(item.id)}>
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                      {item.image ? (
-                        <img src={item.image} alt={item.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
-                      ) : (
-                        <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
-                      )}
-                    </div>
+                  <a
+                    href={item.articleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative block aspect-[16/10] overflow-hidden bg-slate-100"
+                    aria-label={`${item.title} 원문 보기`}
+                  >
+                    {item.image ? (
+                      <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" onError={handleNewsImageError} />
+                    ) : (
+                      <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
+                    )}
+                  </a>
 
-                    <div className="p-4">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</p>
-                        <span className="text-[11px] font-bold text-slate-400">{item.sourceLabel || '외부 뉴스'}</span>
-                      </div>
-                      <h4 className="m-0 mt-2 text-[1.02rem] font-black leading-snug text-slate-900">{item.title}</h4>
-                      <p
-                        className="m-0 mt-2 text-[13px] leading-6 text-slate-500"
-                        style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
-                      >
-                        {item.summary || '요약이 등록되지 않은 뉴스입니다.'}
-                      </p>
+                  <button type="button" className="block w-full min-h-[190px] p-5 text-left" onClick={() => setActiveArticleId(item.id)}>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="m-0 shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</p>
+                      <span className="min-w-0 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-500">{item.sourceLabel || '외부 뉴스'}</span>
                     </div>
-                  </button>
-
-                  <div className="px-4 pb-4">
-                    <button
-                      type="button"
-                      className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-extrabold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
-                      onClick={() => openExternalArticle(item.articleUrl)}
+                    <h4
+                      className="m-0 mt-3 text-[1.12rem] font-black leading-[1.35] text-slate-900"
+                      style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
                     >
-                      원문 보기
-                    </button>
-                  </div>
+                      {item.title}
+                    </h4>
+                    <p
+                      className="m-0 mt-3 text-[14px] font-medium leading-6 text-slate-500"
+                      style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                    >
+                      {item.summary || '요약이 등록되지 않은 뉴스입니다.'}
+                    </p>
+                  </button>
                 </article>
               )
             })}

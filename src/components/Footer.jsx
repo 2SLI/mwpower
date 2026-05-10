@@ -1,16 +1,11 @@
 export function Footer() {
-  const logoSrc = '/logo/mwpower_logo.png'
-
   return (
     <footer className="border-t border-slate-300 bg-slate-100 px-4 py-6 max-[980px]:px-4 max-[980px]:py-5">
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 max-[980px]:flex-col max-[980px]:items-start">
         <div className="flex min-w-0 items-center gap-3.5 max-[640px]:flex-wrap max-[640px]:gap-2">
-          <img
-            src={logoSrc}
-            alt="민웰파워 로고"
-            className="h-[72px] w-[72px] object-contain max-[640px]:h-[56px] max-[640px]:w-[56px]"
-          />
-        
+          <p className="m-0 text-[clamp(28px,1.8vw,40px)] font-black uppercase tracking-[0.08em] text-slate-900">
+            meanwell power
+          </p>
         </div>
       </div>
 
