@@ -4,7 +4,7 @@ import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsS
 
 const solutionCards = [
   { title: 'DC/DC Converter 전원 솔루션', image: '/meanwell/index_1.jpg', alt: 'DC/DC', productPreset: { majorId: 'dc-dc' } },
-  { title: 'LED 전원 솔루션', image: '/meanwell/index-solutions-pic1.jpg', alt: 'LED', productSearch: 'LED' },
+  { title: '친환경 전원 솔루션', image: '/meanwell/index-solutions-pic1.jpg', alt: 'Green Power', productSearch: 'LED' },
   { title: '의료 전원 솔루션', image: '/meanwell/index-solutions-pic6.jpg', alt: 'MEDICAL', productSearch: 'MEDICAL' },
   {
     title: 'LED Display 솔루션',
@@ -28,7 +28,7 @@ const solutionCards = [
 
 const productCards = [
   { name: 'DC/DC Converter Power Solutions', type: 'DDR Series', desc: '고효율 DC/DC 전원 구성으로 제어반과 산업 장비의 안정적인 전압 변환을 지원합니다.' },
-  { name: 'LED Power Solution', type: 'ELG Series', desc: 'LED 조명 환경에 최적화된 정전류/정전압 전원으로 장기 운용 안정성을 확보합니다.' },
+  { name: 'Green Power Solution', type: 'ELG Series', desc: '친환경 전원 환경에 최적화된 정전류/정전압 전원으로 장기 운용 안정성을 확보합니다.' },
   { name: 'Medical Power Solution', type: 'RSP Series', desc: '의료 및 정밀 장비 적용을 위한 고신뢰 전원 라인업으로 시스템 가동 리스크를 줄입니다.' },
   { name: 'LED Display Solution', type: 'LRS Series', desc: '디스플레이 구동 환경에 맞춘 표준형 전원 구성을 통해 설치와 유지보수를 단순화합니다.' },
 ]
