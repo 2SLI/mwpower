@@ -8,11 +8,8 @@ import { lockBodyScroll } from '../utils/bodyScrollLock'
 const initialForm = {
   companyName: '',
   contactName: '',
-  department: '',
   email: '',
   phone: '',
-  businessNumber: '',
-  shippingRegion: '',
   message: '',
 }
 
@@ -24,11 +21,8 @@ function normalizeForm(form = {}) {
   return {
     companyName: normalizeText(form.companyName),
     contactName: normalizeText(form.contactName),
-    department: normalizeText(form.department),
     email: normalizeText(form.email),
     phone: normalizeText(form.phone),
-    businessNumber: normalizeText(form.businessNumber),
-    shippingRegion: normalizeText(form.shippingRegion),
     message: normalizeText(form.message),
   }
 }
@@ -295,24 +289,6 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                   />
                 </QuoteField>
 
-                <QuoteField label="부서 / 직함">
-                  <input
-                    name="department"
-                    value={form.department}
-                    onChange={handleChange}
-                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                  />
-                </QuoteField>
-
-                <QuoteField label="사업자등록번호">
-                  <input
-                    name="businessNumber"
-                    value={form.businessNumber}
-                    onChange={handleChange}
-                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                  />
-                </QuoteField>
-
                 <QuoteField label="이메일" required>
                   <input
                     name="email"
@@ -334,15 +310,6 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                 </QuoteField>
 
               </div>
-
-              <QuoteField label="납품 지역 / 현장">
-                <input
-                  name="shippingRegion"
-                  value={form.shippingRegion}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
-                />
-              </QuoteField>
 
               <QuoteField label="요청 메모">
                 <textarea

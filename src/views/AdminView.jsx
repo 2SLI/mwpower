@@ -80,11 +80,8 @@ function mapQuoteRequestDocument(docSnap) {
     id: docSnap.id,
     companyName: normalizeText(data.companyName),
     contactName: normalizeText(data.contactName),
-    department: normalizeText(data.department),
     email: normalizeText(data.email),
     phone: normalizeText(data.phone),
-    businessNumber: normalizeText(data.businessNumber),
-    shippingRegion: normalizeText(data.shippingRegion),
     message: normalizeText(data.message),
     source: normalizeText(data.source),
     requestType: normalizeText(data.requestType),
@@ -726,19 +723,10 @@ export function AdminView() {
                         <strong>담당자:</strong> {activeQuoteRequest.contactName || '-'}
                       </p>
                       <p className="m-0">
-                        <strong>부서 / 직함:</strong> {activeQuoteRequest.department || '-'}
-                      </p>
-                      <p className="m-0">
                         <strong>이메일:</strong> {activeQuoteRequest.email || '-'}
                       </p>
                       <p className="m-0">
                         <strong>연락처:</strong> {activeQuoteRequest.phone || '-'}
-                      </p>
-                      <p className="m-0">
-                        <strong>사업자등록번호:</strong> {activeQuoteRequest.businessNumber || '-'}
-                      </p>
-                      <p className="m-0">
-                        <strong>납품 지역 / 현장:</strong> {activeQuoteRequest.shippingRegion || '-'}
                       </p>
                       <p className="m-0">
                         <strong>접수일:</strong> {formatDateTime(activeQuoteRequest.createdAt, activeQuoteRequest.createdAtClient || '-')}
