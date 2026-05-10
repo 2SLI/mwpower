@@ -272,8 +272,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
 
             <form className="grid gap-3 rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_16px_34px_rgba(15,23,42,0.06)] max-[640px]:rounded-3xl max-[640px]:p-3.5" onSubmit={handleSubmit} noValidate>
               <div>
-                <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">Company Information</p>
-                <h2 className="m-0 mt-1 text-[24px] font-black tracking-[-0.02em] text-slate-900">견적 요청 정보</h2>
+                <h2 className="m-0 text-[24px] font-black tracking-[-0.02em] text-slate-900">견적 요청 정보</h2>
                 <p className="m-0 mt-2 text-sm leading-6 text-slate-500">제품문의/기술문의와 분리된 B2B 견적 검토 전용 정보입니다.</p>
               </div>
 
