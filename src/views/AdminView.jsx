@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { collection, doc, getDocs, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore'
-import { formatNewsDate } from '../data/newsContent'
+import { NEWS_FALLBACK_IMAGE, formatNewsDate } from '../data/newsContent'
 import { db } from '../firebase'
 import { createNewsArticle, loadNewsArticlesForAdmin, removeNewsArticle, updateNewsArticle } from '../features/newsService'
 import { getNewsSourceLabel, normalizeNewsLink } from '../features/newsLink'
@@ -21,6 +21,13 @@ const NEWS_FORM_INITIAL = {
 
 function normalizeText(value = '') {
   return String(value ?? '').trim()
+}
+
+function handleNewsImageError(event) {
+  const image = event.currentTarget
+  if (!image || image.dataset.fallbackApplied === 'true') return
+  image.dataset.fallbackApplied = 'true'
+  image.src = NEWS_FALLBACK_IMAGE
 }
 
 function resolveInquiryType(item) {
@@ -817,7 +824,7 @@ export function AdminView() {
                         <div className="flex gap-3">
                           <div className="h-[84px] w-[148px] shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
                             {item.thumbnail || item.image ? (
-                              <img src={item.thumbnail || item.image} alt={item.title} className="h-full w-full object-cover" />
+                              <img src={item.thumbnail || item.image} alt={item.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                             ) : (
                               <div className="grid h-full w-full place-items-center text-xs font-black text-slate-400">NO PREVIEW</div>
                             )}
@@ -920,7 +927,7 @@ export function AdminView() {
                   >
                     <div className="aspect-[16/9] bg-slate-100">
                       {newsFormPreview.image ? (
-                        <img src={newsFormPreview.image} alt={newsFormPreview.title} className="h-full w-full object-cover" />
+                        <img src={newsFormPreview.image} alt={newsFormPreview.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                       ) : (
                         <div className="grid h-full w-full place-items-center text-xs font-black text-slate-400">
                           {isLoadingNewsPreview ? 'LOADING PREVIEW' : 'NO PREVIEW IMAGE'}

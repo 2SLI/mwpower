@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { formatNewsDate, getAllNewsSorted } from '../data/newsContent'
+import { NEWS_FALLBACK_IMAGE, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
 import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsService'
 
 function getArticleById(items, articleId) {
@@ -12,6 +12,13 @@ function openExternalArticle(url = '') {
   const link = String(url ?? '').trim()
   if (!link || typeof window === 'undefined') return
   window.open(link, '_blank', 'noopener,noreferrer')
+}
+
+function handleNewsImageError(event) {
+  const image = event.currentTarget
+  if (!image || image.dataset.fallbackApplied === 'true') return
+  image.dataset.fallbackApplied = 'true'
+  image.src = NEWS_FALLBACK_IMAGE
 }
 
 export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
@@ -132,7 +139,12 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
           <article className="mt-6 overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_20px_50px_-32px_rgba(15,23,42,0.34)] lg:grid lg:grid-cols-[1.05fr_0.95fr]">
             <div className="relative min-h-[280px] overflow-hidden bg-slate-100">
               {activeArticle.image ? (
-                <img src={activeArticle.image} alt={activeArticle.title} className="absolute inset-0 h-full w-full object-cover" />
+                <img
+                  src={activeArticle.image}
+                  alt={activeArticle.title}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  onError={handleNewsImageError}
+                />
               ) : (
                 <div className="grid h-full min-h-[280px] place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
               )}
@@ -195,7 +207,7 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                   <button type="button" className="block w-full text-left" onClick={() => setActiveArticleId(item.id)}>
                     <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                       {item.image ? (
-                        <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+                        <img src={item.image} alt={item.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                       ) : (
                         <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
                       )}

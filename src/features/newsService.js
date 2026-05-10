@@ -1,6 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase'
-import { getAllNewsSorted } from '../data/newsContent'
+import { NEWS_FALLBACK_IMAGE, getAllNewsSorted } from '../data/newsContent'
 import { getNewsSourceLabel, isSupportedNewsLink, normalizeNewsLink } from './newsLink'
 
 const NEWS_COLLECTION = 'newsArticles'
@@ -40,6 +40,9 @@ function toTimestamp(dateText) {
 
 function sortNewsArticles(items) {
   return [...items].sort((a, b) => {
+    const officialDiff = Number(b.source === 'meanwell-official') - Number(a.source === 'meanwell-official')
+    if (officialDiff !== 0) return officialDiff
+
     const diff = toTimestamp(b.date) - toTimestamp(a.date)
     if (diff !== 0) return diff
     return String(b.id ?? '').localeCompare(String(a.id ?? ''))
@@ -54,7 +57,7 @@ function normalizeNewsArticle(item = {}, idFromDoc = '') {
   const date = normalizeDate(item.date || item.createdAtClient?.slice?.(0, 10)) || getTodayDateInSeoul()
   const title = normalizeText(item.title) || DEFAULT_NEWS_TITLE
   const summary = normalizeText(item.summary) || DEFAULT_NEWS_SUMMARY
-  const image = normalizeText(item.image || item.thumbnail)
+  const image = normalizeText(item.image || item.thumbnail) || NEWS_FALLBACK_IMAGE
 
   return {
     id,

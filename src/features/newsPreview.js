@@ -1,4 +1,5 @@
 import { getNewsSourceLabel, normalizeNewsLink } from './newsLink'
+import { NEWS_FALLBACK_IMAGE } from '../data/newsContent'
 
 const PREVIEW_TIMEOUT_MS = 9000
 
@@ -85,7 +86,7 @@ export async function fetchNewsLinkPreview(value = '') {
     articleUrl,
     title: buildFallbackTitle(articleUrl),
     summary: '',
-    image: '',
+    image: NEWS_FALLBACK_IMAGE,
     sourceLabel: getNewsSourceLabel(articleUrl),
   }
 }

@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
-import { formatNewsDate, getAllNewsSorted } from '../data/newsContent'
+import { NEWS_FALLBACK_IMAGE, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
 import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsService'
 
 const solutionCards = [
@@ -58,6 +58,13 @@ const serviceCards = [
 
 function normalizeIndex(index, length) {
   return (index + length) % length
+}
+
+function handleNewsImageError(event) {
+  const image = event.currentTarget
+  if (!image || image.dataset.fallbackApplied === 'true') return
+  image.dataset.fallbackApplied = 'true'
+  image.src = NEWS_FALLBACK_IMAGE
 }
 
 export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPreset, onOpenProductSearch, onOpenNewsArticle }) {
@@ -341,7 +348,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               <article className="overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-[0_22px_45px_-28px_rgba(15,23,42,.22)]">
                 <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                   {featuredNews.image ? (
-                    <img src={featuredNews.image} alt={featuredNews.title} className="h-full w-full object-cover" />
+                    <img src={featuredNews.image} alt={featuredNews.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                   ) : (
                     <div className="grid h-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
                   )}
@@ -399,7 +406,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                 >
                   <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
                     {item.image ? (
-                      <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+                      <img src={item.image} alt={item.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                     ) : (
                       <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
                     )}
