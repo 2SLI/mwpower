@@ -261,16 +261,6 @@ export default function App() {
 
   function handleCloseQuoteRequest() {
     const fallbackView = normalizeBackgroundView(quoteBackgroundView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
-
-    if (typeof window !== 'undefined') {
-      const currentPath = normalizePathname(window.location.pathname)
-      const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
-      if (currentPath === VIEW_PATHS['quote-request'] && currentHistoryState.modalEntry) {
-        window.history.back()
-        return
-      }
-    }
-
     handleNavigate(fallbackView, { replace: true, scrollTop: false })
   }
 
@@ -301,6 +291,7 @@ export default function App() {
 
   function handleAddQuoteItem(item) {
     setQuoteItems((prev) => addQuoteItem(prev, item))
+    handleNavigate('quote-request', { scrollTop: false, backgroundView: visibleView })
   }
 
   function handleUpdateQuoteItemQuantity(itemId, quantity) {

@@ -95,6 +95,12 @@ function formatInventoryText(modelName = '', { aggregate = true } = {}) {
   return '재고 미등록'
 }
 
+function formatOptionLabelWithInventory(modelName = '') {
+  const label = String(modelName ?? '').trim()
+  if (!label) return ''
+  return `${label} - ${formatInventoryText(label, { aggregate: false })}`
+}
+
 function getInventoryTone(modelName = '') {
   const quantity = getInventoryQuantity(modelName)
   if (!Number.isFinite(quantity)) return 'unknown'
@@ -1267,7 +1273,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               </option>
               {selectedCombinedOptionModels.map((value) => (
                 <option key={value} value={value}>
-                  {value}
+                  {formatOptionLabelWithInventory(value)}
                 </option>
               ))}
             </select>
