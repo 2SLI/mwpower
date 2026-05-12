@@ -69,6 +69,8 @@ function normalizeNewsArticle(item = {}, idFromDoc = '') {
   const translation = getMeanwellNewsTranslation(articleUrl)
   const title = translation?.title || originalTitle || DEFAULT_NEWS_TITLE
   const summary = translation?.summary || originalSummary || DEFAULT_NEWS_SUMMARY
+  const body = Array.isArray(translation?.body) ? translation.body.map(normalizeText).filter(Boolean) : []
+  const keyPoints = Array.isArray(translation?.keyPoints) ? translation.keyPoints.map(normalizeText).filter(Boolean) : []
   const image = normalizeText(item.image || item.thumbnail) || NEWS_FALLBACK_IMAGE
 
   return {
@@ -78,6 +80,8 @@ function normalizeNewsArticle(item = {}, idFromDoc = '') {
     summary,
     originalTitle: originalTitle && originalTitle !== title && !hasKoreanText(originalTitle) ? originalTitle : '',
     originalSummary: originalSummary && originalSummary !== summary && !hasKoreanText(originalSummary) ? originalSummary : '',
+    body,
+    keyPoints,
     image,
     thumbnail: image,
     articleUrl,

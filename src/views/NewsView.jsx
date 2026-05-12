@@ -72,12 +72,28 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
     const target = getArticleById(articles, externalNewsRequest.articleId)
     if (!target) return
     setActiveArticleId(target.id)
+    if (typeof window !== 'undefined') {
+      window.requestAnimationFrame(() => {
+        document.getElementById('news-translated-article')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    }
   }, [externalNewsRequest, articles])
 
   const activeArticle = useMemo(() => {
     if (!activeArticleId) return filteredArticles[0] ?? null
     return filteredArticles.find((item) => item.id === activeArticleId) ?? filteredArticles[0] ?? null
   }, [activeArticleId, filteredArticles])
+
+  function openTranslatedArticle(articleId) {
+    const id = String(articleId ?? '').trim()
+    if (!id) return
+    setActiveArticleId(id)
+    if (typeof window !== 'undefined') {
+      window.requestAnimationFrame(() => {
+        document.getElementById('news-translated-article')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    }
+  }
 
   return (
     <section className={`${isActive ? '' : 'is-hidden'} bg-[#f5f7fa] text-slate-700`} id="news-page">
@@ -130,14 +146,11 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
         </div>
 
         {activeArticle ? (
-          <article className="mt-6 overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_20px_50px_-32px_rgba(15,23,42,0.34)] lg:grid lg:grid-cols-[1.05fr_0.95fr]">
-            <a
-              href={activeArticle.articleUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative block min-h-[280px] overflow-hidden bg-slate-100"
-              aria-label={`${activeArticle.title} 원문 보기`}
-            >
+          <article
+            id="news-translated-article"
+            className="mt-6 overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_20px_50px_-32px_rgba(15,23,42,0.34)] lg:grid lg:grid-cols-[0.9fr_1.1fr]"
+          >
+            <div className="relative min-h-[280px] overflow-hidden bg-slate-100">
               {activeArticle.image ? (
                 <img
                   src={activeArticle.image}
@@ -149,16 +162,41 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                 <div className="grid h-full min-h-[280px] place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
               )}
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.05)_0%,rgba(15,23,42,0.7)_100%)]"></div>
-            </a>
+            </div>
 
-            <div className="grid gap-4 p-6 md:p-7">
+            <div className="grid gap-5 p-6 md:p-7">
               <div>
-                <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#c9252f]">Featured News</p>
+                <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#c9252f]">Translated News</p>
                 <h3 className="m-0 mt-3 text-[clamp(1.7rem,2.4vw,2.8rem)] font-black leading-tight tracking-[-0.03em] text-slate-900">
                   {activeArticle.title}
                 </h3>
+                {activeArticle.originalTitle ? <p className="m-0 mt-3 text-sm font-bold leading-6 text-slate-400">{activeArticle.originalTitle}</p> : null}
                 <p className="m-0 mt-4 text-sm leading-7 text-slate-600">{activeArticle.summary || '등록된 요약이 없습니다.'}</p>
               </div>
+
+              {Array.isArray(activeArticle.body) && activeArticle.body.length > 0 ? (
+                <div className="grid gap-3 text-[15px] leading-8 text-slate-700">
+                  {activeArticle.body.map((paragraph, index) => (
+                    <p key={`${activeArticle.id}-body-${index}`} className="m-0">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              ) : null}
+
+              {Array.isArray(activeArticle.keyPoints) && activeArticle.keyPoints.length > 0 ? (
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="m-0 text-[12px] font-black uppercase tracking-[0.12em] text-[#c9252f]">Key Points</p>
+                  <ul className="m-0 mt-3 grid list-none gap-2 p-0 text-sm font-semibold leading-6 text-slate-700">
+                    {activeArticle.keyPoints.map((point, index) => (
+                      <li key={`${activeArticle.id}-point-${index}`} className="flex gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9252f]" aria-hidden="true"></span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
 
               <div className="grid gap-2 rounded-2xl bg-slate-50 p-4 text-sm">
                 <p className="m-0">
@@ -167,6 +205,17 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                 <p className="m-0">
                   <strong className="text-slate-900">출처:</strong> {activeArticle.sourceLabel || '외부 뉴스'}
                 </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href={activeArticle.articleUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+                >
+                  공식 원문 보기
+                </a>
               </div>
             </div>
           </article>
@@ -194,21 +243,20 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                       : 'border-slate-200/80 shadow-[0_16px_42px_-34px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_22px_48px_-32px_rgba(15,23,42,0.55)]'
                   }`}
                 >
-                  <a
-                    href={item.articleUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative block aspect-[16/10] overflow-hidden bg-slate-100"
-                    aria-label={`${item.title} 원문 보기`}
+                  <button
+                    type="button"
+                    className="relative block aspect-[16/10] w-full overflow-hidden border-0 bg-slate-100 p-0 text-left"
+                    aria-label={`${item.title} 번역 뉴스 보기`}
+                    onClick={() => openTranslatedArticle(item.id)}
                   >
                     {item.image ? (
                       <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" onError={handleNewsImageError} />
                     ) : (
                       <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
                     )}
-                  </a>
+                  </button>
 
-                  <button type="button" className="block w-full min-h-[190px] p-5 text-left" onClick={() => setActiveArticleId(item.id)}>
+                  <button type="button" className="block w-full min-h-[190px] p-5 text-left" onClick={() => openTranslatedArticle(item.id)}>
                     <div className="flex items-center justify-between gap-3">
                       <p className="m-0 shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</p>
                       <span className="min-w-0 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-500">{item.sourceLabel || '외부 뉴스'}</span>

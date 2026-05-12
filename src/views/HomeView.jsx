@@ -451,19 +451,18 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
           <div className="grid gap-4 xl:grid-cols-[1.14fr_1fr]">
             {featuredNews ? (
               <article className="overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-[0_22px_45px_-28px_rgba(15,23,42,.22)]">
-                <a
-                  href={featuredNews.articleUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block aspect-[16/9] overflow-hidden bg-slate-100"
-                  aria-label={`${featuredNews.title} 원문 보기`}
+                <button
+                  type="button"
+                  className="block aspect-[16/9] w-full overflow-hidden border-0 bg-slate-100 p-0 text-left"
+                  aria-label={`${featuredNews.title} 번역 뉴스 보기`}
+                  onClick={() => openNews(featuredNews.id)}
                 >
                   {featuredNews.image ? (
                     <img src={featuredNews.image} alt={featuredNews.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                   ) : (
                     <div className="grid h-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
                   )}
-                </a>
+                </button>
 
                 <div className="p-6">
                   <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">FEATURED NEWS</p>
@@ -505,19 +504,18 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                   key={item.id}
                   className="group overflow-hidden rounded-[22px] border border-slate-200/80 bg-white text-left shadow-[0_16px_42px_-34px_rgba(15,23,42,0.45)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_22px_48px_-32px_rgba(15,23,42,0.55)]"
                 >
-                  <a
-                    href={item.articleUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative block aspect-[16/9] overflow-hidden bg-slate-100"
-                    aria-label={`${item.title} 원문 보기`}
+                  <button
+                    type="button"
+                    className="relative block aspect-[16/9] w-full overflow-hidden border-0 bg-slate-100 p-0 text-left"
+                    aria-label={`${item.title} 번역 뉴스 보기`}
+                    onClick={() => openNews(item.id)}
                   >
                     {item.image ? (
                       <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" onError={handleNewsImageError} />
                     ) : (
                       <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
                     )}
-                  </a>
+                  </button>
                   <button type="button" className="block w-full min-h-[178px] px-5 py-4 text-left" onClick={() => openNews(item.id)}>
                     <div className="flex items-center justify-between gap-3">
                       <time className="shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</time>
