@@ -448,6 +448,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const [quoteFeedback, setQuoteFeedback] = useState('')
   const [selectedQuoteQuantity, setSelectedQuoteQuantity] = useState(1)
   const categoryCrumbRef = useRef(null)
+  const pdfSectionRef = useRef(null)
   const mobilePdfViewportRef = useRef(null)
   const wasActiveRef = useRef(isActive)
   const lastAppliedPresetAtRef = useRef(null)
@@ -1221,6 +1222,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setSelectedQuoteQuantity(1)
   }
 
+  const handleScrollToPdfSection = () => {
+    pdfSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   const renderAdditionalOptionsPanel = ({ isModelSelected = false } = {}) => {
     const combinedDisabled = !isModelSelected || selectedCombinedOptionModels.length === 0
     const canAddSelectedModel = isModelSelected && selectedModelCard
@@ -1246,9 +1251,20 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             <p className="m-0 mt-1 text-[22px] font-black tracking-[-0.02em] text-slate-900">견적 담기</p>
           </div>
           {canAddSelectedModel ? (
-            <span className="rounded-full border border-[#efc3c7] bg-white px-3 py-1 text-[11px] font-black text-[#b4262e]">
-              {selectedQuoteQuantity} EA
-            </span>
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                className="inline-flex h-7 items-center justify-center rounded-full border border-[#efc3c7] bg-white px-3 text-[11px] font-black text-[#b4262e] transition hover:border-[#d4555b] hover:bg-[#fff6f7] disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                onClick={handleScrollToPdfSection}
+                disabled={!selectedModelCard?.asset?.pdfUrl}
+                aria-label="PDF 섹션으로 이동"
+              >
+                PDF
+              </button>
+              <span className="rounded-full border border-[#efc3c7] bg-white px-3 py-1 text-[11px] font-black text-[#b4262e]">
+                {selectedQuoteQuantity} EA
+              </span>
+            </div>
           ) : null}
         </div>
 
@@ -1955,7 +1971,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
                 {selectedModelCard.asset?.pdfUrl ? (
                   <>
-                    <div className="pdf-viewer-shell h-[1290px] rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100dvh-170px)] max-[640px]:min-h-[560px]">
+                    <div ref={pdfSectionRef} className="pdf-viewer-shell scroll-mt-4 h-[1290px] rounded-lg border border-slate-300 bg-[#1f2937] max-[980px]:h-[1050px] max-[640px]:h-[calc(100dvh-170px)] max-[640px]:min-h-[560px]">
                       {isMobileViewport ? (
                         <div ref={mobilePdfViewportRef} className="pdf-react-viewer h-full w-full">
                           <Document
@@ -1989,7 +2005,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     </div>
                   </>
                 ) : (
-                  <div className="rounded-lg border border-dashed border-slate-300 bg-white px-4 py-8">
+                  <div ref={pdfSectionRef} className="scroll-mt-4 rounded-lg border border-dashed border-slate-300 bg-white px-4 py-8">
                     <p className="m-0 text-center text-sm text-slate-500">PDF 준비중입니다.</p>
                   </div>
                 )}
