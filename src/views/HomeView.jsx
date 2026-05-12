@@ -363,7 +363,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               value={mobileSearchKeyword}
               onChange={(event) => setMobileSearchKeyword(event.target.value)}
               aria-label="상품명/시리즈/그룹 검색"
-              className="min-w-0 flex-1 border-0 bg-transparent text-[15px] font-bold text-slate-800 outline-none placeholder:text-transparent"
+              className="min-w-0 flex-1 border-0 bg-transparent text-[16px] font-bold text-slate-800 outline-none placeholder:text-transparent"
             />
             <button type="submit" className="sr-only">
               검색
