@@ -51,7 +51,7 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
     if (!term) return articles
 
     return articles.filter((item) => {
-      const haystack = `${item.title} ${item.summary ?? ''} ${item.sourceLabel ?? ''}`.toLowerCase()
+      const haystack = `${item.title} ${item.summary ?? ''} ${item.originalTitle ?? ''} ${item.sourceLabel ?? ''}`.toLowerCase()
       return haystack.includes(term)
     })
   }, [articles, keyword])
@@ -89,7 +89,7 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
           <p className="m-0 text-[11px] font-black uppercase tracking-[0.18em] text-rose-200">NEWS</p>
           <h1 className="m-0 mt-3 text-[clamp(2.2rem,4vw,4.4rem)] font-black tracking-[-0.03em]">최신 뉴스</h1>
           <p className="m-0 mt-4 max-w-[60ch] text-sm leading-7 text-slate-100 md:text-base">
-            블로그, 티스토리, 제품 적용 소식을 한눈에 볼 수 있도록 썸네일과 요약 중심의 미리보기 형태로 구성했습니다.
+            MEAN WELL 공식 신제품 소식을 한국어 제목과 요약으로 빠르게 확인할 수 있도록 구성했습니다.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <button

@@ -1,6 +1,7 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { NEWS_FALLBACK_IMAGE, getAllNewsSorted } from '../data/newsContent'
+import { meanwellNewsTranslationsKoByUrl } from '../data/newsTranslationsKo'
 import { getNewsSourceLabel, isSupportedNewsLink, normalizeNewsLink } from './newsLink'
 
 const NEWS_COLLECTION = 'newsArticles'
@@ -31,6 +32,14 @@ function normalizeDate(value = '') {
   return `${match[1]}-${match[2]}-${match[3]}`
 }
 
+function hasKoreanText(value = '') {
+  return /[가-힣]/.test(String(value ?? ''))
+}
+
+function getMeanwellNewsTranslation(articleUrl = '') {
+  return meanwellNewsTranslationsKoByUrl[normalizeNewsLink(articleUrl)] ?? null
+}
+
 function toTimestamp(dateText) {
   const normalized = normalizeDate(dateText)
   if (!normalized) return 0
@@ -55,8 +64,11 @@ function normalizeNewsArticle(item = {}, idFromDoc = '') {
   if (!id || !articleUrl || !isSupportedNewsLink(articleUrl)) return null
 
   const date = normalizeDate(item.date || item.createdAtClient?.slice?.(0, 10)) || getTodayDateInSeoul()
-  const title = normalizeText(item.title) || DEFAULT_NEWS_TITLE
-  const summary = normalizeText(item.summary) || DEFAULT_NEWS_SUMMARY
+  const originalTitle = normalizeText(item.originalTitle || item.title)
+  const originalSummary = normalizeText(item.originalSummary || item.summary)
+  const translation = getMeanwellNewsTranslation(articleUrl)
+  const title = translation?.title || originalTitle || DEFAULT_NEWS_TITLE
+  const summary = translation?.summary || originalSummary || DEFAULT_NEWS_SUMMARY
   const image = normalizeText(item.image || item.thumbnail) || NEWS_FALLBACK_IMAGE
 
   return {
@@ -64,6 +76,8 @@ function normalizeNewsArticle(item = {}, idFromDoc = '') {
     date,
     title,
     summary,
+    originalTitle: originalTitle && originalTitle !== title && !hasKoreanText(originalTitle) ? originalTitle : '',
+    originalSummary: originalSummary && originalSummary !== summary && !hasKoreanText(originalSummary) ? originalSummary : '',
     image,
     thumbnail: image,
     articleUrl,

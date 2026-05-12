@@ -434,7 +434,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
             <div>
               <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#d7322a]">NEWS</p>
               <h2 className="mt-2 text-[clamp(2rem,2.6vw,3.1rem)] font-black tracking-tight text-slate-900">최신 뉴스 미리보기</h2>
-              <p className="mt-2 text-sm font-semibold text-slate-500">블로그와 티스토리 소식을 썸네일과 요약 중심으로 먼저 확인하세요.</p>
+              <p className="mt-2 text-sm font-semibold text-slate-500">MEAN WELL 공식 신제품 소식을 한국어 요약으로 먼저 확인하세요.</p>
             </div>
             <a
               href="#"
