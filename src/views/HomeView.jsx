@@ -6,7 +6,7 @@ import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsS
 
 const solutionCards = [
   { title: 'DC/DC Converter 전원 솔루션', image: '/meanwell/index_1.jpg', alt: 'DC/DC', productPreset: { majorId: 'dc-dc' } },
-  { title: '친환경 전원 솔루션', image: '/meanwell/index-solutions-pic1.jpg', alt: 'Green Power', productSearch: 'LED' },
+  { title: '친환경 전원 솔루션', image: '/meanwell/green-power-solution-banner.png', alt: 'Green Power', productSearch: 'LED' },
   { title: '의료 전원 솔루션', image: '/meanwell/index-solutions-pic6.jpg', alt: 'MEDICAL', productSearch: 'MEDICAL' },
   {
     title: 'LED Display 솔루션',
