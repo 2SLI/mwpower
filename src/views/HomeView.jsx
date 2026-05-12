@@ -10,7 +10,7 @@ const solutionCards = [
   { title: '의료 전원 솔루션', image: '/meanwell/index-solutions-pic6.jpg', alt: 'MEDICAL', productSearch: 'MEDICAL' },
   {
     title: 'LED Display 솔루션',
-    image: '/meanwell/index-solutions-pic4.jpg',
+    image: '/meanwell/led-display-solution-banner.jpg',
     alt: 'Display',
     productSearch: 'UHP-200(R), UHP-350(R), UHP-500(R), UHP-200A, NEL-400, HSP-200, HSP-300, RSP-200, RSP-320, LRS-200, LRS-350',
   },
