@@ -275,7 +275,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                 <p className="mb-2.5 text-[clamp(11px,0.95vw,15px)] font-bold tracking-[1.4px] text-rose-200 max-[640px]:mb-2 max-[640px]:text-[10px]">
                   {banner.eyebrow ?? ''}
                 </p>
-                <h2 className="m-0 text-[clamp(30px,3.2vw,56px)] leading-[1.17] tracking-[-0.6px] text-white max-[980px]:text-[clamp(24px,6vw,36px)] max-[640px]:text-[clamp(19px,6.6vw,24px)] max-[640px]:leading-[1.23]">
+                <h2 className="m-0 text-[clamp(27px,2.9vw,48px)] leading-[1.18] text-white max-[980px]:text-[clamp(22px,5.4vw,32px)] max-[640px]:text-[clamp(18px,5.8vw,22px)] max-[640px]:leading-[1.24]">
                   {bannerTitleLines[index].map((line, lineIndex) => (
                     <Fragment key={`${banner.src ?? index}-${lineIndex}`}>
                       {line}
@@ -283,7 +283,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                     </Fragment>
                   ))}
                 </h2>
-                <p className="mt-3.5 max-w-[52ch] text-[clamp(14px,1.1vw,20px)] leading-[1.55] text-slate-100 max-[980px]:mt-2.5 max-[980px]:text-sm max-[640px]:hidden">
+                <p className="mt-3.5 max-w-[52ch] text-[clamp(13px,1vw,17px)] leading-[1.55] text-slate-100 max-[980px]:mt-2.5 max-[980px]:text-sm max-[640px]:hidden">
                   {banner.description ?? ''}
                 </p>
                 <a
@@ -406,10 +406,10 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               <img className="absolute inset-0 h-full w-full object-cover" src={item.image} alt={item.alt} />
               <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.26)_0%,rgba(15,23,42,0.84)_66%,rgba(2,6,23,0.95)_100%)]"></span>
 
-              <div className="absolute left-1/2 top-1/2 z-10 w-[min(calc(100%-5rem),24rem)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/20 bg-black/28 p-5 backdrop-blur-sm">
-                <p className="m-0 text-[11px] font-black tracking-[0.14em] text-rose-200">MEAN WELL POWER</p>
-                <h3 className="m-0 mt-2 text-[30px] font-black leading-tight tracking-[-0.02em] text-white">{item.mobileTitle}</h3>
-                {item.mobileSubtitle ? <p className="m-0 mt-2 text-sm font-semibold text-slate-100">{item.mobileSubtitle}</p> : null}
+              <div className="absolute left-1/2 top-1/2 z-10 w-[min(calc(100%-3rem),22rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/20 bg-black/28 p-4 backdrop-blur-sm">
+                <p className="m-0 text-[10px] font-black tracking-[0.12em] text-rose-200">MEAN WELL POWER</p>
+                <h3 className="m-0 mt-1.5 text-[clamp(18px,5.4vw,23px)] font-black leading-[1.15] text-white">{item.mobileTitle}</h3>
+                {item.mobileSubtitle ? <p className="m-0 mt-1.5 text-[13px] font-semibold leading-5 text-slate-100">{item.mobileSubtitle}</p> : null}
               </div>
             </a>
           ))}

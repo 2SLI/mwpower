@@ -120,26 +120,31 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
       </div>
 
       <div className="mx-auto w-full max-w-[1540px] px-5 pb-14 pt-6 md:px-8 md:pb-16">
-        <div className="rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_20px_50px_-32px_rgba(15,23,42,0.34)] md:p-5">
-          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-            <div className="min-w-0">
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#c9252f]">News Preview</p>
-              <h2 className="m-0 mt-2 text-[1.8rem] font-black tracking-[-0.03em] text-slate-900 md:text-[2.2rem]">썸네일과 요약으로 먼저 확인하세요.</h2>
+        <div className="border-y border-slate-200 bg-white px-4 py-3 shadow-[0_14px_34px_-32px_rgba(15,23,42,0.34)] md:px-5">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#fff4f4] text-[#c9252f]" aria-hidden="true">
+                <i className="fa-regular fa-newspaper text-sm"></i>
+              </span>
+              <div className="min-w-0">
+                <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#c9252f]">MEAN WELL News</p>
+                <p className="m-0 mt-0.5 text-sm font-extrabold text-slate-900">공식 신제품 소식</p>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-3 md:flex-row md:items-center">
-              <label className="flex h-11 min-w-[min(100%,320px)] items-center overflow-hidden rounded-full border border-slate-200 bg-slate-50 px-4">
-                <i className="fa-solid fa-magnifying-glass text-sm text-slate-400" aria-hidden="true"></i>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <label className="flex h-10 min-w-0 items-center overflow-hidden rounded-md border border-slate-200 bg-slate-50 px-3 sm:w-[320px]">
+                <i className="fa-solid fa-magnifying-glass text-[13px] text-slate-400" aria-hidden="true"></i>
                 <input
                   type="text"
                   value={keyword}
                   onChange={(event) => setKeyword(event.target.value)}
                   placeholder="제목 또는 요약 검색"
-                  className="h-full w-full border-0 bg-transparent px-3 text-sm text-slate-700 outline-none"
+                  className="h-full w-full border-0 bg-transparent px-2.5 text-sm text-slate-700 outline-none"
                 />
               </label>
-              <span className="inline-flex h-11 items-center rounded-full bg-[#fff4f4] px-4 text-sm font-black text-[#c9252f]">
-                총 {filteredArticles.length}개 뉴스
+              <span className="inline-flex h-10 items-center justify-center rounded-md bg-slate-100 px-3 text-sm font-black text-slate-600">
+                {filteredArticles.length}개
               </span>
             </div>
           </div>
