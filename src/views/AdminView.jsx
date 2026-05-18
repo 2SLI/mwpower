@@ -5,6 +5,15 @@ import { db } from '../firebase'
 import { createNewsArticle, loadNewsArticlesForAdmin, removeNewsArticle, updateNewsArticle } from '../features/newsService'
 import { getNewsSourceLabel, normalizeNewsLink } from '../features/newsLink'
 import { fetchNewsLinkPreview } from '../features/newsPreview'
+import {
+  ORDER_STATUS_LABELS,
+  PAYMENT_STATUS_LABELS,
+  formatOrderDate,
+  formatOrderPrice,
+  loadAdminOrders,
+  markOrderPaid,
+  saveOrderAdminMemo,
+} from '../features/orderService'
 import { formatQuoteItemPath, getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
 
 const ADMIN_SESSION_KEY = 'mwpower_admin_authenticated'
@@ -78,6 +87,239 @@ function sortByCreatedAtDesc(items) {
   })
 }
 
+function getAdminOrderNumberFromPath(pathname = '') {
+  const text = String(pathname ?? '').trim()
+  const prefix = '/admin/orders/'
+  if (!text.startsWith(prefix)) return ''
+  const raw = text.slice(prefix.length).split('/')[0] ?? ''
+  try {
+    return decodeURIComponent(raw)
+  } catch {
+    return raw
+  }
+}
+
+function AdminOrdersPanel({ pathname }) {
+  const [orders, setOrders] = useState([])
+  const [activeOrderNumber, setActiveOrderNumber] = useState(() => getAdminOrderNumberFromPath(pathname))
+  const [adminMemoDraft, setAdminMemoDraft] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [notice, setNotice] = useState('')
+
+  const activeOrder = useMemo(
+    () => orders.find((item) => item.orderNumber === activeOrderNumber || item.id === activeOrderNumber) ?? orders[0] ?? null,
+    [activeOrderNumber, orders]
+  )
+
+  const refreshOrders = async () => {
+    setIsLoading(true)
+    setError('')
+    try {
+      const items = await loadAdminOrders()
+      setOrders(items)
+      const pathOrderNumber = getAdminOrderNumberFromPath(pathname)
+      setActiveOrderNumber((prev) => {
+        if (pathOrderNumber && items.some((item) => item.orderNumber === pathOrderNumber || item.id === pathOrderNumber)) return pathOrderNumber
+        if (items.some((item) => item.orderNumber === prev || item.id === prev)) return prev
+        return items[0]?.orderNumber ?? items[0]?.id ?? ''
+      })
+    } catch {
+      setOrders([])
+      setActiveOrderNumber('')
+      setError('주문 목록을 불러오지 못했습니다.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    refreshOrders()
+  }, [])
+
+  useEffect(() => {
+    const pathOrderNumber = getAdminOrderNumberFromPath(pathname)
+    if (pathOrderNumber) setActiveOrderNumber(pathOrderNumber)
+  }, [pathname])
+
+  useEffect(() => {
+    setAdminMemoDraft(activeOrder?.adminMemo ?? '')
+  }, [activeOrder?.id, activeOrder?.adminMemo])
+
+  const handleSelectOrder = (order) => {
+    const orderNumber = order?.orderNumber || order?.id
+    if (!orderNumber) return
+    setActiveOrderNumber(orderNumber)
+    if (typeof window !== 'undefined') {
+      window.history.pushState({ view: 'admin-orders', orderNumber }, '', `/admin/orders/${encodeURIComponent(orderNumber)}`)
+    }
+  }
+
+  const handleConfirmPaid = async (order) => {
+    const orderNumber = order?.orderNumber || order?.id
+    if (!orderNumber) return
+    const confirmed = window.confirm(`${orderNumber} 주문을 입금확인 처리하시겠습니까?`)
+    if (!confirmed) return
+
+    try {
+      await markOrderPaid(orderNumber)
+      setNotice('입금확인 처리했습니다.')
+      await refreshOrders()
+    } catch {
+      setError('입금확인 처리에 실패했습니다.')
+    }
+  }
+
+  const handleSaveMemo = async () => {
+    const orderNumber = activeOrder?.orderNumber || activeOrder?.id
+    if (!orderNumber) return
+    try {
+      await saveOrderAdminMemo(orderNumber, adminMemoDraft)
+      setNotice('관리자 메모를 저장했습니다.')
+      await refreshOrders()
+    } catch {
+      setError('관리자 메모 저장에 실패했습니다.')
+    }
+  }
+
+  return (
+    <section className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_28px_rgba(15,23,42,0.06)]">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 className="m-0 text-xl font-black text-slate-900">주문 목록</h2>
+          <p className="m-0 mt-1 text-sm font-semibold text-slate-500">비회원 무통장입금 주문을 확인하고 입금 상태를 처리합니다.</p>
+        </div>
+        <button type="button" onClick={refreshOrders} className="rounded-lg bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200">
+          새로고침
+        </button>
+      </div>
+
+      {isLoading ? <p className="m-0 text-sm font-semibold text-slate-500">주문 데이터를 불러오는 중입니다...</p> : null}
+      {error ? <p className="m-0 rounded-lg bg-[#fff1f2] px-3 py-2 text-sm font-semibold text-[#b42323]">{error}</p> : null}
+      {notice ? <p className="m-0 rounded-lg bg-[#effaf3] px-3 py-2 text-sm font-semibold text-[#087a3d]">{notice}</p> : null}
+
+      <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <table className="w-full min-w-[980px] border-collapse text-left text-sm">
+          <thead className="bg-slate-50 text-xs font-black uppercase tracking-[0.04em] text-slate-500">
+            <tr>
+              <th className="px-3 py-3">주문번호</th>
+              <th className="px-3 py-3">주문일</th>
+              <th className="px-3 py-3">주문자명</th>
+              <th className="px-3 py-3">연락처</th>
+              <th className="px-3 py-3">상품명</th>
+              <th className="px-3 py-3">수량</th>
+              <th className="px-3 py-3">총 금액</th>
+              <th className="px-3 py-3">결제상태</th>
+              <th className="px-3 py-3">주문상태</th>
+              <th className="px-3 py-3">관리</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.length === 0 ? (
+              <tr>
+                <td colSpan={10} className="px-3 py-8 text-center text-sm font-semibold text-slate-500">
+                  표시할 주문이 없습니다.
+                </td>
+              </tr>
+            ) : (
+              orders.map((order) => {
+                const orderNumber = order.orderNumber || order.id
+                return (
+                  <tr key={order.id || orderNumber} className="border-t border-slate-100 align-top">
+                    <td className="px-3 py-3 font-black text-slate-900">{orderNumber}</td>
+                    <td className="px-3 py-3 text-slate-600">{formatOrderDate(order.createdAt, order.createdAtClient || '-')}</td>
+                    <td className="px-3 py-3 font-bold text-slate-800">{order.customerName || '-'}</td>
+                    <td className="px-3 py-3 text-slate-600">{order.phone || '-'}</td>
+                    <td className="px-3 py-3 font-bold text-slate-800">{order.productName || '-'}</td>
+                    <td className="px-3 py-3 font-bold text-slate-800">{Number(order.quantity || 0).toLocaleString('ko-KR')}</td>
+                    <td className="px-3 py-3 font-black text-[#0aa04f]">{formatOrderPrice(order.totalPrice)}</td>
+                    <td className="px-3 py-3">
+                      <span className="rounded-full bg-[#fff7e6] px-2.5 py-1 text-xs font-black text-[#8a5a00]">
+                        {PAYMENT_STATUS_LABELS[order.paymentStatus] || order.paymentStatus || '-'}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3">
+                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-black text-slate-700">
+                        {ORDER_STATUS_LABELS[order.orderStatus] || order.orderStatus || '-'}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3">
+                      <div className="flex flex-wrap gap-2">
+                        <button type="button" onClick={() => handleSelectOrder(order)} className="rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-200">
+                          상세
+                        </button>
+                        {order.paymentStatus === 'waiting' ? (
+                          <button type="button" onClick={() => handleConfirmPaid(order)} className="rounded-lg bg-[#d53232] px-3 py-1.5 text-xs font-black text-white hover:bg-[#bd2929]">
+                            입금확인
+                          </button>
+                        ) : null}
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="rounded-xl border border-slate-200 p-4">
+        {!activeOrder ? (
+          <p className="m-0 text-sm font-semibold text-slate-500">상세 확인할 주문을 선택해주세요.</p>
+        ) : (
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
+            <div className="grid gap-3">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">Order Detail</p>
+                  <h3 className="m-0 mt-1 text-2xl font-black text-slate-950">{activeOrder.orderNumber || activeOrder.id}</h3>
+                </div>
+                {activeOrder.paymentStatus === 'waiting' ? (
+                  <button type="button" onClick={() => handleConfirmPaid(activeOrder)} className="rounded-lg bg-[#d53232] px-4 py-2 text-sm font-black text-white hover:bg-[#bd2929]">
+                    입금확인
+                  </button>
+                ) : null}
+              </div>
+
+              <div className="grid gap-2 rounded-xl bg-slate-50 p-3 text-sm">
+                <p className="m-0"><strong>주문자:</strong> {activeOrder.customerName || '-'}</p>
+                <p className="m-0"><strong>연락처:</strong> {activeOrder.phone || '-'}</p>
+                <p className="m-0"><strong>이메일:</strong> {activeOrder.email || '-'}</p>
+                <p className="m-0"><strong>상품명:</strong> {activeOrder.productName || '-'}</p>
+                <p className="m-0"><strong>수량:</strong> {Number(activeOrder.quantity || 0).toLocaleString('ko-KR')}개</p>
+                <p className="m-0"><strong>총 금액:</strong> {formatOrderPrice(activeOrder.totalPrice)}</p>
+                <p className="m-0"><strong>입금일:</strong> {formatOrderDate(activeOrder.paidAt, '-')}</p>
+              </div>
+
+              <div className="rounded-xl bg-slate-50 p-3 text-sm leading-6">
+                <p className="m-0 font-black text-slate-800">배송 정보</p>
+                <p className="m-0 mt-1">[{activeOrder.postalCode || '-'}] {activeOrder.address || '-'} {activeOrder.detailAddress || ''}</p>
+                <p className="m-0 mt-1 text-slate-500">요청사항: {activeOrder.deliveryMemo || '-'}</p>
+              </div>
+            </div>
+
+            <div className="grid content-start gap-3">
+              <label className="grid gap-2 text-sm font-bold text-slate-700">
+                관리자 메모
+                <textarea
+                  value={adminMemoDraft}
+                  onChange={(event) => setAdminMemoDraft(event.target.value)}
+                  rows={9}
+                  className="resize-y rounded-xl bg-slate-50 px-3 py-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]"
+                  placeholder="주문 처리 메모"
+                />
+              </label>
+              <button type="button" onClick={handleSaveMemo} className="rounded-xl bg-slate-950 px-4 py-3 text-sm font-black text-white hover:bg-slate-800">
+                메모 저장
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
 function mapQuoteRequestDocument(docSnap) {
   const data = docSnap.data() ?? {}
   const items = normalizeQuoteItems(data.items)
@@ -114,11 +356,11 @@ function normalizeNewsFormFromArticle(article) {
   }
 }
 
-export function AdminView() {
+export function AdminView({ pathname = '/admin' }) {
   const [password, setPassword] = useState('')
   const [authError, setAuthError] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [activeTab, setActiveTab] = useState('inquiries')
+  const [activeTab, setActiveTab] = useState(() => (String(pathname).startsWith('/admin/orders') ? 'orders' : 'inquiries'))
 
   const [inquiries, setInquiries] = useState([])
   const [inquiryFilter, setInquiryFilter] = useState('all')
@@ -244,6 +486,10 @@ export function AdminView() {
     const saved = typeof window !== 'undefined' ? window.sessionStorage.getItem(ADMIN_SESSION_KEY) : null
     if (saved === 'true') setIsAuthenticated(true)
   }, [])
+
+  useEffect(() => {
+    if (String(pathname).startsWith('/admin/orders')) setActiveTab('orders')
+  }, [pathname])
 
   useEffect(() => {
     if (!isAuthenticated) return
@@ -495,7 +741,7 @@ export function AdminView() {
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b42323]">Admin Console</p>
-              <h1 className="m-0 mt-1 text-[30px] font-black tracking-[-0.02em] text-slate-900">문의/견적/뉴스 관리</h1>
+              <h1 className="m-0 mt-1 text-[30px] font-black tracking-[-0.02em] text-slate-900">문의/견적/주문/뉴스 관리</h1>
             </div>
             <div className="flex items-center gap-2">
               <a href="/" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">
@@ -531,6 +777,18 @@ export function AdminView() {
               }`}
             >
               견적함
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab('orders')
+                if (typeof window !== 'undefined') window.history.pushState({ view: 'admin-orders' }, '', '/admin/orders')
+              }}
+              className={`rounded-full px-4 py-2 text-sm font-extrabold ${
+                activeTab === 'orders' ? 'bg-[#c9252f] text-white' : 'bg-white text-slate-700 ring-1 ring-slate-200'
+              }`}
+            >
+              주문
             </button>
             <button
               type="button"
@@ -805,6 +1063,8 @@ export function AdminView() {
               </div>
             </div>
           </section>
+        ) : activeTab === 'orders' ? (
+          <AdminOrdersPanel pathname={pathname} />
         ) : (
           <section className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_28px_rgba(15,23,42,0.06)]">
             <div className="flex flex-wrap items-center justify-between gap-2">

@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
 import { lockBodyScroll } from '../utils/bodyScrollLock'
 
-export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onUpdateQuantity, onRemoveItem, onClearItems }) {
+export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onCheckout, onUpdateQuantity, onRemoveItem, onClearItems }) {
   const normalizedItems = useMemo(() => normalizeQuoteItems(items), [items])
   const summary = useMemo(() => getQuoteItemSummary(normalizedItems), [normalizedItems])
 
@@ -27,23 +27,23 @@ export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onUp
   if (!isOpen || typeof document === 'undefined') return null
 
   return createPortal(
-    <div className="fixed inset-0 z-[1200] bg-[#f3f4f6]">
+    <div className="fixed inset-x-0 bottom-0 top-[92px] z-[480] bg-[#f3f4f6] max-[1280px]:top-[62px]">
       <section
         role="dialog"
         aria-modal="true"
         aria-labelledby="order-list-modal-title"
-        className="flex h-dvh flex-col overflow-hidden bg-[#f3f4f6]"
+        className="flex h-[calc(100dvh-92px)] flex-col overflow-hidden bg-[#f3f4f6] max-[1280px]:h-[calc(100dvh-62px)]"
       >
         <header className="shrink-0 bg-white">
-          <div className="mx-auto grid h-[72px] max-w-[1180px] grid-cols-[1fr_auto_1fr] items-center px-5 max-[640px]:h-[58px] max-[640px]:px-3">
-            <button type="button" className="inline-flex items-center gap-1.5 justify-self-start bg-transparent px-0 py-2 text-sm font-black text-[#0068d9] transition hover:text-[#004ea8]" onClick={() => onNavigateProducts?.()}>
+          <div className="relative mx-auto flex h-[72px] max-w-[1180px] items-center justify-between px-5 max-[640px]:h-[58px] max-[640px]:px-3">
+            <button type="button" className="inline-flex h-10 items-center gap-2 rounded-full bg-slate-100 px-4 text-sm font-black text-slate-700 transition hover:bg-slate-200 max-[640px]:h-9 max-[640px]:px-3 max-[640px]:text-xs" onClick={() => onNavigateProducts?.()}>
+              <span className="text-lg leading-none max-[640px]:text-base" aria-hidden="true">‹</span>
               <span>계속 담기</span>
-              <span className="text-lg leading-none" aria-hidden="true">›</span>
             </button>
-            <h1 id="order-list-modal-title" className="m-0 text-[22px] font-black text-slate-950 max-[640px]:text-lg">
+            <h1 id="order-list-modal-title" className="absolute left-1/2 m-0 -translate-x-1/2 text-[22px] font-black text-slate-950 max-[640px]:text-lg">
               주문목록
             </h1>
-            <button type="button" className="grid h-10 w-10 place-items-center justify-self-end rounded-full bg-slate-100 text-xl font-black text-slate-700 transition hover:bg-slate-200 max-[640px]:h-9 max-[640px]:w-9" onClick={() => onClose?.()} aria-label="주문목록 닫기">
+            <button type="button" className="grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-xl font-black text-slate-700 transition hover:bg-slate-200 max-[640px]:h-9 max-[640px]:w-9" onClick={() => onClose?.()} aria-label="주문목록 닫기">
               ×
             </button>
           </div>
@@ -58,7 +58,7 @@ export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onUp
                     <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#d53232]">Order Info</p>
                     <h2 className="m-0 mt-2 text-[21px] font-black text-slate-900">민웰파워 주문목록</h2>
                     <p className="m-0 mt-3 text-sm font-semibold leading-6 text-slate-500">
-                      주문할 품목과 수량을 확인하세요. 실제 주문 진행은 담당자 상담을 통해 확정됩니다.
+                      
                     </p>
                   </div>
                   <span className="shrink-0 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">
@@ -94,17 +94,13 @@ export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onUp
                   <div className="mt-5 grid gap-4">
                     {normalizedItems.map((item) => (
                       <article key={item.id} className="rounded-2xl bg-white pb-4 ring-1 ring-slate-200/80">
-                        <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-3">
-                          <div>
-                            <p className="m-0 text-sm font-black text-slate-900">민웰파워</p>
-                            <p className="m-0 mt-1 text-xs font-semibold text-emerald-600">재고 및 납기 확인 후 안내</p>
-                          </div>
-                          <button type="button" className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-black text-slate-500 transition hover:bg-rose-50 hover:text-[#b4262e]" onClick={() => onRemoveItem?.(item.id)}>
+                        <div className="flex justify-end px-4 pt-3">
+                          <button type="button" className="rounded-full bg-[#d53232] px-3 py-1.5 text-xs font-black text-white transition hover:bg-[#bd2929]" onClick={() => onRemoveItem?.(item.id)}>
                             삭제
                           </button>
                         </div>
 
-                        <div className="grid gap-4 px-4 py-4 md:grid-cols-[86px_minmax(0,1fr)] max-[640px]:grid-cols-[78px_minmax(0,1fr)]">
+                        <div className="grid gap-4 px-4 pb-4 pt-3 md:grid-cols-[86px_minmax(0,1fr)] max-[640px]:grid-cols-[78px_minmax(0,1fr)]">
                           <div className="overflow-hidden rounded-xl bg-slate-50 p-1 ring-1 ring-slate-100">
                             {item.thumbnailUrl ? (
                               <img src={item.thumbnailUrl} alt={item.displayModel} className="aspect-square h-full w-full object-contain" loading="lazy" />
@@ -157,7 +153,11 @@ export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onUp
                   <p className="m-0 mt-1 text-xs font-semibold leading-5 text-emerald-700/80">수량 변경은 이 화면에서 바로 반영됩니다.</p>
                 </div>
 
-                <button type="button" className="mt-5 h-12 w-full rounded-full bg-[#d53232] text-sm font-black text-white transition hover:bg-[#bd2929]" onClick={() => onNavigateProducts?.()}>
+                <button type="button" className="mt-5 h-12 w-full rounded-full bg-[#d53232] text-sm font-black text-white transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:bg-slate-300" disabled={normalizedItems.length === 0} onClick={() => onCheckout?.()}>
+                  주문하기
+                </button>
+
+                <button type="button" className="mt-2 h-12 w-full rounded-full bg-slate-100 text-sm font-black text-slate-700 transition hover:bg-slate-200" onClick={() => onNavigateProducts?.()}>
                   제품 더 담기
                 </button>
               </div>

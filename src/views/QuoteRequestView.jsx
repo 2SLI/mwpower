@@ -160,23 +160,23 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
   if (!isOpen || typeof document === 'undefined') return null
 
   return createPortal(
-    <div className="fixed inset-0 z-[1200] bg-[#f3f4f6]">
+    <div className="fixed inset-x-0 bottom-0 top-[92px] z-[480] bg-[#f3f4f6] max-[1280px]:top-[62px]">
       <section
         role="dialog"
         aria-modal="true"
         aria-labelledby="quote-request-modal-title"
-        className="flex h-dvh flex-col overflow-hidden bg-[#f3f4f6]"
+        className="flex h-[calc(100dvh-92px)] flex-col overflow-hidden bg-[#f3f4f6] max-[1280px]:h-[calc(100dvh-62px)]"
       >
         <header className="shrink-0 bg-white">
-          <div className="mx-auto grid h-[72px] max-w-[1180px] grid-cols-[1fr_auto_1fr] items-center px-5 max-[640px]:h-[58px] max-[640px]:px-3">
-            <button type="button" className="inline-flex items-center gap-1.5 justify-self-start bg-transparent px-0 py-2 text-sm font-black text-[#0068d9] transition hover:text-[#004ea8]" onClick={() => onNavigateProducts?.()}>
+          <div className="relative mx-auto flex h-[72px] max-w-[1180px] items-center justify-between px-5 max-[640px]:h-[58px] max-[640px]:px-3">
+            <button type="button" className="inline-flex h-10 items-center gap-2 rounded-full bg-slate-100 px-4 text-sm font-black text-slate-700 transition hover:bg-slate-200 max-[640px]:h-9 max-[640px]:px-3 max-[640px]:text-xs" onClick={() => onNavigateProducts?.()}>
+              <span className="text-lg leading-none max-[640px]:text-base" aria-hidden="true">‹</span>
               <span>계속 담기</span>
-              <span className="text-lg leading-none" aria-hidden="true">›</span>
             </button>
-            <h1 id="quote-request-modal-title" className="m-0 text-[22px] font-black text-slate-950 max-[640px]:text-lg">
+            <h1 id="quote-request-modal-title" className="absolute left-1/2 m-0 -translate-x-1/2 text-[22px] font-black text-slate-950 max-[640px]:text-lg">
               견적요청서
             </h1>
-            <button type="button" className="grid h-10 w-10 place-items-center justify-self-end rounded-full bg-slate-100 text-xl font-black text-slate-700 transition hover:bg-slate-200 max-[640px]:h-9 max-[640px]:w-9" onClick={() => onClose?.()} aria-label="견적요청서 닫기">
+            <button type="button" className="grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-xl font-black text-slate-700 transition hover:bg-slate-200 max-[640px]:h-9 max-[640px]:w-9" onClick={() => onClose?.()} aria-label="견적요청서 닫기">
               ×
             </button>
           </div>
@@ -260,7 +260,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                             </div>
                             <button
                               type="button"
-                              className="inline-flex h-9 items-center rounded-full bg-white px-3 text-xs font-extrabold text-slate-500 ring-1 ring-slate-100 transition hover:bg-rose-50 hover:text-[#b4262e] hover:ring-rose-100"
+                              className="inline-flex h-9 items-center rounded-full bg-[#d53232] px-3 text-xs font-extrabold text-white transition hover:bg-[#bd2929]"
                               onClick={() => onRemoveItem?.(item.id)}
                             >
                               항목 삭제

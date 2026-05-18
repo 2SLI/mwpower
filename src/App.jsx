@@ -9,6 +9,10 @@ import { ContactView } from './views/ContactView'
 import { TechnicalContactView } from './views/TechnicalContactView'
 import { QuoteRequestView } from './views/QuoteRequestView'
 import { OrderListView } from './views/OrderListView'
+import { GuestOrderView } from './views/GuestOrderView'
+import { OrderCheckoutView } from './views/OrderCheckoutView'
+import { OrderCompleteView } from './views/OrderCompleteView'
+import { OrderSearchView } from './views/OrderSearchView'
 import { AdminView } from './views/AdminView'
 import { bannerImages } from './data/bannerImages'
 import {
@@ -29,6 +33,10 @@ const VIEW_PATHS = {
   news: '/news',
   service: '/service',
   'order-list': '/order-list',
+  'order-form': '/order',
+  'order-checkout': '/order-checkout',
+  'order-complete': '/order-complete',
+  'order-search': '/order-search',
   'quote-request': '/quote-request',
   'contact-product': '/contact/product',
   'contact-tech': '/contact/tech',
@@ -40,6 +48,8 @@ const PATH_VIEW_ALIASES = {
   '/news': 'news',
   '/service': 'service',
   '/order-list': 'order-list',
+  '/order-search': 'order-search',
+  '/order-checkout': 'order-checkout',
   '/quote': 'quote-request',
   '/quote-request': 'quote-request',
   '/contact': 'contact-product',
@@ -51,7 +61,21 @@ const PATH_VIEW_ALIASES = {
 
 function normalizeView(view) {
   if (view === 'contact') return 'contact-product'
-  if (view === 'news' || view === 'products' || view === 'service' || view === 'order-list' || view === 'quote-request' || view === 'contact-product' || view === 'contact-tech') return view
+  if (
+    view === 'news' ||
+    view === 'products' ||
+    view === 'service' ||
+    view === 'order-list' ||
+    view === 'order-form' ||
+    view === 'order-checkout' ||
+    view === 'order-complete' ||
+    view === 'order-search' ||
+    view === 'quote-request' ||
+    view === 'contact-product' ||
+    view === 'contact-tech'
+  ) {
+    return view
+  }
   return 'home'
 }
 
@@ -93,23 +117,39 @@ function getPathForView(view) {
 function getViewForPathname(pathname = '/') {
   const normalized = normalizePathname(pathname)
   if (normalized.startsWith('/news/')) return 'news'
+  if (normalized.startsWith('/order-complete/')) return 'order-complete'
+  if (normalized.startsWith('/order/')) return 'order-form'
   return PATH_VIEW_ALIASES[normalized] ?? 'home'
 }
 
 function isKnownAppPath(pathname = '/') {
   const normalized = normalizePathname(pathname)
-  return normalized === '/admin' || normalized.startsWith('/news/') || Boolean(PATH_VIEW_ALIASES[normalized])
+  return normalized === '/admin' || normalized.startsWith('/admin/') || normalized.startsWith('/news/') || normalized.startsWith('/order-complete/') || normalized.startsWith('/order/') || Boolean(PATH_VIEW_ALIASES[normalized])
 }
 
 function getCanonicalPathForPathname(pathname = '/', view = getViewForPathname(pathname)) {
   const normalized = normalizePathname(pathname)
   if (view === 'news' && normalized.startsWith('/news/')) return normalized
+  if (view === 'order-complete' && normalized.startsWith('/order-complete/')) return normalized
+  if (view === 'order-form' && normalized.startsWith('/order/')) return normalized
   return getPathForView(view)
 }
 
 function normalizeBackgroundView(view) {
   const normalized = normalizeView(view)
   return normalized === 'quote-request' || normalized === 'order-list' ? QUOTE_MODAL_FALLBACK_VIEW : normalized
+}
+
+function getRouteParamFromPath(pathname = '/', prefix = '') {
+  const normalized = normalizePathname(pathname)
+  const cleanPrefix = normalizePathname(prefix)
+  if (!normalized.startsWith(`${cleanPrefix}/`)) return ''
+  const raw = normalized.slice(cleanPrefix.length + 1).split('/')[0] ?? ''
+  try {
+    return decodeURIComponent(raw)
+  } catch {
+    return raw
+  }
 }
 
 export default function App() {
@@ -125,12 +165,19 @@ export default function App() {
   const [quoteItems, setQuoteItems] = useState(() => readStoredQuoteItems())
   const [pathname, setPathname] = useState(initialPathname)
   const [quoteBackgroundView, setQuoteBackgroundView] = useState(initialQuoteBackgroundView)
-  const isAdminRoute = pathname === '/admin'
+  const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/')
   const isOrderListOpen = activeView === 'order-list'
   const isQuoteRequestOpen = activeView === 'quote-request'
   const isModalViewOpen = isOrderListOpen || isQuoteRequestOpen
   const visibleView = isModalViewOpen ? quoteBackgroundView : activeView
-  const shouldHideFloatingActions = activeView === 'contact-product' || activeView === 'contact-tech' || isModalViewOpen
+  const shouldHideFloatingActions =
+    activeView === 'contact-product' ||
+    activeView === 'contact-tech' ||
+    activeView === 'order-form' ||
+    activeView === 'order-checkout' ||
+    activeView === 'order-complete' ||
+    activeView === 'order-search' ||
+    isModalViewOpen
   const orderSummary = useMemo(() => getQuoteItemSummary(orderItems), [orderItems])
   const quoteSummary = useMemo(() => getQuoteItemSummary(quoteItems), [quoteItems])
   const lastNonQuoteViewRef = useRef(normalizeBackgroundView(visibleView))
@@ -146,7 +193,7 @@ export default function App() {
     const syncPath = () => {
       const nextPath = normalizePathname(window.location.pathname)
 
-      if (nextPath === '/admin') {
+      if (nextPath === '/admin' || nextPath.startsWith('/admin/')) {
         setPathname(nextPath)
         return
       }
@@ -207,6 +254,22 @@ export default function App() {
       'order-list': {
         title: '주문목록 | 민웰파워',
         description: '담아둔 주문 품목과 수량을 확인하는 민웰파워 주문목록입니다.',
+      },
+      'order-form': {
+        title: '비회원 주문서 | 민웰파워',
+        description: '민웰파워 상품을 로그인 없이 무통장입금 방식으로 주문할 수 있습니다.',
+      },
+      'order-checkout': {
+        title: '주문서 작성 | 민웰파워',
+        description: '주문목록에 담긴 민웰파워 상품을 로그인 없이 주문할 수 있습니다.',
+      },
+      'order-complete': {
+        title: '주문 완료 | 민웰파워',
+        description: '민웰파워 비회원 주문 접수 내역과 입금 계좌 정보를 확인하세요.',
+      },
+      'order-search': {
+        title: '주문 조회 | 민웰파워',
+        description: '주문번호와 연락처로 민웰파워 비회원 주문 상태를 조회하세요.',
       },
       'quote-request': {
         title: 'B2B 견적요청 | 민웰파워',
@@ -325,6 +388,54 @@ export default function App() {
     }
   }
 
+  function handleStartGuestOrder(productId) {
+    const id = String(productId ?? '').trim()
+    if (!id) return
+    const nextPath = `/order/${encodeURIComponent(id)}`
+    setActiveView('order-form')
+    setPathname(nextPath)
+    setQuoteBackgroundView('order-form')
+    lastNonQuoteViewRef.current = 'order-form'
+
+    if (typeof window !== 'undefined') {
+      const currentPath = normalizePathname(window.location.pathname)
+      if (currentPath !== normalizePathname(nextPath)) {
+        window.history.pushState({ view: 'order-form', productId: id }, '', nextPath)
+      }
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
+  }
+
+  function handleOrderComplete(orderNumber) {
+    const id = String(orderNumber ?? '').trim()
+    if (!id) return
+    const nextPath = `/order-complete/${encodeURIComponent(id)}`
+    setActiveView('order-complete')
+    setPathname(nextPath)
+    setQuoteBackgroundView('order-complete')
+    lastNonQuoteViewRef.current = 'order-complete'
+
+    if (typeof window !== 'undefined') {
+      window.history.pushState({ view: 'order-complete', orderNumber: id }, '', nextPath)
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
+  }
+
+  function handleCheckoutOrderList() {
+    if (orderItems.length === 0) return
+    handleCloseModalView()
+    const nextPath = VIEW_PATHS['order-checkout']
+    setActiveView('order-checkout')
+    setPathname(nextPath)
+    setQuoteBackgroundView('order-checkout')
+    lastNonQuoteViewRef.current = 'order-checkout'
+
+    if (typeof window !== 'undefined') {
+      window.history.pushState({ view: 'order-checkout' }, '', nextPath)
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
+  }
+
   function handleAddOrderItem(item) {
     setOrderItems((prev) => addQuoteItem(prev, item))
     handleNavigate('order-list', { scrollTop: false, backgroundView: visibleView })
@@ -360,7 +471,7 @@ export default function App() {
   }
 
   if (isAdminRoute) {
-    return <AdminView />
+    return <AdminView pathname={pathname} />
   }
 
   return (
@@ -437,15 +548,36 @@ export default function App() {
             externalPresetRequest={productPresetRequest}
             onAddOrderItem={handleAddOrderItem}
             onAddQuoteItem={handleAddQuoteItem}
+            onStartGuestOrder={handleStartGuestOrder}
             quoteItemCount={quoteSummary.totalQuantity}
             orderItemCount={orderSummary.totalQuantity}
           />
           <ServiceView isActive={visibleView === 'service'} />
+          <GuestOrderView
+            isActive={visibleView === 'order-form'}
+            productId={getRouteParamFromPath(pathname, '/order')}
+            onNavigateProducts={() => handleNavigate('products')}
+            onOrderComplete={handleOrderComplete}
+          />
+          <OrderCompleteView
+            isActive={visibleView === 'order-complete'}
+            orderNumber={getRouteParamFromPath(pathname, '/order-complete')}
+            onNavigateOrderSearch={() => handleNavigate('order-search')}
+          />
+          <OrderCheckoutView
+            isActive={visibleView === 'order-checkout'}
+            items={orderItems}
+            onNavigateProducts={() => handleNavigate('products')}
+            onOrderComplete={handleOrderComplete}
+            onClearItems={handleClearOrderItems}
+          />
+          <OrderSearchView isActive={visibleView === 'order-search'} />
           <OrderListView
             isOpen={isOrderListOpen}
             items={orderItems}
             onClose={handleCloseModalView}
             onNavigateProducts={handleNavigateProductsFromQuote}
+            onCheckout={handleCheckoutOrderList}
             onUpdateQuantity={handleUpdateOrderItemQuantity}
             onRemoveItem={handleRemoveOrderItem}
             onClearItems={handleClearOrderItems}

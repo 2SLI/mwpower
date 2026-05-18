@@ -520,7 +520,7 @@ function serializeProductHistoryState(state) {
   return JSON.stringify(normalizeProductHistoryState(state) ?? null)
 }
 
-export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onAddOrderItem, onAddQuoteItem, orderItemCount = 0, quoteItemCount = 0 }) {
+export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onAddOrderItem, onAddQuoteItem, onStartGuestOrder, orderItemCount = 0, quoteItemCount = 0 }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
 
@@ -1442,6 +1442,19 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                       : `${selectedQuoteQuantity}개 기준으로 선택한 목록에 추가됩니다.`}
                 </p>
               </div>
+
+              <button
+                type="button"
+                disabled={isAddToOrderDisabled}
+                className={`inline-flex h-12 w-full items-center justify-center rounded-xl px-4 text-sm font-extrabold text-white shadow-sm transition ${
+                  isAddToOrderDisabled
+                    ? 'cursor-not-allowed bg-slate-300 text-slate-100'
+                    : 'bg-slate-950 hover:bg-slate-800'
+                }`}
+                onClick={() => onStartGuestOrder?.(selectedOptionModel || selectedModelCard.modelName)}
+              >
+                주문하기
+              </button>
 
               <div className="grid gap-2 sm:grid-cols-2">
                 <button

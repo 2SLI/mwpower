@@ -15,6 +15,24 @@ button:focus-visible,
   outline: none;
 }
 
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+input:not([type="checkbox"]):not([type="radio"]):focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 @layer base {
   :root {
     font-family: "Segoe UI", Arial, sans-serif;

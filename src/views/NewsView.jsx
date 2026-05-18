@@ -285,13 +285,13 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                         href={getArticleUrl(item)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block overflow-hidden rounded-[5px] bg-slate-100 max-[700px]:row-span-2"
+                        className="block h-[82px] w-full overflow-hidden rounded-[5px] bg-slate-100 max-[700px]:row-span-2 max-[700px]:h-[72px] max-[700px]:w-[96px]"
                         onClick={(event) => handleArticleOpen(event, item)}
                       >
                         {item.image ? (
-                          <img src={item.image} alt={item.title} className="h-[82px] w-[112px] object-cover max-[700px]:h-[72px] max-[700px]:w-[96px]" onError={handleNewsImageError} />
+                          <img src={item.image} alt={item.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                         ) : (
-                          <div className="grid h-[82px] w-[112px] place-items-center text-[11px] font-bold text-slate-400 max-[700px]:h-[72px] max-[700px]:w-[96px]">이미지 없음</div>
+                          <div className="grid h-full w-full place-items-center text-[11px] font-bold text-slate-400">이미지 없음</div>
                         )}
                       </a>
                       <div className="px-4 max-[700px]:px-0">
