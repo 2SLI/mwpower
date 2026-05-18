@@ -695,6 +695,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const leaf = String(externalPresetRequest?.leaf ?? '').trim()
     const group = String(externalPresetRequest?.groupName ?? '').trim()
     const model = String(externalPresetRequest?.model ?? '').trim()
+    const optionModel = String(externalPresetRequest?.optionModel ?? '').trim()
 
     applyProductRouteState(
       {
@@ -703,7 +704,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         leaf: leaf || subcategory || null,
         groupName: group || null,
         model: model || null,
-        optionModel: '',
+        optionModel,
         search: '',
       },
       { history: 'replace' }

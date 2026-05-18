@@ -16,7 +16,7 @@ function getSingleSearchToken(value = '') {
   return tokens.length === 1 ? tokens[0] : ''
 }
 
-export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
+export function ProductSearchModal({ isOpen, onClose, onSelectKeyword, onSelectProductRoute }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState(EMPTY_TREE)
   const [query, setQuery] = useState('')
@@ -159,6 +159,12 @@ export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
       .filter(([modelKey]) => modelKey.includes(tokenKey) || tokenKey.startsWith(`${modelKey}-`))
       .map(([modelKey, route]) => ({
         modelKey,
+        majorId: route.majorId,
+        subcategory: route.subcategory,
+        leaf: route.leaf,
+        groupName: route.groupName,
+        model: route.model,
+        optionModel: route.optionModel,
         displayModel: String(route.optionModel || route.model || '').toUpperCase(),
       }))
       .sort((a, b) => {
@@ -195,6 +201,19 @@ export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
     onClose?.()
   }
 
+  const handleSelectShortcut = (shortcut) => {
+    if (!shortcut) return
+    onSelectProductRoute?.({
+      majorId: shortcut.majorId,
+      subcategory: shortcut.subcategory,
+      leaf: shortcut.leaf,
+      groupName: shortcut.groupName,
+      model: shortcut.model,
+      optionModel: shortcut.optionModel,
+    })
+    onClose?.()
+  }
+
   return (
     <div
       className="fixed inset-0 z-[80] bg-black/35 px-3 pt-20 backdrop-blur-[1px] max-[640px]:pt-16"
@@ -226,7 +245,7 @@ export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
 
         <div className="border-b border-[#f2c8cd] bg-white px-4 py-3">
           <label className="sr-only" htmlFor="header-product-search">상품 검색</label>
-          <div className="flex items-center rounded-xl border border-[#e9b4bb] bg-white px-3 focus-within:border-[#cb2c37] focus-within:shadow-[0_0_0_2px_#f7d8dc]">
+          <div className="flex items-center rounded-xl bg-white px-3">
             <i className="fa-solid fa-magnifying-glass text-sm text-[#c9252f]" aria-hidden="true"></i>
             <input
               id="header-product-search"
@@ -237,15 +256,6 @@ export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
               placeholder="시리즈/모델명 검색 (예: RS-35)"
               className="h-11 w-full border-0 bg-transparent px-2 text-sm font-semibold text-slate-800 outline-none placeholder:font-medium placeholder:text-slate-400 max-[640px]:text-base"
             />
-            {trimmedQuery ? (
-              <button
-                type="button"
-                className="rounded-full border border-[#e8b2b9] bg-white px-2.5 py-1 text-[11px] font-bold text-[#c9252f] transition hover:bg-[#fff3f4]"
-                onClick={() => setQuery('')}
-              >
-                지우기
-              </button>
-            ) : null}
           </div>
         </div>
 
@@ -262,7 +272,7 @@ export function ProductSearchModal({ isOpen, onClose, onSelectKeyword }) {
                           key={`${shortcut.modelKey}-${shortcut.displayModel}`}
                           type="button"
                           className="rounded-full border border-[#d9a0a8] bg-white px-3 py-1.5 text-[12px] font-bold uppercase text-[#b52c37] transition hover:border-[#c9252f] hover:bg-[#fff3f4] hover:text-[#c9252f]"
-                          onClick={() => handleSelect(shortcut.displayModel)}
+                          onClick={() => handleSelectShortcut(shortcut)}
                         >
                           {shortcut.displayModel}
                         </button>

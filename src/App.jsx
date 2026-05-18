@@ -523,6 +523,7 @@ export default function App() {
           activeView={activeView}
           onNavigate={handleNavigate}
           onProductSearch={handleProductSearch}
+          onProductRouteSelect={handleOpenProductPreset}
           quoteItemCount={quoteSummary.totalQuantity}
           orderItemCount={orderSummary.totalQuantity}
         />

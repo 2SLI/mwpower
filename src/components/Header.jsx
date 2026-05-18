@@ -43,7 +43,7 @@ function NavLink({ item, isActive, onNavigate, badgeCount = 0 }) {
   )
 }
 
-export function Header({ activeView, onNavigate, onProductSearch, orderItemCount = 0, quoteItemCount = 0 }) {
+export function Header({ activeView, onNavigate, onProductSearch, onProductRouteSelect, orderItemCount = 0, quoteItemCount = 0 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -221,19 +221,6 @@ export function Header({ activeView, onNavigate, onProductSearch, orderItemCount
         </div>
 
         <div className="flex shrink-0 items-center gap-1.5 text-[#1a2433] max-[640px]:gap-1">
-          <a
-            href="https://smartstore.naver.com/meanwellpower"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mr-2 inline-flex h-10 items-center gap-1.5 rounded-full bg-[#d9252a] px-5 text-sm font-bold text-white max-[1280px]:hidden"
-          >
-            <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="9"></circle>
-              <path d="M3.5 12h17"></path>
-              <path d="M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9s1.3-6.4 3.8-9Z"></path>
-            </svg>
-            <span>민웰파워 스토어</span>
-          </a>
           <button
             type="button"
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white p-0 text-slate-700 transition hover:border-[#d63b42] hover:text-[#c62f36] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
@@ -301,6 +288,9 @@ export function Header({ activeView, onNavigate, onProductSearch, orderItemCount
         onClose={() => setIsSearchOpen(false)}
         onSelectKeyword={(keyword) => {
           onProductSearch?.(keyword)
+        }}
+        onSelectProductRoute={(route) => {
+          onProductRouteSelect?.(route)
         }}
       />
       {mobileMenuPortal}
