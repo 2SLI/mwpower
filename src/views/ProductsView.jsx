@@ -91,7 +91,7 @@ function formatInventoryText(modelName = '', { aggregate = true } = {}) {
   if (!aggregate) return '재고 미등록'
 
   const quantity = getInventoryQuantity(modelName)
-  if (Number.isFinite(quantity)) return `옵션 재고 ${quantity.toLocaleString('ko-KR')}개`
+  if (Number.isFinite(quantity)) return `재고 ${quantity.toLocaleString('ko-KR')}개`
   return '재고 미등록'
 }
 
@@ -105,6 +105,62 @@ function getInventoryTone(modelName = '') {
   const quantity = getInventoryQuantity(modelName)
   if (!Number.isFinite(quantity)) return 'unknown'
   return quantity > 0 ? 'in-stock' : 'out-of-stock'
+}
+
+function getInventorySortRank(modelName = '') {
+  const tone = getInventoryTone(modelName)
+  if (tone === 'in-stock') return 0
+  if (tone === 'unknown') return 1
+  return 2
+}
+
+function compareModelCardsByInventory(a, b) {
+  const stockRank = getInventorySortRank(a?.modelName) - getInventorySortRank(b?.modelName)
+  if (stockRank !== 0) return stockRank
+
+  const quantityA = getInventoryQuantity(a?.modelName)
+  const quantityB = getInventoryQuantity(b?.modelName)
+  const safeQuantityA = Number.isFinite(quantityA) ? quantityA : -1
+  const safeQuantityB = Number.isFinite(quantityB) ? quantityB : -1
+  if (safeQuantityA !== safeQuantityB) return safeQuantityB - safeQuantityA
+
+  return String(a?.modelName ?? '').localeCompare(String(b?.modelName ?? ''), undefined, {
+    numeric: true,
+    sensitivity: 'base',
+  })
+}
+
+function compareModelLabelsByInventory(a, b) {
+  return compareModelCardsByInventory({ modelName: a }, { modelName: b })
+}
+
+function getLeafRecordInventoryRank(record) {
+  const modelList = Array.isArray(record?.modelList) ? record.modelList : []
+  if (modelList.some((item) => getInventorySortRank(item?.modelName) === 0)) return 0
+  if (modelList.some((item) => getInventorySortRank(item?.modelName) === 1)) return 1
+  return 2
+}
+
+function compareLeafRecordsByInventory(a, b) {
+  const stockRank = getLeafRecordInventoryRank(a) - getLeafRecordInventoryRank(b)
+  if (stockRank !== 0) return stockRank
+
+  const major = String(a?.major ?? '').localeCompare(String(b?.major ?? ''), undefined, {
+    numeric: true,
+    sensitivity: 'base',
+  })
+  if (major !== 0) return major
+
+  const sub = String(a?.subcategory ?? '').localeCompare(String(b?.subcategory ?? ''), undefined, {
+    numeric: true,
+    sensitivity: 'base',
+  })
+  if (sub !== 0) return sub
+
+  return String(a?.leaf ?? '').localeCompare(String(b?.leaf ?? ''), undefined, {
+    numeric: true,
+    sensitivity: 'base',
+  })
 }
 
 function getSingleSearchToken(value = '') {
@@ -790,10 +846,12 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
   const visibleModelCards = useMemo(
     () =>
-      visibleModels.map((modelName) => ({
-        modelName,
-        asset: getModelAssetByModel(leafView?.modelAssetsByKey, modelName),
-      })),
+      visibleModels
+        .map((modelName) => ({
+          modelName,
+          asset: getModelAssetByModel(leafView?.modelAssetsByKey, modelName),
+        }))
+        .sort(compareModelCardsByInventory),
     [visibleModels, leafView]
   )
 
@@ -911,10 +969,12 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   }, [leafTreeMap, majorIdByName])
 
   const toLeafCardRecord = (record, modelNames = getRecordModelNames(record)) => {
-    const modelList = modelNames.map((modelName) => ({
-      modelName,
-      asset: getModelAssetByModel(record?.modelAssetsByKey, modelName),
-    }))
+    const modelList = modelNames
+      .map((modelName) => ({
+        modelName,
+        asset: getModelAssetByModel(record?.modelAssetsByKey, modelName),
+      }))
+      .sort(compareModelCardsByInventory)
 
     return {
       key: String(record?.key ?? '').trim(),
@@ -940,12 +1000,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         if (!activeSubcategory) return true
         return normalizeLabel(record?.subcategory) === normalizeLabel(activeSubcategory)
       })
-      .sort((a, b) => {
-        const sub = String(a?.subcategory ?? '').localeCompare(String(b?.subcategory ?? ''))
-        if (sub !== 0) return sub
-        return String(a?.leaf ?? '').localeCompare(String(b?.leaf ?? ''))
-      })
       .map((record) => toLeafCardRecord(record))
+      .sort(compareLeafRecordsByInventory)
   }, [activeMajor, hasSearch, activeSubcategory, activeLeaf, leafTreeMap])
 
   const searchLeafRecords = useMemo(() => {
@@ -972,13 +1028,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         acc.push(toLeafCardRecord(record, models))
         return acc
       }, [])
-      .sort((a, b) => {
-        const major = String(a?.major ?? '').localeCompare(String(b?.major ?? ''))
-        if (major !== 0) return major
-        const sub = String(a?.subcategory ?? '').localeCompare(String(b?.subcategory ?? ''))
-        if (sub !== 0) return sub
-        return String(a?.leaf ?? '').localeCompare(String(b?.leaf ?? ''))
-      })
+      .sort(compareLeafRecordsByInventory)
   }, [hasSearch, searchKeywords, leafTreeMap])
 
   const modelShortcutList = useMemo(() => {
@@ -1005,6 +1055,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         const aStarts = a.modelKey.startsWith(tokenKey) ? 0 : 1
         const bStarts = b.modelKey.startsWith(tokenKey) ? 0 : 1
         if (aStarts !== bStarts) return aStarts - bStarts
+
+        const stockRank = getInventorySortRank(a.displayModel) - getInventorySortRank(b.displayModel)
+        if (stockRank !== 0) return stockRank
 
         const aLen = a.modelKey.length
         const bLen = b.modelKey.length
@@ -1033,9 +1086,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         selectedModel: selectedModelCard?.modelName,
       })
       const inventoryLabels = getInventoryOptionModels(selectedModelCard?.modelName)
-      return collectUniqueOptionValues([...labels, ...inventoryLabels]).sort((a, b) =>
-        a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
-      )
+      return collectUniqueOptionValues([...labels, ...inventoryLabels]).sort(compareModelLabelsByInventory)
     },
     [selectedModelOptions, selectedModelCard?.modelName]
   )

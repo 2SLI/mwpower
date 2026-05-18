@@ -271,11 +271,11 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               style={{ '--banner-image': `url('${banner.src}')` }}
             >
               <span className="sr-only">MEAN WELL banner {index + 1}</span>
-              <div className="absolute left-[clamp(22px,4vw,72px)] top-1/2 z-10 max-w-[min(620px,56vw)] -translate-y-1/2 text-white max-[980px]:max-w-[min(640px,90vw)] max-[640px]:left-3.5 max-[640px]:right-3.5 max-[640px]:max-w-none">
+              <div className="absolute left-[clamp(22px,4vw,72px)] top-1/2 z-10 max-w-[min(720px,58vw)] -translate-y-1/2 text-white max-[1280px]:max-w-[min(620px,55vw)] max-[980px]:max-w-[min(640px,90vw)] max-[640px]:left-3.5 max-[640px]:right-3.5 max-[640px]:max-w-none">
                 <p className="mb-2.5 text-[clamp(11px,0.95vw,15px)] font-bold tracking-[1.4px] text-rose-200 max-[640px]:mb-2 max-[640px]:text-[10px]">
                   {banner.eyebrow ?? ''}
                 </p>
-                <h2 className="m-0 text-[clamp(27px,2.9vw,48px)] leading-[1.18] text-white max-[980px]:text-[clamp(22px,5.4vw,32px)] max-[640px]:text-[clamp(18px,5.8vw,22px)] max-[640px]:leading-[1.24]">
+                <h2 className="home-banner-title m-0 text-[clamp(26px,2.55vw,44px)] leading-[1.2] text-white max-[1280px]:text-[clamp(24px,2.7vw,38px)] max-[980px]:text-[clamp(22px,5vw,31px)] max-[640px]:text-[clamp(18px,5.8vw,22px)] max-[640px]:leading-[1.24]">
                   {bannerTitleLines[index].map((line, lineIndex) => (
                     <Fragment key={`${banner.src ?? index}-${lineIndex}`}>
                       {line}
@@ -283,7 +283,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                     </Fragment>
                   ))}
                 </h2>
-                <p className="mt-3.5 max-w-[52ch] text-[clamp(13px,1vw,17px)] leading-[1.55] text-slate-100 max-[980px]:mt-2.5 max-[980px]:text-sm max-[640px]:hidden">
+                <p className="home-banner-description mt-3.5 max-w-[60ch] text-[clamp(13px,0.92vw,16px)] leading-[1.65] text-slate-100 max-[980px]:mt-2.5 max-[980px]:text-sm max-[640px]:hidden">
                   {banner.description ?? ''}
                 </p>
                 <a

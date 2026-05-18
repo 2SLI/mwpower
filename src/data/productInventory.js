@@ -17,7 +17,7 @@ export const productInventorySummary = {
     "TBC-09(단자커버)",
     "UHP-600-12"
   ],
-  "generatedAt": "2026-05-12T03:22:08.536Z"
+  "generatedAt": "2026-05-18T05:09:04.866Z"
 }
 
 export const productInventoryByModelKey = {

@@ -77,6 +77,21 @@
     background: #fff;
   }
 
+  .home-banner-title,
+  .home-banner-description {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    line-break: strict;
+  }
+
+  .home-banner-title {
+    text-wrap: balance;
+  }
+
+  .home-banner-description {
+    text-wrap: pretty;
+  }
+
   #product-page #product-major-list > button,
   #product-page #product-subcategory-list > button,
   #product-page #product-leaf-list > button {
