@@ -428,7 +428,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
         </div>
       </section>
 
-      <section className="w-full border-t border-slate-200 bg-slate-100/90 py-10 md:py-14" aria-label="뉴스">
+      <section className="w-full border-t border-slate-100 bg-white py-10 md:py-14" aria-label="뉴스">
         <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
           <header className="mb-6 flex items-center justify-between gap-4">
             <div>
@@ -450,7 +450,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
 
           <div className="grid gap-4 xl:grid-cols-[1.14fr_1fr]">
             {featuredNews ? (
-              <article className="overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-[0_22px_45px_-28px_rgba(15,23,42,.22)]">
+              <article className="overflow-hidden rounded-[26px] bg-white shadow-[0_18px_38px_-32px_rgba(15,23,42,.24)]">
                 <button
                   type="button"
                   className="block aspect-[16/9] w-full overflow-hidden border-0 bg-slate-100 p-0 text-left"
@@ -464,7 +464,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                   )}
                 </button>
 
-                <div className="p-6">
+                <div className="bg-white p-6">
                   <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">주요 뉴스</p>
                   <h3 className="mt-3 text-[clamp(1.5rem,2.1vw,2.4rem)] font-extrabold leading-tight tracking-tight text-slate-900">
                     {featuredNews.title}
@@ -502,7 +502,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               {latestNews.map((item) => (
                 <article
                   key={item.id}
-                  className="group overflow-hidden rounded-[22px] border border-slate-200/80 bg-white text-left shadow-[0_16px_42px_-34px_rgba(15,23,42,0.45)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_22px_48px_-32px_rgba(15,23,42,0.55)]"
+                  className="group overflow-hidden rounded-[22px] bg-white text-left shadow-[0_16px_36px_-32px_rgba(15,23,42,0.34)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_42px_-34px_rgba(15,23,42,0.4)]"
                 >
                   <button
                     type="button"
@@ -516,10 +516,10 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                       <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">이미지 없음</div>
                     )}
                   </button>
-                  <button type="button" className="block w-full min-h-[178px] px-5 py-4 text-left" onClick={() => openNews(item.id)}>
+                  <button type="button" className="block min-h-[178px] w-full bg-white px-5 py-4 text-left" onClick={() => openNews(item.id)}>
                     <div className="flex items-center justify-between gap-3">
                       <time className="shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</time>
-                      <span className="min-w-0 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-500">
+                      <span className="min-w-0 rounded-full bg-white px-2.5 py-1 text-[11px] font-black text-slate-500 shadow-[inset_0_0_0_1px_rgba(226,232,240,0.85)]">
                         {item.sourceLabel || '외부 뉴스'}
                       </span>
                     </div>

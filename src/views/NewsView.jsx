@@ -17,6 +17,23 @@ function handleNewsImageError(event) {
 
 const NEWS_CATEGORIES = ['산업 뉴스', '신제품', '제품 공지', '기술 자료', '전시회', '회사 소식', '보도자료', '영상 채널']
 
+function getArticleUrl(article = {}) {
+  return article.articleUrl || article.externalUrl || '#'
+}
+
+function isMeanwellOfficialArticle(article = {}) {
+  if (article.source === 'meanwell-official') return true
+  try {
+    return /(^|\.)meanwell\.com$/i.test(new URL(getArticleUrl(article)).hostname)
+  } catch {
+    return false
+  }
+}
+
+function hasTranslatedArticle(article = {}) {
+  return isMeanwellOfficialArticle(article) && (article.summary || article.body?.length || article.keyPoints?.length)
+}
+
 export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
   const [articles, setArticles] = useState(() => normalizeNewsItems(getAllNewsSorted()))
   const [keyword, setKeyword] = useState('')
@@ -64,8 +81,8 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
       return
     }
 
-    if (!filteredArticles.some((item) => item.id === activeArticleId)) {
-      setActiveArticleId(filteredArticles[0].id)
+    if (activeArticleId && !filteredArticles.some((item) => item.id === activeArticleId)) {
+      setActiveArticleId(null)
     }
   }, [filteredArticles, activeArticleId])
 
@@ -82,8 +99,8 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
   }, [externalNewsRequest, articles])
 
   const activeArticle = useMemo(() => {
-    if (!activeArticleId) return filteredArticles[0] ?? null
-    return filteredArticles.find((item) => item.id === activeArticleId) ?? filteredArticles[0] ?? null
+    if (!activeArticleId) return null
+    return filteredArticles.find((item) => item.id === activeArticleId) ?? null
   }, [activeArticleId, filteredArticles])
 
   function openTranslatedArticle(articleId) {
@@ -95,6 +112,12 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
         document.getElementById('news-translated-article')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
       })
     }
+  }
+
+  function handleArticleOpen(event, article) {
+    if (!hasTranslatedArticle(article)) return
+    event.preventDefault()
+    openTranslatedArticle(article.id)
   }
 
   return (
@@ -158,6 +181,66 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
           </aside>
 
           <main>
+            {activeArticle && hasTranslatedArticle(activeArticle) ? (
+              <article id="news-translated-article" className="mb-10 overflow-hidden bg-white shadow-[0_18px_42px_-34px_rgba(15,23,42,0.3)]">
+                {activeArticle.image ? (
+                  <div className="aspect-[16/7] bg-slate-100 max-[700px]:aspect-[16/10]">
+                    <img src={activeArticle.image} alt={activeArticle.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
+                  </div>
+                ) : null}
+                <div className="px-7 py-7 max-[700px]:px-5">
+                  <div className="flex flex-wrap items-center gap-2 text-sm font-bold text-[#c9252f]">
+                    <span>{formatNewsDate(activeArticle.date)}</span>
+                    <span className="text-[#cfcfcf]">|</span>
+                    <span>{activeArticle.sourceLabel || 'MEAN WELL 공식'}</span>
+                    <span className="rounded-full bg-[#fff1f1] px-2.5 py-1 text-[11px] font-black text-[#c9252f]">한국어 번역</span>
+                  </div>
+                  <h3 className="m-0 mt-4 text-[30px] font-black leading-tight text-[#222] max-[700px]:text-[22px]">{activeArticle.title}</h3>
+                  {activeArticle.summary ? <p className="m-0 mt-4 text-[16px] font-semibold leading-7 text-[#555]">{activeArticle.summary}</p> : null}
+
+                  {activeArticle.keyPoints?.length ? (
+                    <div className="mt-6 bg-[#fff8f8] px-5 py-4">
+                      <p className="m-0 mb-3 text-sm font-black text-[#c9252f]">핵심 내용</p>
+                      <ul className="m-0 grid gap-2 p-0">
+                        {activeArticle.keyPoints.map((point) => (
+                          <li key={point} className="flex gap-2 text-sm font-semibold leading-6 text-[#444]">
+                            <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9252f]"></span>
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  {activeArticle.body?.length ? (
+                    <div className="mt-6 grid gap-4">
+                      {activeArticle.body.map((paragraph) => (
+                        <p key={paragraph} className="m-0 text-[15px] leading-8 text-[#444]">{paragraph}</p>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <a
+                      href={getArticleUrl(activeArticle)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-10 items-center rounded-full bg-[#c9252f] px-4 text-sm font-bold text-white transition hover:bg-[#b71f28]"
+                    >
+                      원문 보기
+                    </a>
+                    <button
+                      type="button"
+                      className="inline-flex h-10 items-center rounded-full bg-slate-100 px-4 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
+                      onClick={() => setActiveArticleId(null)}
+                    >
+                      목록만 보기
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ) : null}
+
             <div className="flex items-end justify-between border-b border-[#cfcfcf] pb-4">
               <h3 className="m-0 text-[24px] font-bold text-[#555]">
                 신제품
@@ -186,7 +269,13 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                         <span className="mr-2 text-[#e5322d]">›</span>
                         {formatNewsDate(item.date)}
                       </div>
-                      <a href={item.articleUrl || item.externalUrl || '#'} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-[5px] bg-slate-100 max-[700px]:row-span-2">
+                      <a
+                        href={getArticleUrl(item)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block overflow-hidden rounded-[5px] bg-slate-100 max-[700px]:row-span-2"
+                        onClick={(event) => handleArticleOpen(event, item)}
+                      >
                         {item.image ? (
                           <img src={item.image} alt={item.title} className="h-[82px] w-[112px] object-cover max-[700px]:h-[72px] max-[700px]:w-[96px]" onError={handleNewsImageError} />
                         ) : (
@@ -195,13 +284,15 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                       </a>
                       <div className="px-4 max-[700px]:px-0">
                         <a
-                          href={item.articleUrl || item.externalUrl || '#'}
+                          href={getArticleUrl(item)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[15px] leading-6 text-[#333] transition hover:text-[#e5322d]"
+                          onClick={(event) => handleArticleOpen(event, item)}
                         >
                           {item.title}
                         </a>
+                        {hasTranslatedArticle(item) ? <p className="m-0 mt-1 text-xs font-bold text-[#c9252f]">한국어 번역 보기</p> : null}
                         <p className="m-0 mt-2 hidden text-sm leading-6 text-[#777] max-[700px]:block">{item.summary}</p>
                       </div>
                     </article>
