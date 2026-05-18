@@ -49,9 +49,6 @@ function toTimestamp(dateText) {
 
 function sortNewsArticles(items) {
   return [...items].sort((a, b) => {
-    const officialDiff = Number(b.source === 'meanwell-official') - Number(a.source === 'meanwell-official')
-    if (officialDiff !== 0) return officialDiff
-
     const diff = toTimestamp(b.date) - toTimestamp(a.date)
     if (diff !== 0) return diff
     return String(b.id ?? '').localeCompare(String(a.id ?? ''))

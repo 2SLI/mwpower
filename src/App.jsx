@@ -92,12 +92,19 @@ function getPathForView(view) {
 
 function getViewForPathname(pathname = '/') {
   const normalized = normalizePathname(pathname)
+  if (normalized.startsWith('/news/')) return 'news'
   return PATH_VIEW_ALIASES[normalized] ?? 'home'
 }
 
 function isKnownAppPath(pathname = '/') {
   const normalized = normalizePathname(pathname)
-  return normalized === '/admin' || Boolean(PATH_VIEW_ALIASES[normalized])
+  return normalized === '/admin' || normalized.startsWith('/news/') || Boolean(PATH_VIEW_ALIASES[normalized])
+}
+
+function getCanonicalPathForPathname(pathname = '/', view = getViewForPathname(pathname)) {
+  const normalized = normalizePathname(pathname)
+  if (view === 'news' && normalized.startsWith('/news/')) return normalized
+  return getPathForView(view)
 }
 
 function normalizeBackgroundView(view) {
@@ -145,7 +152,7 @@ export default function App() {
       }
 
       const nextView = getViewForPathname(nextPath)
-      const canonicalPath = getPathForView(nextView)
+      const canonicalPath = getCanonicalPathForPathname(nextPath, nextView)
       const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
       const fallbackBackgroundView = normalizeBackgroundView(currentHistoryState.backgroundView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
       const nextBackgroundView = nextView === 'quote-request' || nextView === 'order-list' ? fallbackBackgroundView : normalizeBackgroundView(nextView)
@@ -302,8 +309,20 @@ export default function App() {
   function handleOpenNewsArticle(articleId) {
     const id = String(articleId ?? '').trim()
     if (!id) return
+    const nextPath = `/news/${encodeURIComponent(id)}`
     setNewsRequest({ articleId: id, at: Date.now() })
-    handleNavigate('news')
+    setActiveView('news')
+    setPathname(nextPath)
+    setQuoteBackgroundView('news')
+    lastNonQuoteViewRef.current = 'news'
+
+    if (typeof window !== 'undefined') {
+      const currentPath = normalizePathname(window.location.pathname)
+      if (currentPath !== nextPath) {
+        window.history.pushState({ view: 'news', articleId: id }, '', nextPath)
+      }
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
   }
 
   function handleAddOrderItem(item) {
@@ -405,7 +424,13 @@ export default function App() {
             onOpenProductSearch={handleProductSearch}
             onOpenNewsArticle={handleOpenNewsArticle}
           />
-          <NewsView isActive={visibleView === 'news'} onNavigate={handleNavigate} externalNewsRequest={newsRequest} />
+          <NewsView
+            isActive={visibleView === 'news'}
+            onNavigate={handleNavigate}
+            onOpenNewsArticle={handleOpenNewsArticle}
+            externalNewsRequest={newsRequest}
+            pathname={pathname}
+          />
           <ProductsView
             isActive={visibleView === 'products'}
             externalSearchRequest={productSearchRequest}

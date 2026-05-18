@@ -130,8 +130,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
     }
   }, [])
 
-  const featuredNews = newsItems[0] ?? null
-  const latestNews = newsItems.slice(1, 5)
+  const visibleNews = newsItems.slice(0, 8)
   const mobileSearchShortcutList = useMemo(() => {
     const tokenKey = normalizeLabel(getSingleSearchToken(mobileSearchKeyword))
     if (!tokenKey) return []
@@ -448,58 +447,9 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
             </a>
           </header>
 
-          <div className="grid gap-4 xl:grid-cols-[1.14fr_1fr]">
-            {featuredNews ? (
-              <article className="overflow-hidden rounded-[26px] bg-white shadow-[0_18px_38px_-32px_rgba(15,23,42,.24)]">
-                <button
-                  type="button"
-                  className="block aspect-[16/9] w-full overflow-hidden border-0 bg-slate-100 p-0 text-left"
-                  aria-label={`${featuredNews.title} 번역 뉴스 보기`}
-                  onClick={() => openNews(featuredNews.id)}
-                >
-                  {featuredNews.image ? (
-                    <img src={featuredNews.image} alt={featuredNews.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
-                  ) : (
-                    <div className="grid h-full place-items-center text-sm font-black text-slate-400">이미지 없음</div>
-                  )}
-                </button>
-
-                <div className="bg-white p-6">
-                  <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">주요 뉴스</p>
-                  <h3 className="mt-3 text-[clamp(1.5rem,2.1vw,2.4rem)] font-extrabold leading-tight tracking-tight text-slate-900">
-                    {featuredNews.title}
-                  </h3>
-                  <p className="mt-4 max-w-[48ch] text-sm leading-relaxed text-slate-600">
-                    {featuredNews.summary || '등록된 요약이 없습니다.'}
-                  </p>
-                  <p className="mt-2 text-xs font-bold text-slate-400">
-                    {`${formatNewsDate(featuredNews.date)} · ${featuredNews.sourceLabel || '외부 뉴스'}`}
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    <a
-                      href="#"
-                      className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
-                      onClick={(event) => {
-                        event.preventDefault()
-                        openNews(featuredNews.id)
-                      }}
-                    >
-                      뉴스에서 보기
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ) : (
-              <div className="grid min-h-[420px] place-items-center rounded-[26px] border border-dashed border-slate-300 bg-white px-6 text-center shadow-sm">
-                <div>
-                  <strong className="text-lg font-black text-slate-900">등록된 뉴스가 없습니다.</strong>
-                  <p className="mt-2 text-sm font-semibold text-slate-500">관리자에서 링크와 썸네일을 등록하면 이 영역에 최신 뉴스가 표시됩니다.</p>
-                </div>
-              </div>
-            )}
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              {latestNews.map((item) => (
+          {visibleNews.length ? (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {visibleNews.map((item) => (
                 <article
                   key={item.id}
                   className="group overflow-hidden rounded-[22px] bg-white text-left shadow-[0_16px_36px_-32px_rgba(15,23,42,0.34)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_42px_-34px_rgba(15,23,42,0.4)]"
@@ -538,14 +488,15 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                   </button>
                 </article>
               ))}
-
-              {latestNews.length === 0 && featuredNews ? (
-                <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-10 text-center text-sm font-semibold text-slate-500 sm:col-span-2">
-                  추가 뉴스가 아직 없습니다.
-                </div>
-              ) : null}
             </div>
-          </div>
+          ) : (
+            <div className="grid min-h-[260px] place-items-center rounded-[22px] bg-white px-6 text-center shadow-sm">
+              <div>
+                <strong className="text-lg font-black text-slate-900">등록된 뉴스가 없습니다.</strong>
+                <p className="mt-2 text-sm font-semibold text-slate-500">관리자에서 링크를 등록하면 이 영역에 최신 뉴스가 표시됩니다.</p>
+              </div>
+            </div>
+          )}
 
           {newsPreviewError ? <p className="mt-3 text-sm font-semibold text-[#b42323]">{newsPreviewError}</p> : null}
         </div>

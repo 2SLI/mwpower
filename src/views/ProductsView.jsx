@@ -134,16 +134,53 @@ function compareModelLabelsByInventory(a, b) {
   return compareModelCardsByInventory({ modelName: a }, { modelName: b })
 }
 
-function getLeafRecordInventoryRank(record) {
+function getModelInventoryStats(modelName = '') {
+  const optionModels = getInventoryOptionModels(modelName)
+  const targets = optionModels.length > 0 ? optionModels : [modelName]
+
+  return targets.reduce(
+    (stats, targetModel) => {
+      const quantity = getInventoryQuantity(targetModel)
+      stats.totalSlots += 1
+      if (Number.isFinite(quantity)) {
+        stats.knownSlots += 1
+        stats.totalQuantity += quantity
+        if (quantity > 0) stats.inStockSlots += 1
+      }
+      return stats
+    },
+    { totalSlots: 0, knownSlots: 0, inStockSlots: 0, totalQuantity: 0 }
+  )
+}
+
+function getLeafRecordInventoryStats(record) {
   const modelList = Array.isArray(record?.modelList) ? record.modelList : []
-  if (modelList.some((item) => getInventorySortRank(item?.modelName) === 0)) return 0
-  if (modelList.some((item) => getInventorySortRank(item?.modelName) === 1)) return 1
-  return 2
+  return modelList.reduce(
+    (stats, item) => {
+      const next = getModelInventoryStats(item?.modelName)
+      stats.totalSlots += next.totalSlots
+      stats.knownSlots += next.knownSlots
+      stats.inStockSlots += next.inStockSlots
+      stats.totalQuantity += next.totalQuantity
+      return stats
+    },
+    { totalSlots: 0, knownSlots: 0, inStockSlots: 0, totalQuantity: 0 }
+  )
 }
 
 function compareLeafRecordsByInventory(a, b) {
-  const stockRank = getLeafRecordInventoryRank(a) - getLeafRecordInventoryRank(b)
-  if (stockRank !== 0) return stockRank
+  const statsA = getLeafRecordInventoryStats(a)
+  const statsB = getLeafRecordInventoryStats(b)
+  const rankA = statsA.inStockSlots > 0 ? 0 : statsA.knownSlots > 0 ? 1 : 2
+  const rankB = statsB.inStockSlots > 0 ? 0 : statsB.knownSlots > 0 ? 1 : 2
+  if (rankA !== rankB) return rankA - rankB
+
+  const coverageA = statsA.totalSlots > 0 ? statsA.inStockSlots / statsA.totalSlots : 0
+  const coverageB = statsB.totalSlots > 0 ? statsB.inStockSlots / statsB.totalSlots : 0
+  if (coverageA !== coverageB) return coverageB - coverageA
+
+  if (statsA.inStockSlots !== statsB.inStockSlots) return statsB.inStockSlots - statsA.inStockSlots
+  if (statsA.totalQuantity !== statsB.totalQuantity) return statsB.totalQuantity - statsA.totalQuantity
 
   const major = String(a?.major ?? '').localeCompare(String(b?.major ?? ''), undefined, {
     numeric: true,

@@ -34,12 +34,18 @@ function hasTranslatedArticle(article = {}) {
   return isMeanwellOfficialArticle(article) && (article.summary || article.body?.length || article.keyPoints?.length)
 }
 
-export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
+function getArticleIdFromPathname(pathname = '') {
+  const match = String(pathname ?? '').match(/^\/news\/([^/?#]+)/)
+  return match ? decodeURIComponent(match[1]) : ''
+}
+
+export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNewsRequest, pathname = '' }) {
   const [articles, setArticles] = useState(() => normalizeNewsItems(getAllNewsSorted()))
   const [keyword, setKeyword] = useState('')
   const [activeArticleId, setActiveArticleId] = useState(null)
   const [isLoadingArticles, setIsLoadingArticles] = useState(false)
   const [loadError, setLoadError] = useState('')
+  const routeArticleId = getArticleIdFromPathname(pathname)
 
   useEffect(() => {
     let alive = true
@@ -81,21 +87,21 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
       return
     }
 
+    if (routeArticleId) {
+      if (activeArticleId !== routeArticleId) setActiveArticleId(routeArticleId)
+      return
+    }
+
     if (activeArticleId && !filteredArticles.some((item) => item.id === activeArticleId)) {
       setActiveArticleId(null)
     }
-  }, [filteredArticles, activeArticleId])
+  }, [filteredArticles, activeArticleId, routeArticleId])
 
   useEffect(() => {
     if (!externalNewsRequest) return
     const target = getArticleById(articles, externalNewsRequest.articleId)
     if (!target) return
     setActiveArticleId(target.id)
-    if (typeof window !== 'undefined') {
-      window.requestAnimationFrame(() => {
-        document.getElementById('news-translated-article')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      })
-    }
   }, [externalNewsRequest, articles])
 
   const activeArticle = useMemo(() => {
@@ -106,12 +112,7 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
   function openTranslatedArticle(articleId) {
     const id = String(articleId ?? '').trim()
     if (!id) return
-    setActiveArticleId(id)
-    if (typeof window !== 'undefined') {
-      window.requestAnimationFrame(() => {
-        document.getElementById('news-translated-article')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      })
-    }
+    onOpenNewsArticle?.(id)
   }
 
   function handleArticleOpen(event, article) {
@@ -181,8 +182,9 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
           </aside>
 
           <main>
-            {activeArticle && hasTranslatedArticle(activeArticle) ? (
-              <article id="news-translated-article" className="mb-10 overflow-hidden bg-white shadow-[0_18px_42px_-34px_rgba(15,23,42,0.3)]">
+            {routeArticleId ? (
+              activeArticle && hasTranslatedArticle(activeArticle) ? (
+              <article id="news-translated-article" className="overflow-hidden bg-white shadow-[0_18px_42px_-34px_rgba(15,23,42,0.3)]">
                 {activeArticle.image ? (
                   <div className="aspect-[16/7] bg-slate-100 max-[700px]:aspect-[16/10]">
                     <img src={activeArticle.image} alt={activeArticle.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
@@ -232,14 +234,24 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                     <button
                       type="button"
                       className="inline-flex h-10 items-center rounded-full bg-slate-100 px-4 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
-                      onClick={() => setActiveArticleId(null)}
+                      onClick={() => onNavigate('news')}
                     >
-                      목록만 보기
+                      목록으로
                     </button>
                   </div>
                 </div>
               </article>
-            ) : null}
+              ) : (
+                <div className="bg-white px-6 py-16 text-center shadow-[0_18px_42px_-34px_rgba(15,23,42,0.3)]">
+                  <p className="m-0 text-xl font-black text-[#222]">번역 뉴스가 없습니다.</p>
+                  <p className="m-0 mt-3 text-sm font-semibold text-[#777]">목록에서 MEAN WELL 공식 뉴스를 다시 선택해 주세요.</p>
+                  <button type="button" className="mt-6 h-10 rounded-full bg-[#c9252f] px-4 text-sm font-bold text-white" onClick={() => onNavigate('news')}>
+                    목록으로
+                  </button>
+                </div>
+              )
+            ) : (
+              <>
 
             <div className="flex items-end justify-between border-b border-[#cfcfcf] pb-4">
               <h3 className="m-0 text-[24px] font-bold text-[#555]">
@@ -304,6 +316,8 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
                 <p className="m-0 text-lg font-bold text-[#333]">조건에 맞는 뉴스가 없습니다.</p>
                 <p className="m-0 mt-2 text-sm text-[#777]">검색어를 바꿔 다시 확인해 주세요.</p>
               </div>
+            )}
+              </>
             )}
           </main>
         </div>
