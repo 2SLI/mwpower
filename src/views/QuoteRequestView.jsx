@@ -160,10 +160,10 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
   if (!isOpen || typeof document === 'undefined') return null
 
   return createPortal(
-    <div className="fixed inset-0 z-[1200] p-4 max-[640px]:p-2.5">
+    <div className="fixed inset-0 z-[1200] bg-slate-100/95 p-4 backdrop-blur-sm max-[640px]:p-2.5">
       <button
         type="button"
-        className="absolute inset-0 bg-slate-950/45"
+        className="absolute inset-0"
         onClick={() => onClose?.()}
         aria-label="견적요청 모달 닫기"
       ></button>
@@ -172,31 +172,31 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
         role="dialog"
         aria-modal="true"
         aria-labelledby="quote-request-modal-title"
-        className="relative mx-auto flex h-[calc(100dvh-32px)] max-w-[1380px] flex-col overflow-hidden rounded-[32px] border border-slate-200 bg-slate-100 shadow-[0_32px_80px_rgba(15,23,42,0.34)] max-[640px]:h-[calc(100dvh-20px)] max-[640px]:rounded-[28px]"
+        className="relative mx-auto flex h-[calc(100dvh-32px)] max-w-[1280px] flex-col overflow-hidden rounded-[28px] bg-[#f4f7fb] shadow-[0_18px_48px_rgba(15,23,42,0.16)] ring-1 ring-slate-200/80 max-[640px]:h-[calc(100dvh-20px)] max-[640px]:rounded-[24px]"
       >
-        <header className="border-b border-[#edd2d6] bg-[linear-gradient(135deg,#fff8f7_0%,#fff1f1_48%,#f8fafc_100%)] px-5 py-4 max-[640px]:px-4 max-[640px]:py-3.5">
+        <header className="border-b border-slate-200/80 bg-white px-6 py-5 max-[640px]:px-4 max-[640px]:py-3.5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="max-w-[820px]">
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#be272f]">B2B Quote Flow</p>
-              <h1 id="quote-request-modal-title" className="m-0 mt-2 text-[clamp(28px,2.5vw,42px)] font-black leading-[1.05] tracking-[-0.03em] text-slate-900">
+              <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#d53232]">B2B Quote Flow</p>
+              <h1 id="quote-request-modal-title" className="m-0 mt-1.5 text-[clamp(27px,2.2vw,38px)] font-black leading-[1.08] text-slate-950">
                 견적요청서
               </h1>
             </div>
 
             <div className="flex items-center gap-2 self-start">
-              <span className="rounded-full bg-[#fff3f4] px-3 py-1.5 text-xs font-black text-[#b4262e]">
+              <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-black text-slate-700">
                 {quoteSummary.lineCount}개 항목 / 총 {quoteSummary.totalQuantity}개
               </span>
               <button
                 type="button"
-                className="inline-flex h-11 items-center rounded-full border border-slate-300 bg-white px-4 text-sm font-extrabold text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
-                onClick={() => onClose?.()}
+                className="inline-flex h-10 items-center rounded-full bg-slate-100 px-4 text-sm font-extrabold text-slate-700 transition hover:bg-slate-200"
+                onClick={() => onNavigateProducts?.()}
               >
                 계속 담기
               </button>
               <button
                 type="button"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-xl font-black text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-xl font-black text-slate-700 transition hover:bg-slate-200"
                 onClick={() => onClose?.()}
                 aria-label="견적요청 모달 닫기"
               >
@@ -206,18 +206,18 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto px-5 py-5 max-[640px]:px-3.5 max-[640px]:py-3.5">
+        <div className="flex-1 overflow-y-auto px-6 py-6 max-[640px]:px-3.5 max-[640px]:py-3.5">
           <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
-            <section className="grid gap-3 rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_16px_34px_rgba(15,23,42,0.06)] max-[640px]:rounded-3xl max-[640px]:p-3.5">
+            <section className="grid gap-4 rounded-[24px] bg-white p-5 shadow-[0_10px_28px_rgba(15,23,42,0.06)] ring-1 ring-slate-200/70 max-[640px]:rounded-[22px] max-[640px]:p-3.5">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#be272f]">Order List</p>
-                  <h2 className="m-0 mt-1 text-[24px] font-black tracking-[-0.02em] text-slate-900">주문목록</h2>
+                  <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">Quote List</p>
+                  <h2 className="m-0 mt-1 text-[22px] font-black text-slate-950">견적목록</h2>
                 </div>
                 {normalizedItems.length > 0 ? (
                   <button
                     type="button"
-                    className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-extrabold text-slate-700 transition hover:bg-slate-50"
+                    className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-extrabold text-slate-600 transition hover:bg-slate-200"
                     onClick={() => onClearItems?.()}
                   >
                     목록 비우기
@@ -226,13 +226,13 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
               </div>
 
               {normalizedItems.length === 0 ? (
-                <div className="grid gap-3 rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
+                <div className="grid gap-3 rounded-[22px] border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
                   <strong className="text-lg font-black text-slate-900">아직 담긴 품목이 없습니다.</strong>
-                  <p className="m-0 text-sm leading-6 text-slate-500">제품 상세에서 수량을 정한 뒤 주문목록에 담아주세요.</p>
+                  <p className="m-0 text-sm leading-6 text-slate-500">제품 상세에서 수량을 정한 뒤 견적목록에 담아주세요.</p>
                   <div>
                     <button
                       type="button"
-                      className="inline-flex h-11 items-center rounded-full bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-5 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(185,37,45,0.24)]"
+                      className="inline-flex h-11 items-center rounded-full bg-[#d53232] px-5 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#bd2929]"
                       onClick={() => onNavigateProducts?.()}
                     >
                       제품 페이지로 이동
@@ -242,9 +242,9 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
               ) : (
                 <div className="grid gap-3">
                   {normalizedItems.map((item) => (
-                    <article key={item.id} className="grid gap-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                      <div className="grid gap-4 md:grid-cols-[180px_minmax(0,1fr)] max-[640px]:grid-cols-[132px_minmax(0,1fr)]">
-                        <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white p-2">
+                    <article key={item.id} className="rounded-[22px] bg-[#f8fafc] p-3 ring-1 ring-slate-200/80">
+                      <div className="grid gap-4 md:grid-cols-[132px_minmax(0,1fr)] max-[640px]:grid-cols-[104px_minmax(0,1fr)]">
+                        <div className="overflow-hidden rounded-[18px] bg-white p-2 ring-1 ring-slate-200/70">
                           {item.thumbnailUrl ? (
                             <img src={item.thumbnailUrl} alt={item.displayModel} className="aspect-[4/3] h-full w-full object-contain" loading="lazy" />
                           ) : (
@@ -255,20 +255,20 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                         <div className="grid gap-3">
                           <div className="flex flex-wrap items-start justify-between gap-3">
                             <div className="min-w-0">
-                              <h3 className="m-0 break-all text-[22px] font-black tracking-[-0.02em] text-slate-900">{item.displayModel}</h3>
+                              <h3 className="m-0 break-all text-[20px] font-black text-slate-950 max-[640px]:text-[17px]">{item.displayModel}</h3>
                               {item.optionModel && item.optionModel !== item.baseModel ? (
                                 <p className="m-0 mt-1 text-xs font-semibold text-slate-500">기본 모델: {item.baseModel}</p>
                               ) : null}
                               {item.wattage ? <p className="m-0 mt-2 text-sm font-semibold text-slate-600">Wattage: {item.wattage}</p> : null}
                               {isOutOfStockQuoteItem(item) ? (
-                                <span className="mt-2 inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-[12px] font-black text-slate-500">
+                                <span className="mt-2 inline-flex rounded-full bg-white px-3 py-1 text-[12px] font-black text-slate-500 ring-1 ring-slate-200">
                                   현재 재고 없음
                                 </span>
                               ) : null}
                             </div>
                             <button
                               type="button"
-                              className="inline-flex h-10 items-center rounded-full border border-[#e6b1b7] bg-white px-3 text-xs font-extrabold text-[#b4262e] transition hover:bg-[#fff5f6]"
+                              className="inline-flex h-9 items-center rounded-full bg-white px-3 text-xs font-extrabold text-slate-500 ring-1 ring-slate-100 transition hover:bg-rose-50 hover:text-[#b4262e] hover:ring-rose-100"
                               onClick={() => onRemoveItem?.(item.id)}
                             >
                               항목 삭제
@@ -286,7 +286,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                                 inputMode="numeric"
                                 value={item.quantity}
                                 onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)}
-                                className="h-11 w-24 rounded-xl border border-slate-300 bg-white px-3 text-base font-bold text-slate-900 outline-none focus:border-[#c83434] focus:shadow-[0_0_0_2px_#f7d8db]"
+                                className="h-10 w-24 rounded-full border border-slate-200 bg-white px-3 text-center text-base font-bold text-slate-950 outline-none focus:border-[#d53232] focus:shadow-[0_0_0_2px_#f7d8db]"
                               />
                             </label>
                           </div>
@@ -298,9 +298,9 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
               )}
             </section>
 
-            <form className="grid gap-3 rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_16px_34px_rgba(15,23,42,0.06)] max-[640px]:rounded-3xl max-[640px]:p-3.5" onSubmit={handleSubmit} noValidate>
+            <form className="grid gap-4 rounded-[24px] bg-white p-5 shadow-[0_10px_28px_rgba(15,23,42,0.06)] ring-1 ring-slate-200/70 max-[640px]:rounded-[22px] max-[640px]:p-3.5" onSubmit={handleSubmit} noValidate>
               <div>
-                <h2 className="m-0 text-[24px] font-black tracking-[-0.02em] text-slate-900">견적 요청 정보</h2>
+                <h2 className="m-0 text-[22px] font-black text-slate-950">견적 요청 정보</h2>
                 <p className="m-0 mt-2 text-sm leading-6 text-slate-500">제품문의/기술문의와 분리된 B2B 견적 검토 전용 정보입니다.</p>
               </div>
 
@@ -310,7 +310,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                     name="companyName"
                     value={form.companyName}
                     onChange={handleChange}
-                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                    className="h-11 rounded-full border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none focus:border-[#d53232] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
                   />
                 </QuoteField>
 
@@ -319,7 +319,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                     name="contactName"
                     value={form.contactName}
                     onChange={handleChange}
-                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                    className="h-11 rounded-full border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none focus:border-[#d53232] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
                   />
                 </QuoteField>
 
@@ -329,7 +329,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                     type="email"
                     value={form.email}
                     onChange={handleChange}
-                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                    className="h-11 rounded-full border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none focus:border-[#d53232] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
                   />
                 </QuoteField>
 
@@ -339,7 +339,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                     type="tel"
                     value={form.phone}
                     onChange={handleChange}
-                    className="h-11 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                    className="h-11 rounded-full border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none focus:border-[#d53232] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
                   />
                 </QuoteField>
 
@@ -350,7 +350,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                   name="message"
                   value={form.message}
                   onChange={handleChange}
-                  className="min-h-[148px] rounded-2xl border border-slate-300 bg-slate-50 px-3 py-3 text-sm text-slate-900 outline-none focus:border-[#c83434] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
+                  className="min-h-[148px] rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none focus:border-[#d53232] focus:bg-white focus:shadow-[0_0_0_2px_#f7d8db]"
                   placeholder="예: 인증서 필요 여부, 예상 발주 시점, 납기 조건, 프로젝트 개요"
                 ></textarea>
               </QuoteField>
@@ -358,7 +358,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="h-[52px] rounded-2xl bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] px-4 text-base font-extrabold text-white shadow-[0_16px_30px_rgba(185,37,45,0.28)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="h-[52px] rounded-full bg-[#d53232] px-4 text-base font-extrabold text-white shadow-sm transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? '견적요청 전송 중...' : '견적요청서 보내기'}
               </button>

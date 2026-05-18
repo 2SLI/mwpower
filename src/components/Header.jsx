@@ -7,6 +7,7 @@ const navItems = [
   { key: 'products', label: '제품', view: 'products' },
   { key: 'news', label: '뉴스', view: 'news' },
   { key: 'service', label: '서비스', view: 'service' },
+  { key: 'order-list', label: '주문목록', view: 'order-list' },
   { key: 'quote-request', label: '견적요청', view: 'quote-request' },
   { key: 'contact-product', label: '제품문의', view: 'contact-product' },
   { key: 'contact-tech', label: '기술문의', view: 'contact-tech' },
@@ -42,7 +43,7 @@ function NavLink({ item, isActive, onNavigate, badgeCount = 0 }) {
   )
 }
 
-export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount = 0 }) {
+export function Header({ activeView, onNavigate, onProductSearch, orderItemCount = 0, quoteItemCount = 0 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -125,7 +126,7 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
                 <p className="mb-0 mt-2 text-xs font-semibold text-rose-100">제품/서비스 메뉴를 빠르게 이동하세요.</p>
                 <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-black text-white">
                   <span>주문목록</span>
-                  <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-[#b92a31]">{quoteItemCount > 99 ? '99+' : quoteItemCount}</span>
+                  <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-[#b92a31]">{orderItemCount > 99 ? '99+' : orderItemCount}</span>
                 </div>
               </header>
 
@@ -161,6 +162,11 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
                         >
                           <span className="flex items-center gap-2">
                             <span>{item.label}</span>
+                            {item.key === 'order-list' && orderItemCount > 0 ? (
+                              <span className="rounded-full bg-[#ffe26c] px-2 py-0.5 text-[10px] font-black leading-none text-slate-900">
+                                {orderItemCount > 99 ? '99+' : orderItemCount}
+                              </span>
+                            ) : null}
                             {item.key === 'quote-request' && quoteItemCount > 0 ? (
                               <span className="rounded-full bg-[#ffe26c] px-2 py-0.5 text-[10px] font-black leading-none text-slate-900">
                                 {quoteItemCount > 99 ? '99+' : quoteItemCount}
@@ -208,7 +214,7 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
                 item={item}
                 isActive={item.key === activeView}
                 onNavigate={onNavigate}
-                badgeCount={item.key === 'quote-request' ? quoteItemCount : 0}
+                badgeCount={item.key === 'order-list' ? orderItemCount : item.key === 'quote-request' ? quoteItemCount : 0}
               />
             ))}
           </nav>
@@ -231,21 +237,21 @@ export function Header({ activeView, onNavigate, onProductSearch, quoteItemCount
           <button
             type="button"
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white p-0 text-slate-700 transition hover:border-[#d63b42] hover:text-[#c62f36] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
-            aria-label="견적요청"
+            aria-label="주문목록"
             onClick={() => {
-              onNavigate('quote-request')
+              onNavigate('order-list')
               setIsMenuOpen(false)
             }}
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5 max-[640px]:h-[18px] max-[640px]:w-[18px]" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="6" y="4" width="12" height="16" rx="2"></rect>
-              <path d="M9 8h6"></path>
-              <path d="M9 12h6"></path>
-              <path d="M9 16h4"></path>
+              <path d="M7 7h14l-1.5 8.5H8.2L7 7Z"></path>
+              <path d="M7 7 6.5 4H3"></path>
+              <circle cx="9" cy="19" r="1.4"></circle>
+              <circle cx="18" cy="19" r="1.4"></circle>
             </svg>
-            {quoteItemCount > 0 ? (
+            {orderItemCount > 0 ? (
               <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#ffe26c] px-1 text-[10px] font-black leading-[18px] text-slate-900">
-                {quoteItemCount > 99 ? '99+' : quoteItemCount}
+                {orderItemCount > 99 ? '99+' : orderItemCount}
               </span>
             ) : null}
           </button>

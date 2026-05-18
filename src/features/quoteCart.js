@@ -1,6 +1,7 @@
 import { resolveLeafThumbnailUrl } from './productCatalogService'
 
 const QUOTE_CART_STORAGE_KEY = 'mwpower_quote_cart_v1'
+const ORDER_CART_STORAGE_KEY = 'mwpower_order_cart_v1'
 
 function normalizeText(value = '') {
   return String(value ?? '').trim()
@@ -134,11 +135,11 @@ export function clearQuoteItems() {
   return []
 }
 
-export function readStoredQuoteItems() {
+function readStoredItems(storageKey = QUOTE_CART_STORAGE_KEY) {
   if (typeof window === 'undefined') return []
 
   try {
-    const raw = window.localStorage.getItem(QUOTE_CART_STORAGE_KEY)
+    const raw = window.localStorage.getItem(storageKey)
     if (!raw) return []
     return normalizeQuoteItems(JSON.parse(raw))
   } catch {
@@ -146,14 +147,30 @@ export function readStoredQuoteItems() {
   }
 }
 
-export function writeStoredQuoteItems(items = []) {
+function writeStoredItems(storageKey = QUOTE_CART_STORAGE_KEY, items = []) {
   if (typeof window === 'undefined') return
 
   try {
-    window.localStorage.setItem(QUOTE_CART_STORAGE_KEY, JSON.stringify(normalizeQuoteItems(items)))
+    window.localStorage.setItem(storageKey, JSON.stringify(normalizeQuoteItems(items)))
   } catch {
     // Ignore localStorage failures so the UI can continue functioning.
   }
+}
+
+export function readStoredQuoteItems() {
+  return readStoredItems(QUOTE_CART_STORAGE_KEY)
+}
+
+export function writeStoredQuoteItems(items = []) {
+  writeStoredItems(QUOTE_CART_STORAGE_KEY, items)
+}
+
+export function readStoredOrderItems() {
+  return readStoredItems(ORDER_CART_STORAGE_KEY)
+}
+
+export function writeStoredOrderItems(items = []) {
+  writeStoredItems(ORDER_CART_STORAGE_KEY, items)
 }
 
 export function getQuoteItemSummary(items = []) {

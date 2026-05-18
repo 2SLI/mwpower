@@ -8,15 +8,18 @@ import { ServiceView } from './views/ServiceView'
 import { ContactView } from './views/ContactView'
 import { TechnicalContactView } from './views/TechnicalContactView'
 import { QuoteRequestView } from './views/QuoteRequestView'
+import { OrderListView } from './views/OrderListView'
 import { AdminView } from './views/AdminView'
 import { bannerImages } from './data/bannerImages'
 import {
   addQuoteItem,
   clearQuoteItems,
   getQuoteItemSummary,
+  readStoredOrderItems,
   readStoredQuoteItems,
   removeQuoteItem,
   updateQuoteItemQuantity,
+  writeStoredOrderItems,
   writeStoredQuoteItems,
 } from './features/quoteCart'
 
@@ -25,6 +28,7 @@ const VIEW_PATHS = {
   products: '/products',
   news: '/news',
   service: '/service',
+  'order-list': '/order-list',
   'quote-request': '/quote-request',
   'contact-product': '/contact/product',
   'contact-tech': '/contact/tech',
@@ -35,6 +39,7 @@ const PATH_VIEW_ALIASES = {
   '/products': 'products',
   '/news': 'news',
   '/service': 'service',
+  '/order-list': 'order-list',
   '/quote': 'quote-request',
   '/quote-request': 'quote-request',
   '/contact': 'contact-product',
@@ -46,7 +51,7 @@ const PATH_VIEW_ALIASES = {
 
 function normalizeView(view) {
   if (view === 'contact') return 'contact-product'
-  if (view === 'news' || view === 'products' || view === 'service' || view === 'quote-request' || view === 'contact-product' || view === 'contact-tech') return view
+  if (view === 'news' || view === 'products' || view === 'service' || view === 'order-list' || view === 'quote-request' || view === 'contact-product' || view === 'contact-tech') return view
   return 'home'
 }
 
@@ -97,7 +102,7 @@ function isKnownAppPath(pathname = '/') {
 
 function normalizeBackgroundView(view) {
   const normalized = normalizeView(view)
-  return normalized === 'quote-request' ? QUOTE_MODAL_FALLBACK_VIEW : normalized
+  return normalized === 'quote-request' || normalized === 'order-list' ? QUOTE_MODAL_FALLBACK_VIEW : normalized
 }
 
 export default function App() {
@@ -109,20 +114,24 @@ export default function App() {
   const [productSearchRequest, setProductSearchRequest] = useState(null)
   const [productPresetRequest, setProductPresetRequest] = useState(null)
   const [newsRequest, setNewsRequest] = useState(null)
+  const [orderItems, setOrderItems] = useState(() => readStoredOrderItems())
   const [quoteItems, setQuoteItems] = useState(() => readStoredQuoteItems())
   const [pathname, setPathname] = useState(initialPathname)
   const [quoteBackgroundView, setQuoteBackgroundView] = useState(initialQuoteBackgroundView)
   const isAdminRoute = pathname === '/admin'
+  const isOrderListOpen = activeView === 'order-list'
   const isQuoteRequestOpen = activeView === 'quote-request'
-  const visibleView = isQuoteRequestOpen ? quoteBackgroundView : activeView
-  const shouldHideFloatingActions = activeView === 'contact-product' || activeView === 'contact-tech' || isQuoteRequestOpen
+  const isModalViewOpen = isOrderListOpen || isQuoteRequestOpen
+  const visibleView = isModalViewOpen ? quoteBackgroundView : activeView
+  const shouldHideFloatingActions = activeView === 'contact-product' || activeView === 'contact-tech' || isModalViewOpen
+  const orderSummary = useMemo(() => getQuoteItemSummary(orderItems), [orderItems])
   const quoteSummary = useMemo(() => getQuoteItemSummary(quoteItems), [quoteItems])
   const lastNonQuoteViewRef = useRef(normalizeBackgroundView(visibleView))
 
   useEffect(() => {
-    if (isQuoteRequestOpen) return
+    if (isModalViewOpen) return
     lastNonQuoteViewRef.current = normalizeBackgroundView(visibleView)
-  }, [isQuoteRequestOpen, visibleView])
+  }, [isModalViewOpen, visibleView])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -139,10 +148,10 @@ export default function App() {
       const canonicalPath = getPathForView(nextView)
       const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
       const fallbackBackgroundView = normalizeBackgroundView(currentHistoryState.backgroundView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
-      const nextBackgroundView = nextView === 'quote-request' ? fallbackBackgroundView : normalizeBackgroundView(nextView)
+      const nextBackgroundView = nextView === 'quote-request' || nextView === 'order-list' ? fallbackBackgroundView : normalizeBackgroundView(nextView)
       const nextHistoryState = { ...currentHistoryState, view: nextView }
 
-      if (nextView === 'quote-request') {
+      if (nextView === 'quote-request' || nextView === 'order-list') {
         nextHistoryState.backgroundView = nextBackgroundView
       } else {
         if ('backgroundView' in nextHistoryState) delete nextHistoryState.backgroundView
@@ -152,7 +161,7 @@ export default function App() {
       if (
         !isKnownAppPath(nextPath) ||
         nextPath !== canonicalPath ||
-        (nextView === 'quote-request' && normalizeBackgroundView(currentHistoryState.backgroundView) !== nextBackgroundView)
+        ((nextView === 'quote-request' || nextView === 'order-list') && normalizeBackgroundView(currentHistoryState.backgroundView) !== nextBackgroundView)
       ) {
         window.history.replaceState(nextHistoryState, '', canonicalPath)
       }
@@ -188,9 +197,13 @@ export default function App() {
         title: '기술/정품 서비스 | 민웰파워',
         description: '민웰 정품 확인 방법과 기술 서비스 안내를 제공합니다.',
       },
+      'order-list': {
+        title: '주문목록 | 민웰파워',
+        description: '담아둔 주문 품목과 수량을 확인하는 민웰파워 주문목록입니다.',
+      },
       'quote-request': {
         title: 'B2B 견적요청 | 민웰파워',
-        description: '주문목록 기반으로 여러 품목과 수량을 한 번에 접수하는 민웰파워 B2B 견적요청 페이지입니다.',
+        description: '견적목록 기반으로 여러 품목과 수량을 한 번에 접수하는 민웰파워 B2B 견적요청 페이지입니다.',
       },
       'contact-product': {
         title: '제품문의 | 민웰파워',
@@ -214,6 +227,10 @@ export default function App() {
   }, [activeView, isAdminRoute])
 
   useEffect(() => {
+    writeStoredOrderItems(orderItems)
+  }, [orderItems])
+
+  useEffect(() => {
     writeStoredQuoteItems(quoteItems)
   }, [quoteItems])
 
@@ -223,7 +240,7 @@ export default function App() {
     const useReplace = options.replace === true
     const historyMethod = useReplace ? 'replaceState' : 'pushState'
 
-    if (nextView === 'quote-request') {
+    if (nextView === 'quote-request' || nextView === 'order-list') {
       const nextBackgroundView = normalizeBackgroundView(options.backgroundView || visibleView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
       setQuoteBackgroundView(nextBackgroundView)
       setActiveView(nextView)
@@ -259,7 +276,7 @@ export default function App() {
     }
   }
 
-  function handleCloseQuoteRequest() {
+  function handleCloseModalView() {
     const fallbackView = normalizeBackgroundView(quoteBackgroundView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
     handleNavigate(fallbackView, { replace: true, scrollTop: false })
   }
@@ -289,17 +306,34 @@ export default function App() {
     handleNavigate('news')
   }
 
+  function handleAddOrderItem(item) {
+    setOrderItems((prev) => addQuoteItem(prev, item))
+    handleNavigate('order-list', { scrollTop: false, backgroundView: visibleView })
+  }
+
   function handleAddQuoteItem(item) {
     setQuoteItems((prev) => addQuoteItem(prev, item))
     handleNavigate('quote-request', { scrollTop: false, backgroundView: visibleView })
+  }
+
+  function handleUpdateOrderItemQuantity(itemId, quantity) {
+    setOrderItems((prev) => updateQuoteItemQuantity(prev, itemId, quantity))
   }
 
   function handleUpdateQuoteItemQuantity(itemId, quantity) {
     setQuoteItems((prev) => updateQuoteItemQuantity(prev, itemId, quantity))
   }
 
+  function handleRemoveOrderItem(itemId) {
+    setOrderItems((prev) => removeQuoteItem(prev, itemId))
+  }
+
   function handleRemoveQuoteItem(itemId) {
     setQuoteItems((prev) => removeQuoteItem(prev, itemId))
+  }
+
+  function handleClearOrderItems() {
+    setOrderItems(clearQuoteItems())
   }
 
   function handleClearQuoteItems() {
@@ -360,6 +394,7 @@ export default function App() {
           onNavigate={handleNavigate}
           onProductSearch={handleProductSearch}
           quoteItemCount={quoteSummary.totalQuantity}
+          orderItemCount={orderSummary.totalQuantity}
         />
         <main className="pt-[92px] max-[1280px]:pt-[62px]">
           <HomeView
@@ -375,14 +410,25 @@ export default function App() {
             isActive={visibleView === 'products'}
             externalSearchRequest={productSearchRequest}
             externalPresetRequest={productPresetRequest}
+            onAddOrderItem={handleAddOrderItem}
             onAddQuoteItem={handleAddQuoteItem}
             quoteItemCount={quoteSummary.totalQuantity}
+            orderItemCount={orderSummary.totalQuantity}
           />
           <ServiceView isActive={visibleView === 'service'} />
+          <OrderListView
+            isOpen={isOrderListOpen}
+            items={orderItems}
+            onClose={handleCloseModalView}
+            onNavigateProducts={handleNavigateProductsFromQuote}
+            onUpdateQuantity={handleUpdateOrderItemQuantity}
+            onRemoveItem={handleRemoveOrderItem}
+            onClearItems={handleClearOrderItems}
+          />
           <QuoteRequestView
             isOpen={isQuoteRequestOpen}
             items={quoteItems}
-            onClose={handleCloseQuoteRequest}
+            onClose={handleCloseModalView}
             onNavigateProducts={handleNavigateProductsFromQuote}
             onUpdateQuantity={handleUpdateQuoteItemQuantity}
             onRemoveItem={handleRemoveQuoteItem}

@@ -483,7 +483,7 @@ function serializeProductHistoryState(state) {
   return JSON.stringify(normalizeProductHistoryState(state) ?? null)
 }
 
-export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onAddQuoteItem, quoteItemCount = 0 }) {
+export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onAddOrderItem, onAddQuoteItem, orderItemCount = 0, quoteItemCount = 0 }) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
 
@@ -1265,11 +1265,20 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     }
   }
 
-  const handleAddQuoteLineItem = (payload) => {
+  const handleAddLineItem = (payload, target = 'order') => {
     const nextItem = buildQuoteItemPayload(payload)
     if (!nextItem) return
-    onAddQuoteItem?.(nextItem)
-    setQuoteFeedback(`${nextItem.displayModel} ${nextItem.quantity}개가 주문목록에 추가되었습니다.`)
+    if (target === 'order' && getInventoryTone(nextItem.optionModel || nextItem.displayModel || nextItem.baseModel) === 'out-of-stock') {
+      setQuoteFeedback(`${nextItem.displayModel}은 현재 재고가 없어 주문목록에 담을 수 없습니다. 견적목록으로 문의해주세요.`)
+      return
+    }
+    if (target === 'quote') {
+      onAddQuoteItem?.(nextItem)
+      setQuoteFeedback(`${nextItem.displayModel} ${nextItem.quantity}개가 견적목록에 추가되었습니다.`)
+    } else {
+      onAddOrderItem?.(nextItem)
+      setQuoteFeedback(`${nextItem.displayModel} ${nextItem.quantity}개가 주문목록에 추가되었습니다.`)
+    }
     setSelectedQuoteQuantity(1)
   }
 
@@ -1287,6 +1296,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       ? formatInventoryText(inventoryTargetModel, { aggregate: !selectedOptionModel })
       : '재고 미등록'
     const inventoryTone = inventoryTargetModel ? getInventoryTone(inventoryTargetModel) : 'unknown'
+    const isOutOfStockForOrder = inventoryTone === 'out-of-stock'
+    const isAddToOrderDisabled = isAddToQuoteDisabled || isOutOfStockForOrder
     const inventoryToneClass =
       inventoryTone === 'in-stock'
         ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
@@ -1295,24 +1306,24 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
           : 'border-amber-200 bg-amber-50 text-amber-700'
 
     return (
-      <aside className="self-start rounded-[22px] border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)] p-4 shadow-[0_16px_34px_rgba(15,23,42,0.08)]">
+      <aside className="self-start rounded-[24px] bg-white p-5 shadow-[0_10px_28px_rgba(15,23,42,0.06)] ring-1 ring-slate-200/70">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">Quote Builder</p>
-            <p className="m-0 mt-1 text-[22px] font-black tracking-[-0.02em] text-slate-900">견적 담기</p>
+            <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">List Builder</p>
+            <p className="m-0 mt-1 text-[22px] font-black text-slate-950">목록 담기</p>
           </div>
           {canAddSelectedModel ? (
             <div className="flex shrink-0 items-center gap-2">
               <button
                 type="button"
-                className="inline-flex h-7 items-center justify-center rounded-full border border-[#efc3c7] bg-white px-3 text-[11px] font-black text-[#b4262e] transition hover:border-[#d4555b] hover:bg-[#fff6f7] disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                className="inline-flex h-7 items-center justify-center rounded-full bg-slate-100 px-3 text-[11px] font-black text-slate-600 transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
                 onClick={handleScrollToPdfSection}
                 disabled={!selectedModelCard?.asset?.pdfUrl}
                 aria-label="PDF 섹션으로 이동"
               >
                 PDF
               </button>
-              <span className="rounded-full border border-[#efc3c7] bg-white px-3 py-1 text-[11px] font-black text-[#b4262e]">
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-black text-slate-700">
                 {selectedQuoteQuantity} EA
               </span>
             </div>
@@ -1320,14 +1331,14 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         </div>
 
         <p className="m-0 mt-2 text-[12px] font-semibold leading-5 text-slate-500">
-          모델 상세를 확인한 뒤 옵션과 수량을 정해서 주문목록에 담을 수 있습니다.
+          모델 상세를 확인한 뒤 옵션과 수량을 정해서 주문목록 또는 견적목록에 담을 수 있습니다.
         </p>
 
         <div className="mt-4 grid gap-3">
           <label className="grid gap-1.5">
             <span className="text-[13px] font-semibold text-slate-700">옵션 모델</span>
             <select
-              className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-[14px] text-slate-700 outline-none focus:border-[#c83a3a] focus:shadow-[0_0_0_2px_#f3d8d8] disabled:bg-slate-100 disabled:text-slate-400"
+              className="h-11 rounded-full border border-slate-200 bg-slate-50 px-4 text-[14px] font-semibold text-slate-700 outline-none focus:border-[#d53232] focus:bg-white focus:shadow-[0_0_0_2px_#f3d8d8] disabled:bg-slate-100 disabled:text-slate-400"
               value={selectedOptionModel}
               onChange={(event) => {
                 historyActionRef.current = 'replace'
@@ -1350,10 +1361,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             <>
               <label className="grid gap-1.5">
                 <span className="text-[13px] font-semibold text-slate-700">주문 수량</span>
-                <div className="grid grid-cols-[42px_minmax(0,1fr)_42px] items-center gap-2 rounded-[18px] border border-slate-300 bg-white p-1">
+                <div className="grid grid-cols-[42px_minmax(0,1fr)_42px] items-center gap-2 rounded-full border border-slate-200 bg-slate-50 p-1">
                   <button
                     type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-[14px] border border-slate-200 bg-slate-50 text-lg font-black text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-lg font-black text-slate-700 ring-1 ring-slate-100 transition hover:bg-slate-100"
                     onClick={() => setSelectedQuoteQuantity((prev) => Math.max(1, normalizeRequestedQuoteQuantity(prev, 1) - 1))}
                     aria-label="수량 감소"
                   >
@@ -1369,7 +1380,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   />
                   <button
                     type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-[14px] border border-slate-200 bg-slate-50 text-lg font-black text-slate-700 transition hover:border-[#d4555b] hover:bg-[#fff6f7] hover:text-[#b4262e]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-lg font-black text-slate-700 ring-1 ring-slate-100 transition hover:bg-slate-100"
                     onClick={() => setSelectedQuoteQuantity((prev) => Math.min(99999, normalizeRequestedQuoteQuantity(prev, 1) + 1))}
                     aria-label="수량 증가"
                   >
@@ -1378,8 +1389,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </div>
               </label>
 
-              <div className="rounded-[18px] border border-[#efc7cb] bg-white/90 p-3">
-                <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">견적 대상</p>
+              <div className="rounded-[20px] bg-[#f8fafc] p-4 ring-1 ring-slate-200/80">
+                <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">담기 대상</p>
                 <p className="m-0 mt-1 break-all text-[16px] font-black leading-6 text-slate-900">
                   {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
                 </p>
@@ -1387,40 +1398,78 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   {inventoryText}
                 </span>
                 <p className={`m-0 mt-1 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
-                  {isAddToQuoteDisabled ? '옵션 모델을 선택해야 주문목록에 담을 수 있습니다.' : `${selectedQuoteQuantity}개 기준으로 주문목록에 추가됩니다.`}
+                  {isAddToQuoteDisabled
+                    ? '옵션 모델을 선택해야 목록에 담을 수 있습니다.'
+                    : isOutOfStockForOrder
+                      ? '재고가 없는 품목은 주문목록에 담을 수 없고 견적목록으로 문의할 수 있습니다.'
+                      : `${selectedQuoteQuantity}개 기준으로 선택한 목록에 추가됩니다.`}
                 </p>
               </div>
 
-              <button
-                type="button"
-                disabled={isAddToQuoteDisabled}
-                className={`inline-flex h-11 w-full items-center justify-center rounded-xl px-4 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(185,37,45,0.22)] transition ${
-                  isAddToQuoteDisabled
-                    ? 'cursor-not-allowed bg-slate-300 text-slate-100 shadow-none'
-                    : 'bg-[linear-gradient(135deg,#e1453b_0%,#b9252d_100%)] hover:brightness-105'
-                }`}
-                onClick={() =>
-                  handleAddQuoteLineItem({
-                    majorId: activeMajorId,
-                    majorName: activeMajor?.name,
-                    subcategory: activeSubcategory,
-                    leaf: activeLeaf,
-                    groupName: selectedGroupName ?? activeGroup,
-                    modelName: selectedModelCard.modelName,
-                    optionModel: selectedOptionModel,
-                    asset: selectedModelCard.asset,
-                    thumbnailUrl: leafView?.thumbnailUrl,
-                    wattage: leafView?.wattage,
-                    quantity: selectedQuoteQuantity,
-                  })
-                }
-              >
-                주문목록에 담기
-              </button>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <button
+                  type="button"
+                  disabled={isAddToOrderDisabled}
+                  className={`inline-flex h-11 w-full items-center justify-center rounded-xl px-4 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(185,37,45,0.22)] transition ${
+                    isAddToOrderDisabled
+                      ? 'cursor-not-allowed bg-slate-300 text-slate-100 shadow-none'
+                      : 'bg-[#d53232] shadow-sm hover:bg-[#bd2929]'
+                  }`}
+                  onClick={() =>
+                    handleAddLineItem(
+                      {
+                        majorId: activeMajorId,
+                        majorName: activeMajor?.name,
+                        subcategory: activeSubcategory,
+                        leaf: activeLeaf,
+                        groupName: selectedGroupName ?? activeGroup,
+                        modelName: selectedModelCard.modelName,
+                        optionModel: selectedOptionModel,
+                        asset: selectedModelCard.asset,
+                        thumbnailUrl: leafView?.thumbnailUrl,
+                        wattage: leafView?.wattage,
+                        quantity: selectedQuoteQuantity,
+                      },
+                      'order'
+                    )
+                  }
+                >
+                  주문목록에 담기
+                </button>
+                <button
+                  type="button"
+                  disabled={isAddToQuoteDisabled}
+                  className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-extrabold shadow-[0_12px_22px_rgba(15,23,42,0.08)] transition ${
+                    isAddToQuoteDisabled
+                      ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300 shadow-none'
+                      : 'border-transparent bg-slate-100 text-slate-800 hover:bg-rose-50 hover:text-[#d53232]'
+                  }`}
+                  onClick={() =>
+                    handleAddLineItem(
+                      {
+                        majorId: activeMajorId,
+                        majorName: activeMajor?.name,
+                        subcategory: activeSubcategory,
+                        leaf: activeLeaf,
+                        groupName: selectedGroupName ?? activeGroup,
+                        modelName: selectedModelCard.modelName,
+                        optionModel: selectedOptionModel,
+                        asset: selectedModelCard.asset,
+                        thumbnailUrl: leafView?.thumbnailUrl,
+                        wattage: leafView?.wattage,
+                        quantity: selectedQuoteQuantity,
+                      },
+                      'quote'
+                    )
+                  }
+                >
+                  견적목록에 담기
+                </button>
+              </div>
             </>
           ) : (
-            <div className="rounded-[18px] border border-dashed border-slate-300 bg-white/80 px-3 py-4 text-center text-[13px] font-semibold leading-5 text-slate-500">
-              모델 상세를 선택하면 견적 담기 설정이 활성화됩니다.
+            <div className="rounded-[20px] border border-dashed border-slate-300 bg-slate-50 px-3 py-4 text-center text-[13px] font-semibold leading-5 text-slate-500">
+              모델 상세를 선택하면 목록 담기 설정이 활성화됩니다.
             </div>
           )}
         </div>
@@ -1892,12 +1941,12 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             </button>
           </div>
 
-          {quoteItemCount > 0 || quoteFeedback ? (
+          {orderItemCount > 0 || quoteItemCount > 0 || quoteFeedback ? (
             <div className="mb-4 rounded-2xl border border-[#efc8cd] bg-[linear-gradient(135deg,#fff7f7_0%,#fff1f2_100%)] px-4 py-3.5 shadow-[0_10px_24px_rgba(185,37,45,0.08)]">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">Order List</p>
-                  <p className="m-0 mt-1 text-sm font-extrabold text-slate-900">현재 주문목록에 {quoteItemCount}개 수량이 담겨 있습니다.</p>
+                  <p className="m-0 mt-1 text-sm font-extrabold text-slate-900">현재 주문목록 {orderItemCount}개 / 견적목록 {quoteItemCount}개 수량이 담겨 있습니다.</p>
                   <p className="m-0 mt-1 text-[13px] font-semibold text-slate-600">
                     {quoteFeedback || '모델 상세에서 수량을 정해 담고, 우측 견적 아이콘에서 바로 견적요청서를 확인할 수 있습니다.'}
                   </p>
