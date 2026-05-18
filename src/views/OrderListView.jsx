@@ -36,8 +36,9 @@ export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onUp
       >
         <header className="shrink-0 bg-white">
           <div className="mx-auto grid h-[72px] max-w-[1180px] grid-cols-[1fr_auto_1fr] items-center px-5 max-[640px]:h-[58px] max-[640px]:px-3">
-            <button type="button" className="justify-self-start rounded-full bg-slate-100 px-4 py-2 text-sm font-black text-slate-700 transition hover:bg-slate-200 max-[640px]:px-3" onClick={() => onNavigateProducts?.()}>
-              계속 담기
+            <button type="button" className="inline-flex items-center gap-1.5 justify-self-start bg-transparent px-0 py-2 text-sm font-black text-[#0068d9] transition hover:text-[#004ea8]" onClick={() => onNavigateProducts?.()}>
+              <span>계속 담기</span>
+              <span className="text-lg leading-none" aria-hidden="true">›</span>
             </button>
             <h1 id="order-list-modal-title" className="m-0 text-[22px] font-black text-slate-950 max-[640px]:text-lg">
               주문목록

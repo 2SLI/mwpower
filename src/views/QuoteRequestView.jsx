@@ -189,10 +189,11 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
               </span>
               <button
                 type="button"
-                className="inline-flex h-10 items-center rounded-full bg-slate-100 px-4 text-sm font-extrabold text-slate-700 transition hover:bg-slate-200"
+                className="inline-flex h-10 items-center gap-1.5 bg-transparent px-0 text-sm font-black text-[#0068d9] transition hover:text-[#004ea8]"
                 onClick={() => onNavigateProducts?.()}
               >
-                계속 담기
+                <span>계속 담기</span>
+                <span className="text-lg leading-none" aria-hidden="true">›</span>
               </button>
               <button
                 type="button"

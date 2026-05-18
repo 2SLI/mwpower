@@ -15,6 +15,8 @@ function handleNewsImageError(event) {
   image.src = NEWS_FALLBACK_IMAGE
 }
 
+const NEWS_CATEGORIES = ['산업 뉴스', '신제품', '제품 공지', '기술 자료', '전시회', '회사 소식', '보도자료', '영상 채널']
+
 export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
   const [articles, setArticles] = useState(() => normalizeNewsItems(getAllNewsSorted()))
   const [keyword, setKeyword] = useState('')
@@ -96,199 +98,124 @@ export function NewsView({ isActive, onNavigate, externalNewsRequest }) {
   }
 
   return (
-    <section className={`${isActive ? '' : 'is-hidden'} bg-[#f5f7fa] text-slate-700`} id="news-page">
-      <div className="relative overflow-hidden bg-slate-950">
-        <img src="/meanwell/news/news-hero.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-20" />
-        <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(8,15,26,0.96)_0%,rgba(14,34,56,0.9)_48%,rgba(201,37,47,0.72)_100%)]"></div>
-
-        <div className="relative mx-auto w-full max-w-[1540px] px-5 py-14 text-white md:px-8 md:py-16">
-          <p className="m-0 text-[11px] font-black uppercase tracking-[0.18em] text-rose-200">NEWS</p>
-          <h1 className="m-0 mt-3 text-[clamp(2.2rem,4vw,4.4rem)] font-black tracking-[-0.03em]">최신 뉴스</h1>
-          <p className="m-0 mt-4 max-w-[60ch] text-sm leading-7 text-slate-100 md:text-base">
-            MEAN WELL 공식 신제품 소식을 한국어 제목과 요약으로 빠르게 확인할 수 있도록 구성했습니다.
+    <section className={`${isActive ? '' : 'is-hidden'} bg-white text-[#333]`} id="news-page">
+      <div className="relative h-[230px] overflow-hidden bg-slate-900 max-[640px]:h-[180px]">
+        <img src="/meanwell/news/news-hero.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-black/55"></div>
+        <div className="relative mx-auto flex h-full max-w-[1250px] flex-col justify-center px-5 text-white">
+          <h1 className="m-0 text-[52px] font-medium leading-none drop-shadow max-[640px]:text-[34px]">최신 뉴스</h1>
+          <p className="m-0 mt-6 text-[15px] font-semibold text-white max-[640px]:mt-4 max-[640px]:text-sm">
+            최신 제품 정보, 전시회, 회사 소식을 확인하세요.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <button
-              type="button"
-              className="inline-flex h-11 items-center rounded-full bg-[#e5332a] px-5 text-sm font-extrabold text-white shadow-[0_18px_38px_rgba(229,51,42,0.32)] transition hover:bg-[#cb2b23]"
-              onClick={() => onNavigate('home')}
-            >
-              홈으로 돌아가기
-            </button>
-          </div>
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-[1540px] px-5 pb-14 pt-6 md:px-8 md:pb-16">
-        <div className="border-y border-slate-200 bg-white px-4 py-3 shadow-[0_14px_34px_-32px_rgba(15,23,42,0.34)] md:px-5">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="flex min-w-0 items-center gap-3">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#fff4f4] text-[#c9252f]" aria-hidden="true">
-                <i className="fa-regular fa-newspaper text-sm"></i>
-              </span>
-              <div className="min-w-0">
-                <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#c9252f]">MEAN WELL News</p>
-                <p className="m-0 mt-0.5 text-sm font-extrabold text-slate-900">공식 신제품 소식</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <label className="flex h-10 min-w-0 items-center overflow-hidden rounded-md border border-slate-200 bg-slate-50 px-3 sm:w-[320px]">
-                <i className="fa-solid fa-magnifying-glass text-[13px] text-slate-400" aria-hidden="true"></i>
-                <input
-                  type="text"
-                  value={keyword}
-                  onChange={(event) => setKeyword(event.target.value)}
-                  placeholder="제목 또는 요약 검색"
-                  className="h-full w-full border-0 bg-transparent px-2.5 text-sm text-slate-700 outline-none"
-                />
-              </label>
-              <span className="inline-flex h-10 items-center justify-center rounded-md bg-slate-100 px-3 text-sm font-black text-slate-600">
-                {filteredArticles.length}개
-              </span>
-            </div>
-          </div>
+      <div className="mx-auto max-w-[1250px] px-5 pb-16 pt-7">
+        <div className="flex items-center justify-between border-b border-[#cfcfcf] pb-5 max-[640px]:items-start">
+          <h2 className="m-0 text-[28px] font-bold text-[#555]">뉴스</h2>
+          <nav className="text-sm text-[#444] max-[640px]:hidden" aria-label="Breadcrumb">
+            <button type="button" className="text-[#e5322d]" onClick={() => onNavigate('home')}>» 홈</button>
+            <span className="mx-3 text-[#999]">&gt;</span>
+            <span>뉴스</span>
+            <span className="mx-3 text-[#999]">&gt;</span>
+            <strong className="font-medium">신제품</strong>
+          </nav>
         </div>
 
-        {activeArticle ? (
-          <article
-            id="news-translated-article"
-            className="mt-6 overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_20px_50px_-32px_rgba(15,23,42,0.34)] lg:grid lg:grid-cols-[0.9fr_1.1fr]"
-          >
-            <div className="relative min-h-[280px] overflow-hidden bg-slate-100">
-              {activeArticle.image ? (
-                <img
-                  src={activeArticle.image}
-                  alt={activeArticle.title}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  onError={handleNewsImageError}
-                />
-              ) : (
-                <div className="grid h-full min-h-[280px] place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
-              )}
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.05)_0%,rgba(15,23,42,0.7)_100%)]"></div>
+        <div className="grid gap-12 pt-11 lg:grid-cols-[300px_minmax(0,1fr)] max-[980px]:gap-6 max-[980px]:pt-7">
+          <aside className="max-[980px]:order-2">
+            <nav className="border-t border-[#cfcfcf]" aria-label="News category">
+              {NEWS_CATEGORIES.map((label) => {
+                const active = label === '신제품'
+                return (
+                  <button
+                    key={label}
+                    type="button"
+                    className={`block h-[42px] w-full border-b border-[#cfcfcf] px-5 text-left text-[15px] transition ${
+                      active ? 'bg-[#ee2d27] font-bold text-white' : 'bg-[#efefef] text-[#333] hover:bg-[#e7e7e7]'
+                    }`}
+                  >
+                    <span className="mr-2">{active ? '›' : '›'}</span>
+                    {label}
+                  </button>
+                )
+              })}
+            </nav>
+
+            <label className="mt-4 flex h-[43px] overflow-hidden rounded-[3px] border border-[#c8c8c8] bg-white">
+              <span className="sr-only">뉴스 검색</span>
+              <input
+                type="text"
+                value={keyword}
+                onChange={(event) => setKeyword(event.target.value)}
+                placeholder="뉴스 검색"
+                className="min-w-0 flex-1 border-0 px-4 text-[14px] text-[#555] outline-none"
+              />
+              <span className="grid w-49px w-[49px] place-items-center bg-[#b7b7b7] text-white" aria-hidden="true">
+                <i className="fa-solid fa-magnifying-glass text-sm"></i>
+              </span>
+            </label>
+          </aside>
+
+          <main>
+            <div className="flex items-end justify-between border-b border-[#cfcfcf] pb-4">
+              <h3 className="m-0 text-[24px] font-bold text-[#555]">
+                신제품
+                <i className="fa-solid fa-square-rss ml-1 text-[13px] text-orange-500" aria-hidden="true"></i>
+              </h3>
+              <span className="text-sm text-[#777]">총 {filteredArticles.length}건</span>
             </div>
 
-            <div className="grid gap-5 p-6 md:p-7">
-              <div>
-                <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#c9252f]">Translated News</p>
-                <h3 className="m-0 mt-3 text-[clamp(1.7rem,2.4vw,2.8rem)] font-black leading-tight tracking-[-0.03em] text-slate-900">
-                  {activeArticle.title}
-                </h3>
-                {activeArticle.originalTitle ? <p className="m-0 mt-3 text-sm font-bold leading-6 text-slate-400">{activeArticle.originalTitle}</p> : null}
-                <p className="m-0 mt-4 text-sm leading-7 text-slate-600">{activeArticle.summary || '등록된 요약이 없습니다.'}</p>
-              </div>
+            {isLoadingArticles ? <p className="m-0 mt-5 text-sm font-semibold text-[#777]">뉴스 데이터를 불러오는 중입니다...</p> : null}
+            {loadError ? <p className="m-0 mt-2 text-sm font-semibold text-[#b42323]">{loadError}</p> : null}
 
-              {Array.isArray(activeArticle.body) && activeArticle.body.length > 0 ? (
-                <div className="grid gap-3 text-[15px] leading-8 text-slate-700">
-                  {activeArticle.body.map((paragraph, index) => (
-                    <p key={`${activeArticle.id}-body-${index}`} className="m-0">
-                      {paragraph}
-                    </p>
+            {filteredArticles.length ? (
+              <div className="mt-8 overflow-hidden border-t border-[#e0e0e0]">
+                <div className="grid grid-cols-[130px_140px_minmax(0,1fr)] bg-[#eee] text-[15px] text-[#555] max-[700px]:hidden">
+                  <div className="px-5 py-3">
+                    <span className="text-[#e5322d]">›</span> 등록일
+                  </div>
+                  <div className="px-4 py-3">사진</div>
+                  <div className="px-4 py-3">제목</div>
+                </div>
+
+                <div className="divide-y divide-[#e0e0e0]">
+                  {filteredArticles.map((item) => (
+                    <article key={item.id} className="grid min-h-[128px] grid-cols-[130px_140px_minmax(0,1fr)] items-center bg-[#fafafa] transition hover:bg-white max-[700px]:grid-cols-[96px_minmax(0,1fr)] max-[700px]:gap-3 max-[700px]:px-3 max-[700px]:py-4">
+                      <div className="px-5 text-[15px] leading-6 text-[#333] max-[700px]:px-0">
+                        <span className="mr-2 text-[#e5322d]">›</span>
+                        {formatNewsDate(item.date)}
+                      </div>
+                      <a href={item.articleUrl || item.externalUrl || '#'} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-[5px] bg-slate-100 max-[700px]:row-span-2">
+                        {item.image ? (
+                          <img src={item.image} alt={item.title} className="h-[82px] w-[112px] object-cover max-[700px]:h-[72px] max-[700px]:w-[96px]" onError={handleNewsImageError} />
+                        ) : (
+                          <div className="grid h-[82px] w-[112px] place-items-center text-[11px] font-bold text-slate-400 max-[700px]:h-[72px] max-[700px]:w-[96px]">이미지 없음</div>
+                        )}
+                      </a>
+                      <div className="px-4 max-[700px]:px-0">
+                        <a
+                          href={item.articleUrl || item.externalUrl || '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[15px] leading-6 text-[#333] transition hover:text-[#e5322d]"
+                        >
+                          {item.title}
+                        </a>
+                        <p className="m-0 mt-2 hidden text-sm leading-6 text-[#777] max-[700px]:block">{item.summary}</p>
+                      </div>
+                    </article>
                   ))}
                 </div>
-              ) : null}
-
-              {Array.isArray(activeArticle.keyPoints) && activeArticle.keyPoints.length > 0 ? (
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="m-0 text-[12px] font-black uppercase tracking-[0.12em] text-[#c9252f]">Key Points</p>
-                  <ul className="m-0 mt-3 grid list-none gap-2 p-0 text-sm font-semibold leading-6 text-slate-700">
-                    {activeArticle.keyPoints.map((point, index) => (
-                      <li key={`${activeArticle.id}-point-${index}`} className="flex gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9252f]" aria-hidden="true"></span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-
-              <div className="grid gap-2 rounded-2xl bg-slate-50 p-4 text-sm">
-                <p className="m-0">
-                  <strong className="text-slate-900">등록일:</strong> {formatNewsDate(activeArticle.date)}
-                </p>
-                <p className="m-0">
-                  <strong className="text-slate-900">출처:</strong> {activeArticle.sourceLabel || '외부 뉴스'}
-                </p>
               </div>
-
-              <div className="flex flex-wrap gap-2">
-                <a
-                  href={activeArticle.articleUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
-                >
-                  공식 원문 보기
-                </a>
+            ) : (
+              <div className="mt-8 border border-dashed border-[#d0d0d0] bg-[#fafafa] px-6 py-14 text-center">
+                <p className="m-0 text-lg font-bold text-[#333]">조건에 맞는 뉴스가 없습니다.</p>
+                <p className="m-0 mt-2 text-sm text-[#777]">검색어를 바꿔 다시 확인해 주세요.</p>
               </div>
-            </div>
-          </article>
-        ) : (
-          <div className="mt-6 rounded-[28px] border border-dashed border-slate-300 bg-white px-6 py-14 text-center shadow-sm">
-            <p className="m-0 text-lg font-black text-slate-900">등록된 뉴스가 없습니다.</p>
-            <p className="m-0 mt-2 text-sm font-semibold text-slate-500">관리자에서 뉴스 링크와 썸네일을 등록하면 이 영역에 미리보기가 표시됩니다.</p>
-          </div>
-        )}
-
-        {isLoadingArticles ? <p className="m-0 mt-5 text-sm font-semibold text-slate-500">뉴스 데이터를 불러오는 중입니다...</p> : null}
-        {loadError ? <p className="m-0 mt-2 text-sm font-semibold text-[#b42323]">{loadError}</p> : null}
-
-        {filteredArticles.length ? (
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {filteredArticles.map((item) => {
-              const isActiveCard = item.id === activeArticle?.id
-
-              return (
-                <article
-                  key={item.id}
-                  className={`group overflow-hidden rounded-[24px] border bg-white transition ${
-                    isActiveCard
-                      ? 'border-[#d43a31] shadow-[0_20px_48px_-30px_rgba(212,58,49,0.55)]'
-                      : 'border-slate-200/80 shadow-[0_16px_42px_-34px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_22px_48px_-32px_rgba(15,23,42,0.55)]'
-                  }`}
-                >
-                  <button
-                    type="button"
-                    className="relative block aspect-[16/10] w-full overflow-hidden border-0 bg-slate-100 p-0 text-left"
-                    aria-label={`${item.title} 번역 뉴스 보기`}
-                    onClick={() => openTranslatedArticle(item.id)}
-                  >
-                    {item.image ? (
-                      <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" onError={handleNewsImageError} />
-                    ) : (
-                      <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
-                    )}
-                  </button>
-
-                  <button type="button" className="block w-full min-h-[190px] p-5 text-left" onClick={() => openTranslatedArticle(item.id)}>
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="m-0 shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</p>
-                      <span className="min-w-0 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-500">{item.sourceLabel || '외부 뉴스'}</span>
-                    </div>
-                    <h4
-                      className="m-0 mt-3 text-[1.12rem] font-black leading-[1.35] text-slate-900"
-                      style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
-                    >
-                      {item.title}
-                    </h4>
-                    <p
-                      className="m-0 mt-3 text-[14px] font-medium leading-6 text-slate-500"
-                      style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
-                    >
-                      {item.summary || '요약이 등록되지 않은 뉴스입니다.'}
-                    </p>
-                  </button>
-                </article>
-              )
-            })}
-          </div>
-        ) : (
-          <div className="mt-8 rounded-[28px] border border-dashed border-slate-300 bg-white px-6 py-14 text-center shadow-sm">
-            <p className="m-0 text-lg font-black text-slate-900">조건에 맞는 뉴스가 없습니다.</p>
-            <p className="m-0 mt-2 text-sm font-semibold text-slate-500">검색어를 바꿔 다시 확인해 주세요.</p>
-          </div>
-        )}
+            )}
+          </main>
+        </div>
       </div>
     </section>
   )

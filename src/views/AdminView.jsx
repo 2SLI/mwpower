@@ -310,6 +310,15 @@ export function AdminView() {
     if (key === 'articleUrl') {
       setNewsPreviewError('')
       lastAutoPreviewLinkRef.current = ''
+      setNewsForm((prev) => ({
+        ...prev,
+        articleUrl: value,
+        image: '',
+        title: '',
+        summary: '',
+        date: '',
+      }))
+      return
     }
     setNewsForm((prev) => ({ ...prev, [key]: value }))
   }
@@ -375,18 +384,25 @@ export function AdminView() {
     event.preventDefault()
     if (isSavingNews) return
 
-    let hydratedForm = newsForm
-    if (normalizedNewsFormLink && (!normalizeText(newsForm.title) || !normalizeText(newsForm.image) || !normalizeText(newsForm.summary))) {
-      const preview = await loadNewsPreviewFromLink({ force: true })
-      if (preview) {
-        hydratedForm = {
+    const preview = normalizedNewsFormLink ? await loadNewsPreviewFromLink({ force: true, overwrite: true }) : null
+    const hydratedForm = preview
+      ? {
           ...newsForm,
           articleUrl: preview.articleUrl || newsForm.articleUrl,
-          image: normalizeText(newsForm.image) || preview.image || '',
-          title: normalizeText(newsForm.title) || preview.title || '',
-          summary: normalizeText(newsForm.summary) || preview.summary || '',
+          image: preview.image || '',
+          title: preview.title || '',
+          summary: preview.summary || '',
         }
-      }
+      : newsForm
+
+    if (preview) {
+      setNewsForm((prev) => ({
+        ...prev,
+        articleUrl: preview.articleUrl || prev.articleUrl,
+        image: preview.image || '',
+        title: preview.title || '',
+        summary: preview.summary || '',
+      }))
     }
 
     const payload = {
@@ -794,7 +810,7 @@ export function AdminView() {
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <h2 className="m-0 text-xl font-black text-slate-900">뉴스 관리</h2>
-                <p className="m-0 mt-1 text-sm font-semibold text-slate-500">블로그나 티스토리 링크와 썸네일, 제목을 등록하면 홈과 뉴스 페이지에 미리보기 형태로 반영됩니다.</p>
+                <p className="m-0 mt-1 text-sm font-semibold text-slate-500">뉴스 URL 하나만 등록하면 제목과 썸네일을 자동으로 가져와 홈과 뉴스 페이지에 반영됩니다.</p>
               </div>
               <div className="flex items-center gap-2">
                 <button type="button" onClick={loadNews} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">
@@ -826,7 +842,7 @@ export function AdminView() {
                             {item.thumbnail || item.image ? (
                               <img src={item.thumbnail || item.image} alt={item.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                             ) : (
-                              <div className="grid h-full w-full place-items-center text-xs font-black text-slate-400">NO PREVIEW</div>
+                              <div className="grid h-full w-full place-items-center text-xs font-black text-slate-400">미리보기 없음</div>
                             )}
                           </div>
                           <div className="min-w-0 flex-1">
@@ -887,33 +903,26 @@ export function AdminView() {
 
               <form className="grid gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3" onSubmit={handleNewsSubmit}>
                 <h3 className="m-0 text-base font-black text-slate-900">{editingNewsId ? '뉴스 수정' : '뉴스 등록'}</h3>
-                <p className="m-0 text-xs leading-5 text-slate-500">블로그나 티스토리 링크와 썸네일 이미지를 입력하면 카드형 뉴스 미리보기로 노출됩니다.</p>
+                <p className="m-0 text-xs leading-5 text-slate-500">URL 하나만 붙여넣으면 카드 정보가 자동으로 채워집니다.</p>
 
                 <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  뉴스 링크*
+                  뉴스 URL*
                   <input
                     value={newsForm.articleUrl}
                     onChange={(event) => handleNewsFormChange('articleUrl', event.target.value)}
                     onBlur={() => loadNewsPreviewFromLink({ force: true, overwrite: true })}
                     className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                    placeholder="https://blog.naver.com/... 또는 https://*.tistory.com/..."
+                    placeholder="https://blog.naver.com/... 또는 뉴스 URL"
                   />
                 </label>
                 {newsForm.articleUrl ? (
-                  <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <p className={`m-0 text-[11px] font-bold ${normalizedNewsFormLink ? 'text-[#0f6d3d]' : 'text-[#b42323]'}`}>
-                      {normalizedNewsFormLink ? `등록 출처: ${getNewsSourceLabel(normalizedNewsFormLink)}` : '유효한 블로그/뉴스 링크를 입력해주세요.'}
+                      {normalizedNewsFormLink
+                        ? `${getNewsSourceLabel(normalizedNewsFormLink)} 링크가 감지되었습니다.`
+                        : '유효한 URL을 입력해주세요.'}
                     </p>
-                    {normalizedNewsFormLink ? (
-                      <button
-                        type="button"
-                        onClick={() => loadNewsPreviewFromLink({ force: true, overwrite: true })}
-                        disabled={isLoadingNewsPreview}
-                        className="rounded-md border border-slate-300 bg-white px-2 py-1 text-[11px] font-extrabold text-slate-700 hover:bg-slate-50 disabled:opacity-60"
-                      >
-                        {isLoadingNewsPreview ? '가져오는 중...' : '미리보기 가져오기'}
-                      </button>
-                    ) : null}
+                    {isLoadingNewsPreview ? <span className="text-[11px] font-bold text-slate-500">미리보기 가져오는 중...</span> : null}
                   </div>
                 ) : null}
                 {newsPreviewError ? <p className="m-0 text-[11px] font-bold text-[#b42323]">{newsPreviewError}</p> : null}
@@ -930,7 +939,7 @@ export function AdminView() {
                         <img src={newsFormPreview.image} alt={newsFormPreview.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                       ) : (
                         <div className="grid h-full w-full place-items-center text-xs font-black text-slate-400">
-                          {isLoadingNewsPreview ? 'LOADING PREVIEW' : 'NO PREVIEW IMAGE'}
+                          {isLoadingNewsPreview ? '미리보기 불러오는 중' : '미리보기 이미지 없음'}
                         </div>
                       )}
                     </div>
@@ -941,46 +950,6 @@ export function AdminView() {
                     </div>
                   </a>
                 ) : null}
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  썸네일 이미지 URL
-                  <input
-                    value={newsForm.image}
-                    onChange={(event) => handleNewsFormChange('image', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                    placeholder="https://example.com/news-thumbnail.jpg"
-                  />
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  제목
-                  <input
-                    value={newsForm.title}
-                    onChange={(event) => handleNewsFormChange('title', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                    placeholder="뉴스 카드에 표시할 제목"
-                  />
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  등록일
-                  <input
-                    type="date"
-                    value={newsForm.date}
-                    onChange={(event) => handleNewsFormChange('date', event.target.value)}
-                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
-                  />
-                </label>
-
-                <label className="grid gap-1 text-xs font-bold text-slate-700">
-                  요약
-                  <textarea
-                    value={newsForm.summary}
-                    onChange={(event) => handleNewsFormChange('summary', event.target.value)}
-                    className="min-h-[108px] rounded-md border border-slate-300 bg-white px-2 py-2 text-sm outline-none focus:border-[#c9252f]"
-                    placeholder="카드와 상세 미리보기에 표시할 요약"
-                  />
-                </label>
 
                 <label className="mt-1 inline-flex items-center gap-2 text-xs font-bold text-slate-700">
                   <input

@@ -1316,7 +1316,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             <div className="flex shrink-0 items-center gap-2">
               <button
                 type="button"
-                className="inline-flex h-7 items-center justify-center rounded-full bg-slate-100 px-3 text-[11px] font-black text-slate-600 transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+                className="inline-flex h-7 items-center justify-center rounded-full bg-[#d53232] px-3 text-[11px] font-black uppercase tracking-[0.04em] text-white transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
                 onClick={handleScrollToPdfSection}
                 disabled={!selectedModelCard?.asset?.pdfUrl}
                 aria-label="PDF 섹션으로 이동"

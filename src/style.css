@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+button,
+[role="button"] {
+  border: 0 !important;
+  outline: none;
+}
+
+button:focus,
+button:focus-visible,
+[role="button"]:focus,
+[role="button"]:focus-visible {
+  outline: none;
+}
+
 @layer base {
   :root {
     font-family: "Segoe UI", Arial, sans-serif;

@@ -428,11 +428,11 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
         </div>
       </section>
 
-      <section className="w-full border-t border-slate-200 bg-slate-100/90 py-10 md:py-14" aria-label="News">
+      <section className="w-full border-t border-slate-200 bg-slate-100/90 py-10 md:py-14" aria-label="뉴스">
         <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
           <header className="mb-6 flex items-center justify-between gap-4">
             <div>
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#d7322a]">NEWS</p>
+              <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#d7322a]">뉴스</p>
               <h2 className="mt-2 text-[clamp(2rem,2.6vw,3.1rem)] font-black tracking-tight text-slate-900">최신 뉴스 미리보기</h2>
               <p className="mt-2 text-sm font-semibold text-slate-500">MEAN WELL 공식 신제품 소식을 한국어 요약으로 먼저 확인하세요.</p>
             </div>
@@ -460,12 +460,12 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                   {featuredNews.image ? (
                     <img src={featuredNews.image} alt={featuredNews.title} className="h-full w-full object-cover" onError={handleNewsImageError} />
                   ) : (
-                    <div className="grid h-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
+                    <div className="grid h-full place-items-center text-sm font-black text-slate-400">이미지 없음</div>
                   )}
                 </button>
 
                 <div className="p-6">
-                  <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">FEATURED NEWS</p>
+                  <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">주요 뉴스</p>
                   <h3 className="mt-3 text-[clamp(1.5rem,2.1vw,2.4rem)] font-extrabold leading-tight tracking-tight text-slate-900">
                     {featuredNews.title}
                   </h3>
@@ -513,7 +513,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
                     {item.image ? (
                       <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" onError={handleNewsImageError} />
                     ) : (
-                      <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">NO IMAGE</div>
+                      <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">이미지 없음</div>
                     )}
                   </button>
                   <button type="button" className="block w-full min-h-[178px] px-5 py-4 text-left" onClick={() => openNews(item.id)}>
