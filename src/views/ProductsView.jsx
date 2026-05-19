@@ -5,6 +5,7 @@ import 'react-pdf/dist/Page/TextLayer.css'
 import { defaultMajorCategories } from '../data/defaultMajorCategories'
 import { modelOptionWattageMap } from '../data/modelOptionWattageMap'
 import { inventoryOptionModelsByBaseKey, productInventoryByModelKey, productInventorySummary } from '../data/productInventory'
+import { productPriceByModelKey } from '../data/productPrices'
 import { lockBodyScroll } from '../utils/bodyScrollLock'
 import {
   findMatchingLabel,
@@ -63,6 +64,13 @@ function getInventoryRecord(modelName = '') {
   return productInventoryByModelKey[key] ?? null
 }
 
+function getProductPrice(modelName = '') {
+  const key = normalizeLabel(modelName)
+  if (!key) return null
+  const price = Number(productPriceByModelKey[key])
+  return Number.isFinite(price) && price > 0 ? price : null
+}
+
 function getInventoryOptionModels(baseModelName = '') {
   const baseKey = findModelOptionKey(baseModelName) || normalizeLabel(baseModelName)
   if (!baseKey) return []
@@ -95,10 +103,29 @@ function formatInventoryText(modelName = '', { aggregate = true } = {}) {
   return '재고 미등록'
 }
 
+function formatProductPrice(value) {
+  const price = Number(value)
+  if (!Number.isFinite(price) || price <= 0) return '별도 안내'
+  return `${price.toLocaleString('ko-KR')}원`
+}
+
+function formatProductPriceText(modelName = '', { aggregate = true } = {}) {
+  const exactPrice = getProductPrice(modelName)
+  if (exactPrice != null) return formatProductPrice(exactPrice)
+  if (!aggregate) return '별도 안내'
+
+  const baseKey = findModelOptionKey(modelName) || normalizeLabel(modelName)
+  const optionModels = Array.isArray(inventoryOptionModelsByBaseKey[baseKey]) ? inventoryOptionModelsByBaseKey[baseKey] : []
+  const prices = [...new Set(optionModels.map(getProductPrice).filter((price) => price != null))].sort((a, b) => a - b)
+  if (prices.length === 0) return '별도 안내'
+  if (prices.length === 1) return formatProductPrice(prices[0])
+  return `${formatProductPrice(prices[0])} ~ ${formatProductPrice(prices[prices.length - 1])}`
+}
+
 function formatOptionLabelWithInventory(modelName = '') {
   const label = String(modelName ?? '').trim()
   if (!label) return ''
-  return `${label} - ${formatInventoryText(label, { aggregate: false })}`
+  return `${label} - ${formatInventoryText(label, { aggregate: false })} - ${formatProductPriceText(label, { aggregate: false })}`
 }
 
 function getInventoryTone(modelName = '') {
@@ -1333,6 +1360,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const inventoryText = inventoryTargetModel
       ? formatInventoryText(inventoryTargetModel, { aggregate: !selectedOptionModel })
       : '재고 미등록'
+    const priceText = inventoryTargetModel
+      ? formatProductPriceText(inventoryTargetModel, { aggregate: !selectedOptionModel })
+      : '별도 안내'
     const inventoryTone = inventoryTargetModel ? getInventoryTone(inventoryTargetModel) : 'unknown'
     const isOutOfStockForOrder = inventoryTone === 'out-of-stock'
     const isAddToOrderDisabled = isAddToQuoteDisabled || isOutOfStockForOrder
@@ -1434,6 +1464,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </p>
                 <span className={`mt-2 inline-flex rounded-full border px-2.5 py-1 text-[11px] font-black ${inventoryToneClass}`}>
                   {inventoryText}
+                </span>
+                <span className="ml-2 mt-2 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-black text-emerald-700">
+                  {priceText}
                 </span>
                 <p className={`m-0 mt-1 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
                   {isAddToQuoteDisabled
@@ -1682,6 +1715,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               <span className="truncate">{item.modelName}</span>
               <span className={`shrink-0 text-[10px] font-black ${inventoryClass}`}>
                 {formatInventoryText(item.modelName)}
+              </span>
+              <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/85' : 'text-emerald-700'}`}>
+                {formatProductPriceText(item.modelName)}
               </span>
               {isCurrentModel ? <span className="shrink-0 text-[10px] font-black opacity-90">선택</span> : null}
               {!hasPdfAsset(item.asset) ? <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/80' : 'text-slate-400'}`}>PDF 준비중</span> : null}
@@ -2100,6 +2136,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                         <p className="m-0">
                           <strong>Stock:</strong> {formatInventoryText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
                         </p>
+                        <p className="m-0">
+                          <strong>Price:</strong> {formatProductPriceText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
+                        </p>
                       </div>
 
                       <div>
@@ -2198,6 +2237,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                       </p>
                       <p className="m-0">
                         <strong>Stock:</strong> 모델을 선택하면 옵션별 재고를 확인할 수 있습니다.
+                      </p>
+                      <p className="m-0">
+                        <strong>Price:</strong> 모델을 선택하면 옵션별 가격을 확인할 수 있습니다.
                       </p>
                     </div>
 
