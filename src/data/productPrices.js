@@ -16,7 +16,7 @@ export const productPriceSummary = {
     }
   ],
   "duplicateRows": [],
-  "generatedAt": "2026-05-19T02:55:57.840Z"
+  "generatedAt": "2026-05-19T02:58:50.642Z"
 }
 
 export const productPriceByModelKey = {
