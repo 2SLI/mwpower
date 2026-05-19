@@ -568,8 +568,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const [quoteFeedback, setQuoteFeedback] = useState('')
   const [selectedQuoteQuantity, setSelectedQuoteQuantity] = useState(1)
   const categoryCrumbRef = useRef(null)
+  const productDetailRef = useRef(null)
   const pdfSectionRef = useRef(null)
   const mobilePdfViewportRef = useRef(null)
+  const pendingProductDetailScrollRef = useRef(false)
   const wasActiveRef = useRef(isActive)
   const lastAppliedPresetAtRef = useRef(null)
   const historyActionRef = useRef('replace')
@@ -659,6 +661,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     setSelectedOptionModel(resolved.optionModel)
     setSearch(resolved.search)
     closePanels()
+  }
+
+  function requestProductDetailTopScroll() {
+    pendingProductDetailScrollRef.current = true
   }
 
   useEffect(() => {
@@ -1236,6 +1242,19 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   }, [quoteFeedback])
 
   useEffect(() => {
+    if (!isActive || !activeModel || !pendingProductDetailScrollRef.current) return undefined
+
+    const timer = window.setTimeout(() => {
+      const target = productDetailRef.current
+      if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' })
+      else if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' })
+      pendingProductDetailScrollRef.current = false
+    }, 0)
+
+    return () => window.clearTimeout(timer)
+  }, [isActive, activeModel, selectedModelCard?.modelName, activeLeaf, activeSubcategory])
+
+  useEffect(() => {
     if (!isActive || !historySyncReadyRef.current || typeof window === 'undefined') return
     if (!isProductsRoutePath(window.location.pathname)) return
 
@@ -1625,6 +1644,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const handleModelClick = (modelName) => {
     const exists = modelCards.some((item) => normalizeLabel(item.modelName) === normalizeLabel(modelName))
     if (!exists) return
+    requestProductDetailTopScroll()
     applyProductRouteState(
       buildCurrentProductRouteState({
         model: modelName,
@@ -1641,6 +1661,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const leaf = String(record?.leaf ?? '').trim()
     const model = String(modelName ?? '').trim()
     if (!subcategory || !leaf || !model) return
+    requestProductDetailTopScroll()
 
     const matchedMajorId = majorCategories.find((item) => normalizeLabel(item?.name) === normalizeLabel(majorName))?.id
     const modelRoute = modelRouteIndex[normalizeLabel(model)] ?? null
@@ -1671,6 +1692,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
 
   const handleShortcutModelClick = (shortcut) => {
     if (!shortcut) return
+    requestProductDetailTopScroll()
 
     const baseRouteState = {
       majorId: shortcut.majorId || activeMajorId || defaultMajorId,
@@ -2116,7 +2138,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </div>
               )
             ) : selectedModelCard && leafView ? (
-              <article className="grid min-h-[980px] gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm max-[640px]:min-h-0 max-[640px]:gap-3 max-[640px]:p-3">
+              <article ref={productDetailRef} className="scroll-mt-4 grid min-h-[980px] gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm max-[640px]:min-h-0 max-[640px]:gap-3 max-[640px]:p-3">
                 <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(390px,460px)]">
                   <div className="grid content-start gap-4">
                     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">

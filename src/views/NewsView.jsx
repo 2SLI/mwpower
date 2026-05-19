@@ -17,6 +17,39 @@ function handleNewsImageError(event) {
 
 const NEWS_CATEGORIES = ['산업 뉴스', '신제품', '제품 공지', '기술 자료', '전시회', '회사 소식', '보도자료', '영상 채널']
 
+const VALID_NEWS_CATEGORIES = new Set(NEWS_CATEGORIES)
+
+function normalizeCategory(value = '') {
+  const text = String(value ?? '').trim()
+  return VALID_NEWS_CATEGORIES.has(text) ? text : ''
+}
+
+function inferArticleCategory(article = {}) {
+  const explicitCategory = normalizeCategory(article.category)
+  if (explicitCategory) return explicitCategory
+
+  const haystack = `${article.title ?? ''} ${article.originalTitle ?? ''} ${article.summary ?? ''}`.toLowerCase()
+
+  if (/전시|전시회|expo|exhibition|show|fair|booth/.test(haystack)) return '전시회'
+  if (/영상|동영상|유튜브|youtube|webinar|웨비나|channel/.test(haystack)) return '영상 채널'
+  if (/보도|press|media|release/.test(haystack)) return '보도자료'
+  if (/회사|기업|esg|지속가능|sustainability|수상|award|창립|사옥|소식/.test(haystack)) return '회사 소식'
+  if (/ske|ska|skm|dke|dka|dkm/.test(haystack)) return '신제품'
+  if (/커넥터|connector|accessory|module|controller|powernex|주변/.test(haystack)) return '제품 공지'
+  if (/에너지 저장|energy storage|인버터|inverter|ess|solar|태양광|산업|industrial|automation/.test(haystack)) return '산업 뉴스'
+  if (/aec|절연|isolated|unregulated|regulated|smd|초광범위|ultra-wide|converter|컨버터|기술|application|solution/.test(haystack)) return '기술 자료'
+  if (/series|시리즈|신제품|new product|new/.test(haystack)) return '신제품'
+
+  return '산업 뉴스'
+}
+
+function withNewsCategory(article = {}) {
+  return {
+    ...article,
+    category: inferArticleCategory(article),
+  }
+}
+
 function getArticleUrl(article = {}) {
   return article.articleUrl || article.externalUrl || '#'
 }
@@ -40,8 +73,9 @@ function getArticleIdFromPathname(pathname = '') {
 }
 
 export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNewsRequest, pathname = '' }) {
-  const [articles, setArticles] = useState(() => normalizeNewsItems(getAllNewsSorted()))
+  const [articles, setArticles] = useState(() => normalizeNewsItems(getAllNewsSorted()).map(withNewsCategory))
   const [keyword, setKeyword] = useState('')
+  const [activeCategory, setActiveCategory] = useState('신제품')
   const [activeArticleId, setActiveArticleId] = useState(null)
   const [isLoadingArticles, setIsLoadingArticles] = useState(false)
   const [loadError, setLoadError] = useState('')
@@ -56,12 +90,12 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
       if (!alive) return
 
       const nextArticles = Array.isArray(result?.articles) ? result.articles : []
-      setArticles(nextArticles)
+      setArticles(nextArticles.map(withNewsCategory))
       setLoadError('')
       setIsLoadingArticles(false)
     })().catch(() => {
       if (!alive) return
-      setArticles(normalizeNewsItems(getAllNewsSorted()))
+      setArticles(normalizeNewsItems(getAllNewsSorted()).map(withNewsCategory))
       setLoadError('뉴스 데이터를 불러오지 못했습니다. 기본 목록으로 표시합니다.')
       setIsLoadingArticles(false)
     })
@@ -73,29 +107,45 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
 
   const filteredArticles = useMemo(() => {
     const term = keyword.trim().toLowerCase()
-    if (!term) return articles
+    const category = normalizeCategory(activeCategory)
+    const categoryArticles = category ? articles.filter((item) => inferArticleCategory(item) === category) : articles
+    if (!term) return categoryArticles
 
-    return articles.filter((item) => {
-      const haystack = `${item.title} ${item.summary ?? ''} ${item.originalTitle ?? ''} ${item.sourceLabel ?? ''}`.toLowerCase()
+    return categoryArticles.filter((item) => {
+      const haystack = `${item.title} ${item.summary ?? ''} ${item.originalTitle ?? ''} ${item.sourceLabel ?? ''} ${inferArticleCategory(item)}`.toLowerCase()
       return haystack.includes(term)
     })
-  }, [articles, keyword])
+  }, [articles, keyword, activeCategory])
+
+  const categoryCounts = useMemo(
+    () =>
+      NEWS_CATEGORIES.reduce((counts, label) => {
+        counts[label] = articles.filter((item) => inferArticleCategory(item) === label).length
+        return counts
+      }, {}),
+    [articles]
+  )
 
   useEffect(() => {
-    if (!filteredArticles.length) {
-      setActiveArticleId(null)
+    if (routeArticleId) {
+      if (activeArticleId !== routeArticleId) setActiveArticleId(routeArticleId)
+      const routeArticle = articles.find((item) => item.id === routeArticleId)
+      if (routeArticle) {
+        const routeCategory = inferArticleCategory(routeArticle)
+        if (routeCategory !== activeCategory) setActiveCategory(routeCategory)
+      }
       return
     }
 
-    if (routeArticleId) {
-      if (activeArticleId !== routeArticleId) setActiveArticleId(routeArticleId)
+    if (!filteredArticles.length) {
+      setActiveArticleId(null)
       return
     }
 
     if (activeArticleId && !filteredArticles.some((item) => item.id === activeArticleId)) {
       setActiveArticleId(null)
     }
-  }, [filteredArticles, activeArticleId, routeArticleId])
+  }, [filteredArticles, activeArticleId, routeArticleId, articles, activeCategory])
 
   useEffect(() => {
     if (!externalNewsRequest) return
@@ -106,8 +156,8 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
 
   const activeArticle = useMemo(() => {
     if (!activeArticleId) return null
-    return filteredArticles.find((item) => item.id === activeArticleId) ?? null
-  }, [activeArticleId, filteredArticles])
+    return articles.find((item) => item.id === activeArticleId) ?? null
+  }, [activeArticleId, articles])
 
   function openTranslatedArticle(articleId) {
     const id = String(articleId ?? '').trim()
@@ -142,7 +192,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
             <span className="mx-3 text-[#999]">&gt;</span>
             <span>뉴스</span>
             <span className="mx-3 text-[#999]">&gt;</span>
-            <strong className="font-medium">신제품</strong>
+            <strong className="font-medium">{activeArticle ? inferArticleCategory(activeArticle) : activeCategory}</strong>
           </nav>
         </div>
 
@@ -150,7 +200,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
           <aside className="max-[980px]:order-2">
             <nav className="border-t border-[#cfcfcf]" aria-label="News category">
               {NEWS_CATEGORIES.map((label) => {
-                const active = label === '신제품'
+                const active = label === activeCategory
                 return (
                   <button
                     key={label}
@@ -158,9 +208,11 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                     className={`block h-[42px] w-full border-b border-[#cfcfcf] px-5 text-left text-[15px] transition ${
                       active ? 'bg-[#ee2d27] font-bold text-white' : 'bg-[#efefef] text-[#333] hover:bg-[#e7e7e7]'
                     }`}
+                    onClick={() => setActiveCategory(label)}
                   >
                     <span className="mr-2">{active ? '›' : '›'}</span>
                     {label}
+                    <span className={`float-right text-xs ${active ? 'text-white/80' : 'text-[#777]'}`}>{categoryCounts[label] ?? 0}</span>
                   </button>
                 )
               })}
@@ -195,6 +247,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                     <span>{formatNewsDate(activeArticle.date)}</span>
                     <span className="text-[#cfcfcf]">|</span>
                     <span>{activeArticle.sourceLabel || 'MEAN WELL 공식'}</span>
+                    <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-600">{inferArticleCategory(activeArticle)}</span>
                     <span className="rounded-full bg-[#fff1f1] px-2.5 py-1 text-[11px] font-black text-[#c9252f]">한국어 번역</span>
                   </div>
                   <h3 className="m-0 mt-4 text-[30px] font-black leading-tight text-[#222] max-[700px]:text-[22px]">{activeArticle.title}</h3>
@@ -255,7 +308,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
 
             <div className="flex items-end justify-between border-b border-[#cfcfcf] pb-4">
               <h3 className="m-0 text-[24px] font-bold text-[#555]">
-                신제품
+                {activeCategory}
                 <i className="fa-solid fa-square-rss ml-1 text-[13px] text-orange-500" aria-hidden="true"></i>
               </h3>
               <span className="text-sm text-[#777]">총 {filteredArticles.length}건</span>
@@ -304,6 +357,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                         >
                           {item.title}
                         </a>
+                        <p className="m-0 mt-1 text-xs font-bold text-[#777]">{inferArticleCategory(item)}</p>
                         {hasTranslatedArticle(item) ? <p className="m-0 mt-1 text-xs font-bold text-[#c9252f]">한국어 번역 보기</p> : null}
                         <p className="m-0 mt-2 hidden text-sm leading-6 text-[#777] max-[700px]:block">{item.summary}</p>
                       </div>
