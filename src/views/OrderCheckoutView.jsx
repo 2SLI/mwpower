@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { createGuestOrderFromItems, formatOrderPrice, normalizePhoneForOrder, validateOrderPayload } from '../features/orderService'
+import { createGuestOrderFromItems, formatOrderPrice, normalizePhoneForOrder, resolveProductForOrder, validateOrderPayload } from '../features/orderService'
 import { getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
 
 const INITIAL_FORM = {
@@ -15,6 +15,28 @@ const INITIAL_FORM = {
 export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrderComplete, onClearItems }) {
   const normalizedItems = useMemo(() => normalizeQuoteItems(items), [items])
   const summary = useMemo(() => getQuoteItemSummary(normalizedItems), [normalizedItems])
+  const pricedItems = useMemo(
+    () =>
+      normalizedItems.map((item) => {
+        try {
+          const product = resolveProductForOrder(item.optionModel || item.displayModel || item.baseModel)
+          const quantity = Math.max(1, Math.floor(Number(item.quantity) || 1))
+          return {
+            ...item,
+            productPrice: product.productPrice,
+            totalPrice: product.productPrice * quantity,
+          }
+        } catch {
+          return {
+            ...item,
+            productPrice: 0,
+            totalPrice: 0,
+          }
+        }
+      }),
+    [normalizedItems]
+  )
+  const orderTotalPrice = pricedItems.reduce((sum, item) => sum + item.totalPrice, 0)
   const [form, setForm] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState({})
   const [submitError, setSubmitError] = useState('')
@@ -74,7 +96,7 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
               <section className="rounded-2xl bg-white p-5 shadow-sm">
                 <h2 className="m-0 text-xl font-black text-slate-950">주문 상품</h2>
                 <div className="mt-4 grid gap-3">
-                  {normalizedItems.map((item) => (
+                  {pricedItems.map((item) => (
                     <article key={item.id} className="grid gap-3 rounded-2xl bg-slate-50 p-3 sm:grid-cols-[72px_minmax(0,1fr)_auto]">
                       <div className="overflow-hidden rounded-xl bg-white ring-1 ring-slate-100">
                         {item.thumbnailUrl ? (
@@ -87,7 +109,10 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
                         <h3 className="m-0 break-all text-base font-black text-slate-950">{item.displayModel}</h3>
                         {item.wattage ? <p className="m-0 mt-1 text-xs font-semibold text-slate-500">Wattage: {item.wattage}</p> : null}
                       </div>
-                      <strong className="self-center text-sm font-black text-slate-900">{Number(item.quantity).toLocaleString('ko-KR')}개</strong>
+                      <div className="self-center text-right">
+                        <strong className="block text-sm font-black text-slate-900">{Number(item.quantity).toLocaleString('ko-KR')}개</strong>
+                        <span className="mt-1 block text-xs font-extrabold text-[#087a3d]">{formatOrderPrice(item.totalPrice)}</span>
+                      </div>
                     </article>
                   ))}
                 </div>
@@ -158,11 +183,11 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
             </div>
             <div className="flex justify-between gap-4 border-t border-slate-100 pt-3">
               <dt className="font-black text-slate-900">총 결제금액</dt>
-              <dd className="m-0 text-xl font-black text-[#0aa04f]">{formatOrderPrice(0)}</dd>
+              <dd className="m-0 text-xl font-black text-[#0aa04f]">{formatOrderPrice(orderTotalPrice)}</dd>
             </div>
           </dl>
           <p className="m-0 mt-4 rounded-xl bg-[#fff7e6] px-4 py-3 text-sm font-bold leading-6 text-[#8a5a00]">
-            현재 상품 가격표가 없어 금액은 별도 안내로 표시됩니다. 주문 접수 후 담당자가 확인합니다.
+            무통장입금으로 접수됩니다. 입금 확인 후 상품 준비가 시작됩니다.
           </p>
         </aside>
       </div>
