@@ -165,6 +165,7 @@ export default function App() {
   const [quoteItems, setQuoteItems] = useState(() => readStoredQuoteItems())
   const [pathname, setPathname] = useState(initialPathname)
   const [quoteBackgroundView, setQuoteBackgroundView] = useState(initialQuoteBackgroundView)
+  const [guestOrderQuantity, setGuestOrderQuantity] = useState(() => Math.max(1, Math.floor(Number(initialHistoryState?.quantity) || 1)))
   const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/')
   const isOrderListOpen = activeView === 'order-list'
   const isQuoteRequestOpen = activeView === 'quote-request'
@@ -223,6 +224,9 @@ export default function App() {
       setPathname(canonicalPath)
       setQuoteBackgroundView(nextBackgroundView)
       setActiveView(nextView)
+      if (nextView === 'order-form') {
+        setGuestOrderQuantity(Math.max(1, Math.floor(Number(currentHistoryState.quantity) || 1)))
+      }
       lastNonQuoteViewRef.current = nextBackgroundView
     }
 
@@ -388,19 +392,23 @@ export default function App() {
     }
   }
 
-  function handleStartGuestOrder(productId) {
+  function handleStartGuestOrder(productId, quantity = 1) {
     const id = String(productId ?? '').trim()
     if (!id) return
+    const orderQuantity = Math.max(1, Math.floor(Number(quantity) || 1))
     const nextPath = `/order/${encodeURIComponent(id)}`
     setActiveView('order-form')
     setPathname(nextPath)
     setQuoteBackgroundView('order-form')
+    setGuestOrderQuantity(orderQuantity)
     lastNonQuoteViewRef.current = 'order-form'
 
     if (typeof window !== 'undefined') {
       const currentPath = normalizePathname(window.location.pathname)
       if (currentPath !== normalizePathname(nextPath)) {
-        window.history.pushState({ view: 'order-form', productId: id }, '', nextPath)
+        window.history.pushState({ view: 'order-form', productId: id, quantity: orderQuantity }, '', nextPath)
+      } else {
+        window.history.replaceState({ ...(window.history.state ?? {}), view: 'order-form', productId: id, quantity: orderQuantity }, '', nextPath)
       }
       window.scrollTo({ top: 0, behavior: 'auto' })
     }
@@ -557,6 +565,7 @@ export default function App() {
           <GuestOrderView
             isActive={visibleView === 'order-form'}
             productId={getRouteParamFromPath(pathname, '/order')}
+            initialQuantity={guestOrderQuantity}
             onNavigateProducts={() => handleNavigate('products')}
             onOrderComplete={handleOrderComplete}
           />

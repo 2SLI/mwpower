@@ -1363,6 +1363,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
     const priceText = inventoryTargetModel
       ? formatProductPriceText(inventoryTargetModel, { aggregate: !selectedOptionModel })
       : '별도 안내'
+    const exactUnitPrice = getProductPrice(inventoryTargetModel)
+    const totalPriceText = exactUnitPrice != null ? formatProductPrice(exactUnitPrice * selectedQuoteQuantity) : priceText
     const inventoryTone = inventoryTargetModel ? getInventoryTone(inventoryTargetModel) : 'unknown'
     const isOutOfStockForOrder = inventoryTone === 'out-of-stock'
     const isAddToOrderDisabled = isAddToQuoteDisabled || isOutOfStockForOrder
@@ -1374,11 +1376,11 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
           : 'border-amber-200 bg-amber-50 text-amber-700'
 
     return (
-      <aside className="self-start rounded-[24px] bg-white p-5 shadow-[0_10px_28px_rgba(15,23,42,0.06)] ring-1 ring-slate-200/70">
+      <aside className="self-start rounded-xl bg-white">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">List Builder</p>
-            <p className="m-0 mt-1 text-[22px] font-black text-slate-950">목록 담기</p>
+            <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">Purchase</p>
+            <p className="m-0 mt-1 text-[22px] font-black text-slate-950">구매 정보</p>
           </div>
           {canAddSelectedModel ? (
             <div className="flex shrink-0 items-center gap-2">
@@ -1399,14 +1401,14 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         </div>
 
         <p className="m-0 mt-2 text-[12px] font-semibold leading-5 text-slate-500">
-          모델 상세를 확인한 뒤 옵션과 수량을 정해서 주문목록 또는 견적목록에 담을 수 있습니다.
+          옵션과 수량을 선택한 뒤 바로 주문하거나 목록에 담을 수 있습니다.
         </p>
 
         <div className="mt-4 grid gap-3">
           <label className="grid gap-1.5">
-            <span className="text-[13px] font-semibold text-slate-700">옵션 모델</span>
+            <span className="text-[13px] font-extrabold text-slate-800">추가 옵션</span>
             <select
-              className="h-11 rounded-full border border-slate-200 bg-slate-50 px-4 text-[14px] font-semibold text-slate-700 outline-none focus:border-[#d53232] focus:bg-white focus:shadow-[0_0_0_2px_#f3d8d8] disabled:bg-slate-100 disabled:text-slate-400"
+              className="h-14 rounded-lg border border-slate-200 bg-white px-4 text-[15px] font-semibold text-slate-800 outline-none transition focus:border-[#d53232] focus:shadow-[0_0_0_3px_#f8d8dc] disabled:bg-slate-100 disabled:text-slate-400"
               value={selectedOptionModel}
               onChange={(event) => {
                 historyActionRef.current = 'replace'
@@ -1428,11 +1430,11 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
           {canAddSelectedModel ? (
             <>
               <label className="grid gap-1.5">
-                <span className="text-[13px] font-semibold text-slate-700">주문 수량</span>
-                <div className="grid grid-cols-[42px_minmax(0,1fr)_42px] items-center gap-2 rounded-full border border-slate-200 bg-slate-50 p-1">
+                <span className="text-[13px] font-extrabold text-slate-800">수량</span>
+                <div className="grid w-[170px] grid-cols-[44px_minmax(0,1fr)_44px] items-center rounded-lg border border-slate-200 bg-white">
                   <button
                     type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-lg font-black text-slate-700 ring-1 ring-slate-100 transition hover:bg-slate-100"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-l-lg border-r border-slate-200 text-lg font-black text-slate-500 transition hover:bg-slate-50"
                     onClick={() => setSelectedQuoteQuantity((prev) => Math.max(1, normalizeRequestedQuoteQuantity(prev, 1) - 1))}
                     aria-label="수량 감소"
                   >
@@ -1444,11 +1446,11 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     inputMode="numeric"
                     value={selectedQuoteQuantity}
                     onChange={(event) => setSelectedQuoteQuantity(normalizeRequestedQuoteQuantity(event.target.value, 1))}
-                    className="h-10 min-w-0 border-0 bg-transparent px-2 text-center text-[17px] font-black text-slate-900 outline-none"
+                    className="h-11 min-w-0 border-0 bg-transparent px-2 text-center text-[17px] font-black text-slate-900 outline-none"
                   />
                   <button
                     type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-lg font-black text-slate-700 ring-1 ring-slate-100 transition hover:bg-slate-100"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-r-lg border-l border-slate-200 text-lg font-black text-slate-700 transition hover:bg-slate-50"
                     onClick={() => setSelectedQuoteQuantity((prev) => Math.min(99999, normalizeRequestedQuoteQuantity(prev, 1) + 1))}
                     aria-label="수량 증가"
                   >
@@ -1457,47 +1459,55 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </div>
               </label>
 
-              <div className="rounded-[20px] bg-[#f8fafc] p-4 ring-1 ring-slate-200/80">
-                <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">담기 대상</p>
-                <p className="m-0 mt-1 break-all text-[16px] font-black leading-6 text-slate-900">
+              <div className="rounded-xl border border-slate-200 bg-slate-50">
+                <div className="p-4">
+                  <p className="m-0 break-all text-[15px] font-black leading-6 text-slate-900">
                   {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
-                </p>
-                <span className={`mt-2 inline-flex rounded-full border px-2.5 py-1 text-[11px] font-black ${inventoryToneClass}`}>
-                  {inventoryText}
-                </span>
-                <span className="ml-2 mt-2 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-black text-emerald-700">
-                  {priceText}
-                </span>
-                <p className={`m-0 mt-1 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
-                  {isAddToQuoteDisabled
-                    ? '옵션 모델을 선택해야 목록에 담을 수 있습니다.'
-                    : isOutOfStockForOrder
-                      ? '재고가 없는 품목은 주문목록에 담을 수 없고 견적목록으로 문의할 수 있습니다.'
-                      : `${selectedQuoteQuantity}개 기준으로 선택한 목록에 추가됩니다.`}
-                </p>
+                  </p>
+                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                    <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-black ${inventoryToneClass}`}>
+                      {inventoryText}
+                    </span>
+                    <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-black text-emerald-700">
+                      {priceText}
+                    </span>
+                  </div>
+                  <p className={`m-0 mt-2 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
+                    {isAddToQuoteDisabled
+                      ? '옵션 모델을 선택해야 목록에 담을 수 있습니다.'
+                      : isOutOfStockForOrder
+                        ? '재고가 없는 품목은 주문목록에 담을 수 없고 견적목록으로 문의할 수 있습니다.'
+                        : `${selectedQuoteQuantity}개 기준으로 선택한 목록에 추가됩니다.`}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between border-t border-slate-200 bg-white px-4 py-4">
+                  <span className="text-sm font-black text-slate-900">총 {selectedQuoteQuantity.toLocaleString('ko-KR')}개</span>
+                  <span className="text-sm font-black text-slate-500">
+                    총 금액 <strong className="ml-2 text-[24px] text-[#d6001c]">{totalPriceText}</strong>
+                  </span>
+                </div>
               </div>
-
-              <button
-                type="button"
-                disabled={isAddToOrderDisabled}
-                className={`inline-flex h-12 w-full items-center justify-center rounded-xl px-4 text-sm font-extrabold text-white shadow-sm transition ${
-                  isAddToOrderDisabled
-                    ? 'cursor-not-allowed bg-slate-300 text-slate-100'
-                    : 'bg-slate-950 hover:bg-slate-800'
-                }`}
-                onClick={() => onStartGuestOrder?.(selectedOptionModel || selectedModelCard.modelName)}
-              >
-                주문하기
-              </button>
 
               <div className="grid gap-2 sm:grid-cols-2">
                 <button
                   type="button"
                   disabled={isAddToOrderDisabled}
-                  className={`inline-flex h-11 w-full items-center justify-center rounded-xl px-4 text-sm font-extrabold text-white shadow-[0_12px_22px_rgba(185,37,45,0.22)] transition ${
+                  className={`inline-flex h-14 w-full items-center justify-center rounded-xl px-4 text-base font-black text-white transition ${
                     isAddToOrderDisabled
-                      ? 'cursor-not-allowed bg-slate-300 text-slate-100 shadow-none'
-                      : 'bg-[#d53232] shadow-sm hover:bg-[#bd2929]'
+                      ? 'cursor-not-allowed bg-slate-300 text-slate-100'
+                      : 'bg-[#d53232] hover:bg-[#bd2929]'
+                  }`}
+                  onClick={() => onStartGuestOrder?.(selectedOptionModel || selectedModelCard.modelName, selectedQuoteQuantity)}
+                >
+                  구매하기
+                </button>
+                <button
+                  type="button"
+                  disabled={isAddToOrderDisabled}
+                  className={`inline-flex h-14 w-full items-center justify-center rounded-xl border px-4 text-base font-black transition ${
+                    isAddToOrderDisabled
+                      ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300'
+                      : 'border-slate-300 bg-white text-slate-900 hover:border-[#d53232] hover:text-[#d53232]'
                   }`}
                   onClick={() =>
                     handleAddLineItem(
@@ -1518,14 +1528,16 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     )
                   }
                 >
-                  주문목록에 담기
+                  장바구니
                 </button>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2">
                 <button
                   type="button"
                   disabled={isAddToQuoteDisabled}
-                  className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-extrabold shadow-[0_12px_22px_rgba(15,23,42,0.08)] transition ${
+                  className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-extrabold transition ${
                     isAddToQuoteDisabled
-                      ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300 shadow-none'
+                      ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300'
                       : 'border-transparent bg-slate-100 text-slate-800 hover:bg-rose-50 hover:text-[#d53232]'
                   }`}
                   onClick={() =>
@@ -1548,6 +1560,14 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   }
                 >
                   견적목록에 담기
+                </button>
+                <button
+                  type="button"
+                  className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-extrabold text-slate-700 transition hover:bg-slate-50"
+                  onClick={handleScrollToPdfSection}
+                  disabled={!selectedModelCard?.asset?.pdfUrl}
+                >
+                  PDF 보기
                 </button>
               </div>
             </>
@@ -2096,66 +2116,81 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </div>
               )
             ) : selectedModelCard && leafView ? (
-              <article className="grid min-h-[980px] gap-4 rounded-xl border border-slate-300 bg-slate-50 p-4 max-[640px]:min-h-0 max-[640px]:gap-3 max-[640px]:p-3">
-                <section className="rounded-xl border border-slate-300 bg-white p-4 max-[640px]:p-3">
-                  <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
-                    {activeMajor?.name} / {activeSubcategory} / {selectedModelCard.modelName}
-                  </p>
-                  <div className="mt-3 grid gap-4 lg:grid-cols-[280px_1fr_320px]">
-                    <div className="grid content-start gap-3">
-                      <div className="overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+              <article className="grid min-h-[980px] gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm max-[640px]:min-h-0 max-[640px]:gap-3 max-[640px]:p-3">
+                <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(390px,460px)]">
+                  <div className="grid content-start gap-4">
+                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                      <div className="grid min-h-[520px] place-items-center bg-white p-8 max-[980px]:min-h-[420px] max-[640px]:min-h-[300px] max-[640px]:p-4">
                         {leafView.thumbnailUrl ? (
                           <img
                             src={decodeAssetUrl(leafView.thumbnailUrl)}
                             alt={activeLeaf}
-                            className="block h-[220px] w-full object-contain p-3"
+                            className="block max-h-[430px] w-full object-contain max-[640px]:max-h-[260px]"
                             loading="lazy"
                           />
                         ) : (
-                          <div className="grid h-[220px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
+                          <div className="grid h-[260px] w-full place-items-center text-sm text-slate-500">썸네일 준비중</div>
                         )}
                       </div>
-
-                      <div className="rounded-lg border border-slate-300 bg-slate-50 p-3">
-                        <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Model</p>
-                        {renderModelActionList({
-                          items: modelCards,
-                          onSelectModel: (item) => handleModelClick(item.modelName),
-                        })}
+                      <div className="flex items-center justify-between gap-3 bg-[#4a4a4a] px-6 py-4 text-white max-[640px]:px-4">
+                        <span className="inline-flex h-12 w-20 items-center justify-center rounded-sm bg-[#d71920] text-xl font-black italic leading-none">MW</span>
+                        <strong className="min-w-0 flex-1 truncate text-center text-[28px] font-black max-[640px]:text-[20px]">
+                          {selectedModelCard.modelName} {leafView.wattage || ''}
+                        </strong>
+                        <span className="rounded-full bg-black/45 px-3 py-1 text-xs font-black">1/2</span>
                       </div>
                     </div>
 
-                    <div className="grid content-start gap-3">
-                      <h4 className="m-0 text-[34px] font-black leading-tight tracking-[-0.01em] text-slate-900 max-[640px]:text-[28px]">
-                        {selectedModelCard.modelName}
-                      </h4>
-                      <div className="grid gap-1.5 text-[15px] text-slate-700">
-                        <p className="m-0">
-                          <strong>Wattage:</strong> {leafView.wattage || '정보 없음'}
-                        </p>
-                        <p className="m-0">
-                          <strong>Stock:</strong> {formatInventoryText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
-                        </p>
-                        <p className="m-0">
-                          <strong>Price:</strong> {formatProductPriceText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
-                        </p>
-                      </div>
-
-                      <div>
-                        <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Features</p>
-                        {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
-                          <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
-                            {leafView.features.map((feature) => (
-                              <li key={feature}>{feature}</li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
-                        )}
-                      </div>
+                    <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="mb-3 mt-0 text-[15px] font-black text-slate-800">Model</p>
+                      {renderModelActionList({
+                        items: modelCards,
+                        onSelectModel: (item) => handleModelClick(item.modelName),
+                      })}
                     </div>
 
-                    {renderAdditionalOptionsPanel({ isModelSelected: true })}
+                    <div className="rounded-xl border border-slate-200 bg-white p-4">
+                      <p className="mb-2 mt-0 text-[15px] font-black text-slate-800">Features</p>
+                      {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
+                        <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
+                          {leafView.features.map((feature) => (
+                            <li key={feature}>{feature}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="self-start lg:sticky lg:top-4">
+                    <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
+                      {activeMajor?.name} / {activeSubcategory}
+                    </p>
+                    <h4 className="m-0 mt-3 text-[26px] font-black leading-snug text-slate-950 max-[640px]:text-[22px]">
+                      [국내재고보유] 민웰 SMPS {selectedOptionModel || selectedModelCard.modelName} {leafView.wattage || ''} 파워서플라이
+                    </h4>
+                    <p className="m-0 mt-4 text-[36px] font-black leading-none text-[#d6001c]">
+                      {formatProductPriceText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
+                    </p>
+                    <div className="mt-5 grid gap-3 border-y border-slate-200 py-5 text-[15px] text-slate-700">
+                      <p className="m-0 flex justify-between gap-4">
+                        <strong className="text-slate-500">배송</strong>
+                        <span className="text-right font-bold">3,000원</span>
+                      </p>
+                      <p className="m-0 flex justify-between gap-4">
+                        <strong className="text-slate-500">재고</strong>
+                        <span className="text-right font-bold">{formatInventoryText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}</span>
+                      </p>
+                      <p className="m-0 flex justify-between gap-4">
+                        <strong className="text-slate-500">출력</strong>
+                        <span className="text-right font-bold">{leafView.wattage || '정보 없음'}</span>
+                      </p>
+                    </div>
+
+                    <div className="mt-5">
+                      {renderAdditionalOptionsPanel({ isModelSelected: true })}
+                    </div>
                   </div>
                 </section>
 

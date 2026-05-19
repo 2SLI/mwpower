@@ -16,7 +16,7 @@ function normalizeField(value = '') {
   return String(value ?? '').trim()
 }
 
-export function GuestOrderView({ isActive, productId, onNavigateProducts, onOrderComplete }) {
+export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNavigateProducts, onOrderComplete }) {
   const [form, setForm] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState({})
   const [submitError, setSubmitError] = useState('')
@@ -32,13 +32,14 @@ export function GuestOrderView({ isActive, productId, onNavigateProducts, onOrde
 
   const quantity = Math.max(1, Math.floor(Number(form.quantity) || 1))
   const totalPrice = product ? product.productPrice * quantity : 0
+  const normalizedInitialQuantity = Math.max(1, Math.floor(Number(initialQuantity) || 1))
 
   useEffect(() => {
     if (!isActive) return
-    setForm((prev) => ({ ...INITIAL_FORM, quantity: prev.quantity || 1 }))
+    setForm({ ...INITIAL_FORM, quantity: normalizedInitialQuantity })
     setErrors({})
     setSubmitError('')
-  }, [isActive, productId])
+  }, [isActive, productId, normalizedInitialQuantity])
 
   const handleChange = (key, value) => {
     const nextValue = key === 'phone' ? normalizePhoneForOrder(value) : value
