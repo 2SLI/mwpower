@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import { HomeProductCategorySection } from '../components/HomeProductCategorySection'
 import { inventoryOptionModelsByBaseKey, productInventoryByModelKey } from '../data/productInventory'
 import { NEWS_FALLBACK_IMAGE, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
 import { normalizeLabel } from '../features/productCatalogService'
@@ -426,6 +427,8 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
           ))}
         </div>
       </section>
+
+      <HomeProductCategorySection onNavigate={onNavigate} onOpenProductPreset={onOpenProductPreset} />
 
       <section className="w-full border-t border-slate-100 bg-white py-10 md:py-14" aria-label="뉴스">
         <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
