@@ -119,9 +119,14 @@ export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onCh
                         <div className="mx-4 flex items-center justify-between gap-3 rounded-xl bg-slate-50 px-4 py-3">
                           <label className="flex items-center gap-2 text-sm font-bold text-slate-600">
                             <span className="rounded-md bg-white px-2 py-1 text-xs text-slate-500 ring-1 ring-slate-200">수량</span>
-                            <input type="number" min="1" inputMode="numeric" value={item.quantity} onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)} className="h-9 w-20 rounded-lg border-0 bg-white px-2 text-center text-sm font-black text-slate-900 outline-none ring-1 ring-slate-200 focus:ring-2 focus:ring-[#d53232]/20" />
+                            <input type="number" min="1" max={Number.isFinite(Number(item.stockQuantity)) ? Number(item.stockQuantity) : undefined} inputMode="numeric" value={item.quantity} onChange={(event) => onUpdateQuantity?.(item.id, event.target.value)} className="h-9 w-20 rounded-lg border-0 bg-white px-2 text-center text-sm font-black text-slate-900 outline-none ring-1 ring-slate-200 focus:ring-2 focus:ring-[#d53232]/20" />
                           </label>
-                          <strong className="text-sm font-black text-slate-900">{Number(item.quantity).toLocaleString('ko-KR')}개</strong>
+                          <div className="text-right">
+                            <strong className="block text-sm font-black text-slate-900">{Number(item.quantity).toLocaleString('ko-KR')}개</strong>
+                            {Number.isFinite(Number(item.stockQuantity)) ? (
+                              <span className="block text-[11px] font-bold text-slate-500">최대 {Number(item.stockQuantity).toLocaleString('ko-KR')}개</span>
+                            ) : null}
+                          </div>
                         </div>
                       </article>
                     ))}

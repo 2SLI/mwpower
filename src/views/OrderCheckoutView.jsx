@@ -24,6 +24,7 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
           return {
             ...item,
             productPrice: product.productPrice,
+            stockQuantity: product.stockQuantity,
             totalPrice: product.productPrice * quantity,
           }
         } catch {
@@ -37,6 +38,7 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
     [normalizedItems]
   )
   const orderTotalPrice = pricedItems.reduce((sum, item) => sum + item.totalPrice, 0)
+  const overStockItems = pricedItems.filter((item) => Number.isFinite(Number(item.stockQuantity)) && Number(item.quantity) > Number(item.stockQuantity))
   const [form, setForm] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState({})
   const [submitError, setSubmitError] = useState('')
@@ -52,6 +54,13 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (isSubmitting) return
+
+    if (overStockItems.length > 0) {
+      setSubmitError(
+        `${overStockItems[0].displayModel}은 현재 재고 ${Number(overStockItems[0].stockQuantity).toLocaleString('ko-KR')}개까지만 주문할 수 있습니다.`
+      )
+      return
+    }
 
     const validationErrors = validateOrderPayload({ ...form, quantity: summary.totalQuantity })
     if (Object.keys(validationErrors).length > 0) {
@@ -111,6 +120,11 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
                       </div>
                       <div className="self-center text-right">
                         <strong className="block text-sm font-black text-slate-900">{Number(item.quantity).toLocaleString('ko-KR')}개</strong>
+                        {Number.isFinite(Number(item.stockQuantity)) ? (
+                          <span className={`mt-1 block text-[11px] font-bold ${Number(item.quantity) > Number(item.stockQuantity) ? 'text-[#b42323]' : 'text-slate-500'}`}>
+                            재고 {Number(item.stockQuantity).toLocaleString('ko-KR')}개
+                          </span>
+                        ) : null}
                         <span className="mt-1 block text-xs font-extrabold text-[#087a3d]">{formatOrderPrice(item.totalPrice)}</span>
                       </div>
                     </article>
@@ -161,9 +175,14 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
                 </div>
               </section>
 
+              {overStockItems.length > 0 ? (
+                <p className="m-0 rounded-xl bg-[#fff1f2] px-4 py-3 text-sm font-bold text-[#b42323]">
+                  {overStockItems[0].displayModel}은 현재 재고 {Number(overStockItems[0].stockQuantity).toLocaleString('ko-KR')}개까지만 주문할 수 있습니다.
+                </p>
+              ) : null}
               {submitError ? <p className="m-0 rounded-xl bg-[#fff1f2] px-4 py-3 text-sm font-bold text-[#b42323]">{submitError}</p> : null}
 
-              <button type="submit" disabled={isSubmitting} className="h-13 rounded-2xl bg-[#d53232] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:bg-slate-300">
+              <button type="submit" disabled={isSubmitting || overStockItems.length > 0} className="h-13 rounded-2xl bg-[#d53232] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:bg-slate-300">
                 {isSubmitting ? '주문 저장 중...' : '주문하기'}
               </button>
             </form>

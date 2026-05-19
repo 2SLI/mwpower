@@ -31,8 +31,13 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
   }, [productId])
 
   const quantity = Math.max(1, Math.floor(Number(form.quantity) || 1))
+  const stockLimit = Number.isFinite(Number(product?.stockQuantity)) ? Math.max(0, Number(product.stockQuantity)) : null
+  const canIncreaseQuantity = stockLimit == null || quantity < stockLimit
   const totalPrice = product ? product.productPrice * quantity : 0
-  const normalizedInitialQuantity = Math.max(1, Math.floor(Number(initialQuantity) || 1))
+  const normalizedInitialQuantity = Math.max(
+    1,
+    Math.min(stockLimit == null || stockLimit < 1 ? 1 : stockLimit, Math.floor(Number(initialQuantity) || 1))
+  )
 
   useEffect(() => {
     if (!isActive) return
@@ -42,7 +47,12 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
   }, [isActive, productId, normalizedInitialQuantity])
 
   const handleChange = (key, value) => {
-    const nextValue = key === 'phone' ? normalizePhoneForOrder(value) : value
+    const nextValue =
+      key === 'phone'
+        ? normalizePhoneForOrder(value)
+        : key === 'quantity'
+          ? Math.max(1, Math.min(stockLimit == null || stockLimit < 1 ? 99999 : stockLimit, Math.floor(Number(value) || 1)))
+          : value
     setForm((prev) => ({ ...prev, [key]: nextValue }))
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: '' }))
     if (submitError) setSubmitError('')
@@ -56,6 +66,7 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
       ...form,
       productId: product.productId,
       quantity,
+      stockQuantity: product.stockQuantity,
     }
     const validationErrors = validateOrderPayload(payload)
     if (Object.keys(validationErrors).length > 0) {
@@ -167,11 +178,12 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
                   <button type="button" onClick={() => handleChange('quantity', Math.max(1, quantity - 1))} className="h-10 w-10 rounded-lg bg-white text-lg font-black text-slate-700 shadow-sm">
                     -
                   </button>
-                  <input value={form.quantity} onChange={(event) => handleChange('quantity', event.target.value.replace(/[^\d]/g, ''))} inputMode="numeric" className="h-10 min-w-0 flex-1 bg-transparent text-center text-lg font-black text-slate-900 outline-none" />
-                  <button type="button" onClick={() => handleChange('quantity', quantity + 1)} className="h-10 w-10 rounded-lg bg-white text-lg font-black text-slate-700 shadow-sm">
+                  <input value={form.quantity} min="1" max={stockLimit ?? undefined} onChange={(event) => handleChange('quantity', event.target.value.replace(/[^\d]/g, ''))} inputMode="numeric" className="h-10 min-w-0 flex-1 bg-transparent text-center text-lg font-black text-slate-900 outline-none" />
+                  <button type="button" disabled={!canIncreaseQuantity} onClick={() => handleChange('quantity', quantity + 1)} className="h-10 w-10 rounded-lg bg-white text-lg font-black text-slate-700 shadow-sm disabled:cursor-not-allowed disabled:text-slate-300">
                     +
                   </button>
                 </div>
+                {stockLimit != null ? <p className="m-0 mt-2 text-xs font-bold text-slate-500">최대 주문 가능 수량: {stockLimit.toLocaleString('ko-KR')}개</p> : null}
                 {errors.quantity ? <p className="m-0 mt-2 text-xs font-bold text-[#b42323]">{errors.quantity}</p> : null}
               </section>
 

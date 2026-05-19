@@ -520,6 +520,13 @@ function normalizeRequestedQuoteQuantity(value, fallback = 1) {
   return Math.min(parsed, 99999)
 }
 
+function clampRequestedQuantityForModel(modelName = '', quantity = 1) {
+  const normalizedQuantity = normalizeRequestedQuoteQuantity(quantity, 1)
+  const stockQuantity = getInventoryQuantity(modelName)
+  if (!Number.isFinite(stockQuantity) || stockQuantity < 1) return normalizedQuantity
+  return Math.min(normalizedQuantity, stockQuantity)
+}
+
 function normalizeProductHistoryState(state) {
   if (!state || typeof state !== 'object') return null
 
@@ -1343,7 +1350,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       thumbnailUrl: String(asset?.imageUrl ?? '').trim() || String(thumbnailUrl ?? '').trim(),
       wattage: String(wattage ?? '').trim(),
       pdfUrl: String(asset?.pdfUrl ?? '').trim(),
-      quantity: normalizeRequestedQuoteQuantity(quantity, 1),
+      stockQuantity: getInventoryQuantity(displayModel),
+      quantity: clampRequestedQuantityForModel(displayModel, quantity),
       note: '',
       addedAt: new Date().toISOString(),
     }
@@ -1383,7 +1391,10 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       ? formatProductPriceText(inventoryTargetModel, { aggregate: !selectedOptionModel })
       : '별도 안내'
     const exactUnitPrice = getProductPrice(inventoryTargetModel)
-    const totalPriceText = exactUnitPrice != null ? formatProductPrice(exactUnitPrice * selectedQuoteQuantity) : priceText
+    const orderQuantity = clampRequestedQuantityForModel(inventoryTargetModel, selectedQuoteQuantity)
+    const stockLimit = getInventoryQuantity(inventoryTargetModel)
+    const canIncreaseQuantity = !Number.isFinite(stockLimit) || orderQuantity < stockLimit
+    const totalPriceText = exactUnitPrice != null ? formatProductPrice(exactUnitPrice * orderQuantity) : priceText
     const inventoryTone = inventoryTargetModel ? getInventoryTone(inventoryTargetModel) : 'unknown'
     const isOutOfStockForOrder = inventoryTone === 'out-of-stock'
     const isAddToOrderDisabled = isAddToQuoteDisabled || isOutOfStockForOrder
@@ -1413,7 +1424,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 PDF
               </button>
               <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-black text-slate-700">
-                {selectedQuoteQuantity} EA
+                {orderQuantity} EA
               </span>
             </div>
           ) : null}
@@ -1454,7 +1465,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   <button
                     type="button"
                     className="inline-flex h-11 w-11 items-center justify-center rounded-l-lg border-r border-slate-200 text-lg font-black text-slate-500 transition hover:bg-slate-50"
-                    onClick={() => setSelectedQuoteQuantity((prev) => Math.max(1, normalizeRequestedQuoteQuantity(prev, 1) - 1))}
+                    onClick={() => setSelectedQuoteQuantity((prev) => Math.max(1, clampRequestedQuantityForModel(inventoryTargetModel, prev) - 1))}
                     aria-label="수량 감소"
                   >
                     -
@@ -1463,14 +1474,16 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     type="number"
                     min="1"
                     inputMode="numeric"
-                    value={selectedQuoteQuantity}
-                    onChange={(event) => setSelectedQuoteQuantity(normalizeRequestedQuoteQuantity(event.target.value, 1))}
+                    max={Number.isFinite(stockLimit) ? stockLimit : undefined}
+                    value={orderQuantity}
+                    onChange={(event) => setSelectedQuoteQuantity(clampRequestedQuantityForModel(inventoryTargetModel, event.target.value))}
                     className="h-11 min-w-0 border-0 bg-transparent px-2 text-center text-[17px] font-black text-slate-900 outline-none"
                   />
                   <button
                     type="button"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-r-lg border-l border-slate-200 text-lg font-black text-slate-700 transition hover:bg-slate-50"
-                    onClick={() => setSelectedQuoteQuantity((prev) => Math.min(99999, normalizeRequestedQuoteQuantity(prev, 1) + 1))}
+                    disabled={!canIncreaseQuantity}
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-r-lg border-l border-slate-200 text-lg font-black text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-300"
+                    onClick={() => setSelectedQuoteQuantity((prev) => clampRequestedQuantityForModel(inventoryTargetModel, normalizeRequestedQuoteQuantity(prev, 1) + 1))}
                     aria-label="수량 증가"
                   >
                     +
@@ -1496,11 +1509,16 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                       ? '옵션 모델을 선택해야 목록에 담을 수 있습니다.'
                       : isOutOfStockForOrder
                         ? '재고가 없는 품목은 주문목록에 담을 수 없고 견적목록으로 문의할 수 있습니다.'
-                        : `${selectedQuoteQuantity}개 기준으로 선택한 목록에 추가됩니다.`}
+                        : `${orderQuantity}개 기준으로 선택한 목록에 추가됩니다.`}
                   </p>
+                  {Number.isFinite(stockLimit) ? (
+                    <p className="m-0 mt-1 text-[12px] font-semibold text-slate-500">
+                      최대 주문 가능 수량: {stockLimit.toLocaleString('ko-KR')}개
+                    </p>
+                  ) : null}
                 </div>
                 <div className="flex items-center justify-between border-t border-slate-200 bg-white px-4 py-4">
-                  <span className="text-sm font-black text-slate-900">총 {selectedQuoteQuantity.toLocaleString('ko-KR')}개</span>
+                  <span className="text-sm font-black text-slate-900">총 {orderQuantity.toLocaleString('ko-KR')}개</span>
                   <span className="text-sm font-black text-slate-500">
                     총 금액 <strong className="ml-2 text-[24px] text-[#d6001c]">{totalPriceText}</strong>
                   </span>
@@ -1516,7 +1534,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                       ? 'cursor-not-allowed bg-slate-300 text-slate-100'
                       : 'bg-[#d53232] hover:bg-[#bd2929]'
                   }`}
-                  onClick={() => onStartGuestOrder?.(selectedOptionModel || selectedModelCard.modelName, selectedQuoteQuantity)}
+                  onClick={() => onStartGuestOrder?.(selectedOptionModel || selectedModelCard.modelName, orderQuantity)}
                 >
                   구매하기
                 </button>
@@ -1541,7 +1559,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                         asset: selectedModelCard.asset,
                         thumbnailUrl: leafView?.thumbnailUrl,
                         wattage: leafView?.wattage,
-                        quantity: selectedQuoteQuantity,
+                        quantity: orderQuantity,
                       },
                       'order'
                     )
@@ -1572,7 +1590,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                         asset: selectedModelCard.asset,
                         thumbnailUrl: leafView?.thumbnailUrl,
                         wattage: leafView?.wattage,
-                        quantity: selectedQuoteQuantity,
+                        quantity: orderQuantity,
                       },
                       'quote'
                     )

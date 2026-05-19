@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, orderBy, query, runTransaction, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { productInventoryByModelKey } from '../data/productInventory'
 import { DEFAULT_PRODUCT_PRICE, productPriceByModelKey } from '../data/productPrices'
 import { db } from '../firebase'
@@ -79,6 +79,7 @@ export function resolveProductForOrder(productId = '') {
 export function validateOrderPayload(payload = {}) {
   const errors = {}
   const quantity = Number(payload.quantity)
+  const stockQuantity = Number(payload.stockQuantity)
   const phone = normalizePhoneForOrder(payload.phone)
 
   if (!normalizeText(payload.customerName)) errors.customerName = '주문자명을 입력해주세요.'
@@ -88,8 +89,111 @@ export function validateOrderPayload(payload = {}) {
   if (!normalizeText(payload.address)) errors.address = '주소를 입력해주세요.'
   if (!normalizeText(payload.detailAddress)) errors.detailAddress = '상세주소를 입력해주세요.'
   if (!Number.isFinite(quantity) || quantity < 1) errors.quantity = '수량은 1개 이상이어야 합니다.'
+  if (Number.isFinite(quantity) && Number.isFinite(stockQuantity) && quantity > stockQuantity) {
+    errors.quantity = `현재 재고 ${stockQuantity.toLocaleString('ko-KR')}개까지만 주문할 수 있습니다.`
+  }
 
   return errors
+}
+
+function getInventoryStockRef(productId = '') {
+  const id = normalizeLabel(productId)
+  if (!id) throw new Error('상품 정보가 없습니다.')
+  return doc(db, 'inventoryStock', id)
+}
+
+function getTransactionStockQuantity(snapshot, fallbackQuantity = null) {
+  if (snapshot.exists()) {
+    const quantity = Number(snapshot.data()?.quantity)
+    return Number.isFinite(quantity) ? quantity : null
+  }
+  return Number.isFinite(Number(fallbackQuantity)) ? Number(fallbackQuantity) : null
+}
+
+async function createUniqueOrderRef(transaction) {
+  let orderNumber = generateOrderNumber()
+  let orderRef = doc(db, 'orders', orderNumber)
+
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const existing = await transaction.get(orderRef)
+    if (!existing.exists()) return { orderNumber, orderRef }
+    orderNumber = generateOrderNumber()
+    orderRef = doc(db, 'orders', orderNumber)
+  }
+
+  throw new Error('주문번호 생성에 실패했습니다. 다시 시도해주세요.')
+}
+
+function buildStockRequestMap(items = []) {
+  const stockRequests = new Map()
+  items.forEach((item) => {
+    const productId = normalizeText(item.productId)
+    if (!productId) return
+    const current = stockRequests.get(productId) ?? {
+      productId,
+      productName: item.productName,
+      requestedQuantity: 0,
+      fallbackQuantity: item.stockQuantity,
+    }
+    current.requestedQuantity += Math.max(1, Math.floor(Number(item.quantity) || 1))
+    stockRequests.set(productId, current)
+  })
+  return Array.from(stockRequests.values())
+}
+
+async function reserveStockAndCreateOrder({ items = [], orderDataFactory }) {
+  return runTransaction(db, async (transaction) => {
+    const stockRequests = buildStockRequestMap(items)
+    const stockSnapshots = []
+
+    for (const request of stockRequests) {
+      const stockRef = getInventoryStockRef(request.productId)
+      const snapshot = await transaction.get(stockRef)
+      const currentQuantity = getTransactionStockQuantity(snapshot, request.fallbackQuantity)
+
+      if (!Number.isFinite(currentQuantity) || currentQuantity <= 0) {
+        throw new Error(`${request.productName}은 재고가 없어 주문할 수 없습니다.`)
+      }
+      if (request.requestedQuantity > currentQuantity) {
+        throw new Error(
+          `${request.productName}은 현재 재고 ${currentQuantity.toLocaleString('ko-KR')}개까지만 주문할 수 있습니다.`
+        )
+      }
+
+      stockSnapshots.push({ ...request, stockRef, snapshot, currentQuantity })
+    }
+
+    const { orderNumber, orderRef } = await createUniqueOrderRef(transaction)
+    const orderData = orderDataFactory(orderNumber)
+    transaction.set(orderRef, orderData)
+
+    stockSnapshots.forEach(({ stockRef, snapshot, productId, productName, requestedQuantity, fallbackQuantity, currentQuantity }) => {
+      const nextQuantity = currentQuantity - requestedQuantity
+      const payload = {
+        modelKey: productId,
+        model: productName,
+        quantity: nextQuantity,
+        inStock: nextQuantity > 0,
+        lastOrderNumber: orderNumber,
+        lastReservedQuantity: requestedQuantity,
+        updatedAt: serverTimestamp(),
+        updatedAtClient: new Date().toISOString(),
+      }
+
+      if (snapshot.exists()) {
+        transaction.update(stockRef, payload)
+      } else {
+        transaction.set(stockRef, {
+          ...payload,
+          initialQuantity: Number.isFinite(Number(fallbackQuantity)) ? Number(fallbackQuantity) : currentQuantity,
+          createdAt: serverTimestamp(),
+          createdAtClient: new Date().toISOString(),
+        })
+      }
+    })
+
+    return orderData
+  })
 }
 
 function normalizeOrderItemForCreate(item = {}) {
@@ -115,52 +219,46 @@ export async function createGuestOrder(payload = {}) {
     throw new Error('재고가 없는 상품은 주문할 수 없습니다. 견적요청으로 문의해주세요.')
   }
 
-  const errors = validateOrderPayload(payload)
+  const quantity = Math.max(1, Math.floor(Number(payload.quantity)))
+  const errors = validateOrderPayload({ ...payload, quantity, stockQuantity: product.stockQuantity })
   if (Object.keys(errors).length > 0) {
     const error = new Error('필수값을 확인해주세요.')
     error.validationErrors = errors
     throw error
   }
 
-  const quantity = Math.max(1, Math.floor(Number(payload.quantity)))
-  let orderNumber = generateOrderNumber()
-  let orderRef = doc(db, 'orders', orderNumber)
-  for (let attempt = 0; attempt < 5; attempt += 1) {
-    const existing = await getDoc(orderRef)
-    if (!existing.exists()) break
-    orderNumber = generateOrderNumber()
-    orderRef = doc(db, 'orders', orderNumber)
-  }
   const totalPrice = product.productPrice * quantity
   const nowClient = new Date().toISOString()
-  const orderData = {
-    id: orderNumber,
-    orderNumber,
-    productId: product.productId,
-    productName: product.productName,
-    productPrice: product.productPrice,
-    quantity,
-    totalPrice,
-    customerName: normalizeText(payload.customerName),
-    phone: normalizePhoneForOrder(payload.phone),
-    email: normalizeText(payload.email),
-    postalCode: normalizeText(payload.postalCode),
-    address: normalizeText(payload.address),
-    detailAddress: normalizeText(payload.detailAddress),
-    deliveryMemo: normalizeText(payload.deliveryMemo),
-    paymentMethod: 'bank_transfer',
-    paymentStatus: 'waiting',
-    orderStatus: 'pending',
-    adminMemo: '',
-    paidAt: null,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-    createdAtClient: nowClient,
-    updatedAtClient: nowClient,
-  }
 
-  await setDoc(orderRef, orderData)
-  return orderData
+  return reserveStockAndCreateOrder({
+    items: [{ ...product, quantity }],
+    orderDataFactory: (orderNumber) => ({
+      id: orderNumber,
+      orderNumber,
+      productId: product.productId,
+      productName: product.productName,
+      productPrice: product.productPrice,
+      quantity,
+      totalPrice,
+      customerName: normalizeText(payload.customerName),
+      phone: normalizePhoneForOrder(payload.phone),
+      email: normalizeText(payload.email),
+      postalCode: normalizeText(payload.postalCode),
+      address: normalizeText(payload.address),
+      detailAddress: normalizeText(payload.detailAddress),
+      deliveryMemo: normalizeText(payload.deliveryMemo),
+      paymentMethod: 'bank_transfer',
+      paymentStatus: 'waiting',
+      orderStatus: 'pending',
+      adminMemo: '',
+      paidAt: null,
+      stockReserved: true,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+      createdAtClient: nowClient,
+      updatedAtClient: nowClient,
+    }),
+  })
 }
 
 export async function createGuestOrderFromItems(payload = {}) {
@@ -174,6 +272,13 @@ export async function createGuestOrderFromItems(payload = {}) {
     throw new Error(`${outOfStockItem.productName}은 재고가 없어 주문할 수 없습니다.`)
   }
 
+  const overStockItem = items.find((item) => Number.isFinite(Number(item.stockQuantity)) && item.quantity > Number(item.stockQuantity))
+  if (overStockItem) {
+    throw new Error(
+      `${overStockItem.productName}은 현재 재고 ${Number(overStockItem.stockQuantity).toLocaleString('ko-KR')}개까지만 주문할 수 있습니다.`
+    )
+  }
+
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0)
   const validationErrors = validateOrderPayload({ ...payload, quantity: totalQuantity })
   if (Object.keys(validationErrors).length > 0) {
@@ -182,48 +287,41 @@ export async function createGuestOrderFromItems(payload = {}) {
     throw error
   }
 
-  let orderNumber = generateOrderNumber()
-  let orderRef = doc(db, 'orders', orderNumber)
-  for (let attempt = 0; attempt < 5; attempt += 1) {
-    const existing = await getDoc(orderRef)
-    if (!existing.exists()) break
-    orderNumber = generateOrderNumber()
-    orderRef = doc(db, 'orders', orderNumber)
-  }
-
   const totalPrice = items.reduce((sum, item) => sum + item.totalPrice, 0)
   const firstItem = items[0]
   const productName = items.length === 1 ? firstItem.productName : `${firstItem.productName} 외 ${items.length - 1}개 품목`
   const nowClient = new Date().toISOString()
-  const orderData = {
-    id: orderNumber,
-    orderNumber,
-    productId: firstItem.productId,
-    productName,
-    productPrice: firstItem.productPrice,
-    quantity: totalQuantity,
-    totalPrice,
-    items: items.map(({ inStock, stockQuantity, ...item }) => item),
-    customerName: normalizeText(payload.customerName),
-    phone: normalizePhoneForOrder(payload.phone),
-    email: normalizeText(payload.email),
-    postalCode: normalizeText(payload.postalCode),
-    address: normalizeText(payload.address),
-    detailAddress: normalizeText(payload.detailAddress),
-    deliveryMemo: normalizeText(payload.deliveryMemo),
-    paymentMethod: 'bank_transfer',
-    paymentStatus: 'waiting',
-    orderStatus: 'pending',
-    adminMemo: '',
-    paidAt: null,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-    createdAtClient: nowClient,
-    updatedAtClient: nowClient,
-  }
 
-  await setDoc(orderRef, orderData)
-  return orderData
+  return reserveStockAndCreateOrder({
+    items,
+    orderDataFactory: (orderNumber) => ({
+      id: orderNumber,
+      orderNumber,
+      productId: firstItem.productId,
+      productName,
+      productPrice: firstItem.productPrice,
+      quantity: totalQuantity,
+      totalPrice,
+      items: items.map(({ inStock, stockQuantity, ...item }) => item),
+      customerName: normalizeText(payload.customerName),
+      phone: normalizePhoneForOrder(payload.phone),
+      email: normalizeText(payload.email),
+      postalCode: normalizeText(payload.postalCode),
+      address: normalizeText(payload.address),
+      detailAddress: normalizeText(payload.detailAddress),
+      deliveryMemo: normalizeText(payload.deliveryMemo),
+      paymentMethod: 'bank_transfer',
+      paymentStatus: 'waiting',
+      orderStatus: 'pending',
+      adminMemo: '',
+      paidAt: null,
+      stockReserved: true,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+      createdAtClient: nowClient,
+      updatedAtClient: nowClient,
+    }),
+  })
 }
 
 export async function getOrderByOrderNumber(orderNumber = '') {

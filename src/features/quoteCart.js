@@ -64,6 +64,7 @@ export function normalizeQuoteLineItem(item = {}) {
     wattage: normalizeText(item.wattage),
     pdfUrl: normalizeText(item.pdfUrl),
     note: normalizeText(item.note),
+    stockQuantity: Number.isFinite(Number(item.stockQuantity)) ? Number(item.stockQuantity) : null,
     quantity: normalizeQuantity(item.quantity, 1),
     addedAt: normalizeText(item.addedAt) || new Date().toISOString(),
   }
@@ -92,6 +93,7 @@ export function addQuoteItem(items = [], nextItem = null) {
           thumbnailUrl: item.thumbnailUrl || normalizedNextItem.thumbnailUrl,
           wattage: item.wattage || normalizedNextItem.wattage,
           pdfUrl: item.pdfUrl || normalizedNextItem.pdfUrl,
+          stockQuantity: Number.isFinite(Number(item.stockQuantity)) ? Number(item.stockQuantity) : normalizedNextItem.stockQuantity,
         }
       : item
   )

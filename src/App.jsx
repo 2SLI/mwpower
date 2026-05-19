@@ -15,6 +15,7 @@ import { OrderCompleteView } from './views/OrderCompleteView'
 import { OrderSearchView } from './views/OrderSearchView'
 import { AdminView } from './views/AdminView'
 import { bannerImages } from './data/bannerImages'
+import { resolveProductForOrder } from './features/orderService'
 import {
   addQuoteItem,
   clearQuoteItems,
@@ -109,6 +110,26 @@ function setMetaByProperty(property, content) {
 
 const SOCIAL_PREVIEW_IMAGE_URL = 'https://meanwellpower-103ae.web.app/logo/mwpower_logo.png'
 const QUOTE_MODAL_FALLBACK_VIEW = 'products'
+
+function getOrderItemStockLimit(item = {}) {
+  const storedStock = Number(item.stockQuantity)
+  if (Number.isFinite(storedStock)) return Math.max(0, storedStock)
+
+  try {
+    const product = resolveProductForOrder(item.optionModel || item.displayModel || item.baseModel)
+    const stockQuantity = Number(product.stockQuantity)
+    return Number.isFinite(stockQuantity) ? Math.max(0, stockQuantity) : null
+  } catch {
+    return null
+  }
+}
+
+function clampOrderItemQuantity(item = {}, quantity = 1) {
+  const requestedQuantity = Math.max(1, Math.floor(Number(quantity) || 1))
+  const stockLimit = getOrderItemStockLimit(item)
+  if (!Number.isFinite(stockLimit) || stockLimit < 1) return requestedQuantity
+  return Math.min(requestedQuantity, stockLimit)
+}
 
 function getPathForView(view) {
   return VIEW_PATHS[normalizeView(view)] ?? VIEW_PATHS.home
@@ -445,7 +466,11 @@ export default function App() {
   }
 
   function handleAddOrderItem(item) {
-    setOrderItems((prev) => addQuoteItem(prev, item))
+    const nextItem = {
+      ...item,
+      quantity: clampOrderItemQuantity(item, item.quantity),
+    }
+    setOrderItems((prev) => addQuoteItem(prev, nextItem))
     handleNavigate('order-list', { scrollTop: false, backgroundView: visibleView })
   }
 
@@ -455,7 +480,10 @@ export default function App() {
   }
 
   function handleUpdateOrderItemQuantity(itemId, quantity) {
-    setOrderItems((prev) => updateQuoteItemQuantity(prev, itemId, quantity))
+    setOrderItems((prev) => {
+      const targetItem = prev.find((item) => item.id === itemId)
+      return updateQuoteItemQuantity(prev, itemId, clampOrderItemQuantity(targetItem, quantity))
+    })
   }
 
   function handleUpdateQuoteItemQuantity(itemId, quantity) {
