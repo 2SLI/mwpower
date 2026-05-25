@@ -17,7 +17,7 @@ function normalizeField(value = '') {
   return String(value ?? '').trim()
 }
 
-export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNavigateProducts, onOrderComplete }) {
+export function GuestOrderView({ isActive, productId, initialQuantity = 1, authUser = null, onNavigateProducts, onOrderComplete }) {
   const [form, setForm] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState({})
   const [submitError, setSubmitError] = useState('')
@@ -42,10 +42,15 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
 
   useEffect(() => {
     if (!isActive) return
-    setForm({ ...INITIAL_FORM, quantity: normalizedInitialQuantity })
+    setForm({
+      ...INITIAL_FORM,
+      customerName: authUser?.displayName || '',
+      email: authUser?.email || '',
+      quantity: normalizedInitialQuantity,
+    })
     setErrors({})
     setSubmitError('')
-  }, [isActive, productId, normalizedInitialQuantity])
+  }, [isActive, productId, normalizedInitialQuantity, authUser?.uid])
 
   const handleChange = (key, value) => {
     const nextValue =
@@ -68,6 +73,9 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
       productId: product.productId,
       quantity,
       stockQuantity: product.stockQuantity,
+      userId: authUser?.uid || '',
+      userEmail: authUser?.email || '',
+      userDisplayName: authUser?.displayName || form.customerName,
     }
     const validationErrors = validateOrderPayload(payload)
     if (Object.keys(validationErrors).length > 0) {
@@ -95,8 +103,10 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
         <div className="grid gap-5">
           <div className="rounded-2xl bg-white p-5 shadow-sm">
             <p className="m-0 text-[12px] font-black uppercase tracking-[0.08em] text-[#d53232]">Guest Order</p>
-            <h1 className="m-0 mt-2 text-[30px] font-black tracking-[-0.02em] text-slate-950">비회원 주문서</h1>
-            <p className="m-0 mt-2 text-sm font-semibold text-slate-500">로그인 없이 주문할 수 있습니다. 입금 확인 후 상품 준비가 시작됩니다.</p>
+            <h1 className="m-0 mt-2 text-[30px] font-black tracking-[-0.02em] text-slate-950">{authUser ? '회원 주문서' : '비회원 주문서'}</h1>
+            <p className="m-0 mt-2 text-sm font-semibold text-slate-500">
+              {authUser ? '주문 완료 후 내 주문내역에서 바로 확인할 수 있습니다.' : '로그인 없이도 주문할 수 있지만, 주문번호와 연락처로만 조회할 수 있습니다.'}
+            </p>
           </div>
 
           {!product ? (

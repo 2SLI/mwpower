@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createGuestOrderFromItems, formatOrderPrice, normalizePhoneForOrder, resolveProductForOrder, validateOrderPayload } from '../features/orderService'
 import { requestNicepayVbankPayment } from '../features/nicepayService'
 import { getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
@@ -13,7 +13,7 @@ const INITIAL_FORM = {
   deliveryMemo: '',
 }
 
-export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrderComplete, onClearItems }) {
+export function OrderCheckoutView({ isActive, items, authUser = null, onNavigateProducts, onOrderComplete, onClearItems }) {
   const normalizedItems = useMemo(() => normalizeQuoteItems(items), [items])
   const summary = useMemo(() => getQuoteItemSummary(normalizedItems), [normalizedItems])
   const pricedItems = useMemo(
@@ -45,6 +45,15 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
   const [submitError, setSubmitError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  useEffect(() => {
+    if (!isActive || !authUser) return
+    setForm((prev) => ({
+      ...prev,
+      customerName: prev.customerName || authUser.displayName || '',
+      email: prev.email || authUser.email || '',
+    }))
+  }, [isActive, authUser?.uid])
+
   const handleChange = (key, value) => {
     const nextValue = key === 'phone' ? normalizePhoneForOrder(value) : value
     setForm((prev) => ({ ...prev, [key]: nextValue }))
@@ -73,7 +82,13 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
     setSubmitError('')
 
     try {
-      const order = await createGuestOrderFromItems({ ...form, items: normalizedItems })
+      const order = await createGuestOrderFromItems({
+        ...form,
+        items: normalizedItems,
+        userId: authUser?.uid || '',
+        userEmail: authUser?.email || '',
+        userDisplayName: authUser?.displayName || form.customerName,
+      })
       await requestNicepayVbankPayment(order)
       onClearItems?.()
     } catch (error) {
@@ -91,7 +106,9 @@ export function OrderCheckoutView({ isActive, items, onNavigateProducts, onOrder
           <div className="rounded-2xl bg-white p-5 shadow-sm">
             <p className="m-0 text-[12px] font-black uppercase tracking-[0.08em] text-[#d53232]">Order Checkout</p>
             <h1 className="m-0 mt-2 text-[30px] font-black tracking-[-0.02em] text-slate-950">주문서 작성</h1>
-            <p className="m-0 mt-2 text-sm font-semibold text-slate-500">주문목록에 담긴 품목을 한 번에 주문합니다.</p>
+            <p className="m-0 mt-2 text-sm font-semibold text-slate-500">
+              {authUser ? '주문 완료 후 내 주문내역에서 바로 확인할 수 있습니다.' : '주문목록에 담긴 품목을 한 번에 주문합니다.'}
+            </p>
           </div>
 
           {normalizedItems.length === 0 ? (

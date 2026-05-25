@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, orderBy, query, runTransaction, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, orderBy, query, runTransaction, serverTimestamp, updateDoc, where } from 'firebase/firestore'
 import { productInventoryByModelKey } from '../data/productInventory'
 import { DEFAULT_PRODUCT_PRICE, productPriceByModelKey } from '../data/productPrices'
 import { db } from '../firebase'
@@ -144,6 +144,17 @@ function buildStockRequestMap(items = []) {
   return Array.from(stockRequests.values())
 }
 
+function getOrderUserFields(payload = {}) {
+  const userId = normalizeText(payload.userId)
+  if (!userId) return { orderType: 'guest', userId: null, userEmail: '', userDisplayName: '' }
+  return {
+    orderType: 'member',
+    userId,
+    userEmail: normalizeText(payload.userEmail),
+    userDisplayName: normalizeText(payload.userDisplayName),
+  }
+}
+
 async function reserveStockAndCreateOrder({ items = [], orderDataFactory }) {
   return runTransaction(db, async (transaction) => {
     const stockRequests = buildStockRequestMap(items)
@@ -250,6 +261,7 @@ export async function createGuestOrder(payload = {}) {
       address: normalizeText(payload.address),
       detailAddress: normalizeText(payload.detailAddress),
       deliveryMemo: normalizeText(payload.deliveryMemo),
+      ...getOrderUserFields(payload),
       paymentMethod: 'nicepay_vbank',
       paymentStatus: 'waiting',
       orderStatus: 'pending',
@@ -313,6 +325,7 @@ export async function createGuestOrderFromItems(payload = {}) {
       address: normalizeText(payload.address),
       detailAddress: normalizeText(payload.detailAddress),
       deliveryMemo: normalizeText(payload.deliveryMemo),
+      ...getOrderUserFields(payload),
       paymentMethod: 'nicepay_vbank',
       paymentStatus: 'waiting',
       orderStatus: 'pending',
@@ -356,6 +369,19 @@ export async function loadAdminOrders() {
     return sortOrdersByCreatedAtDesc(snapshot.docs.map((item) => ({ id: item.id, ...item.data() })))
   } catch {
     const snapshot = await getDocs(collection(db, 'orders'))
+    return sortOrdersByCreatedAtDesc(snapshot.docs.map((item) => ({ id: item.id, ...item.data() })))
+  }
+}
+
+export async function loadUserOrders(userId = '') {
+  const id = normalizeText(userId)
+  if (!id) return []
+
+  try {
+    const snapshot = await getDocs(query(collection(db, 'orders'), where('userId', '==', id), orderBy('createdAt', 'desc')))
+    return sortOrdersByCreatedAtDesc(snapshot.docs.map((item) => ({ id: item.id, ...item.data() })))
+  } catch {
+    const snapshot = await getDocs(query(collection(db, 'orders'), where('userId', '==', id)))
     return sortOrdersByCreatedAtDesc(snapshot.docs.map((item) => ({ id: item.id, ...item.data() })))
   }
 }

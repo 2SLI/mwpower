@@ -13,8 +13,11 @@ import { GuestOrderView } from './views/GuestOrderView'
 import { OrderCheckoutView } from './views/OrderCheckoutView'
 import { OrderCompleteView } from './views/OrderCompleteView'
 import { OrderSearchView } from './views/OrderSearchView'
+import { LoginView } from './views/LoginView'
+import { MyOrdersView } from './views/MyOrdersView'
 import { AdminView } from './views/AdminView'
 import { bannerImages } from './data/bannerImages'
+import { logoutUser, subscribeAuthState } from './features/authService'
 import { resolveProductForOrder } from './features/orderService'
 import {
   addQuoteItem,
@@ -38,6 +41,8 @@ const VIEW_PATHS = {
   'order-checkout': '/order-checkout',
   'order-complete': '/order-complete',
   'order-search': '/order-search',
+  login: '/login',
+  'my-orders': '/my-orders',
   'quote-request': '/quote-request',
   'contact-product': '/contact/product',
   'contact-tech': '/contact/tech',
@@ -51,6 +56,8 @@ const PATH_VIEW_ALIASES = {
   '/order-list': 'order-list',
   '/order-search': 'order-search',
   '/order-checkout': 'order-checkout',
+  '/login': 'login',
+  '/my-orders': 'my-orders',
   '/quote': 'quote-request',
   '/quote-request': 'quote-request',
   '/contact': 'contact-product',
@@ -71,6 +78,8 @@ function normalizeView(view) {
     view === 'order-checkout' ||
     view === 'order-complete' ||
     view === 'order-search' ||
+    view === 'login' ||
+    view === 'my-orders' ||
     view === 'quote-request' ||
     view === 'contact-product' ||
     view === 'contact-tech'
@@ -187,6 +196,7 @@ export default function App() {
   const [pathname, setPathname] = useState(initialPathname)
   const [quoteBackgroundView, setQuoteBackgroundView] = useState(initialQuoteBackgroundView)
   const [guestOrderQuantity, setGuestOrderQuantity] = useState(() => Math.max(1, Math.floor(Number(initialHistoryState?.quantity) || 1)))
+  const [authUser, setAuthUser] = useState(null)
   const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/')
   const isOrderListOpen = activeView === 'order-list'
   const isQuoteRequestOpen = activeView === 'quote-request'
@@ -199,6 +209,8 @@ export default function App() {
     activeView === 'order-checkout' ||
     activeView === 'order-complete' ||
     activeView === 'order-search' ||
+    activeView === 'login' ||
+    activeView === 'my-orders' ||
     isModalViewOpen
   const orderSummary = useMemo(() => getQuoteItemSummary(orderItems), [orderItems])
   const quoteSummary = useMemo(() => getQuoteItemSummary(quoteItems), [quoteItems])
@@ -208,6 +220,8 @@ export default function App() {
     if (isModalViewOpen) return
     lastNonQuoteViewRef.current = normalizeBackgroundView(visibleView)
   }, [isModalViewOpen, visibleView])
+
+  useEffect(() => subscribeAuthState(setAuthUser), [])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -295,6 +309,14 @@ export default function App() {
       'order-search': {
         title: '주문 조회 | 민웰파워',
         description: '주문번호와 연락처로 민웰파워 비회원 주문 상태를 조회하세요.',
+      },
+      login: {
+        title: '로그인 | 민웰파워',
+        description: '민웰파워 회원 로그인과 회원가입을 진행합니다.',
+      },
+      'my-orders': {
+        title: '내 주문내역 | 민웰파워',
+        description: '로그인한 계정의 민웰파워 주문내역을 확인합니다.',
       },
       'quote-request': {
         title: 'B2B 견적요청 | 민웰파워',
@@ -506,6 +528,11 @@ export default function App() {
     setQuoteItems(clearQuoteItems())
   }
 
+  async function handleSignOut() {
+    await logoutUser()
+    if (activeView === 'my-orders') handleNavigate('login')
+  }
+
   if (isAdminRoute) {
     return <AdminView pathname={pathname} />
   }
@@ -557,9 +584,11 @@ export default function App() {
       <div className="min-h-screen bg-slate-100 text-slate-600">
         <Header
           activeView={activeView}
+          authUser={authUser}
           onNavigate={handleNavigate}
           onProductSearch={handleProductSearch}
           onProductRouteSelect={handleOpenProductPreset}
+          onSignOut={handleSignOut}
           quoteItemCount={quoteSummary.totalQuantity}
           orderItemCount={orderSummary.totalQuantity}
         />
@@ -594,6 +623,7 @@ export default function App() {
             isActive={visibleView === 'order-form'}
             productId={getRouteParamFromPath(pathname, '/order')}
             initialQuantity={guestOrderQuantity}
+            authUser={authUser}
             onNavigateProducts={() => handleNavigate('products')}
             onOrderComplete={handleOrderComplete}
           />
@@ -605,11 +635,19 @@ export default function App() {
           <OrderCheckoutView
             isActive={visibleView === 'order-checkout'}
             items={orderItems}
+            authUser={authUser}
             onNavigateProducts={() => handleNavigate('products')}
             onOrderComplete={handleOrderComplete}
             onClearItems={handleClearOrderItems}
           />
           <OrderSearchView isActive={visibleView === 'order-search'} />
+          <LoginView isActive={visibleView === 'login'} authUser={authUser} onNavigateMyOrders={() => handleNavigate('my-orders')} />
+          <MyOrdersView
+            isActive={visibleView === 'my-orders'}
+            authUser={authUser}
+            onNavigateLogin={() => handleNavigate('login')}
+            onNavigateOrderSearch={() => handleNavigate('order-search')}
+          />
           <OrderListView
             isOpen={isOrderListOpen}
             items={orderItems}

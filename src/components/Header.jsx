@@ -43,7 +43,7 @@ function NavLink({ item, isActive, onNavigate, badgeCount = 0 }) {
   )
 }
 
-export function Header({ activeView, onNavigate, onProductSearch, onProductRouteSelect, orderItemCount = 0, quoteItemCount = 0 }) {
+export function Header({ activeView, authUser = null, onNavigate, onProductSearch, onProductRouteSelect, onSignOut, orderItemCount = 0, quoteItemCount = 0 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -178,6 +178,33 @@ export function Header({ activeView, onNavigate, onProductSearch, onProductRoute
                       </li>
                     )
                   })}
+                  <li>
+                    <button
+                      type="button"
+                      className={`flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left text-sm font-bold transition hover:border-[#d45252] hover:bg-[#fff5f5] hover:text-[#c83434] ${
+                        activeView === 'my-orders' ? 'border-[#d94a4a] bg-[#fff0f0] text-[#c42f2f]' : 'text-slate-700'
+                      }`}
+                      onClick={() => handleInternalMenuClick(authUser ? 'my-orders' : 'login')}
+                    >
+                      <span>{authUser ? '내 주문내역' : '로그인'}</span>
+                      <span aria-hidden="true">›</span>
+                    </button>
+                  </li>
+                  {authUser ? (
+                    <li>
+                      <button
+                        type="button"
+                        className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left text-sm font-bold text-slate-500 transition hover:bg-slate-50"
+                        onClick={() => {
+                          onSignOut?.()
+                          setIsMenuOpen(false)
+                        }}
+                      >
+                        <span>로그아웃</span>
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </li>
+                  ) : null}
                 </ul>
               </div>
 
@@ -217,10 +244,24 @@ export function Header({ activeView, onNavigate, onProductSearch, onProductRoute
                 badgeCount={item.key === 'order-list' ? orderItemCount : item.key === 'quote-request' ? quoteItemCount : 0}
               />
             ))}
+            <NavLink
+              item={{ key: authUser ? 'my-orders' : 'login', label: authUser ? '내 주문' : '로그인', view: authUser ? 'my-orders' : 'login' }}
+              isActive={(authUser ? 'my-orders' : 'login') === activeView}
+              onNavigate={onNavigate}
+            />
           </nav>
         </div>
 
         <div className="flex shrink-0 items-center gap-1.5 text-[#1a2433] max-[640px]:gap-1">
+          {authUser ? (
+            <button
+              type="button"
+              className="hidden rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 transition hover:border-[#d63b42] hover:text-[#c62f36] min-[981px]:inline-flex"
+              onClick={() => onSignOut?.()}
+            >
+              로그아웃
+            </button>
+          ) : null}
           <button
             type="button"
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white p-0 text-slate-700 transition hover:border-[#d63b42] hover:text-[#c62f36] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
