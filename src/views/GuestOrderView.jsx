@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createGuestOrder, formatOrderPrice, normalizePhoneForOrder, resolveProductForOrder, validateOrderPayload } from '../features/orderService'
+import { requestNicepayVbankPayment } from '../features/nicepayService'
 
 const INITIAL_FORM = {
   customerName: '',
@@ -79,10 +80,10 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
 
     try {
       const order = await createGuestOrder(payload)
-      onOrderComplete?.(order.orderNumber)
+      await requestNicepayVbankPayment(order)
     } catch (error) {
       setErrors(error.validationErrors ?? {})
-      setSubmitError(error.message || '주문 저장 중 오류가 발생했습니다.')
+      setSubmitError(error.message || '주문 또는 결제 진행 중 오류가 발생했습니다.')
     } finally {
       setIsSubmitting(false)
     }
@@ -190,7 +191,7 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
               {submitError ? <p className="m-0 rounded-xl bg-[#fff1f2] px-4 py-3 text-sm font-bold text-[#b42323]">{submitError}</p> : null}
 
               <button type="submit" disabled={!product.inStock || isSubmitting} className="h-13 rounded-2xl bg-[#d53232] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:bg-slate-300">
-                {isSubmitting ? '주문 저장 중...' : '주문하기'}
+                {isSubmitting ? '결제창 준비 중...' : '무통장입금 결제하기'}
               </button>
             </form>
           )}
@@ -214,7 +215,7 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, onNav
               </div>
             </dl>
             <p className="m-0 mt-4 rounded-xl bg-[#fff7e6] px-4 py-3 text-sm font-bold leading-6 text-[#8a5a00]">
-              무통장입금으로 접수됩니다. 입금 확인 후 상품 준비가 시작됩니다.
+              나이스페이 가상계좌를 발급받아 입금합니다. 입금 확인 후 상품 준비가 시작됩니다.
             </p>
           </aside>
         ) : null}

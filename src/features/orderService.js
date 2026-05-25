@@ -13,6 +13,9 @@ export const BANK_ACCOUNT = {
 export const PAYMENT_STATUS_LABELS = {
   waiting: '입금대기',
   paid: '입금완료',
+  failed: '결제실패',
+  cancelled: '결제취소',
+  expired: '입금기한만료',
 }
 
 export const ORDER_STATUS_LABELS = {
@@ -247,7 +250,7 @@ export async function createGuestOrder(payload = {}) {
       address: normalizeText(payload.address),
       detailAddress: normalizeText(payload.detailAddress),
       deliveryMemo: normalizeText(payload.deliveryMemo),
-      paymentMethod: 'bank_transfer',
+      paymentMethod: 'nicepay_vbank',
       paymentStatus: 'waiting',
       orderStatus: 'pending',
       adminMemo: '',
@@ -310,7 +313,7 @@ export async function createGuestOrderFromItems(payload = {}) {
       address: normalizeText(payload.address),
       detailAddress: normalizeText(payload.detailAddress),
       deliveryMemo: normalizeText(payload.deliveryMemo),
-      paymentMethod: 'bank_transfer',
+      paymentMethod: 'nicepay_vbank',
       paymentStatus: 'waiting',
       orderStatus: 'pending',
       adminMemo: '',
