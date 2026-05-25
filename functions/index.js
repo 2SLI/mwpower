@@ -163,7 +163,7 @@ async function approvePayment(tid, amount) {
   return data
 }
 
-exports.nicepayConfirm = onRequest({ region: 'asia-northeast3' }, async (req, res) => {
+exports.nicepayConfirm = onRequest({ region: 'asia-northeast3', invoker: 'public' }, async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).send('Method Not Allowed')
     return
@@ -269,7 +269,7 @@ exports.nicepayConfirm = onRequest({ region: 'asia-northeast3' }, async (req, re
   }
 })
 
-exports.nicepayWebhook = onRequest({ region: 'asia-northeast3' }, async (req, res) => {
+exports.nicepayWebhook = onRequest({ region: 'asia-northeast3', invoker: 'public' }, async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).send('Method Not Allowed')
     return
