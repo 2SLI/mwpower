@@ -163,6 +163,24 @@ async function approvePayment(tid, amount) {
   return data
 }
 
+async function fetchPayment(tid) {
+  const response = await fetch(`${NICEPAY_API_ORIGIN}/v1/payments/${encodeURIComponent(tid)}`, {
+    method: 'GET',
+    headers: {
+      Authorization: getBasicAuthHeader(),
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  })
+
+  const data = await response.json().catch(() => ({}))
+  if (!response.ok) {
+    const error = new Error(data.resultMsg || `나이스페이 거래조회 API 오류: ${response.status}`)
+    error.payment = data
+    throw error
+  }
+  return data
+}
+
 exports.nicepayConfirm = onRequest({ region: 'asia-northeast3', invoker: 'public' }, async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).send('Method Not Allowed')
@@ -307,4 +325,62 @@ exports.nicepayWebhook = onRequest({ region: 'asia-northeast3', invoker: 'public
   }
 
   res.status(200).type('text/html').send('OK')
+})
+
+exports.nicepaySyncPayment = onRequest({ region: 'asia-northeast3', invoker: 'public' }, async (req, res) => {
+  if (req.method !== 'POST') {
+    res.status(405).json({ ok: false, message: 'Method Not Allowed' })
+    return
+  }
+
+  if (!NICEPAY_CLIENT_KEY || !NICEPAY_SECRET_KEY) {
+    res.status(500).json({ ok: false, message: 'Nicepay is not configured' })
+    return
+  }
+
+  const payload = parseBody(req)
+  const orderId = String(payload.orderId || payload.orderNumber || '').trim()
+  if (!orderId) {
+    res.status(400).json({ ok: false, message: '주문번호가 없습니다.' })
+    return
+  }
+
+  try {
+    const orderRef = db.collection('orders').doc(orderId)
+    const orderSnapshot = await orderRef.get()
+    if (!orderSnapshot.exists) {
+      res.status(404).json({ ok: false, message: '주문 정보를 찾을 수 없습니다.' })
+      return
+    }
+
+    const order = orderSnapshot.data()
+    const tid = String(order?.nicepay?.tid || '').trim()
+    if (!tid) {
+      res.status(400).json({ ok: false, message: '나이스페이 거래번호가 없습니다.' })
+      return
+    }
+
+    const payment = await fetchPayment(tid)
+    if (payment.resultCode !== '0000') {
+      throw new Error(payment.resultMsg || '나이스페이 거래조회에 실패했습니다.')
+    }
+    if (!isVbankPayment(payment)) {
+      throw new Error('가상계좌 결제만 처리할 수 있습니다.')
+    }
+    if (Number(payment.amount) !== Number(order.totalPrice)) {
+      throw new Error('주문 금액과 나이스페이 결제 금액이 일치하지 않습니다.')
+    }
+    if (!verifyPaymentSignature(payment)) {
+      throw new Error('나이스페이 조회 응답 서명이 일치하지 않습니다.')
+    }
+
+    const update = buildNicepayUpdate(payment)
+    update.nicepay.lastSyncedAt = new Date().toISOString()
+    await orderRef.update(update)
+
+    res.status(200).json({ ok: true, orderId, status: payment.status || null })
+  } catch (error) {
+    logger.error('Nicepay sync failed', { message: error.message, orderId })
+    res.status(500).json({ ok: false, message: error.message || '나이스페이 입금 상태 확인에 실패했습니다.' })
+  }
 })

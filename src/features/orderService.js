@@ -372,6 +372,26 @@ export async function markOrderPaid(orderNumber = '') {
   })
 }
 
+export async function syncNicepayPayment(orderNumber = '') {
+  const id = normalizeText(orderNumber)
+  if (!id) throw new Error('주문번호가 없습니다.')
+
+  const response = await fetch('/api/nicepay/sync', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ orderId: id }),
+  })
+
+  const data = await response.json().catch(() => ({}))
+  if (!response.ok || data.ok !== true) {
+    throw new Error(data.message || '나이스페이 입금 상태 확인에 실패했습니다.')
+  }
+
+  return data
+}
+
 export async function saveOrderAdminMemo(orderNumber = '', adminMemo = '') {
   const id = normalizeText(orderNumber)
   if (!id) throw new Error('주문번호가 없습니다.')
