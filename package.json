@@ -6,6 +6,7 @@
   "scripts": {
     "predev": "npm run inventory:generate && npm run prices:generate",
     "dev": "vite",
+    "dev:functions": "firebase emulators:start --only functions",
     "prebuild": "npm run inventory:generate && npm run prices:generate",
     "build": "vite build && npm run catalog:copy",
     "preview": "vite preview",

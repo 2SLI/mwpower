@@ -6,7 +6,6 @@ const { logger } = require('firebase-functions')
 admin.initializeApp()
 
 const db = admin.firestore()
-const FieldValue = admin.firestore.FieldValue
 
 const NICEPAY_CLIENT_KEY = process.env.NICEPAY_CLIENT_KEY || ''
 const NICEPAY_SECRET_KEY = process.env.NICEPAY_SECRET_KEY || ''
@@ -40,11 +39,23 @@ function parseBody(req) {
   return Object.fromEntries(new URLSearchParams(raw))
 }
 
-function redirectToOrder(res, orderId = '', query = {}) {
+function getSafeRedirectOrigin(value = '') {
+  const origin = String(value || '').trim()
+  if (!/^https?:\/\//i.test(origin)) return APP_ORIGIN
+
+  try {
+    const url = new URL(origin)
+    return url.origin
+  } catch {
+    return APP_ORIGIN
+  }
+}
+
+function redirectToOrder(res, orderId = '', query = {}, origin = APP_ORIGIN) {
   const params = new URLSearchParams(query)
   const suffix = params.toString() ? `?${params.toString()}` : ''
   const target = orderId ? `/order-complete/${encodeURIComponent(orderId)}${suffix}` : `/order-search${suffix}`
-  res.redirect(303, new URL(target, APP_ORIGIN).toString())
+  res.redirect(303, new URL(target, getSafeRedirectOrigin(origin)).toString())
 }
 
 function getBasicAuthHeader() {
@@ -63,16 +74,6 @@ function verifyPaymentSignature(payload = {}) {
   return timingSafeEqualString(expected, payload.signature)
 }
 
-function getWebhookSignatureSource(payload = {}) {
-  if (payload.status === 'ready') {
-    return `${payload.tid || ''}${payload.amount || ''}${payload.vbankExpDate || payload.vbank?.vbankExpDate || ''}${NICEPAY_SECRET_KEY}`
-  }
-  if (payload.status === 'cancelled') {
-    return `${payload.tid || ''}${payload.cancelAmt || ''}${payload.ediDate || ''}${NICEPAY_SECRET_KEY}`
-  }
-  return `${payload.tid || ''}${payload.amount || ''}${payload.ediDate || ''}${NICEPAY_SECRET_KEY}`
-}
-
 function normalizeSignatureHeader(value = '') {
   return String(value || '')
     .replace(/^signature\s+/i, '')
@@ -80,10 +81,17 @@ function normalizeSignatureHeader(value = '') {
     .trim()
 }
 
-function verifyWebhookSignature(payload = {}, authorization = '') {
-  const signature = payload.signature || normalizeSignatureHeader(authorization)
+function getRawBodyString(req) {
+  if (Buffer.isBuffer(req.rawBody)) return req.rawBody.toString('utf8')
+  if (typeof req.body === 'string') return req.body
+  if (Buffer.isBuffer(req.body)) return req.body.toString('utf8')
+  return JSON.stringify(req.body || {})
+}
+
+function verifyWebhookSignature(req, authorization = '') {
+  const signature = normalizeSignatureHeader(authorization)
   if (!signature) return false
-  return timingSafeEqualString(sha256(getWebhookSignatureSource(payload)), signature)
+  return timingSafeEqualString(sha256(`${getRawBodyString(req)}${NICEPAY_SECRET_KEY}`), signature)
 }
 
 function getNicepayPaymentStatus(status = '') {
@@ -100,9 +108,12 @@ function isVbankPayment(payment = {}) {
 
 function buildNicepayUpdate(payment = {}) {
   const paymentStatus = getNicepayPaymentStatus(payment.status)
+  const now = new Date()
+  const vbank = payment.vbank || null
   const update = {
     paymentMethod: 'nicepay_vbank',
     paymentStatus,
+    paymentVbank: vbank,
     nicepay: {
       tid: payment.tid || null,
       status: payment.status || null,
@@ -111,30 +122,27 @@ function buildNicepayUpdate(payment = {}) {
       receiptUrl: payment.receiptUrl || null,
       resultCode: payment.resultCode || null,
       resultMsg: payment.resultMsg || null,
-      vbank: payment.vbank || null,
+      vbank,
       paidAt: payment.paidAt || null,
       failedAt: payment.failedAt || null,
       cancelledAt: payment.cancelledAt || null,
       raw: payment,
     },
-    updatedAt: FieldValue.serverTimestamp(),
-    updatedAtClient: new Date().toISOString(),
+    updatedAt: now,
+    updatedAtClient: now.toISOString(),
   }
 
   if (paymentStatus === 'paid') {
     update.orderStatus = 'preparing'
-    update.paidAt = FieldValue.serverTimestamp()
+    update.paidAt = now
   }
 
   return update
 }
 
 async function approvePayment(tid, amount) {
-  const ediDate = new Date().toISOString()
   const body = {
     amount: Number(amount),
-    ediDate,
-    signData: sha256(`${tid}${amount}${ediDate}${NICEPAY_SECRET_KEY}`),
   }
 
   const response = await fetch(`${NICEPAY_API_ORIGIN}/v1/payments/${encodeURIComponent(tid)}`, {
@@ -168,6 +176,7 @@ exports.nicepayConfirm = onRequest({ region: 'asia-northeast3' }, async (req, re
 
   const payload = parseBody(req)
   const orderId = String(payload.orderId || '').trim()
+  const redirectOrigin = payload.mallReserved
 
   try {
     if (payload.authResultCode !== '0000') {
@@ -180,12 +189,12 @@ exports.nicepayConfirm = onRequest({ region: 'asia-northeast3' }, async (req, re
             authResultMsg: payload.authResultMsg || null,
             rawAuth: payload,
           },
-          updatedAt: FieldValue.serverTimestamp(),
+          updatedAt: new Date(),
           updatedAtClient: new Date().toISOString(),
         },
         { merge: true }
       )
-      redirectToOrder(res, orderId, { payment: 'failed' })
+      redirectToOrder(res, orderId, { payment: 'failed' }, redirectOrigin)
       return
     }
 
@@ -222,10 +231,10 @@ exports.nicepayConfirm = onRequest({ region: 'asia-northeast3' }, async (req, re
           rawAuth: payload,
           raw: payment,
         },
-        updatedAt: FieldValue.serverTimestamp(),
+        updatedAt: new Date(),
         updatedAtClient: new Date().toISOString(),
       })
-      redirectToOrder(res, orderId, { payment: 'failed' })
+      redirectToOrder(res, orderId, { payment: 'failed' }, redirectOrigin)
       return
     }
 
@@ -240,7 +249,7 @@ exports.nicepayConfirm = onRequest({ region: 'asia-northeast3' }, async (req, re
     const update = buildNicepayUpdate(payment)
     update.nicepay.rawAuth = payload
     await orderRef.update(update)
-    redirectToOrder(res, orderId, { payment: payment.status || 'ready' })
+    redirectToOrder(res, orderId, { payment: payment.status || 'ready' }, redirectOrigin)
   } catch (error) {
     logger.error('Nicepay confirm failed', { message: error.message, orderId, tid: payload.tid })
     if (orderId) {
@@ -248,17 +257,15 @@ exports.nicepayConfirm = onRequest({ region: 'asia-northeast3' }, async (req, re
         {
           paymentMethod: 'nicepay_vbank',
           paymentStatus: 'failed',
-          nicepay: {
-            error: error.message,
-            rawAuth: payload,
-          },
-          updatedAt: FieldValue.serverTimestamp(),
+          'nicepay.error': error.message,
+          'nicepay.rawAuth': payload,
+          updatedAt: new Date(),
           updatedAtClient: new Date().toISOString(),
         },
         { merge: true }
       )
     }
-    redirectToOrder(res, orderId, { payment: 'error' })
+    redirectToOrder(res, orderId, { payment: 'error' }, redirectOrigin)
   }
 })
 
@@ -270,7 +277,7 @@ exports.nicepayWebhook = onRequest({ region: 'asia-northeast3' }, async (req, re
 
   const payload = parseBody(req)
   const authorization = String(req.headers.authorization || '')
-  if (NICEPAY_SECRET_KEY && !verifyWebhookSignature(payload, authorization)) {
+  if (NICEPAY_SECRET_KEY && !verifyWebhookSignature(req, authorization)) {
     res.status(400).type('text/html').send('Bad Request')
     return
   }

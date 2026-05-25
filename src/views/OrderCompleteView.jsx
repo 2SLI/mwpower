@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BANK_ACCOUNT, ORDER_STATUS_LABELS, PAYMENT_STATUS_LABELS, formatOrderDate, formatOrderPrice, getOrderByOrderNumber } from '../features/orderService'
+import { ORDER_STATUS_LABELS, PAYMENT_STATUS_LABELS, formatOrderDate, formatOrderPrice, getOrderByOrderNumber } from '../features/orderService'
 
 export function OrderCompleteView({ isActive, orderNumber, onNavigateOrderSearch }) {
   const [order, setOrder] = useState(null)
@@ -34,7 +34,7 @@ export function OrderCompleteView({ isActive, orderNumber, onNavigateOrderSearch
         {order ? (
           <>
             {(() => {
-              const vbank = order.nicepay?.vbank
+              const vbank = order.nicepay?.vbank || order.paymentVbank
               return vbank ? (
                 <section className="rounded-2xl bg-white p-5 shadow-sm">
                   <h2 className="m-0 text-xl font-black text-slate-950">가상계좌 정보</h2>
@@ -75,15 +75,17 @@ export function OrderCompleteView({ isActive, orderNumber, onNavigateOrderSearch
               </dl>
             </section>
 
-            {!order.nicepay?.vbank ? (
+            {!(order.nicepay?.vbank || order.paymentVbank) ? (
               <section className="rounded-2xl bg-white p-5 shadow-sm">
-                <h2 className="m-0 text-xl font-black text-slate-950">입금 계좌 정보</h2>
+                <h2 className="m-0 text-xl font-black text-slate-950">가상계좌 정보</h2>
                 <div className="mt-4 rounded-2xl bg-[#f8fafc] p-4">
-                  <p className="m-0 text-sm font-bold text-slate-500">은행: {BANK_ACCOUNT.bank}</p>
-                  <p className="m-0 mt-1 text-[26px] font-black text-slate-950">{BANK_ACCOUNT.accountNumber}</p>
-                  <p className="m-0 mt-1 text-sm font-bold text-slate-500">예금주: {BANK_ACCOUNT.holder}</p>
+                  <p className="m-0 text-sm font-bold leading-6 text-slate-600">
+                    가상계좌 발급 정보를 확인 중입니다. 잠시 후 주문조회를 다시 확인해주세요.
+                  </p>
                 </div>
-                <p className="m-0 mt-4 rounded-xl bg-[#fff7e6] px-4 py-3 text-sm font-bold leading-6 text-[#8a5a00]">입금 확인 후 상품 준비가 시작됩니다.</p>
+                <p className="m-0 mt-4 rounded-xl bg-[#fff7e6] px-4 py-3 text-sm font-bold leading-6 text-[#8a5a00]">
+                  계좌번호가 표시되지 않으면 결제창 승인 또는 가상계좌 발급이 완료되지 않은 상태입니다.
+                </p>
               </section>
             ) : null}
 

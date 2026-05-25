@@ -1,5 +1,6 @@
 const NICEPAY_SDK_URL = import.meta.env.VITE_NICEPAY_SDK_URL || 'https://pay.nicepay.co.kr/v1/js/'
-const NICEPAY_CLIENT_KEY = import.meta.env.VITE_NICEPAY_CLIENT_KEY || 'S2_712398b21c5f4a59a95b6b9d1a05f59c'
+const DEFAULT_NICEPAY_CLIENT_KEY = 'S2_712398b21c5f4a59a95b6b9d1a05f59c'
+const NICEPAY_CLIENT_KEY = String(import.meta.env.VITE_NICEPAY_CLIENT_KEY || DEFAULT_NICEPAY_CLIENT_KEY).trim()
 const NICEPAY_RETURN_URL = import.meta.env.VITE_NICEPAY_RETURN_URL || '/api/nicepay/confirm'
 
 let nicepaySdkPromise = null
@@ -47,7 +48,8 @@ function loadNicepaySdk() {
 }
 
 export async function requestNicepayVbankPayment(order = {}) {
-  if (!NICEPAY_CLIENT_KEY) {
+  const clientId = NICEPAY_CLIENT_KEY || DEFAULT_NICEPAY_CLIENT_KEY
+  if (!clientId) {
     throw new Error('나이스페이 클라이언트 키가 설정되지 않았습니다.')
   }
 
@@ -59,12 +61,13 @@ export async function requestNicepayVbankPayment(order = {}) {
 
   const nicepay = await loadNicepaySdk()
   nicepay.requestPay({
-    clientId: NICEPAY_CLIENT_KEY,
+    clientId,
     method: 'vbank',
     orderId,
     amount,
     goodsName: String(order.productName || '민웰파워 상품').slice(0, 40),
     returnUrl: getAbsoluteUrl(NICEPAY_RETURN_URL),
+    mallReserved: typeof window === 'undefined' ? undefined : window.location.origin,
     vbankHolder: String(order.customerName || '민웰파워').slice(0, 40),
     buyerName: order.customerName || undefined,
     buyerTel: normalizeDigits(order.phone) || undefined,
