@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ORDER_STATUS_LABELS, PAYMENT_STATUS_LABELS, formatOrderDate, formatOrderPrice, loadUserOrders } from '../features/orderService'
 
-export function MyOrdersView({ isActive, authUser = null, onNavigateLogin, onNavigateOrderSearch }) {
+export function MyOrdersView({ isActive, authUser = null, onNavigateLogin }) {
   const [orders, setOrders] = useState([])
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -51,9 +51,6 @@ export function MyOrdersView({ isActive, authUser = null, onNavigateLogin, onNav
             <button type="button" onClick={onNavigateLogin} className="mx-auto h-12 rounded-xl bg-[#d53232] px-6 text-sm font-black text-white">
               로그인하러 가기
             </button>
-            <button type="button" onClick={onNavigateOrderSearch} className="mx-auto text-sm font-black text-slate-500 underline">
-              비회원 주문 조회
-            </button>
           </div>
         ) : (
           <>
@@ -63,9 +60,6 @@ export function MyOrdersView({ isActive, authUser = null, onNavigateLogin, onNav
             {orders.length === 0 && !isLoading ? (
               <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
                 <p className="m-0 text-sm font-bold text-slate-500">아직 로그인 계정으로 주문한 내역이 없습니다.</p>
-                <button type="button" onClick={onNavigateOrderSearch} className="mt-4 text-sm font-black text-slate-500 underline">
-                  기존 비회원 주문 조회하기
-                </button>
               </div>
             ) : (
               <div className="grid gap-3">

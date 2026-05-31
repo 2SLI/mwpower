@@ -84,6 +84,7 @@ function normalizeNewsArticle(item = {}, idFromDoc = '') {
     articleUrl,
     externalUrl: articleUrl,
     sourceLabel: normalizeText(item.sourceLabel) || getNewsSourceLabel(articleUrl),
+    category: normalizeText(item.category),
     isPublished: item.isPublished !== false,
     source: normalizeText(item.source || 'firestore'),
   }
@@ -107,6 +108,7 @@ function toNewsWritePayload(input = {}) {
     articleUrl,
     externalUrl: articleUrl,
     sourceLabel: getNewsSourceLabel(articleUrl),
+    category: normalizeText(input.category),
     isPublished: input.isPublished !== false,
     updatedAt: serverTimestamp(),
   }

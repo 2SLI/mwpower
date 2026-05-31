@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://meanwellpower-103ae.web.app/</loc>
+    <loc>https://mwpower.co.kr/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://mwpower.co.kr/store</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 </urlset>
-

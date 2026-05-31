@@ -67,6 +67,10 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, authU
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (!product || isSubmitting) return
+    if (!authUser?.uid) {
+      setSubmitError('로그인 후 주문할 수 있습니다.')
+      return
+    }
 
     const payload = {
       ...form,
@@ -102,10 +106,10 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, authU
       <div className="mx-auto grid w-full max-w-[1180px] gap-5 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div className="grid gap-5">
           <div className="rounded-2xl bg-white p-5 shadow-sm">
-            <p className="m-0 text-[12px] font-black uppercase tracking-[0.08em] text-[#d53232]">Guest Order</p>
-            <h1 className="m-0 mt-2 text-[30px] font-black tracking-[-0.02em] text-slate-950">{authUser ? '회원 주문서' : '비회원 주문서'}</h1>
+            <p className="m-0 text-[12px] font-black uppercase tracking-[0.08em] text-[#d53232]">Member Order</p>
+            <h1 className="m-0 mt-2 text-[30px] font-black tracking-[-0.02em] text-slate-950">회원 주문서</h1>
             <p className="m-0 mt-2 text-sm font-semibold text-slate-500">
-              {authUser ? '주문 완료 후 내 주문내역에서 바로 확인할 수 있습니다.' : '로그인 없이도 주문할 수 있지만, 주문번호와 연락처로만 조회할 수 있습니다.'}
+              {authUser ? '주문 완료 후 내 주문내역에서 바로 확인할 수 있습니다.' : '로그인 후 주문할 수 있습니다.'}
             </p>
           </div>
 

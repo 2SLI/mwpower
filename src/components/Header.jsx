@@ -13,10 +13,19 @@ const navItems = [
   { key: 'contact-tech', label: '기술문의', view: 'contact-tech' },
 ]
 
+const shopNavItems = [
+  { key: 'products', label: '상품', view: 'products' },
+  { key: 'order-list', label: '장바구니', view: 'order-list' },
+]
+
 const LOGO_SRC = '/logo/mwpower_logo.png'
 const LOGO_ALT = '민웰파워 로고'
 
-function NavLink({ item, isActive, onNavigate, badgeCount = 0 }) {
+function getSiteSwitchHref(isShopSite = true) {
+  return isShopSite ? '/' : '/store'
+}
+
+function NavLink({ item, isActive, onNavigate, badgeCount = 0, compact = false }) {
   const isExternal = Boolean(item.href)
 
   return (
@@ -24,7 +33,9 @@ function NavLink({ item, isActive, onNavigate, badgeCount = 0 }) {
       href={item.href ?? '#'}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      className={`main-nav-link relative px-5 text-[clamp(14px,0.95vw,19px)] font-semibold leading-[92px] tracking-[-0.01em] text-[#0e2238] max-[1280px]:px-3 max-[1280px]:text-sm max-[1280px]:leading-[62px] ${
+      className={`main-nav-link relative px-5 font-semibold tracking-[-0.01em] text-[#0e2238] max-[1280px]:px-3 max-[1280px]:text-sm ${
+        compact ? 'text-[15px] leading-[62px]' : 'text-[clamp(14px,0.95vw,19px)] leading-[92px] max-[1280px]:leading-[62px]'
+      } ${
         isActive ? 'active' : ''
       }`}
       onClick={(event) => {
@@ -43,9 +54,12 @@ function NavLink({ item, isActive, onNavigate, badgeCount = 0 }) {
   )
 }
 
-export function Header({ activeView, authUser = null, onNavigate, onProductSearch, onProductRouteSelect, onSignOut, orderItemCount = 0, quoteItemCount = 0 }) {
+export function Header({ activeView, isShopSite = true, authUser = null, onNavigate, onProductSearch, onProductRouteSelect, onSignOut, orderItemCount = 0, quoteItemCount = 0 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const visibleNavItems = isShopSite ? shopNavItems : navItems.filter((item) => item.key !== 'order-list')
+  const siteSwitchHref = getSiteSwitchHref(isShopSite)
+  const siteSwitchLabel = isShopSite ? 'MWPOWER' : 'MWPOWER STORE'
 
   useEffect(() => {
     setIsMenuOpen(false)
@@ -123,16 +137,18 @@ export function Header({ activeView, authUser = null, onNavigate, onProductSearc
                 <h2 className="m-0 mt-2">
                   <img src={LOGO_SRC} alt={LOGO_ALT} className="h-[56px] w-[56px] object-contain" />
                 </h2>
-                <p className="mb-0 mt-2 text-xs font-semibold text-rose-100">제품/서비스 메뉴를 빠르게 이동하세요.</p>
-                <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-black text-white">
-                  <span>주문목록</span>
-                  <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-[#b92a31]">{orderItemCount > 99 ? '99+' : orderItemCount}</span>
-                </div>
+                <p className="mb-0 mt-2 text-xs font-semibold text-rose-100">{isShopSite ? '상품 검색과 주문 메뉴를 빠르게 이동하세요.' : '제품/서비스 메뉴를 빠르게 이동하세요.'}</p>
+                {isShopSite ? (
+                  <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-black text-white">
+                    <span>주문목록</span>
+                    <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-[#b92a31]">{orderItemCount > 99 ? '99+' : orderItemCount}</span>
+                  </div>
+                ) : null}
               </header>
 
               <div className="flex-1 overflow-y-auto bg-white px-3 py-3.5">
                 <ul className="m-0 list-none space-y-1.5 p-0">
-                  {navItems.map((item) => {
+                  {visibleNavItems.map((item) => {
                     const baseClass =
                       'flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left text-sm font-bold text-slate-700 transition hover:border-[#d45252] hover:bg-[#fff5f5] hover:text-[#c83434]'
 
@@ -178,19 +194,21 @@ export function Header({ activeView, authUser = null, onNavigate, onProductSearc
                       </li>
                     )
                   })}
-                  <li>
-                    <button
-                      type="button"
-                      className={`flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left text-sm font-bold transition hover:border-[#d45252] hover:bg-[#fff5f5] hover:text-[#c83434] ${
-                        activeView === 'my-orders' ? 'border-[#d94a4a] bg-[#fff0f0] text-[#c42f2f]' : 'text-slate-700'
-                      }`}
-                      onClick={() => handleInternalMenuClick(authUser ? 'my-orders' : 'login')}
-                    >
-                      <span>{authUser ? '내 주문내역' : '로그인'}</span>
-                      <span aria-hidden="true">›</span>
-                    </button>
-                  </li>
-                  {authUser ? (
+                  {isShopSite ? (
+                    <li>
+                      <button
+                        type="button"
+                        className={`flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left text-sm font-bold transition hover:border-[#d45252] hover:bg-[#fff5f5] hover:text-[#c83434] ${
+                          activeView === 'my-orders' ? 'border-[#d94a4a] bg-[#fff0f0] text-[#c42f2f]' : 'text-slate-700'
+                        }`}
+                        onClick={() => handleInternalMenuClick(authUser ? 'my-orders' : 'login')}
+                      >
+                        <span>{authUser ? '내 주문내역' : '로그인'}</span>
+                        <span aria-hidden="true">›</span>
+                      </button>
+                    </li>
+                  ) : null}
+                  {isShopSite && authUser ? (
                     <li>
                       <button
                         type="button"
@@ -205,6 +223,19 @@ export function Header({ activeView, authUser = null, onNavigate, onProductSearc
                       </button>
                     </li>
                   ) : null}
+                  <li>
+                    <a
+                      href={siteSwitchHref}
+                      className="flex w-full items-center justify-between rounded-xl border border-[#d53232] bg-[#d53232] px-3.5 py-3 text-left text-sm font-black text-white transition hover:bg-[#bd2929]"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <i className="fa-solid fa-globe text-xs" aria-hidden="true"></i>
+                        <span>{siteSwitchLabel}</span>
+                      </span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </li>
                 </ul>
               </div>
 
@@ -215,7 +246,7 @@ export function Header({ activeView, authUser = null, onNavigate, onProductSearc
       : null
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[500] border-b border-[#ebe7e9] bg-[#fdfbfc]">
+    <header className={`fixed inset-x-0 top-0 z-[500] border-b ${isShopSite ? 'border-slate-200/80 bg-white/90 backdrop-blur-xl' : 'border-[#ebe7e9] bg-[#fdfbfc]'}`}>
       <div className="relative flex h-[92px] w-full items-center justify-between pl-7 pr-6 max-[1280px]:h-[62px] max-[980px]:pl-4 max-[980px]:pr-4 max-[640px]:pl-2.5 max-[640px]:pr-2.5">
         <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 max-[640px]:block">
           <p className="m-0 text-[18px] font-black tracking-[-0.02em] text-black">민웰파워</p>
@@ -235,25 +266,37 @@ export function Header({ activeView, authUser = null, onNavigate, onProductSearc
           </a>
 
           <nav className="main-nav ml-0 flex flex-wrap items-center max-[980px]:hidden">
-            {navItems.map((item) => (
+            {visibleNavItems.map((item) => (
               <NavLink
                 key={`${item.label}-${item.view}`}
                 item={item}
                 isActive={item.key === activeView}
                 onNavigate={onNavigate}
                 badgeCount={item.key === 'order-list' ? orderItemCount : item.key === 'quote-request' ? quoteItemCount : 0}
+                compact={false}
               />
             ))}
-            <NavLink
-              item={{ key: authUser ? 'my-orders' : 'login', label: authUser ? '내 주문' : '로그인', view: authUser ? 'my-orders' : 'login' }}
-              isActive={(authUser ? 'my-orders' : 'login') === activeView}
-              onNavigate={onNavigate}
-            />
+            {isShopSite ? (
+              <NavLink
+                item={{ key: authUser ? 'my-orders' : 'login', label: authUser ? '내 주문' : '로그인', view: authUser ? 'my-orders' : 'login' }}
+                isActive={(authUser ? 'my-orders' : 'login') === activeView}
+                onNavigate={onNavigate}
+                compact={false}
+              />
+            ) : null}
           </nav>
         </div>
 
         <div className="flex shrink-0 items-center gap-1.5 text-[#1a2433] max-[640px]:gap-1">
-          {authUser ? (
+          <a
+            href={siteSwitchHref}
+            className="mr-2 inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-[#d53232] px-4 text-xs font-black text-white transition hover:bg-[#bd2929] max-[980px]:hidden"
+            aria-label={`${siteSwitchLabel}로 이동`}
+          >
+            <i className="fa-solid fa-globe text-[12px]" aria-hidden="true"></i>
+            <span>{siteSwitchLabel}</span>
+          </a>
+          {isShopSite && authUser ? (
             <button
               type="button"
               className="hidden rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 transition hover:border-[#d63b42] hover:text-[#c62f36] min-[981px]:inline-flex"
@@ -262,27 +305,29 @@ export function Header({ activeView, authUser = null, onNavigate, onProductSearc
               로그아웃
             </button>
           ) : null}
-          <button
-            type="button"
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white p-0 text-slate-700 transition hover:border-[#d63b42] hover:text-[#c62f36] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
-            aria-label="주문목록"
-            onClick={() => {
-              onNavigate('order-list')
-              setIsMenuOpen(false)
-            }}
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5 max-[640px]:h-[18px] max-[640px]:w-[18px]" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M7 7h14l-1.5 8.5H8.2L7 7Z"></path>
-              <path d="M7 7 6.5 4H3"></path>
-              <circle cx="9" cy="19" r="1.4"></circle>
-              <circle cx="18" cy="19" r="1.4"></circle>
-            </svg>
-            {orderItemCount > 0 ? (
-              <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#ffe26c] px-1 text-[10px] font-black leading-[18px] text-slate-900">
-                {orderItemCount > 99 ? '99+' : orderItemCount}
-              </span>
-            ) : null}
-          </button>
+          {isShopSite ? (
+            <button
+              type="button"
+              className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white p-0 text-slate-700 transition hover:border-[#d63b42] hover:text-[#c62f36] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"
+              aria-label="주문목록"
+              onClick={() => {
+                onNavigate('order-list')
+                setIsMenuOpen(false)
+              }}
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5 max-[640px]:h-[18px] max-[640px]:w-[18px]" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 7h14l-1.5 8.5H8.2L7 7Z"></path>
+                <path d="M7 7 6.5 4H3"></path>
+                <circle cx="9" cy="19" r="1.4"></circle>
+                <circle cx="18" cy="19" r="1.4"></circle>
+              </svg>
+              {orderItemCount > 0 ? (
+                <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#ffe26c] px-1 text-[10px] font-black leading-[18px] text-slate-900">
+                  {orderItemCount > 99 ? '99+' : orderItemCount}
+                </span>
+              ) : null}
+            </button>
+          ) : null}
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center border-0 bg-transparent p-0 text-current hover:text-[#0057b8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#0057b8]/70 max-[640px]:h-9 max-[640px]:w-9"

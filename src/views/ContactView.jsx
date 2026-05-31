@@ -18,7 +18,7 @@ function normalizeForm(form) {
   }
 }
 
-export function ContactView({ isActive }) {
+export function ContactView({ isActive, isShopSite = true }) {
   const [form, setForm] = useState(initialForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
@@ -68,7 +68,7 @@ export function ContactView({ isActive }) {
           <div>
             <h1 className="mb-3.5 mt-0 text-[clamp(42px,3.2vw,56px)] font-semibold tracking-[-0.8px] text-slate-900">제품문의</h1>
             <p className="m-0 max-w-[440px] text-[clamp(16px,1.1vw,20px)] leading-[1.4] text-slate-500">
-              제품 사양, 재고, 공급 일정 문의를 남겨주시면 입력하신 정보를 바탕으로
+              {isShopSite ? '제품 사양, 재고, 공급 일정 문의를 남겨주시면 입력하신 정보를 바탕으로' : '제품 사양과 공급 일정 문의를 남겨주시면 입력하신 정보를 바탕으로'}
               <br />
               빠르게 연락드리겠습니다.
             </p>

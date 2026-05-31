@@ -80,7 +80,7 @@ export function OrderCompleteView({ isActive, orderNumber, onNavigateOrderSearch
                 <h2 className="m-0 text-xl font-black text-slate-950">가상계좌 정보</h2>
                 <div className="mt-4 rounded-2xl bg-[#f8fafc] p-4">
                   <p className="m-0 text-sm font-bold leading-6 text-slate-600">
-                    가상계좌 발급 정보를 확인 중입니다. 잠시 후 주문조회를 다시 확인해주세요.
+                    가상계좌 발급 정보를 확인 중입니다. 잠시 후 내 주문내역을 다시 확인해주세요.
                   </p>
                 </div>
                 <p className="m-0 mt-4 rounded-xl bg-[#fff7e6] px-4 py-3 text-sm font-bold leading-6 text-[#8a5a00]">
@@ -102,7 +102,7 @@ export function OrderCompleteView({ isActive, orderNumber, onNavigateOrderSearch
             </section>
 
             <button type="button" onClick={onNavigateOrderSearch} className="h-12 rounded-2xl bg-slate-900 px-4 text-sm font-black text-white">
-              주문조회하기
+              내 주문내역 보기
             </button>
           </>
         ) : null}

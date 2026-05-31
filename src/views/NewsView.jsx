@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { NEWS_FALLBACK_IMAGE, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
+import { NEWS_CATEGORIES, inferNewsCategory, normalizeNewsCategory } from '../features/newsCategory'
 import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsService'
 
 function getArticleById(items, articleId) {
@@ -15,38 +16,10 @@ function handleNewsImageError(event) {
   image.src = NEWS_FALLBACK_IMAGE
 }
 
-const NEWS_CATEGORIES = ['산업 뉴스', '신제품', '제품 공지', '기술 자료', '전시회', '회사 소식', '보도자료', '영상 채널']
-
-const VALID_NEWS_CATEGORIES = new Set(NEWS_CATEGORIES)
-
-function normalizeCategory(value = '') {
-  const text = String(value ?? '').trim()
-  return VALID_NEWS_CATEGORIES.has(text) ? text : ''
-}
-
-function inferArticleCategory(article = {}) {
-  const explicitCategory = normalizeCategory(article.category)
-  if (explicitCategory) return explicitCategory
-
-  const haystack = `${article.title ?? ''} ${article.originalTitle ?? ''} ${article.summary ?? ''}`.toLowerCase()
-
-  if (/전시|전시회|expo|exhibition|show|fair|booth/.test(haystack)) return '전시회'
-  if (/영상|동영상|유튜브|youtube|webinar|웨비나|channel/.test(haystack)) return '영상 채널'
-  if (/보도|press|media|release/.test(haystack)) return '보도자료'
-  if (/회사|기업|esg|지속가능|sustainability|수상|award|창립|사옥|소식/.test(haystack)) return '회사 소식'
-  if (/ske|ska|skm|dke|dka|dkm/.test(haystack)) return '신제품'
-  if (/커넥터|connector|accessory|module|controller|powernex|주변/.test(haystack)) return '제품 공지'
-  if (/에너지 저장|energy storage|인버터|inverter|ess|solar|태양광|산업|industrial|automation/.test(haystack)) return '산업 뉴스'
-  if (/aec|절연|isolated|unregulated|regulated|smd|초광범위|ultra-wide|converter|컨버터|기술|application|solution/.test(haystack)) return '기술 자료'
-  if (/series|시리즈|신제품|new product|new/.test(haystack)) return '신제품'
-
-  return '산업 뉴스'
-}
-
 function withNewsCategory(article = {}) {
   return {
     ...article,
-    category: inferArticleCategory(article),
+    category: inferNewsCategory(article),
   }
 }
 
@@ -107,12 +80,12 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
 
   const filteredArticles = useMemo(() => {
     const term = keyword.trim().toLowerCase()
-    const category = normalizeCategory(activeCategory)
-    const categoryArticles = category ? articles.filter((item) => inferArticleCategory(item) === category) : articles
+    const category = normalizeNewsCategory(activeCategory)
+    const categoryArticles = category ? articles.filter((item) => inferNewsCategory(item) === category) : articles
     if (!term) return categoryArticles
 
     return categoryArticles.filter((item) => {
-      const haystack = `${item.title} ${item.summary ?? ''} ${item.originalTitle ?? ''} ${item.sourceLabel ?? ''} ${inferArticleCategory(item)}`.toLowerCase()
+      const haystack = `${item.title} ${item.summary ?? ''} ${item.originalTitle ?? ''} ${item.sourceLabel ?? ''} ${inferNewsCategory(item)}`.toLowerCase()
       return haystack.includes(term)
     })
   }, [articles, keyword, activeCategory])
@@ -120,7 +93,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
   const categoryCounts = useMemo(
     () =>
       NEWS_CATEGORIES.reduce((counts, label) => {
-        counts[label] = articles.filter((item) => inferArticleCategory(item) === label).length
+        counts[label] = articles.filter((item) => inferNewsCategory(item) === label).length
         return counts
       }, {}),
     [articles]
@@ -131,7 +104,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
       if (activeArticleId !== routeArticleId) setActiveArticleId(routeArticleId)
       const routeArticle = articles.find((item) => item.id === routeArticleId)
       if (routeArticle) {
-        const routeCategory = inferArticleCategory(routeArticle)
+        const routeCategory = inferNewsCategory(routeArticle)
         if (routeCategory !== activeCategory) setActiveCategory(routeCategory)
       }
       return
@@ -171,6 +144,17 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
     openTranslatedArticle(article.id)
   }
 
+  function handleCategorySelect(category) {
+    setActiveCategory(category)
+    setActiveArticleId(null)
+    if (routeArticleId) onNavigate?.('news', { replace: true, scrollTop: false })
+  }
+
+  function handleBackToNewsList() {
+    setActiveArticleId(null)
+    onNavigate?.('news')
+  }
+
   return (
     <section className={`${isActive ? '' : 'is-hidden'} bg-white text-[#333]`} id="news-page">
       <div className="relative h-[230px] overflow-hidden bg-slate-900 max-[640px]:h-[180px]">
@@ -179,7 +163,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
         <div className="relative mx-auto flex h-full max-w-[1250px] flex-col justify-center px-5 text-white">
           <h1 className="m-0 text-[52px] font-medium leading-none drop-shadow max-[640px]:text-[34px]">최신 뉴스</h1>
           <p className="m-0 mt-6 text-[15px] font-semibold text-white max-[640px]:mt-4 max-[640px]:text-sm">
-            최신 제품 정보, 전시회, 회사 소식을 확인하세요.
+            신제품, 기술자료, 단종모델 정보를 확인하세요.
           </p>
         </div>
       </div>
@@ -192,7 +176,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
             <span className="mx-3 text-[#999]">&gt;</span>
             <span>뉴스</span>
             <span className="mx-3 text-[#999]">&gt;</span>
-            <strong className="font-medium">{activeArticle ? inferArticleCategory(activeArticle) : activeCategory}</strong>
+            <strong className="font-medium">{activeArticle ? inferNewsCategory(activeArticle) : activeCategory}</strong>
           </nav>
         </div>
 
@@ -208,7 +192,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                     className={`block h-[42px] w-full border-b border-[#cfcfcf] px-5 text-left text-[15px] transition ${
                       active ? 'bg-[#ee2d27] font-bold text-white' : 'bg-[#efefef] text-[#333] hover:bg-[#e7e7e7]'
                     }`}
-                    onClick={() => setActiveCategory(label)}
+                    onClick={() => handleCategorySelect(label)}
                   >
                     <span className="mr-2">{active ? '›' : '›'}</span>
                     {label}
@@ -247,7 +231,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                     <span>{formatNewsDate(activeArticle.date)}</span>
                     <span className="text-[#cfcfcf]">|</span>
                     <span>{activeArticle.sourceLabel || 'MEAN WELL 공식'}</span>
-                    <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-600">{inferArticleCategory(activeArticle)}</span>
+                    <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-600">{inferNewsCategory(activeArticle)}</span>
                     <span className="rounded-full bg-[#fff1f1] px-2.5 py-1 text-[11px] font-black text-[#c9252f]">한국어 번역</span>
                   </div>
                   <h3 className="m-0 mt-4 text-[30px] font-black leading-tight text-[#222] max-[700px]:text-[22px]">{activeArticle.title}</h3>
@@ -276,18 +260,10 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                   ) : null}
 
                   <div className="mt-7 flex flex-wrap gap-3">
-                    <a
-                      href={getArticleUrl(activeArticle)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-10 items-center rounded-full bg-[#c9252f] px-4 text-sm font-bold text-white transition hover:bg-[#b71f28]"
-                    >
-                      원문 보기
-                    </a>
                     <button
                       type="button"
-                      className="inline-flex h-10 items-center rounded-full bg-slate-100 px-4 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
-                      onClick={() => onNavigate('news')}
+                      className="inline-flex h-10 items-center rounded-full bg-[#c9252f] px-4 text-sm font-bold text-white transition hover:bg-[#b71f28]"
+                      onClick={handleBackToNewsList}
                     >
                       목록으로
                     </button>
@@ -298,7 +274,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                 <div className="bg-white px-6 py-16 text-center shadow-[0_18px_42px_-34px_rgba(15,23,42,0.3)]">
                   <p className="m-0 text-xl font-black text-[#222]">번역 뉴스가 없습니다.</p>
                   <p className="m-0 mt-3 text-sm font-semibold text-[#777]">목록에서 MEAN WELL 공식 뉴스를 다시 선택해 주세요.</p>
-                  <button type="button" className="mt-6 h-10 rounded-full bg-[#c9252f] px-4 text-sm font-bold text-white" onClick={() => onNavigate('news')}>
+                  <button type="button" className="mt-6 h-10 rounded-full bg-[#c9252f] px-4 text-sm font-bold text-white" onClick={handleBackToNewsList}>
                     목록으로
                   </button>
                 </div>
@@ -357,7 +333,7 @@ export function NewsView({ isActive, onNavigate, onOpenNewsArticle, externalNews
                         >
                           {item.title}
                         </a>
-                        <p className="m-0 mt-1 text-xs font-bold text-[#777]">{inferArticleCategory(item)}</p>
+                        <p className="m-0 mt-1 text-xs font-bold text-[#777]">{inferNewsCategory(item)}</p>
                         {hasTranslatedArticle(item) ? <p className="m-0 mt-1 text-xs font-bold text-[#c9252f]">한국어 번역 보기</p> : null}
                         <p className="m-0 mt-2 hidden text-sm leading-6 text-[#777] max-[700px]:block">{item.summary}</p>
                       </div>

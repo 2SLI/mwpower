@@ -1,9 +1,10 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { HomeProductCategorySection } from '../components/HomeProductCategorySection'
-import { inventoryOptionModelsByBaseKey, productInventoryByModelKey } from '../data/productInventory'
 import { NEWS_FALLBACK_IMAGE, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
-import { normalizeLabel } from '../features/productCatalogService'
+import { loadLeafModelTreeMap, loadMajorCategories, normalizeLabel } from '../features/productCatalogService'
+import { buildMajorIdByName, buildModelRouteIndex, toProductRouteShortcut } from '../features/productRouteIndex'
 import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsService'
+import { defaultMajorCategories } from '../data/defaultMajorCategories'
 
 const solutionCards = [
   { title: 'DC/DC Converter 전원 솔루션', image: '/meanwell/dcdcconverter_banner.jpeg', alt: 'DC/DC', productPreset: { majorId: 'dc-dc' } },
@@ -79,13 +80,34 @@ function getSingleSearchToken(value = '') {
   return tokens.length === 1 ? tokens[0] : ''
 }
 
-export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPreset, onOpenProductSearch, onOpenNewsArticle }) {
+const EMPTY_TREE = { byKey: {}, byLeaf: {} }
+const NEWS_POPUP_SUPPRESS_KEY = 'mwpower_news_popup_suppress_until'
+
+function getNewsArticleUrl(article = {}) {
+  return String(article?.articleUrl || article?.externalUrl || '').trim()
+}
+
+function isBlogArticle(article = {}) {
+  const articleUrl = getNewsArticleUrl(article)
+  try {
+    const hostname = new URL(articleUrl).hostname.toLowerCase()
+    return hostname === 'blog.naver.com' || hostname === 'www.blog.naver.com'
+  } catch {
+    return /blog\.naver\.com/i.test(String(article?.sourceLabel ?? ''))
+  }
+}
+
+export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigate, onOpenProductPreset, onOpenProductSearch, onOpenNewsArticle, orderItemCount = 0 }) {
   const totalSlides = bannerImages.length
   const [currentSlide, setCurrentSlide] = useState(0)
   const [mobileSolutionIndex, setMobileSolutionIndex] = useState(0)
   const [mobileSearchKeyword, setMobileSearchKeyword] = useState('')
   const [newsItems, setNewsItems] = useState(() => normalizeNewsItems(getAllNewsSorted()))
   const [newsPreviewError, setNewsPreviewError] = useState('')
+  const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
+  const [leafTreeMap, setLeafTreeMap] = useState(EMPTY_TREE)
+  const [isNewsPopupOpen, setIsNewsPopupOpen] = useState(false)
+  const [isNewsPopupDismissed, setIsNewsPopupDismissed] = useState(false)
   const mobileSolutionTrackRef = useRef(null)
 
   useEffect(() => {
@@ -131,36 +153,36 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
     }
   }, [])
 
+  useEffect(() => {
+    let alive = true
+
+    ;(async () => {
+      const [majorResult, treeResult] = await Promise.all([loadMajorCategories(), loadLeafModelTreeMap()])
+      if (!alive) return
+      setMajorCategories(majorResult.categories.length > 0 ? majorResult.categories : defaultMajorCategories)
+      setLeafTreeMap(treeResult.treeMap)
+    })().catch(() => {
+      if (!alive) return
+      setMajorCategories(defaultMajorCategories)
+      setLeafTreeMap(EMPTY_TREE)
+    })
+
+    return () => {
+      alive = false
+    }
+  }, [])
+
   const visibleNews = newsItems.slice(0, 8)
+  const popupNews = visibleNews.find((item) => !isBlogArticle(item)) ?? visibleNews[0] ?? null
+  const majorIdByName = useMemo(() => buildMajorIdByName(majorCategories), [majorCategories])
+  const modelRouteIndex = useMemo(() => buildModelRouteIndex(leafTreeMap, majorIdByName), [leafTreeMap, majorIdByName])
   const mobileSearchShortcutList = useMemo(() => {
     const tokenKey = normalizeLabel(getSingleSearchToken(mobileSearchKeyword))
     if (!tokenKey) return []
 
-    const shortcutMap = new Map()
-
-    Object.values(productInventoryByModelKey).forEach((record) => {
-      const displayModel = String(record?.model ?? '').trim().toUpperCase()
-      const modelKey = normalizeLabel(displayModel)
-      if (!displayModel || !modelKey) return
-      shortcutMap.set(modelKey, displayModel)
-    })
-
-    Object.entries(inventoryOptionModelsByBaseKey).forEach(([baseModelKey, optionModels]) => {
-      const baseKey = normalizeLabel(baseModelKey)
-      if (baseKey && !shortcutMap.has(baseKey)) shortcutMap.set(baseKey, String(baseModelKey ?? '').trim())
-
-      if (!Array.isArray(optionModels)) return
-      optionModels.forEach((optionModel) => {
-        const displayModel = String(optionModel ?? '').trim().toUpperCase()
-        const modelKey = normalizeLabel(displayModel)
-        if (!displayModel || !modelKey || shortcutMap.has(modelKey)) return
-        shortcutMap.set(modelKey, displayModel)
-      })
-    })
-
-    return Array.from(shortcutMap.entries())
+    return Object.entries(modelRouteIndex)
       .filter(([modelKey]) => modelKey.includes(tokenKey) || tokenKey.startsWith(`${modelKey}-`))
-      .map(([modelKey, displayModel]) => ({ modelKey, displayModel }))
+      .map(([modelKey, route]) => toProductRouteShortcut(modelKey, route))
       .sort((a, b) => {
         const aExact = a.modelKey === tokenKey ? 0 : 1
         const bExact = b.modelKey === tokenKey ? 0 : 1
@@ -176,7 +198,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
         return a.displayModel.localeCompare(b.displayModel, undefined, { numeric: true, sensitivity: 'base' })
       })
       .slice(0, 8)
-  }, [mobileSearchKeyword])
+  }, [mobileSearchKeyword, modelRouteIndex])
   const mobileSolutionCards = useMemo(
     () =>
       solutionCards.map((item, index) => {
@@ -211,6 +233,25 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
     event.preventDefault()
     const keyword = String(mobileSearchKeyword ?? '').trim()
     if (!keyword) return
+
+    const keywordKey = normalizeLabel(keyword)
+    const matchedShortcut =
+      mobileSearchShortcutList.find((item) => item.modelKey === keywordKey) ||
+      mobileSearchShortcutList.find((item) => item.modelKey.startsWith(keywordKey)) ||
+      mobileSearchShortcutList[0]
+
+    if (matchedShortcut) {
+      onOpenProductPreset?.({
+        majorId: matchedShortcut.majorId,
+        subcategory: matchedShortcut.subcategory,
+        leaf: matchedShortcut.leaf,
+        groupName: matchedShortcut.groupName,
+        model: matchedShortcut.model,
+        optionModel: matchedShortcut.optionModel,
+      })
+      return
+    }
+
     onOpenProductSearch?.(keyword)
   }
 
@@ -246,17 +287,298 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
     setMobileSolutionIndex(0)
   }, [isActive])
 
-  function openNews(articleId) {
+  useEffect(() => {
+    if (!isActive || isShopSite || !popupNews || isNewsPopupDismissed) {
+      setIsNewsPopupOpen(false)
+      return
+    }
+
+    try {
+      const suppressUntil = Number(window.localStorage.getItem(NEWS_POPUP_SUPPRESS_KEY))
+      if (Number.isFinite(suppressUntil) && suppressUntil > Date.now()) {
+        setIsNewsPopupOpen(false)
+        return
+      }
+    } catch {
+      // localStorage may be unavailable in restricted browser modes.
+    }
+
+    setIsNewsPopupOpen(true)
+  }, [isActive, isShopSite, popupNews?.id, isNewsPopupDismissed])
+
+  function closeNewsPopup() {
+    setIsNewsPopupOpen(false)
+    setIsNewsPopupDismissed(true)
+  }
+
+  function suppressNewsPopupFor(ms) {
+    try {
+      window.localStorage.setItem(NEWS_POPUP_SUPPRESS_KEY, String(Date.now() + ms))
+    } catch {
+      // Ignore storage failures and close for the current session.
+    }
+    closeNewsPopup()
+  }
+
+  function openNews(article) {
+    const articleId = String(article?.id ?? '').trim()
     if (!articleId) {
       onNavigate('news')
       return
     }
+
+    if (isBlogArticle(article)) {
+      const articleUrl = getNewsArticleUrl(article)
+      if (articleUrl && typeof window !== 'undefined') {
+        window.open(articleUrl, '_blank', 'noopener,noreferrer')
+        return
+      }
+    }
+
     onOpenNewsArticle?.(articleId)
+  }
+
+  if (isShopSite) {
+    const popularSearches = ['LRS-350', 'XDR-240', 'NDR-240', 'MDR-60', 'HDR-60', 'RS-25']
+    const storeCategoryCards = [
+      { label: 'AC/DC', image: '/catalog/meanwell/thumbnails/lrs.png', preset: { majorId: 'ac-dc' } },
+      { label: 'DIN Rail', image: '/catalog/meanwell/thumbnails/xdr.png', preset: { majorId: 'ac-dc', subcategory: 'DIN Rail' } },
+      { label: 'DC/DC', image: '/meanwell/dcdcconverter_banner.jpeg', preset: { majorId: 'dc-dc' } },
+      { label: 'LED Driver', image: '/meanwell/green-power-solution-banner.png', search: 'LED' },
+      { label: 'Medical', image: '/meanwell/index-solutions-pic6.jpg', search: 'MEDICAL' },
+      { label: 'Accessory', image: '/catalog/meanwell/thumbnails/drp.jpg', preset: { majorId: 'peripheral' } },
+    ]
+    const storeHighlights = [
+      {
+        eyebrow: '빠른 출고',
+        title: '재고 있는 모델부터 바로 확인.',
+        text: '모델 상세에서 가격과 재고를 확인하고 장바구니에 담아 주문할 수 있습니다.',
+        action: '재고 상품 보기',
+        onClick: () => onNavigate('products'),
+        tone: 'bg-white text-slate-950',
+      },
+      {
+        eyebrow: '추천 시리즈',
+        title: 'DIN Rail 전원은 XDR부터.',
+        text: '제어반, 자동화 장비에 자주 쓰이는 경제형 DIN Rail 라인업입니다.',
+        action: 'XDR 보기',
+        onClick: () => onOpenProductPreset?.({ majorId: 'ac-dc', subcategory: 'DIN Rail', leaf: 'XDR-E Series' }),
+        tone: 'bg-slate-950 text-white',
+      },
+      {
+        eyebrow: '주문 관리',
+        title: '회원 주문내역을 한 곳에서.',
+        text: '로그인 후 주문한 내역과 진행 상태를 계정에서 바로 확인할 수 있습니다.',
+        action: '내 주문 보기',
+        onClick: () => onNavigate('my-orders'),
+        tone: 'bg-[#f5f5f7] text-slate-950',
+      },
+    ]
+
+    return (
+      <div id="shop-home-sections" className={`${isActive ? '' : 'is-hidden'} bg-[#f5f5f7] text-slate-950`}>
+        <h1 className="sr-only">MWPOWER SHOP MEAN WELL 전원공급장치 온라인 쇼핑몰</h1>
+
+        <section className="px-5 pb-8 pt-8 md:px-8 md:pb-12 md:pt-10" aria-label="스토어 메인">
+          <div className="mx-auto w-full max-w-[1320px]">
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-end">
+              <div>
+                <p className="m-0 text-[12px] font-black uppercase tracking-[0.16em] text-[#d53232]">MWPOWER Store</p>
+                <h2 className="m-0 mt-3 max-w-[820px] text-[clamp(2.25rem,4.4vw,4.7rem)] font-black leading-[1.06] tracking-[-0.025em] text-slate-950">
+                  <span className="text-[#d53232]">MWPOWER</span>는 정품 민웰 SMPS를 판매합니다.
+                </h2>
+                <p className="m-0 mt-4 max-w-[620px] text-[16px] font-semibold leading-7 text-slate-500">
+                  모델명으로 검색하고, 재고와 가격을 확인한 뒤 바로 주문하세요.
+                </p>
+              </div>
+
+              <div className="rounded-[18px] bg-white p-5 shadow-[0_18px_45px_-40px_rgba(15,23,42,0.55)]">
+                <p className="m-0 text-[13px] font-black text-slate-950">구매 도움이 필요하신가요?</p>
+                <p className="m-0 mt-1 text-sm font-semibold leading-6 text-slate-500">모델명을 검색하거나 인기 카테고리에서 바로 시작하세요.</p>
+                <div className="mt-4 grid grid-cols-2 gap-2">
+                  <button type="button" className="h-10 rounded-full bg-slate-950 px-3 text-xs font-black text-white" onClick={() => onNavigate('products')}>
+                    전체 상품
+                  </button>
+                  <button type="button" className="h-10 rounded-full bg-slate-100 px-3 text-xs font-black text-slate-800" onClick={() => onNavigate('order-list')}>
+                    장바구니 {orderItemCount > 99 ? '99+' : orderItemCount}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <form
+              className="mt-8 flex min-h-[58px] max-w-[760px] items-center gap-3 rounded-full bg-white px-5 shadow-[0_18px_45px_-40px_rgba(15,23,42,0.6)]"
+              role="search"
+              aria-label="상품 검색"
+              onSubmit={handleMobileSearchSubmit}
+            >
+              <i className="fa-solid fa-magnifying-glass text-lg text-slate-400" aria-hidden="true"></i>
+              <input
+                type="search"
+                value={mobileSearchKeyword}
+                onChange={(event) => setMobileSearchKeyword(event.target.value)}
+                placeholder="어떤 전원공급장치를 찾고 계신가요?"
+                className="min-w-0 flex-1 bg-transparent text-[16px] font-bold text-slate-900 placeholder:font-semibold placeholder:text-slate-400"
+              />
+              <button type="submit" className="h-10 rounded-full bg-[#d53232] px-5 text-sm font-black text-white transition hover:bg-[#bd2929]">
+                검색
+              </button>
+            </form>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {(mobileSearchKeyword.trim() && mobileSearchShortcutList.length > 0 ? mobileSearchShortcutList : popularSearches).map((item) => {
+                const label = typeof item === 'string' ? item : item.displayModel
+                return (
+                <button
+                  key={typeof item === 'string' ? item : item.modelKey}
+                  type="button"
+                  className="rounded-full bg-white px-3 py-1.5 text-xs font-black text-slate-700 shadow-sm transition hover:text-[#d53232]"
+                  onClick={() => {
+                    if (typeof item === 'string') {
+                      onOpenProductSearch?.(item)
+                      return
+                    }
+                    onOpenProductPreset?.({
+                      majorId: item.majorId,
+                      subcategory: item.subcategory,
+                      leaf: item.leaf,
+                      groupName: item.groupName,
+                      model: item.model,
+                      optionModel: item.optionModel,
+                    })
+                  }}
+                >
+                  {label}
+                </button>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 pb-8 md:px-8" aria-label="스토어 카테고리">
+          <div className="mx-auto w-full max-w-[1480px]">
+            <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+              {storeCategoryCards.map((item) => (
+                <button
+                  key={item.label}
+                  type="button"
+                  className="grid w-[168px] shrink-0 justify-items-center gap-3 rounded-[22px] bg-white px-4 py-5 text-center shadow-[0_18px_45px_-40px_rgba(15,23,42,0.65)] transition hover:-translate-y-0.5"
+                  onClick={() => (item.preset ? onOpenProductPreset?.(item.preset) : onOpenProductSearch?.(item.search))}
+                >
+                  <span className="grid h-24 w-24 place-items-center">
+                    <img src={item.image} alt="" className="max-h-20 max-w-24 object-contain" loading="lazy" />
+                  </span>
+                  <span className="text-sm font-black text-slate-900">{item.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <HomeProductCategorySection onNavigate={onNavigate} onOpenProductPreset={onOpenProductPreset} variant="store" />
+
+        <section className="px-5 pb-16 pt-1 md:px-8 md:pb-20" aria-label="스토어 추천">
+          <div className="mx-auto w-full max-w-[1480px]">
+            <header className="mb-5 flex items-end justify-between gap-4">
+              <h2 className="m-0 text-[clamp(1.8rem,3vw,3.2rem)] font-black tracking-[-0.03em] text-slate-950">
+                최신 구매 경험.
+                <span className="text-[#d53232]"> 더 빠르고 선명하게.</span>
+              </h2>
+            </header>
+
+            <div className="grid gap-4 lg:grid-cols-3">
+              {storeHighlights.map((item) => (
+                <button
+                  key={item.title}
+                  type="button"
+                  className={`min-h-[300px] rounded-[28px] p-7 text-left shadow-[0_22px_56px_-44px_rgba(15,23,42,0.7)] transition hover:-translate-y-0.5 ${item.tone}`}
+                  onClick={item.onClick}
+                >
+                  <span className="text-xs font-black uppercase tracking-[0.14em] text-[#d53232]">{item.eyebrow}</span>
+                  <strong className="mt-4 block max-w-[12ch] text-[clamp(1.75rem,2.4vw,2.9rem)] font-black leading-[1.05] tracking-[-0.03em]">{item.title}</strong>
+                  <span className="mt-4 block max-w-[28ch] text-sm font-semibold leading-6 opacity-70">{item.text}</span>
+                  <span className="mt-7 inline-flex h-10 items-center rounded-full bg-[#d53232] px-4 text-xs font-black text-white">{item.action}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    )
   }
 
   return (
     <div id="home-sections" className={isActive ? '' : 'is-hidden'}>
       <h1 className="sr-only">민웰파워 MEAN WELL 전원공급장치 정품 공급업체</h1>
+      {isNewsPopupOpen && popupNews ? (
+        <div className="fixed inset-0 z-[900] flex items-center justify-center bg-slate-950/15 px-4 py-6 max-[640px]:items-end max-[640px]:px-3 max-[640px]:py-3" role="dialog" aria-modal="true" aria-label="뉴스 공지">
+          <article className="w-full max-w-[760px] overflow-hidden rounded-[22px] bg-[#2f2f2f] p-4 shadow-[0_18px_50px_rgba(15,23,42,0.34)] max-[640px]:rounded-[18px] max-[640px]:p-3">
+            <div className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f7f7f7_70%,#e8e8e8_100%)] px-8 pb-8 pt-7 max-[640px]:px-5 max-[640px]:pb-6 max-[640px]:pt-5">
+              <span className="absolute left-0 top-0 h-20 w-20 bg-[#2f2f2f] [clip-path:polygon(0_0,100%_0,0_100%)]" aria-hidden="true"></span>
+              <span className="absolute bottom-0 right-0 h-20 w-20 bg-[#2f2f2f] [clip-path:polygon(100%_0,100%_100%,0_100%)]" aria-hidden="true"></span>
+
+              <div className="relative">
+                <h2 className="m-0 text-center text-[clamp(1.45rem,2.6vw,2.4rem)] font-black leading-tight tracking-[-0.03em] text-slate-950">
+                  <span className="text-[#d53232]">※</span> MWPOWER 민웰 공식 뉴스 안내
+                </h2>
+
+                <div className="mx-auto mt-8 max-w-[610px] border border-slate-700 bg-white px-5 py-4 text-center max-[640px]:mt-5 max-[640px]:px-3">
+                  <p className="m-0 text-[13px] font-bold leading-6 text-slate-700 max-[640px]:text-[12px]">
+                    MWPOWER는 MEAN WELL 정품 전원공급장치 정보를 안내합니다.
+                    <br />
+                    신제품, 기술자료, 단종모델 관련 공지는 뉴스 메뉴에서 확인하실 수 있습니다.
+                  </p>
+                </div>
+
+                <div className="mx-auto mt-8 max-w-[610px] text-[18px] font-bold leading-[1.7] tracking-[-0.02em] text-black max-[640px]:mt-5 max-[640px]:text-[15px]">
+                  <p className="m-0">
+                    최근 등록된 민웰 뉴스:
+                    <br />
+                    <span className="font-black underline decoration-[#d53232] decoration-[6px] underline-offset-[-2px]">{popupNews.title}</span>
+                  </p>
+                  {popupNews.summary ? (
+                    <p className="m-0 mt-6 text-[#d53232]">
+                      {popupNews.summary}
+                    </p>
+                  ) : null}
+                  <p className="m-0 mt-6">
+                    자세한 내용은 상단 뉴스 메뉴에서 확인해 주시기 바랍니다.
+                    <br />
+                    게시일: {formatNewsDate(popupNews.date)}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 bg-[#eeeeee] px-4 py-3 max-[640px]:grid max-[640px]:grid-cols-2">
+              <button
+                type="button"
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-full px-3 text-sm font-bold text-slate-700 transition hover:bg-white max-[640px]:px-2 max-[640px]:text-xs"
+                onClick={() => suppressNewsPopupFor(24 * 60 * 60 * 1000)}
+              >
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#bdbdbd] text-white">✓</span>
+                오늘 하루 보지 않기
+              </button>
+              <button
+                type="button"
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-full px-3 text-sm font-bold text-slate-700 transition hover:bg-white max-[640px]:px-2 max-[640px]:text-xs"
+                onClick={() => suppressNewsPopupFor(7 * 24 * 60 * 60 * 1000)}
+              >
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#bdbdbd] text-white">✓</span>
+                일주일 보지 않기
+              </button>
+              <button
+                type="button"
+                className="ml-auto inline-flex h-10 min-w-[110px] items-center justify-center border-l border-slate-300 px-5 text-sm font-bold text-slate-800 transition hover:bg-white max-[640px]:col-span-2 max-[640px]:ml-0 max-[640px]:w-full max-[640px]:border-l-0 max-[640px]:border-t"
+                onClick={closeNewsPopup}
+              >
+                닫기
+              </button>
+            </div>
+          </article>
+        </div>
+      ) : null}
       <section
         className="relative h-[clamp(370px,54vh,560px)] overflow-hidden max-[1280px]:h-[clamp(320px,47vh,460px)] max-[980px]:h-[300px] max-[640px]:hidden"
         aria-label="Main banners"
@@ -407,7 +729,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
               <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.26)_0%,rgba(15,23,42,0.84)_66%,rgba(2,6,23,0.95)_100%)]"></span>
 
               <div className="absolute left-1/2 top-1/2 z-10 w-[min(calc(100%-3rem),22rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/20 bg-black/28 p-4 backdrop-blur-sm">
-                <p className="m-0 text-[10px] font-black tracking-[0.12em] text-rose-200">MEAN WELL POWER</p>
+                <p className="m-0 text-[10px] font-black tracking-[0.12em] text-rose-200">MWPOWER</p>
                 <h3 className="m-0 mt-1.5 text-[clamp(18px,5.4vw,23px)] font-black leading-[1.15] text-white">{item.mobileTitle}</h3>
                 {item.mobileSubtitle ? <p className="m-0 mt-1.5 text-[13px] font-semibold leading-5 text-slate-100">{item.mobileSubtitle}</p> : null}
               </div>
@@ -429,81 +751,6 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
       </section>
 
       <HomeProductCategorySection onNavigate={onNavigate} onOpenProductPreset={onOpenProductPreset} />
-
-      <section className="w-full border-t border-slate-100 bg-white py-10 md:py-14" aria-label="뉴스">
-        <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
-          <header className="mb-6 flex items-center justify-between gap-4">
-            <div>
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#d7322a]">뉴스</p>
-              <h2 className="mt-2 text-[clamp(2rem,2.6vw,3.1rem)] font-black tracking-tight text-slate-900">최신 뉴스 미리보기</h2>
-              <p className="mt-2 text-sm font-semibold text-slate-500">MEAN WELL 공식 신제품 소식을 한국어 요약으로 먼저 확인하세요.</p>
-            </div>
-            <a
-              href="#"
-              className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
-              onClick={(event) => {
-                event.preventDefault()
-                onNavigate('news')
-              }}
-            >
-              뉴스 더보기
-            </a>
-          </header>
-
-          {visibleNews.length ? (
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {visibleNews.map((item) => (
-                <article
-                  key={item.id}
-                  className="group overflow-hidden rounded-[22px] bg-white text-left shadow-[0_16px_36px_-32px_rgba(15,23,42,0.34)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_42px_-34px_rgba(15,23,42,0.4)]"
-                >
-                  <button
-                    type="button"
-                    className="relative block aspect-[16/9] w-full overflow-hidden border-0 bg-slate-100 p-0 text-left"
-                    aria-label={`${item.title} 번역 뉴스 보기`}
-                    onClick={() => openNews(item.id)}
-                  >
-                    {item.image ? (
-                      <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" onError={handleNewsImageError} />
-                    ) : (
-                      <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">이미지 없음</div>
-                    )}
-                  </button>
-                  <button type="button" className="block min-h-[178px] w-full bg-white px-5 py-4 text-left" onClick={() => openNews(item.id)}>
-                    <div className="flex items-center justify-between gap-3">
-                      <time className="shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</time>
-                      <span className="min-w-0 rounded-full bg-white px-2.5 py-1 text-[11px] font-black text-slate-500 shadow-[inset_0_0_0_1px_rgba(226,232,240,0.85)]">
-                        {item.sourceLabel || '외부 뉴스'}
-                      </span>
-                    </div>
-                    <strong
-                      className="mt-3 block text-[1.08rem] font-black leading-[1.35] text-slate-900"
-                      style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
-                    >
-                      {item.title}
-                    </strong>
-                    <p
-                      className="mt-3 text-[14px] font-medium leading-6 text-slate-500"
-                      style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
-                    >
-                      {item.summary || '등록된 요약이 없습니다.'}
-                    </p>
-                  </button>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="grid min-h-[260px] place-items-center rounded-[22px] bg-white px-6 text-center shadow-sm">
-              <div>
-                <strong className="text-lg font-black text-slate-900">등록된 뉴스가 없습니다.</strong>
-                <p className="mt-2 text-sm font-semibold text-slate-500">관리자에서 링크를 등록하면 이 영역에 최신 뉴스가 표시됩니다.</p>
-              </div>
-            </div>
-          )}
-
-          {newsPreviewError ? <p className="mt-3 text-sm font-semibold text-[#b42323]">{newsPreviewError}</p> : null}
-        </div>
-      </section>
 
       <section className="w-full border-t border-slate-200 bg-slate-200/55 py-10 md:py-14" aria-label="Product">
         <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
@@ -537,7 +784,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
             <div className="grid min-h-[200px] place-items-center bg-[linear-gradient(135deg,#f1f5f9_0%,#dbe5ef_100%)] px-6 py-8 text-center">
               <div>
                 <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">CATEGORY FIRST</p>
-                <h3 className="mt-3 text-[clamp(1.35rem,1.8vw,2rem)] font-black leading-tight tracking-tight text-slate-900">MEANWELLPOWER</h3>
+                <h3 className="mt-3 text-[clamp(1.35rem,1.8vw,2rem)] font-black leading-tight tracking-tight text-slate-900">MWPOWER</h3>
               </div>
             </div>
             <div className="p-6 lg:p-8">
@@ -562,6 +809,75 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
         </div>
       </section>
 
+      <section className="w-full border-t border-slate-100 bg-white py-10 md:py-14" aria-label="뉴스">
+        <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
+          <header className="mb-6 flex items-center justify-between gap-4">
+            <div>
+              <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#d7322a]">뉴스</p>
+              <h2 className="mt-2 text-[clamp(2rem,2.6vw,3.1rem)] font-black tracking-tight text-slate-900">최신 뉴스 미리보기</h2>
+              <p className="mt-2 text-sm font-semibold text-slate-500">MEAN WELL 공식 신제품 소식을 한국어 요약으로 먼저 확인하세요.</p>
+            </div>
+            <a
+              href="#"
+              className="inline-flex h-10 items-center rounded-full border border-slate-300 bg-white px-4 text-xs font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+              onClick={(event) => {
+                event.preventDefault()
+                onNavigate('news')
+              }}
+            >
+              뉴스 더보기
+            </a>
+          </header>
+
+          {visibleNews.length ? (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {visibleNews.map((item) => (
+                <article
+                  key={item.id}
+                  className="group overflow-hidden rounded-[22px] bg-white text-left shadow-[0_16px_36px_-32px_rgba(15,23,42,0.34)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_42px_-34px_rgba(15,23,42,0.4)]"
+                >
+                  <button
+                    type="button"
+                    className="relative block aspect-[16/9] w-full overflow-hidden border-0 bg-slate-100 p-0 text-left"
+                    aria-label={`${item.title} 뉴스 보기`}
+                    onClick={() => openNews(item)}
+                  >
+                    {item.image ? (
+                      <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" onError={handleNewsImageError} />
+                    ) : (
+                      <div className="grid h-full w-full place-items-center text-sm font-black text-slate-400">이미지 없음</div>
+                    )}
+                  </button>
+                  <button type="button" className="block min-h-[128px] w-full bg-white px-5 py-4 text-left" onClick={() => openNews(item)}>
+                    <div className="flex items-center justify-between gap-3">
+                      <time className="shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</time>
+                      <span className="min-w-0 rounded-full bg-white px-2.5 py-1 text-[11px] font-black text-slate-500 shadow-[inset_0_0_0_1px_rgba(226,232,240,0.85)]">
+                        {item.sourceLabel || '외부 뉴스'}
+                      </span>
+                    </div>
+                    <strong
+                      className="mt-3 block text-[1.08rem] font-black leading-[1.38] text-slate-900"
+                    >
+                      {item.title}
+                    </strong>
+                  </button>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="grid min-h-[260px] place-items-center rounded-[22px] bg-white px-6 text-center shadow-sm">
+              <div>
+                <strong className="text-lg font-black text-slate-900">등록된 뉴스가 없습니다.</strong>
+                <p className="mt-2 text-sm font-semibold text-slate-500">관리자에서 링크를 등록하면 이 영역에 최신 뉴스가 표시됩니다.</p>
+              </div>
+            </div>
+          )}
+
+          {newsPreviewError ? <p className="mt-3 text-sm font-semibold text-[#b42323]">{newsPreviewError}</p> : null}
+        </div>
+      </section>
+
+      {/*
       <section className="w-full border-y border-slate-200 bg-slate-100/70 py-10 md:py-14" aria-label="Service">
         <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
           <header className="mb-6 flex items-center justify-between gap-4">
@@ -591,6 +907,7 @@ export function HomeView({ isActive, bannerImages, onNavigate, onOpenProductPres
           </div>
         </div>
       </section>
+      */}
     </div>
   )
 }

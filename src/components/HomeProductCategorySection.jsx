@@ -49,7 +49,9 @@ const featuredProductSeries = [
   },
 ]
 
-export function HomeProductCategorySection({ onNavigate, onOpenProductPreset }) {
+export function HomeProductCategorySection({ onNavigate, onOpenProductPreset, variant = 'default' }) {
+  const isStoreVariant = variant === 'store'
+
   function openSeries(series) {
     if (series?.preset) {
       onOpenProductPreset?.(series.preset)
@@ -59,7 +61,10 @@ export function HomeProductCategorySection({ onNavigate, onOpenProductPreset }) 
   }
 
   return (
-    <section className="w-full border-t border-slate-100 bg-white py-10 md:py-14" aria-label="상품 카테고리">
+    <section
+      className={`w-full py-10 md:py-14 ${isStoreVariant ? 'bg-[#f5f5f7]' : 'border-t border-slate-100 bg-white'}`}
+      aria-label="상품 카테고리"
+    >
       <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
         <header className="mb-6 flex items-end justify-between gap-4">
           <div>

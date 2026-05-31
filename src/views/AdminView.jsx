@@ -3,6 +3,7 @@ import { collection, doc, getDocs, orderBy, query, serverTimestamp, updateDoc } 
 import { NEWS_FALLBACK_IMAGE, formatNewsDate } from '../data/newsContent'
 import { db } from '../firebase'
 import { createNewsArticle, loadNewsArticlesForAdmin, removeNewsArticle, updateNewsArticle } from '../features/newsService'
+import { NEWS_CATEGORIES, inferNewsCategory, normalizeNewsCategory } from '../features/newsCategory'
 import { getNewsSourceLabel, normalizeNewsLink } from '../features/newsLink'
 import { fetchNewsLinkPreview } from '../features/newsPreview'
 import {
@@ -26,6 +27,7 @@ const NEWS_FORM_INITIAL = {
   title: '',
   summary: '',
   date: '',
+  category: '',
   isPublished: true,
 }
 
@@ -454,6 +456,7 @@ function normalizeNewsFormFromArticle(article) {
     title: normalizeText(article.title),
     summary: normalizeText(article.summary),
     date: normalizeText(article.date),
+    category: normalizeNewsCategory(article.category) || inferNewsCategory(article),
     isPublished: article.isPublished !== false,
   }
 }
@@ -510,10 +513,12 @@ export function AdminView({ pathname = '/admin' }) {
       title: normalizeText(newsForm.title) || (normalizedNewsFormLink ? `${getNewsSourceLabel(normalizedNewsFormLink)} 게시글` : '뉴스 미리보기'),
       summary: normalizeText(newsForm.summary),
       date: normalizeText(newsForm.date),
+      category: normalizeNewsCategory(newsForm.category) || inferNewsCategory(newsForm),
       sourceLabel: normalizedNewsFormLink ? getNewsSourceLabel(normalizedNewsFormLink) : '',
     }),
     [newsForm, normalizedNewsFormLink]
   )
+  const selectedNewsFormCategory = normalizeNewsCategory(newsForm.category) || inferNewsCategory(newsFormPreview)
 
   const loadInquiries = async () => {
     setIsLoadingInquiries(true)
@@ -680,6 +685,7 @@ export function AdminView({ pathname = '/admin' }) {
       image: overwrite ? preview.image || normalizeText(prev.image) : normalizeText(prev.image) || preview.image || '',
       title: overwrite ? preview.title || normalizeText(prev.title) : normalizeText(prev.title) || preview.title || '',
       summary: overwrite ? preview.summary || normalizeText(prev.summary) : normalizeText(prev.summary) || preview.summary || '',
+      category: normalizeNewsCategory(prev.category) || inferNewsCategory(preview),
     }))
   }
 
@@ -759,6 +765,7 @@ export function AdminView({ pathname = '/admin' }) {
       title: normalizeText(hydratedForm.title),
       summary: normalizeText(hydratedForm.summary),
       date: normalizeText(hydratedForm.date),
+      category: normalizeNewsCategory(hydratedForm.category) || inferNewsCategory(hydratedForm),
       isPublished: hydratedForm.isPublished,
     }
 
@@ -1212,7 +1219,7 @@ export function AdminView({ pathname = '/admin' }) {
                               <div className="min-w-0">
                                 <h3 className="m-0 mt-1 text-sm font-extrabold text-slate-900">{item.title}</h3>
                                 <p className="m-0 mt-1 text-xs font-semibold text-slate-500">
-                                  {formatNewsDate(item.date)} · {item.sourceLabel || getNewsSourceLabel(item.articleUrl) || '외부 뉴스'}
+                                  {formatNewsDate(item.date)} · {normalizeNewsCategory(item.category) || inferNewsCategory(item)} · {item.sourceLabel || getNewsSourceLabel(item.articleUrl) || '외부 뉴스'}
                                 </p>
                                 <p className="m-0 mt-1 text-[11px] text-slate-400">ID: {item.id}</p>
                               </div>
@@ -1289,6 +1296,21 @@ export function AdminView({ pathname = '/admin' }) {
                 ) : null}
                 {newsPreviewError ? <p className="m-0 text-[11px] font-bold text-[#b42323]">{newsPreviewError}</p> : null}
 
+                <label className="grid gap-1 text-xs font-bold text-slate-700">
+                  뉴스 카테고리
+                  <select
+                    value={selectedNewsFormCategory}
+                    onChange={(event) => handleNewsFormChange('category', event.target.value)}
+                    className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm outline-none focus:border-[#c9252f]"
+                  >
+                    {NEWS_CATEGORIES.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
                 {normalizedNewsFormLink ? (
                   <a
                     href={newsFormPreview.articleUrl}
@@ -1306,7 +1328,9 @@ export function AdminView({ pathname = '/admin' }) {
                       )}
                     </div>
                     <div className="grid gap-1 p-3">
-                      <p className="m-0 text-[11px] font-black uppercase tracking-[0.06em] text-[#b42323]">{newsFormPreview.sourceLabel || '외부 뉴스'}</p>
+                      <p className="m-0 text-[11px] font-black uppercase tracking-[0.06em] text-[#b42323]">
+                        {selectedNewsFormCategory} · {newsFormPreview.sourceLabel || '외부 뉴스'}
+                      </p>
                       <strong className="line-clamp-2 text-sm font-black leading-5 text-slate-900">{newsFormPreview.title}</strong>
                       {newsFormPreview.summary ? <p className="m-0 line-clamp-2 text-xs leading-5 text-slate-500">{newsFormPreview.summary}</p> : null}
                     </div>

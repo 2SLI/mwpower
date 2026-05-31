@@ -117,8 +117,37 @@ function setMetaByProperty(property, content) {
   tag.setAttribute('content', content)
 }
 
-const SOCIAL_PREVIEW_IMAGE_URL = 'https://meanwellpower-103ae.web.app/logo/mwpower_logo.png'
+const SOCIAL_PREVIEW_IMAGE_URL = 'https://mwpower.co.kr/logo/mwpower_logo.png'
 const QUOTE_MODAL_FALLBACK_VIEW = 'products'
+const STORE_BASE_PATH = '/store'
+const SHOP_ONLY_VIEWS = new Set(['order-list', 'order-form', 'order-checkout', 'order-complete', 'order-search', 'login', 'my-orders'])
+const OFFICIAL_ONLY_VIEWS = new Set(['news', 'service', 'quote-request', 'contact-product', 'contact-tech'])
+
+function isStorePathname(pathname = '/') {
+  const normalized = normalizePathname(pathname)
+  return normalized === STORE_BASE_PATH || normalized.startsWith(`${STORE_BASE_PATH}/`)
+}
+
+function stripStoreBasePath(pathname = '/') {
+  const normalized = normalizePathname(pathname)
+  if (normalized === STORE_BASE_PATH) return '/'
+  if (normalized.startsWith(`${STORE_BASE_PATH}/`)) return normalized.slice(STORE_BASE_PATH.length) || '/'
+  return normalized
+}
+
+function addStoreBasePath(pathname = '/') {
+  const normalized = normalizePathname(pathname)
+  if (normalized === '/') return STORE_BASE_PATH
+  return `${STORE_BASE_PATH}${normalized}`
+}
+
+function getAllowedViewForSite(view, isShopSite) {
+  const normalized = normalizeView(view)
+  if (isShopSite && normalized === 'order-search') return 'my-orders'
+  if (isShopSite) return OFFICIAL_ONLY_VIEWS.has(normalized) ? 'products' : normalized
+  if (!SHOP_ONLY_VIEWS.has(normalized)) return normalized
+  return 'quote-request'
+}
 
 function getOrderItemStockLimit(item = {}) {
   const storedStock = Number(item.stockQuantity)
@@ -140,12 +169,13 @@ function clampOrderItemQuantity(item = {}, quantity = 1) {
   return Math.min(requestedQuantity, stockLimit)
 }
 
-function getPathForView(view) {
-  return VIEW_PATHS[normalizeView(view)] ?? VIEW_PATHS.home
+function getPathForView(view, isShopSite = false) {
+  const path = VIEW_PATHS[normalizeView(view)] ?? VIEW_PATHS.home
+  return isShopSite ? addStoreBasePath(path) : path
 }
 
 function getViewForPathname(pathname = '/') {
-  const normalized = normalizePathname(pathname)
+  const normalized = stripStoreBasePath(pathname)
   if (normalized.startsWith('/news/')) return 'news'
   if (normalized.startsWith('/order-complete/')) return 'order-complete'
   if (normalized.startsWith('/order/')) return 'order-form'
@@ -153,16 +183,17 @@ function getViewForPathname(pathname = '/') {
 }
 
 function isKnownAppPath(pathname = '/') {
-  const normalized = normalizePathname(pathname)
-  return normalized === '/admin' || normalized.startsWith('/admin/') || normalized.startsWith('/news/') || normalized.startsWith('/order-complete/') || normalized.startsWith('/order/') || Boolean(PATH_VIEW_ALIASES[normalized])
+  const raw = normalizePathname(pathname)
+  const normalized = stripStoreBasePath(pathname)
+  return raw === '/admin' || raw.startsWith('/admin/') || normalized.startsWith('/news/') || normalized.startsWith('/order-complete/') || normalized.startsWith('/order/') || Boolean(PATH_VIEW_ALIASES[normalized])
 }
 
-function getCanonicalPathForPathname(pathname = '/', view = getViewForPathname(pathname)) {
-  const normalized = normalizePathname(pathname)
-  if (view === 'news' && normalized.startsWith('/news/')) return normalized
-  if (view === 'order-complete' && normalized.startsWith('/order-complete/')) return normalized
-  if (view === 'order-form' && normalized.startsWith('/order/')) return normalized
-  return getPathForView(view)
+function getCanonicalPathForPathname(pathname = '/', view = getViewForPathname(pathname), isShopSite = false) {
+  const normalized = stripStoreBasePath(pathname)
+  if (view === 'news' && normalized.startsWith('/news/')) return isShopSite ? addStoreBasePath(normalized) : normalized
+  if (view === 'order-complete' && normalized.startsWith('/order-complete/')) return isShopSite ? addStoreBasePath(normalized) : normalized
+  if (view === 'order-form' && normalized.startsWith('/order/')) return isShopSite ? addStoreBasePath(normalized) : normalized
+  return getPathForView(view, isShopSite)
 }
 
 function normalizeBackgroundView(view) {
@@ -171,7 +202,7 @@ function normalizeBackgroundView(view) {
 }
 
 function getRouteParamFromPath(pathname = '/', prefix = '') {
-  const normalized = normalizePathname(pathname)
+  const normalized = stripStoreBasePath(pathname)
   const cleanPrefix = normalizePathname(prefix)
   if (!normalized.startsWith(`${cleanPrefix}/`)) return ''
   const raw = normalized.slice(cleanPrefix.length + 1).split('/')[0] ?? ''
@@ -183,9 +214,10 @@ function getRouteParamFromPath(pathname = '/', prefix = '') {
 }
 
 export default function App() {
+  const isShopSite = typeof window === 'undefined' ? false : isStorePathname(window.location.pathname)
   const initialPathname = typeof window === 'undefined' ? '/' : normalizePathname(window.location.pathname)
   const initialHistoryState = typeof window === 'undefined' ? null : window.history.state
-  const initialView = getViewForPathname(initialPathname)
+  const initialView = getAllowedViewForSite(getViewForPathname(initialPathname), isShopSite)
   const initialQuoteBackgroundView = normalizeBackgroundView(initialHistoryState?.backgroundView || initialView)
   const [activeView, setActiveView] = useState(() => initialView)
   const [productSearchRequest, setProductSearchRequest] = useState(null)
@@ -197,6 +229,7 @@ export default function App() {
   const [quoteBackgroundView, setQuoteBackgroundView] = useState(initialQuoteBackgroundView)
   const [guestOrderQuantity, setGuestOrderQuantity] = useState(() => Math.max(1, Math.floor(Number(initialHistoryState?.quantity) || 1)))
   const [authUser, setAuthUser] = useState(null)
+  const [isAuthReady, setIsAuthReady] = useState(false)
   const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/')
   const isOrderListOpen = activeView === 'order-list'
   const isQuoteRequestOpen = activeView === 'quote-request'
@@ -221,7 +254,21 @@ export default function App() {
     lastNonQuoteViewRef.current = normalizeBackgroundView(visibleView)
   }, [isModalViewOpen, visibleView])
 
-  useEffect(() => subscribeAuthState(setAuthUser), [])
+  useEffect(
+    () =>
+      subscribeAuthState((user) => {
+        setAuthUser(user)
+        setIsAuthReady(true)
+      }),
+    []
+  )
+
+  useEffect(() => {
+    if (!isShopSite || !isAuthReady || authUser) return
+    if (activeView === 'order-form' || activeView === 'order-checkout') {
+      handleNavigate('login', { replace: true })
+    }
+  }, [isShopSite, isAuthReady, authUser, activeView])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -234,8 +281,9 @@ export default function App() {
         return
       }
 
-      const nextView = getViewForPathname(nextPath)
-      const canonicalPath = getCanonicalPathForPathname(nextPath, nextView)
+      const requestedView = getViewForPathname(nextPath)
+      const nextView = getAllowedViewForSite(requestedView, isShopSite)
+      const canonicalPath = getCanonicalPathForPathname(nextPath, nextView, isShopSite)
       const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
       const fallbackBackgroundView = normalizeBackgroundView(currentHistoryState.backgroundView || lastNonQuoteViewRef.current || QUOTE_MODAL_FALLBACK_VIEW)
       const nextBackgroundView = nextView === 'quote-request' || nextView === 'order-list' ? fallbackBackgroundView : normalizeBackgroundView(nextView)
@@ -275,60 +323,66 @@ export default function App() {
 
     const pageMeta = {
       home: {
-        title: '민웰파워 | MEAN WELL 정품 공급업체',
-        description: '민웰파워 사이트. MEAN WELL 전원공급장치 제품 정보와 기술지원, 정품확인, 상담 서비스를 제공합니다.',
+        title: 'MWPOWER | MEAN WELL 정품 SMPS 공급업체',
+        description: 'MWPOWER는 MEAN WELL 정품 SMPS와 전원공급장치 제품 정보, 기술지원, 정품확인, 상담 서비스를 제공합니다.',
       },
       products: {
-        title: '상품 카테고리 | 민웰파워',
+        title: '상품 카테고리 | MWPOWER',
         description: 'MEAN WELL 제품 카테고리, 시리즈, 모델별 정보를 확인하고 스펙 문서를 조회할 수 있습니다.',
       },
       news: {
-        title: '뉴스 | 민웰파워',
-        description: '민웰파워의 제품 소식, 적용 사례, 블로그 콘텐츠를 뉴스 형식으로 확인하세요.',
+        title: '뉴스 | MWPOWER',
+        description: 'MWPOWER의 제품 소식, 적용 사례, 블로그 콘텐츠를 뉴스 형식으로 확인하세요.',
       },
       service: {
-        title: '기술/정품 서비스 | 민웰파워',
+        title: '기술/정품 서비스 | MWPOWER',
         description: '민웰 정품 확인 방법과 기술 서비스 안내를 제공합니다.',
       },
       'order-list': {
-        title: '주문목록 | 민웰파워',
-        description: '담아둔 주문 품목과 수량을 확인하는 민웰파워 주문목록입니다.',
+        title: '장바구니 | MWPOWER Store',
+        description: '담아둔 MEAN WELL 정품 SMPS 품목과 수량을 확인하는 MWPOWER Store 장바구니입니다.',
       },
       'order-form': {
-        title: '비회원 주문서 | 민웰파워',
-        description: '민웰파워 상품을 로그인 없이 무통장입금 방식으로 주문할 수 있습니다.',
+        title: isShopSite ? '회원 주문서 | MWPOWER Store' : '비회원 주문서 | MWPOWER',
+        description: isShopSite
+          ? '로그인한 회원이 MWPOWER Store 상품을 무통장입금 방식으로 주문할 수 있습니다.'
+          : 'MWPOWER 상품을 로그인 없이 무통장입금 방식으로 주문할 수 있습니다.',
       },
       'order-checkout': {
-        title: '주문서 작성 | 민웰파워',
-        description: '주문목록에 담긴 민웰파워 상품을 로그인 없이 주문할 수 있습니다.',
+        title: '주문서 작성 | MWPOWER Store',
+        description: isShopSite
+          ? '장바구니에 담긴 MWPOWER Store 상품을 로그인 후 주문할 수 있습니다.'
+          : '주문목록에 담긴 MWPOWER 상품을 로그인 없이 주문할 수 있습니다.',
       },
       'order-complete': {
-        title: '주문 완료 | 민웰파워',
-        description: '민웰파워 비회원 주문 접수 내역과 입금 계좌 정보를 확인하세요.',
+        title: '주문 완료 | MWPOWER Store',
+        description: 'MWPOWER Store 주문 접수 내역과 입금 계좌 정보를 확인하세요.',
       },
       'order-search': {
-        title: '주문 조회 | 민웰파워',
-        description: '주문번호와 연락처로 민웰파워 비회원 주문 상태를 조회하세요.',
+        title: '주문 조회 | MWPOWER',
+        description: '주문번호와 연락처로 MWPOWER 주문 상태를 조회하세요.',
       },
       login: {
-        title: '로그인 | 민웰파워',
-        description: '민웰파워 회원 로그인과 회원가입을 진행합니다.',
+        title: '로그인 | MWPOWER',
+        description: 'MWPOWER 회원 로그인과 회원가입을 진행합니다.',
       },
       'my-orders': {
-        title: '내 주문내역 | 민웰파워',
-        description: '로그인한 계정의 민웰파워 주문내역을 확인합니다.',
+        title: '내 주문내역 | MWPOWER Store',
+        description: '로그인한 계정의 MWPOWER Store 주문내역을 확인합니다.',
       },
       'quote-request': {
-        title: 'B2B 견적요청 | 민웰파워',
-        description: '견적목록 기반으로 여러 품목과 수량을 한 번에 접수하는 민웰파워 B2B 견적요청 페이지입니다.',
+        title: 'B2B 견적요청 | MWPOWER',
+        description: '견적목록 기반으로 여러 품목과 수량을 한 번에 접수하는 MWPOWER B2B 견적요청 페이지입니다.',
       },
       'contact-product': {
-        title: '제품문의 | 민웰파워',
-        description: '민웰파워 제품 사양, 재고, 공급 일정 관련 문의를 접수하세요.',
+        title: '제품문의 | MWPOWER',
+        description: isShopSite
+          ? 'MWPOWER 제품 사양, 재고, 공급 일정 관련 문의를 접수하세요.'
+          : 'MWPOWER 제품 사양과 공급 일정 관련 문의를 접수하세요.',
       },
       'contact-tech': {
-        title: '기술문의 | 민웰파워',
-        description: '민웰파워 기술 지원, 적용 검토, 대체 모델 관련 문의를 접수하세요.',
+        title: '기술문의 | MWPOWER',
+        description: 'MWPOWER 기술 지원, 적용 검토, 대체 모델 관련 문의를 접수하세요.',
       },
     }
 
@@ -341,7 +395,7 @@ export default function App() {
     setMetaByName('twitter:title', current.title)
     setMetaByName('twitter:description', current.description)
     setMetaByName('twitter:image', SOCIAL_PREVIEW_IMAGE_URL)
-  }, [activeView, isAdminRoute])
+  }, [activeView, isAdminRoute, isShopSite])
 
   useEffect(() => {
     writeStoredOrderItems(orderItems)
@@ -352,8 +406,8 @@ export default function App() {
   }, [quoteItems])
 
   function handleNavigate(view, options = {}) {
-    const nextView = normalizeView(view)
-    const nextPath = getPathForView(nextView)
+    const nextView = getAllowedViewForSite(view, isShopSite)
+    const nextPath = getPathForView(nextView, isShopSite)
     const useReplace = options.replace === true
     const historyMethod = useReplace ? 'replaceState' : 'pushState'
 
@@ -416,6 +470,26 @@ export default function App() {
     handleNavigate('products')
   }
 
+  function handleOpenStoreProductPreset(preset = {}) {
+    const majorId = String(preset.majorId ?? '').trim()
+    if (!majorId) return
+
+    const nextPath = getPathForView('products', true)
+    setProductPresetRequest({ ...preset, at: Date.now() })
+    setActiveView('products')
+    setPathname(nextPath)
+    setQuoteBackgroundView('products')
+    lastNonQuoteViewRef.current = 'products'
+
+    if (typeof window !== 'undefined') {
+      const currentPath = normalizePathname(window.location.pathname)
+      if (currentPath !== nextPath) {
+        window.history.pushState({ view: 'products' }, '', nextPath)
+      }
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
+  }
+
   function handleOpenNewsArticle(articleId) {
     const id = String(articleId ?? '').trim()
     if (!id) return
@@ -436,10 +510,18 @@ export default function App() {
   }
 
   function handleStartGuestOrder(productId, quantity = 1) {
+    if (!isShopSite) {
+      handleNavigate('quote-request', { scrollTop: false, backgroundView: visibleView })
+      return
+    }
+    if (!authUser) {
+      handleNavigate('login')
+      return
+    }
     const id = String(productId ?? '').trim()
     if (!id) return
     const orderQuantity = Math.max(1, Math.floor(Number(quantity) || 1))
-    const nextPath = `/order/${encodeURIComponent(id)}`
+    const nextPath = `${isShopSite ? STORE_BASE_PATH : ''}/order/${encodeURIComponent(id)}`
     setActiveView('order-form')
     setPathname(nextPath)
     setQuoteBackgroundView('order-form')
@@ -460,7 +542,7 @@ export default function App() {
   function handleOrderComplete(orderNumber) {
     const id = String(orderNumber ?? '').trim()
     if (!id) return
-    const nextPath = `/order-complete/${encodeURIComponent(id)}`
+    const nextPath = `${isShopSite ? STORE_BASE_PATH : ''}/order-complete/${encodeURIComponent(id)}`
     setActiveView('order-complete')
     setPathname(nextPath)
     setQuoteBackgroundView('order-complete')
@@ -473,9 +555,15 @@ export default function App() {
   }
 
   function handleCheckoutOrderList() {
+    if (!isShopSite) return
     if (orderItems.length === 0) return
+    if (!authUser) {
+      handleCloseModalView()
+      handleNavigate('login')
+      return
+    }
     handleCloseModalView()
-    const nextPath = VIEW_PATHS['order-checkout']
+    const nextPath = getPathForView('order-checkout', isShopSite)
     setActiveView('order-checkout')
     setPathname(nextPath)
     setQuoteBackgroundView('order-checkout')
@@ -488,6 +576,10 @@ export default function App() {
   }
 
   function handleAddOrderItem(item) {
+    if (!isShopSite) {
+      handleAddQuoteItem(item)
+      return
+    }
     const nextItem = {
       ...item,
       quantity: clampOrderItemQuantity(item, item.quantity),
@@ -551,39 +643,61 @@ export default function App() {
           <i className="fa-solid fa-arrow-up text-[18px] text-white" aria-hidden="true"></i>
         </button>
 
-        <a
-          href="#"
-          className="relative grid h-[46px] w-[46px] place-items-center rounded-full bg-[#b9252d] max-[640px]:h-10 max-[640px]:w-10"
-          aria-label="B2B quote request"
-          onClick={(event) => {
-            event.preventDefault()
-            handleNavigate('quote-request', { scrollTop: false })
-          }}
-        >
-          <i className="fa-regular fa-clipboard text-[18px] text-white" aria-hidden="true"></i>
-          {quoteSummary.totalQuantity > 0 ? (
-            <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#ffd84d] px-1 text-[10px] font-black leading-[18px] text-slate-900">
-              {quoteSummary.totalQuantity > 99 ? '99+' : quoteSummary.totalQuantity}
-            </span>
-          ) : null}
-        </a>
+        {isShopSite ? (
+          <a
+            href="#"
+            className="relative grid h-[46px] w-[46px] place-items-center rounded-full bg-[#d53232] max-[640px]:h-10 max-[640px]:w-10"
+            aria-label="Cart"
+            onClick={(event) => {
+              event.preventDefault()
+              handleNavigate('order-list', { scrollTop: false })
+            }}
+          >
+            <i className="fa-solid fa-cart-shopping text-[17px] text-white" aria-hidden="true"></i>
+            {orderSummary.totalQuantity > 0 ? (
+              <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#ffd84d] px-1 text-[10px] font-black leading-[18px] text-slate-900">
+                {orderSummary.totalQuantity > 99 ? '99+' : orderSummary.totalQuantity}
+              </span>
+            ) : null}
+          </a>
+        ) : (
+          <>
+            <a
+              href="#"
+              className="relative grid h-[46px] w-[46px] place-items-center rounded-full bg-[#b9252d] max-[640px]:h-10 max-[640px]:w-10"
+              aria-label="B2B quote request"
+              onClick={(event) => {
+                event.preventDefault()
+                handleNavigate('quote-request', { scrollTop: false })
+              }}
+            >
+              <i className="fa-regular fa-clipboard text-[18px] text-white" aria-hidden="true"></i>
+              {quoteSummary.totalQuantity > 0 ? (
+                <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#ffd84d] px-1 text-[10px] font-black leading-[18px] text-slate-900">
+                  {quoteSummary.totalQuantity > 99 ? '99+' : quoteSummary.totalQuantity}
+                </span>
+              ) : null}
+            </a>
 
-        <a
-          href="#"
-          className="inquiry-fab grid h-[46px] w-[46px] place-items-center rounded-full bg-[#ea332d] max-[640px]:h-10 max-[640px]:w-10"
-          aria-label="Sales inquiry"
-          onClick={(event) => {
-            event.preventDefault()
-            handleNavigate('contact-product')
-          }}
-        >
-          <i className="fa-solid fa-envelope text-[18px] text-white" aria-hidden="true"></i>
-        </a>
+            <a
+              href="#"
+              className="inquiry-fab grid h-[46px] w-[46px] place-items-center rounded-full bg-[#ea332d] max-[640px]:h-10 max-[640px]:w-10"
+              aria-label="Sales inquiry"
+              onClick={(event) => {
+                event.preventDefault()
+                handleNavigate('contact-product')
+              }}
+            >
+              <i className="fa-solid fa-envelope text-[18px] text-white" aria-hidden="true"></i>
+            </a>
+          </>
+        )}
       </div>
 
       <div className="min-h-screen bg-slate-100 text-slate-600">
         <Header
           activeView={activeView}
+          isShopSite={isShopSite}
           authUser={authUser}
           onNavigate={handleNavigate}
           onProductSearch={handleProductSearch}
@@ -595,11 +709,13 @@ export default function App() {
         <main className="pt-[92px] max-[1280px]:pt-[62px]">
           <HomeView
             isActive={visibleView === 'home'}
+            isShopSite={isShopSite}
             bannerImages={bannerImages}
             onNavigate={handleNavigate}
             onOpenProductPreset={handleOpenProductPreset}
             onOpenProductSearch={handleProductSearch}
             onOpenNewsArticle={handleOpenNewsArticle}
+            orderItemCount={orderSummary.totalQuantity}
           />
           <NewsView
             isActive={visibleView === 'news'}
@@ -610,11 +726,13 @@ export default function App() {
           />
           <ProductsView
             isActive={visibleView === 'products'}
+            isShopSite={isShopSite}
             externalSearchRequest={productSearchRequest}
             externalPresetRequest={productPresetRequest}
             onAddOrderItem={handleAddOrderItem}
             onAddQuoteItem={handleAddQuoteItem}
             onStartGuestOrder={handleStartGuestOrder}
+            onOpenStoreProductPreset={handleOpenStoreProductPreset}
             quoteItemCount={quoteSummary.totalQuantity}
             orderItemCount={orderSummary.totalQuantity}
           />
@@ -630,7 +748,7 @@ export default function App() {
           <OrderCompleteView
             isActive={visibleView === 'order-complete'}
             orderNumber={getRouteParamFromPath(pathname, '/order-complete')}
-            onNavigateOrderSearch={() => handleNavigate('order-search')}
+            onNavigateOrderSearch={() => handleNavigate(isShopSite ? 'my-orders' : 'order-search')}
           />
           <OrderCheckoutView
             isActive={visibleView === 'order-checkout'}
@@ -646,7 +764,6 @@ export default function App() {
             isActive={visibleView === 'my-orders'}
             authUser={authUser}
             onNavigateLogin={() => handleNavigate('login')}
-            onNavigateOrderSearch={() => handleNavigate('order-search')}
           />
           <OrderListView
             isOpen={isOrderListOpen}
@@ -667,10 +784,10 @@ export default function App() {
             onRemoveItem={handleRemoveQuoteItem}
             onClearItems={handleClearQuoteItems}
           />
-          <ContactView isActive={visibleView === 'contact-product'} />
+          <ContactView isActive={visibleView === 'contact-product'} isShopSite={isShopSite} />
           <TechnicalContactView isActive={visibleView === 'contact-tech'} />
         </main>
-        <Footer />
+        <Footer isShopSite={isShopSite} />
       </div>
     </>
   )

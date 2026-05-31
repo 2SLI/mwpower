@@ -506,7 +506,8 @@ function normalizeRoutePathname(pathname = '/') {
 }
 
 function isProductsRoutePath(pathname = '/') {
-  return normalizeRoutePathname(pathname) === '/products'
+  const normalized = normalizeRoutePathname(pathname)
+  return normalized === '/products' || normalized === '/store/products'
 }
 
 function normalizeHistoryTextValue(value) {
@@ -554,7 +555,18 @@ function serializeProductHistoryState(state) {
   return JSON.stringify(normalizeProductHistoryState(state) ?? null)
 }
 
-export function ProductsView({ isActive, externalSearchRequest, externalPresetRequest, onAddOrderItem, onAddQuoteItem, onStartGuestOrder, orderItemCount = 0, quoteItemCount = 0 }) {
+export function ProductsView({
+  isActive,
+  isShopSite = true,
+  externalSearchRequest,
+  externalPresetRequest,
+  onAddOrderItem,
+  onAddQuoteItem,
+  onStartGuestOrder,
+  onOpenStoreProductPreset,
+  orderItemCount = 0,
+  quoteItemCount = 0,
+}) {
   const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
   const [leafTreeMap, setLeafTreeMap] = useState({ byKey: {}, byLeaf: {} })
 
@@ -1297,7 +1309,9 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
   const pageDescription = hasSearch
     ? '카테고리, 시리즈, 그룹, 모델 검색 결과입니다.'
     : activeLeaf
-      ? `재고 기준: ${productInventorySummary.updatedLabel || productInventorySummary.sourceFile}`
+      ? isShopSite
+        ? `재고 기준: ${productInventorySummary.updatedLabel || productInventorySummary.sourceFile}`
+        : '모델별 사양서와 제품 정보를 확인하고 필요한 품목은 견적요청으로 문의하세요.'
       : `${activeMajor?.name ?? 'Products'} 카테고리의 소분류와 시리즈 탐색 화면입니다.`
 
   const majorTitle = hasSearch ? 'Search Results' : activeLeaf || ''
@@ -1364,7 +1378,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       setQuoteFeedback(`${nextItem.displayModel}은 현재 재고가 없어 주문목록에 담을 수 없습니다. 견적목록으로 문의해주세요.`)
       return
     }
-    if (target === 'quote') {
+    if (target === 'quote' || !isShopSite) {
       onAddQuoteItem?.(nextItem)
       setQuoteFeedback(`${nextItem.displayModel} ${nextItem.quantity}개가 견적목록에 추가되었습니다.`)
     } else {
@@ -1409,8 +1423,8 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
       <aside className="self-start rounded-xl bg-white">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">Purchase</p>
-            <p className="m-0 mt-1 text-[22px] font-black text-slate-950">구매 정보</p>
+            <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">{isShopSite ? 'Purchase' : 'Quote'}</p>
+            <p className="m-0 mt-1 text-[22px] font-black text-slate-950">{isShopSite ? '구매 정보' : '견적 요청'}</p>
           </div>
           {canAddSelectedModel ? (
             <div className="flex shrink-0 items-center gap-2">
@@ -1431,7 +1445,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
         </div>
 
         <p className="m-0 mt-2 text-[12px] font-semibold leading-5 text-slate-500">
-          옵션과 수량을 선택한 뒤 바로 주문하거나 목록에 담을 수 있습니다.
+          {isShopSite ? '옵션과 수량을 선택한 뒤 바로 주문하거나 목록에 담을 수 있습니다.' : '옵션과 수량을 선택한 뒤 견적목록에 담아 문의할 수 있습니다.'}
         </p>
 
         <div className="mt-4 grid gap-3">
@@ -1451,7 +1465,7 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               </option>
               {selectedCombinedOptionModels.map((value) => (
                 <option key={value} value={value}>
-                  {formatOptionLabelWithInventory(value)}
+                  {isShopSite ? formatOptionLabelWithInventory(value) : value}
                 </option>
               ))}
             </select>
@@ -1491,41 +1505,53 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </div>
               </label>
 
-              <div className="rounded-xl border border-slate-200 bg-slate-50">
-                <div className="p-4">
-                  <p className="m-0 break-all text-[15px] font-black leading-6 text-slate-900">
-                  {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
-                  </p>
-                  <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-black ${inventoryToneClass}`}>
-                      {inventoryText}
-                    </span>
-                    <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-black text-emerald-700">
-                      {priceText}
+              {isShopSite ? (
+                <div className="rounded-xl border border-slate-200 bg-slate-50">
+                  <div className="p-4">
+                    <p className="m-0 break-all text-[15px] font-black leading-6 text-slate-900">
+                    {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
+                    </p>
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-black ${inventoryToneClass}`}>
+                        {inventoryText}
+                      </span>
+                      <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-black text-emerald-700">
+                        {priceText}
+                      </span>
+                    </div>
+                    <p className={`m-0 mt-2 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
+                      {isAddToQuoteDisabled
+                        ? '옵션 모델을 선택해야 목록에 담을 수 있습니다.'
+                        : isOutOfStockForOrder
+                          ? '재고가 없는 품목은 주문목록에 담을 수 없고 견적목록으로 문의할 수 있습니다.'
+                          : `${orderQuantity}개 기준으로 선택한 목록에 추가됩니다.`}
+                    </p>
+                    {Number.isFinite(stockLimit) ? (
+                      <p className="m-0 mt-1 text-[12px] font-semibold text-slate-500">
+                        최대 주문 가능 수량: {stockLimit.toLocaleString('ko-KR')}개
+                      </p>
+                    ) : null}
+                  </div>
+                  <div className="flex items-center justify-between border-t border-slate-200 bg-white px-4 py-4">
+                    <span className="text-sm font-black text-slate-900">총 {orderQuantity.toLocaleString('ko-KR')}개</span>
+                    <span className="text-sm font-black text-slate-500">
+                      총 금액 <strong className="ml-2 text-[24px] text-[#d6001c]">{totalPriceText}</strong>
                     </span>
                   </div>
-                  <p className={`m-0 mt-2 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
-                    {isAddToQuoteDisabled
-                      ? '옵션 모델을 선택해야 목록에 담을 수 있습니다.'
-                      : isOutOfStockForOrder
-                        ? '재고가 없는 품목은 주문목록에 담을 수 없고 견적목록으로 문의할 수 있습니다.'
-                        : `${orderQuantity}개 기준으로 선택한 목록에 추가됩니다.`}
+                </div>
+              ) : (
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="m-0 break-all text-[15px] font-black leading-6 text-slate-900">
+                    {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
                   </p>
-                  {Number.isFinite(stockLimit) ? (
-                    <p className="m-0 mt-1 text-[12px] font-semibold text-slate-500">
-                      최대 주문 가능 수량: {stockLimit.toLocaleString('ko-KR')}개
-                    </p>
-                  ) : null}
+                  <p className={`m-0 mt-2 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
+                    {isAddToQuoteDisabled ? '옵션 모델을 선택해야 견적목록에 담을 수 있습니다.' : `${orderQuantity}개 기준으로 견적목록에 추가됩니다.`}
+                  </p>
                 </div>
-                <div className="flex items-center justify-between border-t border-slate-200 bg-white px-4 py-4">
-                  <span className="text-sm font-black text-slate-900">총 {orderQuantity.toLocaleString('ko-KR')}개</span>
-                  <span className="text-sm font-black text-slate-500">
-                    총 금액 <strong className="ml-2 text-[24px] text-[#d6001c]">{totalPriceText}</strong>
-                  </span>
-                </div>
-              </div>
+              )}
 
-              <div className="grid gap-2 sm:grid-cols-2">
+              {isShopSite ? (
+                <div className="grid gap-2 sm:grid-cols-2">
                 <button
                   type="button"
                   disabled={isAddToOrderDisabled}
@@ -1568,39 +1594,46 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                   장바구니
                 </button>
               </div>
-              <div className="grid gap-2 sm:grid-cols-2">
+              ) : null}
+              <div className={`grid gap-2 ${isShopSite ? '' : 'sm:grid-cols-2'}`}>
+                {!isShopSite ? (
+                  <button
+                    type="button"
+                    disabled={isAddToQuoteDisabled}
+                    className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-extrabold transition ${
+                      isAddToQuoteDisabled
+                        ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300'
+                        : 'border-transparent bg-slate-100 text-slate-800 hover:bg-rose-50 hover:text-[#d53232]'
+                    }`}
+                    onClick={() =>
+                      handleAddLineItem(
+                        {
+                          majorId: activeMajorId,
+                          majorName: activeMajor?.name,
+                          subcategory: activeSubcategory,
+                          leaf: activeLeaf,
+                          groupName: selectedGroupName ?? activeGroup,
+                          modelName: selectedModelCard.modelName,
+                          optionModel: selectedOptionModel,
+                          asset: selectedModelCard.asset,
+                          thumbnailUrl: leafView?.thumbnailUrl,
+                          wattage: leafView?.wattage,
+                          quantity: orderQuantity,
+                        },
+                        'quote'
+                      )
+                    }
+                  >
+                    견적목록에 담기
+                  </button>
+                ) : null}
                 <button
                   type="button"
-                  disabled={isAddToQuoteDisabled}
                   className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-extrabold transition ${
-                    isAddToQuoteDisabled
+                    !selectedModelCard?.asset?.pdfUrl
                       ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300'
-                      : 'border-transparent bg-slate-100 text-slate-800 hover:bg-rose-50 hover:text-[#d53232]'
+                      : 'border-[#d53232] bg-[#d53232] text-white shadow-[0_10px_20px_rgba(213,50,50,0.16)] hover:border-[#bd2929] hover:bg-[#bd2929]'
                   }`}
-                  onClick={() =>
-                    handleAddLineItem(
-                      {
-                        majorId: activeMajorId,
-                        majorName: activeMajor?.name,
-                        subcategory: activeSubcategory,
-                        leaf: activeLeaf,
-                        groupName: selectedGroupName ?? activeGroup,
-                        modelName: selectedModelCard.modelName,
-                        optionModel: selectedOptionModel,
-                        asset: selectedModelCard.asset,
-                        thumbnailUrl: leafView?.thumbnailUrl,
-                        wattage: leafView?.wattage,
-                        quantity: orderQuantity,
-                      },
-                      'quote'
-                    )
-                  }
-                >
-                  견적목록에 담기
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-extrabold text-slate-700 transition hover:bg-slate-50"
                   onClick={handleScrollToPdfSection}
                   disabled={!selectedModelCard?.asset?.pdfUrl}
                 >
@@ -1773,12 +1806,16 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
               onClick={() => onSelectModel?.(item)}
             >
               <span className="truncate">{item.modelName}</span>
-              <span className={`shrink-0 text-[10px] font-black ${inventoryClass}`}>
-                {formatInventoryText(item.modelName)}
-              </span>
-              <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/85' : 'text-emerald-700'}`}>
-                {formatProductPriceText(item.modelName)}
-              </span>
+              {isShopSite ? (
+                <>
+                  <span className={`shrink-0 text-[10px] font-black ${inventoryClass}`}>
+                    {formatInventoryText(item.modelName)}
+                  </span>
+                  <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/85' : 'text-emerald-700'}`}>
+                    {formatProductPriceText(item.modelName)}
+                  </span>
+                </>
+              ) : null}
               {isCurrentModel ? <span className="shrink-0 text-[10px] font-black opacity-90">선택</span> : null}
               {!hasPdfAsset(item.asset) ? <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/80' : 'text-slate-400'}`}>PDF 준비중</span> : null}
             </button>
@@ -2088,12 +2125,14 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
             </button>
           </div>
 
-          {orderItemCount > 0 || quoteItemCount > 0 || quoteFeedback ? (
+          {(isShopSite ? orderItemCount > 0 || quoteItemCount > 0 : quoteItemCount > 0) || quoteFeedback ? (
             <div className="mb-4 rounded-2xl border border-[#efc8cd] bg-[linear-gradient(135deg,#fff7f7_0%,#fff1f2_100%)] px-4 py-3.5 shadow-[0_10px_24px_rgba(185,37,45,0.08)]">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">Order List</p>
-                  <p className="m-0 mt-1 text-sm font-extrabold text-slate-900">현재 주문목록 {orderItemCount}개 / 견적목록 {quoteItemCount}개 수량이 담겨 있습니다.</p>
+                  <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">{isShopSite ? 'Order List' : 'Quote List'}</p>
+                  <p className="m-0 mt-1 text-sm font-extrabold text-slate-900">
+                    {isShopSite ? `현재 주문목록 ${orderItemCount}개 / 견적목록 ${quoteItemCount}개 수량이 담겨 있습니다.` : `현재 견적목록 ${quoteItemCount}개 수량이 담겨 있습니다.`}
+                  </p>
                   <p className="m-0 mt-1 text-[13px] font-semibold text-slate-600">
                     {quoteFeedback || '모델 상세에서 수량을 정해 담고, 우측 견적 아이콘에서 바로 견적요청서를 확인할 수 있습니다.'}
                   </p>
@@ -2156,11 +2195,20 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                 </div>
               )
             ) : selectedModelCard && leafView ? (
-              <article ref={productDetailRef} className="scroll-mt-4 grid min-h-[980px] gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm max-[640px]:min-h-0 max-[640px]:gap-3 max-[640px]:p-3">
+              <article
+                ref={productDetailRef}
+                className={`scroll-mt-4 grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm max-[640px]:gap-3 max-[640px]:p-3 ${
+                  isShopSite ? 'min-h-[980px] max-[640px]:min-h-0' : ''
+                }`}
+              >
                 <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(390px,460px)]">
                   <div className="grid content-start gap-4">
                     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-                      <div className="grid min-h-[520px] place-items-center bg-white p-8 max-[980px]:min-h-[420px] max-[640px]:min-h-[300px] max-[640px]:p-4">
+                      <div
+                        className={`grid place-items-center bg-white p-8 max-[640px]:min-h-[300px] max-[640px]:p-4 ${
+                          isShopSite ? 'min-h-[520px] max-[980px]:min-h-[420px]' : 'min-h-[380px] max-[980px]:min-h-[340px]'
+                        }`}
+                      >
                         {leafView.thumbnailUrl ? (
                           <img
                             src={decodeAssetUrl(leafView.thumbnailUrl)}
@@ -2189,39 +2237,67 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                       })}
                     </div>
 
-                    <div className="rounded-xl border border-slate-200 bg-white p-4">
-                      <p className="mb-2 mt-0 text-[15px] font-black text-slate-800">Features</p>
-                      {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
-                        <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
-                          {leafView.features.map((feature) => (
-                            <li key={feature}>{feature}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
-                      )}
-                    </div>
+                    {isShopSite ? (
+                      <div className="rounded-xl border border-slate-200 bg-white p-4">
+                        <p className="mb-2 mt-0 text-[15px] font-black text-slate-800">Features</p>
+                        {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
+                          <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
+                            {leafView.features.map((feature) => (
+                              <li key={feature}>{feature}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
+                        )}
+                      </div>
+                    ) : null}
                   </div>
 
-                  <div className="self-start lg:sticky lg:top-4">
-                    <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
-                      {activeMajor?.name} / {activeSubcategory}
-                    </p>
+                  <div className={`self-start ${isShopSite ? 'lg:sticky lg:top-4' : ''}`}>
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <p className="m-0 text-[11px] font-bold uppercase tracking-[0.06em] text-[#c83a3a]">
+                        {activeMajor?.name} / {activeSubcategory}
+                      </p>
+                      {!isShopSite ? (
+                        <button
+                          type="button"
+                          className="inline-flex h-10 shrink-0 items-center rounded-full bg-[#d53232] px-4 text-xs font-black text-white shadow-[0_10px_20px_rgba(213,50,50,0.18)] transition hover:bg-[#bd2929]"
+                          onClick={() =>
+                            onOpenStoreProductPreset?.({
+                              majorId: activeMajorId,
+                              subcategory: activeSubcategory,
+                              leaf: activeLeaf,
+                              groupName: selectedGroupName ?? activeGroup,
+                              model: selectedModelCard.modelName,
+                              optionModel: selectedOptionModel,
+                            })
+                          }
+                        >
+                          온라인샵에서 구매하기
+                        </button>
+                      ) : null}
+                    </div>
                     <h4 className="m-0 mt-3 text-[26px] font-black leading-snug text-slate-950 max-[640px]:text-[22px]">
-                      [국내재고보유] 민웰 SMPS {selectedOptionModel || selectedModelCard.modelName} {leafView.wattage || ''} 파워서플라이
+                      민웰 SMPS {selectedOptionModel || selectedModelCard.modelName} {leafView.wattage || ''} 파워서플라이
                     </h4>
-                    <p className="m-0 mt-4 text-[36px] font-black leading-none text-[#d6001c]">
-                      {formatProductPriceText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
-                    </p>
+                    {isShopSite ? (
+                      <p className="m-0 mt-4 text-[36px] font-black leading-none text-[#d6001c]">
+                        {formatProductPriceText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
+                      </p>
+                    ) : null}
                     <div className="mt-5 grid gap-3 border-y border-slate-200 py-5 text-[15px] text-slate-700">
-                      <p className="m-0 flex justify-between gap-4">
-                        <strong className="text-slate-500">배송</strong>
-                        <span className="text-right font-bold">3,000원</span>
-                      </p>
-                      <p className="m-0 flex justify-between gap-4">
-                        <strong className="text-slate-500">재고</strong>
-                        <span className="text-right font-bold">{formatInventoryText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}</span>
-                      </p>
+                      {isShopSite ? (
+                        <>
+                          <p className="m-0 flex justify-between gap-4">
+                            <strong className="text-slate-500">배송</strong>
+                            <span className="text-right font-bold">3,000원</span>
+                          </p>
+                          <p className="m-0 flex justify-between gap-4">
+                            <strong className="text-slate-500">재고</strong>
+                            <span className="text-right font-bold">{formatInventoryText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}</span>
+                          </p>
+                        </>
+                      ) : null}
                       <p className="m-0 flex justify-between gap-4">
                         <strong className="text-slate-500">출력</strong>
                         <span className="text-right font-bold">{leafView.wattage || '정보 없음'}</span>
@@ -2231,6 +2307,20 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     <div className="mt-5">
                       {renderAdditionalOptionsPanel({ isModelSelected: true })}
                     </div>
+                    {!isShopSite ? (
+                      <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
+                        <p className="mb-2 mt-0 text-[15px] font-black text-slate-800">Features</p>
+                        {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
+                          <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
+                            {leafView.features.map((feature) => (
+                              <li key={feature}>{feature}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="m-0 text-[14px] text-slate-500">등록된 feature 정보가 없습니다.</p>
+                        )}
+                      </div>
+                    ) : null}
                   </div>
                 </section>
 
@@ -2309,12 +2399,6 @@ export function ProductsView({ isActive, externalSearchRequest, externalPresetRe
                     <div className="grid gap-1.5 text-[15px] text-slate-700">
                       <p className="m-0">
                         <strong>Wattage:</strong> {leafView.wattage || '정보 없음'}
-                      </p>
-                      <p className="m-0">
-                        <strong>Stock:</strong> 모델을 선택하면 옵션별 재고를 확인할 수 있습니다.
-                      </p>
-                      <p className="m-0">
-                        <strong>Price:</strong> 모델을 선택하면 옵션별 가격을 확인할 수 있습니다.
                       </p>
                     </div>
 

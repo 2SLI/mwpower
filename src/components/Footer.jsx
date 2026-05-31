@@ -1,10 +1,14 @@
-export function Footer() {
+export function Footer({ isShopSite = false }) {
   return (
-    <footer className="border-t border-slate-300 bg-slate-100 px-4 py-6 max-[980px]:px-4 max-[980px]:py-5">
+    <footer
+      className={`px-4 py-6 max-[980px]:px-4 max-[980px]:py-5 ${
+        isShopSite ? 'bg-[#f5f5f7]' : 'border-t border-slate-300 bg-slate-100'
+      }`}
+    >
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 max-[980px]:flex-col max-[980px]:items-start">
         <div className="flex min-w-0 items-center gap-3.5 max-[640px]:flex-wrap max-[640px]:gap-2">
           <p className="m-0 text-[clamp(28px,1.8vw,40px)] font-black uppercase tracking-[0.08em] text-[#c7332b]">
-            meanwell power
+            MWPOWER
           </p>
         </div>
       </div>
@@ -31,9 +35,13 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-4 flex max-w-[1240px] items-center justify-between gap-3 border-t border-slate-300 pt-3 max-[980px]:flex-col max-[980px]:items-start max-[640px]:mt-3 max-[640px]:pt-2.5">
+      <div
+        className={`mx-auto mt-4 flex max-w-[1240px] items-center justify-between gap-3 pt-3 max-[980px]:flex-col max-[980px]:items-start max-[640px]:mt-3 max-[640px]:pt-2.5 ${
+          isShopSite ? 'border-t border-slate-200' : 'border-t border-slate-300'
+        }`}
+      >
         <p className="m-0 text-[clamp(14px,0.8vw,16px)] text-slate-600 max-[640px]:text-xs max-[640px]:leading-[1.35]">
-          Copyright (C) 2008-2026 MEANWELL POWER Co., Ltd. All Rights Reserved.
+          Copyright (C) 2008-2026 MWPOWER Co., Ltd. All Rights Reserved.
         </p>
         <div className="flex gap-2.5">
           <a

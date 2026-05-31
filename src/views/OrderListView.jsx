@@ -27,12 +27,12 @@ export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onCh
   if (!isOpen || typeof document === 'undefined') return null
 
   return createPortal(
-    <div className="fixed inset-x-0 bottom-0 top-[92px] z-[480] bg-[#f3f4f6] max-[1280px]:top-[62px]">
+    <div className="fixed inset-x-0 bottom-0 top-[62px] z-[480] bg-[#f3f4f6]">
       <section
         role="dialog"
         aria-modal="true"
         aria-labelledby="order-list-modal-title"
-        className="flex h-[calc(100dvh-92px)] flex-col overflow-hidden bg-[#f3f4f6] max-[1280px]:h-[calc(100dvh-62px)]"
+        className="flex h-[calc(100dvh-62px)] flex-col overflow-hidden bg-[#f3f4f6]"
       >
         <header className="shrink-0 bg-white">
           <div className="relative mx-auto flex h-[72px] max-w-[1180px] items-center justify-between px-5 max-[640px]:h-[58px] max-[640px]:px-3">
