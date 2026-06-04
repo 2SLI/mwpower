@@ -5,8 +5,20 @@ import { leafModelTreeFallback } from '../src/data/leafModelTreeFallback.js'
 import { modelOptionWattageMap } from '../src/data/modelOptionWattageMap.js'
 
 const ROOT_DIR = process.cwd()
-const INPUT_PATH = path.join(ROOT_DIR, 'smps_product.xlsx')
+const CSV_INPUT_NAME = 'SMPS 재고 - SMPS 재고.csv'
+const XLSX_INPUT_NAME = 'smps_product.xlsx'
 const OUTPUT_PATH = path.join(ROOT_DIR, 'src', 'data', 'productInventory.js')
+
+function findInventoryInputPath() {
+  const csvFileName = fs
+    .readdirSync(ROOT_DIR)
+    .find((fileName) => fileName.normalize('NFC') === CSV_INPUT_NAME)
+
+  if (csvFileName) return path.join(ROOT_DIR, csvFileName)
+  return path.join(ROOT_DIR, XLSX_INPUT_NAME)
+}
+
+const INPUT_PATH = findInventoryInputPath()
 
 function normalizeLabel(value = '') {
   return String(value ?? '')
@@ -76,12 +88,15 @@ function readInventoryRows() {
     throw new Error(`Inventory workbook not found: ${INPUT_PATH}`)
   }
 
-  const workbook = xlsx.readFile(INPUT_PATH, { cellDates: false })
+  const isCsv = path.extname(INPUT_PATH).toLowerCase() === '.csv'
+  const workbook = isCsv
+    ? xlsx.read(fs.readFileSync(INPUT_PATH, 'utf8'), { type: 'string', cellDates: false })
+    : xlsx.readFile(INPUT_PATH, { cellDates: false })
   const sheetName = workbook.SheetNames.includes('SMPS 재고') ? 'SMPS 재고' : workbook.SheetNames[0]
   const sheet = workbook.Sheets[sheetName]
   const rows = xlsx.utils.sheet_to_json(sheet, { header: 1, defval: '' })
-  const dateText = String(sheet?.C2?.w ?? sheet?.C2?.v ?? '').trim()
-  const refreshText = String(sheet?.C3?.w ?? sheet?.C3?.v ?? '').trim()
+  const dateText = String(sheet?.C2?.w ?? sheet?.C2?.v ?? sheet?.D2?.w ?? sheet?.D2?.v ?? '').trim()
+  const refreshText = String(sheet?.C3?.w ?? sheet?.C3?.v ?? sheet?.D3?.w ?? sheet?.D3?.v ?? '').trim()
 
   const recordsByKey = new Map()
 
@@ -150,7 +165,7 @@ function buildInventoryData() {
 
   return {
     summary: {
-      sourceFile: path.basename(INPUT_PATH),
+      sourceFile: path.basename(INPUT_PATH).normalize('NFC'),
       sheetName,
       updatedLabel: [dateText, refreshText].filter(Boolean).join(' '),
       totalModels: records.length,
