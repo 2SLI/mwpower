@@ -19,7 +19,7 @@ const shopNavItems = [
 ]
 
 const LOGO_SRC = '/logo/mwpower_logo.png'
-const LOGO_ALT = '민웰파워 로고'
+const LOGO_ALT = 'MWPOWER 로고'
 
 function getSiteSwitchHref(isShopSite = true) {
   return isShopSite ? '/' : '/store'
@@ -249,7 +249,7 @@ export function Header({ activeView, isShopSite = true, authUser = null, onNavig
     <header className={`fixed inset-x-0 top-0 z-[500] border-b ${isShopSite ? 'border-slate-200/80 bg-white/90 backdrop-blur-xl' : 'border-[#ebe7e9] bg-[#fdfbfc]'}`}>
       <div className="relative flex h-[92px] w-full items-center justify-between pl-7 pr-6 max-[1280px]:h-[62px] max-[980px]:pl-4 max-[980px]:pr-4 max-[640px]:pl-2.5 max-[640px]:pr-2.5">
         <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 max-[640px]:block">
-          <p className="m-0 text-[18px] font-black tracking-[-0.02em] text-black">민웰파워</p>
+          <p className="m-0 text-[18px] font-black tracking-[-0.02em] text-black">MWPOWER</p>
         </div>
 
         <div className="flex min-w-0 items-center gap-7 max-[1280px]:gap-3">

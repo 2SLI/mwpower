@@ -189,7 +189,7 @@ export function QuoteRequestView({ isOpen, items, onClose, onNavigateProducts, o
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#d53232]">B2B Quote</p>
-                    <h2 className="m-0 mt-2 text-[21px] font-black text-slate-900">민웰파워 견적요청서</h2>
+                    <h2 className="m-0 mt-2 text-[21px] font-black text-slate-900">MWPOWER 견적요청서</h2>
                     <p className="m-0 mt-3 text-sm font-semibold leading-6 text-slate-500">
                       견적 검토가 필요한 품목과 수량을 확인하고 담당자 정보를 입력해 주세요.
                     </p>

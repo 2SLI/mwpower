@@ -56,7 +56,7 @@ export function OrderListView({ isOpen, items, onClose, onNavigateProducts, onCh
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="m-0 text-[11px] font-black uppercase tracking-[0.12em] text-[#d53232]">Order Info</p>
-                    <h2 className="m-0 mt-2 text-[21px] font-black text-slate-900">민웰파워 주문목록</h2>
+                    <h2 className="m-0 mt-2 text-[21px] font-black text-slate-900">MWPOWER 주문목록</h2>
                     <p className="m-0 mt-3 text-sm font-semibold leading-6 text-slate-500">
                       
                     </p>

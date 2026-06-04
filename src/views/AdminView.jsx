@@ -589,7 +589,7 @@ export function AdminView({ pathname = '/admin' }) {
   }
 
   useEffect(() => {
-    document.title = '관리자 | 민웰파워'
+    document.title = '관리자 | MWPOWER'
     const saved = typeof window !== 'undefined' ? window.sessionStorage.getItem(ADMIN_SESSION_KEY) : null
     if (saved === 'true') setIsAuthenticated(true)
   }, [])

@@ -206,7 +206,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
         return {
           ...item,
           mobileTitle: '제품 사양서 보기',
-          mobileSubtitle: '민웰파워는 민웰 정품 제품만을 판매합니다.',
+          mobileSubtitle: 'MWPOWER는 MEAN WELL 정품 제품만을 판매합니다.',
           forceProductsView: true,
         }
       }),
@@ -510,7 +510,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
 
   return (
     <div id="home-sections" className={isActive ? '' : 'is-hidden'}>
-      <h1 className="sr-only">민웰파워 MEAN WELL 전원공급장치 정품 공급업체</h1>
+      <h1 className="sr-only">MWPOWER MEAN WELL 전원공급장치 정품 공급업체</h1>
       {isNewsPopupOpen && popupNews ? (
         <div className="fixed inset-0 z-[900] flex items-center justify-center bg-slate-950/15 px-4 py-6 max-[640px]:items-end max-[640px]:px-3 max-[640px]:py-3" role="dialog" aria-modal="true" aria-label="뉴스 공지">
           <article className="w-full max-w-[760px] overflow-hidden rounded-[22px] bg-[#2f2f2f] p-4 shadow-[0_18px_50px_rgba(15,23,42,0.34)] max-[640px]:rounded-[18px] max-[640px]:p-3">
