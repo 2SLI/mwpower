@@ -54,7 +54,11 @@ function extractModelName(productName = '') {
 
 function readPriceRows() {
   if (!fs.existsSync(INPUT_PATH)) {
-    throw new Error(`Price workbook not found: ${INPUT_PATH}`)
+    if (fs.existsSync(OUTPUT_PATH)) {
+      console.warn(`Price workbook not found; keeping existing generated prices: ${INPUT_PATH}`)
+      return null
+    }
+    throw new Error(`Price workbook and generated prices not found: ${INPUT_PATH}`)
   }
 
   const workbook = xlsx.readFile(INPUT_PATH, { cellDates: false })
@@ -108,7 +112,10 @@ function readPriceRows() {
 }
 
 function buildPriceData() {
-  const { sheetName, records, skippedRows, duplicateRows, totalRows } = readPriceRows()
+  const priceRows = readPriceRows()
+  if (!priceRows) return null
+
+  const { sheetName, records, skippedRows, duplicateRows, totalRows } = priceRows
   const byModelKey = {}
 
   records.forEach(([key, record]) => {
@@ -130,6 +137,8 @@ function buildPriceData() {
 }
 
 const priceData = buildPriceData()
+if (!priceData) process.exit(0)
+
 const content = `export const productPriceSummary = ${JSON.stringify(priceData.summary, null, 2)}
 
 export const productPriceByModelKey = ${JSON.stringify(priceData.byModelKey, null, 2)}
