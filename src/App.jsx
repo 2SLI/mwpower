@@ -1,24 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
-import { HomeView } from './views/HomeView'
-import { NewsView } from './views/NewsView'
-import { ProductsView } from './views/ProductsView'
-import { ServiceView } from './views/ServiceView'
-import { ContactView } from './views/ContactView'
-import { TechnicalContactView } from './views/TechnicalContactView'
-import { QuoteRequestView } from './views/QuoteRequestView'
-import { OrderListView } from './views/OrderListView'
-import { GuestOrderView } from './views/GuestOrderView'
-import { OrderCheckoutView } from './views/OrderCheckoutView'
-import { OrderCompleteView } from './views/OrderCompleteView'
-import { OrderSearchView } from './views/OrderSearchView'
-import { LoginView } from './views/LoginView'
-import { MyOrdersView } from './views/MyOrdersView'
-import { AdminView } from './views/AdminView'
 import { bannerImages } from './data/bannerImages'
-import { logoutUser, subscribeAuthState } from './features/authService'
-import { resolveProductForOrder } from './features/orderService'
 import {
   addQuoteItem,
   clearQuoteItems,
@@ -30,6 +13,22 @@ import {
   writeStoredOrderItems,
   writeStoredQuoteItems,
 } from './features/quoteCart'
+
+const HomeView = lazy(() => import('./views/HomeView').then((module) => ({ default: module.HomeView })))
+const NewsView = lazy(() => import('./views/NewsView').then((module) => ({ default: module.NewsView })))
+const ProductsView = lazy(() => import('./views/ProductsView').then((module) => ({ default: module.ProductsView })))
+const ServiceView = lazy(() => import('./views/ServiceView').then((module) => ({ default: module.ServiceView })))
+const ContactView = lazy(() => import('./views/ContactView').then((module) => ({ default: module.ContactView })))
+const TechnicalContactView = lazy(() => import('./views/TechnicalContactView').then((module) => ({ default: module.TechnicalContactView })))
+const QuoteRequestView = lazy(() => import('./views/QuoteRequestView').then((module) => ({ default: module.QuoteRequestView })))
+const OrderListView = lazy(() => import('./views/OrderListView').then((module) => ({ default: module.OrderListView })))
+const GuestOrderView = lazy(() => import('./views/GuestOrderView').then((module) => ({ default: module.GuestOrderView })))
+const OrderCheckoutView = lazy(() => import('./views/OrderCheckoutView').then((module) => ({ default: module.OrderCheckoutView })))
+const OrderCompleteView = lazy(() => import('./views/OrderCompleteView').then((module) => ({ default: module.OrderCompleteView })))
+const OrderSearchView = lazy(() => import('./views/OrderSearchView').then((module) => ({ default: module.OrderSearchView })))
+const LoginView = lazy(() => import('./views/LoginView').then((module) => ({ default: module.LoginView })))
+const MyOrdersView = lazy(() => import('./views/MyOrdersView').then((module) => ({ default: module.MyOrdersView })))
+const AdminView = lazy(() => import('./views/AdminView').then((module) => ({ default: module.AdminView })))
 
 const VIEW_PATHS = {
   home: '/',
@@ -152,14 +151,7 @@ function getAllowedViewForSite(view, isShopSite) {
 function getOrderItemStockLimit(item = {}) {
   const storedStock = Number(item.stockQuantity)
   if (Number.isFinite(storedStock)) return Math.max(0, storedStock)
-
-  try {
-    const product = resolveProductForOrder(item.optionModel || item.displayModel || item.baseModel)
-    const stockQuantity = Number(product.stockQuantity)
-    return Number.isFinite(stockQuantity) ? Math.max(0, stockQuantity) : null
-  } catch {
-    return null
-  }
+  return null
 }
 
 function clampOrderItemQuantity(item = {}, quantity = 1) {
@@ -254,14 +246,23 @@ export default function App() {
     lastNonQuoteViewRef.current = normalizeBackgroundView(visibleView)
   }, [isModalViewOpen, visibleView])
 
-  useEffect(
-    () =>
-      subscribeAuthState((user) => {
+  useEffect(() => {
+    let alive = true
+    let unsubscribe = null
+
+    import('./features/authService').then(({ subscribeAuthState }) => {
+      if (!alive) return
+      unsubscribe = subscribeAuthState((user) => {
         setAuthUser(user)
         setIsAuthReady(true)
-      }),
-    []
-  )
+      })
+    })
+
+    return () => {
+      alive = false
+      unsubscribe?.()
+    }
+  }, [])
 
   useEffect(() => {
     if (!isShopSite || !isAuthReady || authUser) return
@@ -621,12 +622,105 @@ export default function App() {
   }
 
   async function handleSignOut() {
+    const { logoutUser } = await import('./features/authService')
     await logoutUser()
     if (activeView === 'my-orders') handleNavigate('login')
   }
 
+  function renderVisibleView() {
+    switch (visibleView) {
+      case 'news':
+        return (
+          <NewsView
+            isActive
+            onNavigate={handleNavigate}
+            onOpenNewsArticle={handleOpenNewsArticle}
+            externalNewsRequest={newsRequest}
+            pathname={pathname}
+          />
+        )
+      case 'products':
+        return (
+          <ProductsView
+            isActive
+            isShopSite={isShopSite}
+            externalSearchRequest={productSearchRequest}
+            externalPresetRequest={productPresetRequest}
+            onAddOrderItem={handleAddOrderItem}
+            onAddQuoteItem={handleAddQuoteItem}
+            onStartGuestOrder={handleStartGuestOrder}
+            onOpenStoreProductPreset={handleOpenStoreProductPreset}
+            quoteItemCount={quoteSummary.totalQuantity}
+            orderItemCount={orderSummary.totalQuantity}
+          />
+        )
+      case 'service':
+        return <ServiceView isActive />
+      case 'order-form':
+        return (
+          <GuestOrderView
+            isActive
+            productId={getRouteParamFromPath(pathname, '/order')}
+            initialQuantity={guestOrderQuantity}
+            authUser={authUser}
+            onNavigateProducts={() => handleNavigate('products')}
+            onOrderComplete={handleOrderComplete}
+          />
+        )
+      case 'order-complete':
+        return (
+          <OrderCompleteView
+            isActive
+            orderNumber={getRouteParamFromPath(pathname, '/order-complete')}
+            onNavigateOrderSearch={() => handleNavigate(isShopSite ? 'my-orders' : 'order-search')}
+          />
+        )
+      case 'order-checkout':
+        return (
+          <OrderCheckoutView
+            isActive
+            items={orderItems}
+            authUser={authUser}
+            onNavigateProducts={() => handleNavigate('products')}
+            onOrderComplete={handleOrderComplete}
+            onClearItems={handleClearOrderItems}
+          />
+        )
+      case 'order-search':
+        return <OrderSearchView isActive />
+      case 'login':
+        return <LoginView isActive authUser={authUser} onNavigateMyOrders={() => handleNavigate('my-orders')} />
+      case 'my-orders':
+        return <MyOrdersView isActive authUser={authUser} onNavigateLogin={() => handleNavigate('login')} />
+      case 'contact-product':
+        return <ContactView isActive isShopSite={isShopSite} />
+      case 'contact-tech':
+        return <TechnicalContactView isActive />
+      case 'home':
+      default:
+        return (
+          <HomeView
+            isActive
+            isShopSite={isShopSite}
+            bannerImages={bannerImages}
+            onNavigate={handleNavigate}
+            onOpenProductPreset={handleOpenProductPreset}
+            onOpenProductSearch={handleProductSearch}
+            onOpenNewsArticle={handleOpenNewsArticle}
+            orderItemCount={orderSummary.totalQuantity}
+          />
+        )
+    }
+  }
+
+  const routeFallback = <div className="min-h-[420px] bg-slate-100" aria-hidden="true"></div>
+
   if (isAdminRoute) {
-    return <AdminView pathname={pathname} />
+    return (
+      <Suspense fallback={routeFallback}>
+        <AdminView pathname={pathname} />
+      </Suspense>
+    )
   }
 
   return (
@@ -707,85 +801,32 @@ export default function App() {
           orderItemCount={orderSummary.totalQuantity}
         />
         <main className="pt-[92px] max-[1280px]:pt-[62px]">
-          <HomeView
-            isActive={visibleView === 'home'}
-            isShopSite={isShopSite}
-            bannerImages={bannerImages}
-            onNavigate={handleNavigate}
-            onOpenProductPreset={handleOpenProductPreset}
-            onOpenProductSearch={handleProductSearch}
-            onOpenNewsArticle={handleOpenNewsArticle}
-            orderItemCount={orderSummary.totalQuantity}
-          />
-          <NewsView
-            isActive={visibleView === 'news'}
-            onNavigate={handleNavigate}
-            onOpenNewsArticle={handleOpenNewsArticle}
-            externalNewsRequest={newsRequest}
-            pathname={pathname}
-          />
-          <ProductsView
-            isActive={visibleView === 'products'}
-            isShopSite={isShopSite}
-            externalSearchRequest={productSearchRequest}
-            externalPresetRequest={productPresetRequest}
-            onAddOrderItem={handleAddOrderItem}
-            onAddQuoteItem={handleAddQuoteItem}
-            onStartGuestOrder={handleStartGuestOrder}
-            onOpenStoreProductPreset={handleOpenStoreProductPreset}
-            quoteItemCount={quoteSummary.totalQuantity}
-            orderItemCount={orderSummary.totalQuantity}
-          />
-          <ServiceView isActive={visibleView === 'service'} />
-          <GuestOrderView
-            isActive={visibleView === 'order-form'}
-            productId={getRouteParamFromPath(pathname, '/order')}
-            initialQuantity={guestOrderQuantity}
-            authUser={authUser}
-            onNavigateProducts={() => handleNavigate('products')}
-            onOrderComplete={handleOrderComplete}
-          />
-          <OrderCompleteView
-            isActive={visibleView === 'order-complete'}
-            orderNumber={getRouteParamFromPath(pathname, '/order-complete')}
-            onNavigateOrderSearch={() => handleNavigate(isShopSite ? 'my-orders' : 'order-search')}
-          />
-          <OrderCheckoutView
-            isActive={visibleView === 'order-checkout'}
-            items={orderItems}
-            authUser={authUser}
-            onNavigateProducts={() => handleNavigate('products')}
-            onOrderComplete={handleOrderComplete}
-            onClearItems={handleClearOrderItems}
-          />
-          <OrderSearchView isActive={visibleView === 'order-search'} />
-          <LoginView isActive={visibleView === 'login'} authUser={authUser} onNavigateMyOrders={() => handleNavigate('my-orders')} />
-          <MyOrdersView
-            isActive={visibleView === 'my-orders'}
-            authUser={authUser}
-            onNavigateLogin={() => handleNavigate('login')}
-          />
-          <OrderListView
-            isOpen={isOrderListOpen}
-            items={orderItems}
-            onClose={handleCloseModalView}
-            onNavigateProducts={handleNavigateProductsFromQuote}
-            onCheckout={handleCheckoutOrderList}
-            onUpdateQuantity={handleUpdateOrderItemQuantity}
-            onRemoveItem={handleRemoveOrderItem}
-            onClearItems={handleClearOrderItems}
-          />
-          <QuoteRequestView
-            isOpen={isQuoteRequestOpen}
-            items={quoteItems}
-            onClose={handleCloseModalView}
-            onNavigateProducts={handleNavigateProductsFromQuote}
-            onUpdateQuantity={handleUpdateQuoteItemQuantity}
-            onRemoveItem={handleRemoveQuoteItem}
-            onClearItems={handleClearQuoteItems}
-          />
-          <ContactView isActive={visibleView === 'contact-product'} isShopSite={isShopSite} />
-          <TechnicalContactView isActive={visibleView === 'contact-tech'} />
+          <Suspense fallback={routeFallback}>
+            {renderVisibleView()}
+            {isOrderListOpen ? (
+              <OrderListView
+                isOpen
+                items={orderItems}
+                onClose={handleCloseModalView}
+                onNavigateProducts={handleNavigateProductsFromQuote}
+                onCheckout={handleCheckoutOrderList}
+                onUpdateQuantity={handleUpdateOrderItemQuantity}
+                onRemoveItem={handleRemoveOrderItem}
+                onClearItems={handleClearOrderItems}
+              />
+            ) : null}
+            {isQuoteRequestOpen ? (
+              <QuoteRequestView
+                isOpen
+                items={quoteItems}
+                onClose={handleCloseModalView}
+                onNavigateProducts={handleNavigateProductsFromQuote}
+                onUpdateQuantity={handleUpdateQuoteItemQuantity}
+                onRemoveItem={handleRemoveQuoteItem}
+                onClearItems={handleClearQuoteItems}
+              />
+            ) : null}
+          </Suspense>
         </main>
         <Footer isShopSite={isShopSite} />
       </div>

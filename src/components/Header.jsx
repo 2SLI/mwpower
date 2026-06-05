@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { ProductSearchModal } from './ProductSearchModal'
 import { lockBodyScroll } from '../utils/bodyScrollLock'
+
+const ProductSearchModal = lazy(() => import('./ProductSearchModal').then((module) => ({ default: module.ProductSearchModal })))
 
 const navItems = [
   { key: 'products', label: '제품', view: 'products' },
@@ -369,16 +370,20 @@ export function Header({ activeView, isShopSite = true, authUser = null, onNavig
 
       </div>
 
-      <ProductSearchModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onSelectKeyword={(keyword) => {
-          onProductSearch?.(keyword)
-        }}
-        onSelectProductRoute={(route) => {
-          onProductRouteSelect?.(route)
-        }}
-      />
+      {isSearchOpen ? (
+        <Suspense fallback={null}>
+          <ProductSearchModal
+            isOpen
+            onClose={() => setIsSearchOpen(false)}
+            onSelectKeyword={(keyword) => {
+              onProductSearch?.(keyword)
+            }}
+            onSelectProductRoute={(route) => {
+              onProductRouteSelect?.(route)
+            }}
+          />
+        </Suspense>
+      ) : null}
       {mobileMenuPortal}
     </header>
   )

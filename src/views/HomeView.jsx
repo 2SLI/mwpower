@@ -1,10 +1,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { HomeProductCategorySection } from '../components/HomeProductCategorySection'
 import { NEWS_FALLBACK_IMAGE, formatNewsDate, getAllNewsSorted } from '../data/newsContent'
-import { loadLeafModelTreeMap, loadMajorCategories, normalizeLabel } from '../features/productCatalogService'
-import { buildMajorIdByName, buildModelRouteIndex, toProductRouteShortcut } from '../features/productRouteIndex'
 import { loadNewsArticlesForPublic, normalizeNewsItems } from '../features/newsService'
-import { defaultMajorCategories } from '../data/defaultMajorCategories'
 
 const solutionCards = [
   { title: 'DC/DC Converter 전원 솔루션', image: '/meanwell/dcdcconverter_banner.jpeg', alt: 'DC/DC', productPreset: { majorId: 'dc-dc' } },
@@ -80,8 +77,11 @@ function getSingleSearchToken(value = '') {
   return tokens.length === 1 ? tokens[0] : ''
 }
 
-const EMPTY_TREE = { byKey: {}, byLeaf: {} }
 const NEWS_POPUP_SUPPRESS_KEY = 'mwpower_news_popup_suppress_until'
+
+function normalizeShortcutToken(value = '') {
+  return String(value ?? '').trim().toLowerCase()
+}
 
 function getNewsArticleUrl(article = {}) {
   return String(article?.articleUrl || article?.externalUrl || '').trim()
@@ -104,8 +104,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
   const [mobileSearchKeyword, setMobileSearchKeyword] = useState('')
   const [newsItems, setNewsItems] = useState(() => normalizeNewsItems(getAllNewsSorted()))
   const [newsPreviewError, setNewsPreviewError] = useState('')
-  const [majorCategories, setMajorCategories] = useState(defaultMajorCategories)
-  const [leafTreeMap, setLeafTreeMap] = useState(EMPTY_TREE)
+  const [mobileSearchShortcutList, setMobileSearchShortcutList] = useState([])
   const [isNewsPopupOpen, setIsNewsPopupOpen] = useState(false)
   const [isNewsPopupDismissed, setIsNewsPopupDismissed] = useState(false)
   const mobileSolutionTrackRef = useRef(null)
@@ -153,52 +152,8 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
     }
   }, [])
 
-  useEffect(() => {
-    let alive = true
-
-    ;(async () => {
-      const [majorResult, treeResult] = await Promise.all([loadMajorCategories(), loadLeafModelTreeMap()])
-      if (!alive) return
-      setMajorCategories(majorResult.categories.length > 0 ? majorResult.categories : defaultMajorCategories)
-      setLeafTreeMap(treeResult.treeMap)
-    })().catch(() => {
-      if (!alive) return
-      setMajorCategories(defaultMajorCategories)
-      setLeafTreeMap(EMPTY_TREE)
-    })
-
-    return () => {
-      alive = false
-    }
-  }, [])
-
   const visibleNews = newsItems.slice(0, 8)
   const popupNews = visibleNews.find((item) => !isBlogArticle(item)) ?? visibleNews[0] ?? null
-  const majorIdByName = useMemo(() => buildMajorIdByName(majorCategories), [majorCategories])
-  const modelRouteIndex = useMemo(() => buildModelRouteIndex(leafTreeMap, majorIdByName), [leafTreeMap, majorIdByName])
-  const mobileSearchShortcutList = useMemo(() => {
-    const tokenKey = normalizeLabel(getSingleSearchToken(mobileSearchKeyword))
-    if (!tokenKey) return []
-
-    return Object.entries(modelRouteIndex)
-      .filter(([modelKey]) => modelKey.includes(tokenKey) || tokenKey.startsWith(`${modelKey}-`))
-      .map(([modelKey, route]) => toProductRouteShortcut(modelKey, route))
-      .sort((a, b) => {
-        const aExact = a.modelKey === tokenKey ? 0 : 1
-        const bExact = b.modelKey === tokenKey ? 0 : 1
-        if (aExact !== bExact) return aExact - bExact
-
-        const aStarts = a.modelKey.startsWith(tokenKey) ? 0 : 1
-        const bStarts = b.modelKey.startsWith(tokenKey) ? 0 : 1
-        if (aStarts !== bStarts) return aStarts - bStarts
-
-        const lengthDiff = a.modelKey.length - b.modelKey.length
-        if (lengthDiff !== 0) return lengthDiff
-
-        return a.displayModel.localeCompare(b.displayModel, undefined, { numeric: true, sensitivity: 'base' })
-      })
-      .slice(0, 8)
-  }, [mobileSearchKeyword, modelRouteIndex])
   const mobileSolutionCards = useMemo(
     () =>
       solutionCards.map((item, index) => {
@@ -212,6 +167,65 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
       }),
     []
   )
+
+  useEffect(() => {
+    const searchToken = getSingleSearchToken(mobileSearchKeyword)
+    if (!searchToken) {
+      setMobileSearchShortcutList([])
+      return undefined
+    }
+
+    let alive = true
+
+    ;(async () => {
+      const [catalogService, routeIndex] = await Promise.all([
+        import('../features/productCatalogService'),
+        import('../features/productRouteIndex'),
+      ])
+      if (!alive) return
+
+      const [majorResult, treeResult] = await Promise.all([
+        catalogService.loadMajorCategories(),
+        catalogService.loadLeafModelTreeMap(),
+      ])
+      if (!alive) return
+
+      const tokenKey = catalogService.normalizeLabel(searchToken)
+      if (!tokenKey) {
+        setMobileSearchShortcutList([])
+        return
+      }
+
+      const majorIdByName = routeIndex.buildMajorIdByName(majorResult.categories)
+      const modelRouteIndex = routeIndex.buildModelRouteIndex(treeResult.treeMap, majorIdByName)
+      const shortcutList = Object.entries(modelRouteIndex)
+        .filter(([modelKey]) => modelKey.includes(tokenKey) || tokenKey.startsWith(`${tokenKey}-`))
+        .map(([modelKey, route]) => routeIndex.toProductRouteShortcut(modelKey, route))
+        .sort((a, b) => {
+          const aExact = a.modelKey === tokenKey ? 0 : 1
+          const bExact = b.modelKey === tokenKey ? 0 : 1
+          if (aExact !== bExact) return aExact - bExact
+
+          const aStarts = a.modelKey.startsWith(tokenKey) ? 0 : 1
+          const bStarts = b.modelKey.startsWith(tokenKey) ? 0 : 1
+          if (aStarts !== bStarts) return aStarts - bStarts
+
+          const lengthDiff = a.modelKey.length - b.modelKey.length
+          if (lengthDiff !== 0) return lengthDiff
+
+          return a.displayModel.localeCompare(b.displayModel, undefined, { numeric: true, sensitivity: 'base' })
+        })
+        .slice(0, 8)
+
+      setMobileSearchShortcutList(shortcutList)
+    })().catch(() => {
+      if (alive) setMobileSearchShortcutList([])
+    })
+
+    return () => {
+      alive = false
+    }
+  }, [mobileSearchKeyword])
 
   function navigateSolutionCard(item) {
     if (item.forceProductsView) {
@@ -234,7 +248,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
     const keyword = String(mobileSearchKeyword ?? '').trim()
     if (!keyword) return
 
-    const keywordKey = normalizeLabel(keyword)
+    const keywordKey = normalizeShortcutToken(keyword)
     const matchedShortcut =
       mobileSearchShortcutList.find((item) => item.modelKey === keywordKey) ||
       mobileSearchShortcutList.find((item) => item.modelKey.startsWith(keywordKey)) ||
