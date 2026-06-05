@@ -383,8 +383,8 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
           <div className="mx-auto w-full max-w-[1320px]">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-end">
               <div>
-                <p className="m-0 text-[12px] font-black uppercase tracking-[0.16em] text-[#d53232]">MWPOWER Store</p>
-                <h2 className="m-0 mt-3 max-w-[820px] text-[clamp(2.25rem,4.4vw,4.7rem)] font-black leading-[1.06] tracking-[-0.025em] text-slate-950">
+                <p className="m-0 text-[12px] font-bold uppercase tracking-[0.14em] text-[#d53232]">MWPOWER Store</p>
+                <h2 className="m-0 mt-3 max-w-[760px] text-[clamp(1.8rem,3.1vw,3.25rem)] font-bold leading-[1.18] text-slate-950">
                   <span className="text-[#d53232]">MWPOWER</span>는 정품 민웰 SMPS를 판매합니다.
                 </h2>
                 <p className="m-0 mt-4 max-w-[620px] text-[16px] font-semibold leading-7 text-slate-500">
@@ -393,13 +393,13 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
               </div>
 
               <div className="rounded-[18px] bg-white p-5 shadow-[0_18px_45px_-40px_rgba(15,23,42,0.55)]">
-                <p className="m-0 text-[13px] font-black text-slate-950">구매 도움이 필요하신가요?</p>
+                <p className="m-0 text-[13px] font-bold text-slate-950">구매 도움이 필요하신가요?</p>
                 <p className="m-0 mt-1 text-sm font-semibold leading-6 text-slate-500">모델명을 검색하거나 인기 카테고리에서 바로 시작하세요.</p>
                 <div className="mt-4 grid grid-cols-2 gap-2">
-                  <button type="button" className="h-10 rounded-full bg-slate-950 px-3 text-xs font-black text-white" onClick={() => onNavigate('products')}>
+                  <button type="button" className="h-10 rounded-full bg-slate-950 px-3 text-xs font-bold text-white" onClick={() => onNavigate('products')}>
                     전체 상품
                   </button>
-                  <button type="button" className="h-10 rounded-full bg-slate-100 px-3 text-xs font-black text-slate-800" onClick={() => onNavigate('order-list')}>
+                  <button type="button" className="h-10 rounded-full bg-slate-100 px-3 text-xs font-bold text-slate-800" onClick={() => onNavigate('order-list')}>
                     장바구니 {orderItemCount > 99 ? '99+' : orderItemCount}
                   </button>
                 </div>
@@ -420,7 +420,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
                 placeholder="어떤 전원공급장치를 찾고 계신가요?"
                 className="min-w-0 flex-1 bg-transparent text-[16px] font-bold text-slate-900 placeholder:font-semibold placeholder:text-slate-400"
               />
-              <button type="submit" className="h-10 rounded-full bg-[#d53232] px-5 text-sm font-black text-white transition hover:bg-[#bd2929]">
+              <button type="submit" className="h-10 rounded-full bg-[#d53232] px-5 text-sm font-bold text-white transition hover:bg-[#bd2929]">
                 검색
               </button>
             </form>
@@ -432,7 +432,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
                 <button
                   key={typeof item === 'string' ? item : item.modelKey}
                   type="button"
-                  className="rounded-full bg-white px-3 py-1.5 text-xs font-black text-slate-700 shadow-sm transition hover:text-[#d53232]"
+                  className="rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm transition hover:text-[#d53232]"
                   onClick={() => {
                     if (typeof item === 'string') {
                       onOpenProductSearch?.(item)
@@ -469,7 +469,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
                   <span className="grid h-24 w-24 place-items-center">
                     <img src={item.image} alt="" className="max-h-20 max-w-24 object-contain" loading="lazy" />
                   </span>
-                  <span className="text-sm font-black text-slate-900">{item.label}</span>
+                  <span className="text-sm font-bold text-slate-900">{item.label}</span>
                 </button>
               ))}
             </div>
@@ -481,7 +481,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
         <section className="px-5 pb-16 pt-1 md:px-8 md:pb-20" aria-label="스토어 추천">
           <div className="mx-auto w-full max-w-[1480px]">
             <header className="mb-5 flex items-end justify-between gap-4">
-              <h2 className="m-0 text-[clamp(1.8rem,3vw,3.2rem)] font-black tracking-[-0.03em] text-slate-950">
+              <h2 className="m-0 text-[clamp(1.55rem,2.2vw,2.35rem)] font-bold text-slate-950">
                 최신 구매 경험.
                 <span className="text-[#d53232]"> 더 빠르고 선명하게.</span>
               </h2>
@@ -495,10 +495,10 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
                   className={`min-h-[300px] rounded-[28px] p-7 text-left shadow-[0_22px_56px_-44px_rgba(15,23,42,0.7)] transition hover:-translate-y-0.5 ${item.tone}`}
                   onClick={item.onClick}
                 >
-                  <span className="text-xs font-black uppercase tracking-[0.14em] text-[#d53232]">{item.eyebrow}</span>
-                  <strong className="mt-4 block max-w-[12ch] text-[clamp(1.75rem,2.4vw,2.9rem)] font-black leading-[1.05] tracking-[-0.03em]">{item.title}</strong>
+                  <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#d53232]">{item.eyebrow}</span>
+                  <strong className="mt-4 block max-w-[13ch] text-[clamp(1.45rem,1.9vw,2.15rem)] font-bold leading-[1.18]">{item.title}</strong>
                   <span className="mt-4 block max-w-[28ch] text-sm font-semibold leading-6 opacity-70">{item.text}</span>
-                  <span className="mt-7 inline-flex h-10 items-center rounded-full bg-[#d53232] px-4 text-xs font-black text-white">{item.action}</span>
+                  <span className="mt-7 inline-flex h-10 items-center rounded-full bg-[#d53232] px-4 text-xs font-bold text-white">{item.action}</span>
                 </button>
               ))}
             </div>
@@ -519,7 +519,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
               <span className="absolute bottom-0 right-0 h-20 w-20 bg-[#2f2f2f] [clip-path:polygon(100%_0,100%_100%,0_100%)]" aria-hidden="true"></span>
 
               <div className="relative">
-                <h2 className="m-0 text-center text-[clamp(1.45rem,2.6vw,2.4rem)] font-black leading-tight tracking-[-0.03em] text-slate-950">
+                <h2 className="m-0 text-center text-[clamp(1.3rem,2.1vw,1.9rem)] font-bold leading-tight text-slate-950">
                   <span className="text-[#d53232]">※</span> MWPOWER 민웰 공식 뉴스 안내
                 </h2>
 
@@ -531,11 +531,11 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
                   </p>
                 </div>
 
-                <div className="mx-auto mt-8 max-w-[610px] text-[18px] font-bold leading-[1.7] tracking-[-0.02em] text-black max-[640px]:mt-5 max-[640px]:text-[15px]">
+                <div className="mx-auto mt-8 max-w-[610px] text-[16px] font-semibold leading-[1.7] text-black max-[640px]:mt-5 max-[640px]:text-[14px]">
                   <p className="m-0">
                     최근 등록된 민웰 뉴스:
                     <br />
-                    <span className="font-black underline decoration-[#d53232] decoration-[6px] underline-offset-[-2px]">{popupNews.title}</span>
+                    <span className="font-bold underline decoration-[#d53232] decoration-[4px] underline-offset-[-2px]">{popupNews.title}</span>
                   </p>
                   {popupNews.summary ? (
                     <p className="m-0 mt-6 text-[#d53232]">
@@ -693,13 +693,13 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
           </label>
           {mobileSearchShortcutList.length > 0 ? (
             <div className="mt-2.5">
-              <p className="m-0 text-[13px] font-black text-[#b4262e]">바로가기</p>
+              <p className="m-0 text-[13px] font-bold text-[#b4262e]">바로가기</p>
               <div className="mt-1.5 flex flex-wrap justify-center gap-1.5 pb-0.5">
                 {mobileSearchShortcutList.map((shortcut) => (
                   <button
                     key={shortcut.modelKey}
                     type="button"
-                    className="shrink-0 rounded-full border border-[#d79aa2] bg-white px-2.5 py-1 text-[11px] font-black uppercase leading-4 text-[#b4262e] shadow-[0_4px_10px_rgba(15,23,42,0.04)]"
+                    className="shrink-0 rounded-full border border-[#d79aa2] bg-white px-2.5 py-1 text-[11px] font-bold uppercase leading-4 text-[#b4262e] shadow-[0_4px_10px_rgba(15,23,42,0.04)]"
                     onClick={() => onOpenProductSearch?.(shortcut.displayModel)}
                   >
                     {shortcut.displayModel}
@@ -729,8 +729,8 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
               <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.26)_0%,rgba(15,23,42,0.84)_66%,rgba(2,6,23,0.95)_100%)]"></span>
 
               <div className="absolute left-1/2 top-1/2 z-10 w-[min(calc(100%-3rem),22rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/20 bg-black/28 p-4 backdrop-blur-sm">
-                <p className="m-0 text-[10px] font-black tracking-[0.12em] text-rose-200">MWPOWER</p>
-                <h3 className="m-0 mt-1.5 text-[clamp(18px,5.4vw,23px)] font-black leading-[1.15] text-white">{item.mobileTitle}</h3>
+                <p className="m-0 text-[10px] font-bold tracking-[0.12em] text-rose-200">MWPOWER</p>
+                <h3 className="m-0 mt-1.5 text-[clamp(17px,5vw,21px)] font-bold leading-[1.2] text-white">{item.mobileTitle}</h3>
                 {item.mobileSubtitle ? <p className="m-0 mt-1.5 text-[13px] font-semibold leading-5 text-slate-100">{item.mobileSubtitle}</p> : null}
               </div>
             </a>
@@ -755,7 +755,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
       <section className="w-full border-t border-slate-200 bg-slate-200/55 py-10 md:py-14" aria-label="Product">
         <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
           <header className="mb-6 flex items-center justify-between gap-4">
-            <h2 className="text-[clamp(2rem,2.6vw,3.1rem)] font-black tracking-tight text-slate-900">
+            <h2 className="text-[clamp(1.55rem,2.1vw,2.35rem)] font-bold text-slate-900">
               <span className="text-[#e5332a]">Product</span> Focus
             </h2>
             <a
@@ -774,7 +774,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
             {productCards.map((item) => (
               <article key={item.name} className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
                 <p className="text-xs font-semibold text-slate-500">{item.type}</p>
-                <h3 className="mt-1 text-[1.18rem] font-black tracking-tight text-slate-800">{item.name}</h3>
+                <h3 className="mt-1 text-[1.05rem] font-bold text-slate-800">{item.name}</h3>
                 <p className="mt-2 text-[13px] leading-relaxed text-slate-500">{item.desc}</p>
               </article>
             ))}
@@ -784,12 +784,12 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
             <div className="grid min-h-[200px] place-items-center bg-[linear-gradient(135deg,#f1f5f9_0%,#dbe5ef_100%)] px-6 py-8 text-center">
               <div>
                 <p className="text-xs font-bold tracking-[0.12em] text-[#d7322a]">CATEGORY FIRST</p>
-                <h3 className="mt-3 text-[clamp(1.35rem,1.8vw,2rem)] font-black leading-tight tracking-tight text-slate-900">MWPOWER</h3>
+                <h3 className="mt-3 text-[clamp(1.25rem,1.6vw,1.7rem)] font-bold leading-tight text-slate-900">MWPOWER</h3>
               </div>
             </div>
             <div className="p-6 lg:p-8">
               <p className="text-xs font-bold tracking-[0.11em] text-[#d7322a]">PRODUCT INFORMATION</p>
-              <h3 className="mt-3 text-[clamp(1.6rem,2.1vw,2.55rem)] font-black leading-tight tracking-tight text-slate-900">
+              <h3 className="mt-3 text-[clamp(1.4rem,1.8vw,2rem)] font-bold leading-tight text-slate-900">
                 라인 특성에 맞는 전원 제품군을
                 <br />
                 카테고리 기반으로 빠르게 탐색하세요.
@@ -813,8 +813,8 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
         <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
           <header className="mb-6 flex items-center justify-between gap-4">
             <div>
-              <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#d7322a]">뉴스</p>
-              <h2 className="mt-2 text-[clamp(2rem,2.6vw,3.1rem)] font-black tracking-tight text-slate-900">최신 뉴스 미리보기</h2>
+              <p className="m-0 text-[11px] font-bold uppercase tracking-[0.14em] text-[#d7322a]">뉴스</p>
+              <h2 className="mt-2 text-[clamp(1.55rem,2.1vw,2.35rem)] font-bold text-slate-900">최신 뉴스 미리보기</h2>
               <p className="mt-2 text-sm font-semibold text-slate-500">MEAN WELL 공식 신제품 소식을 한국어 요약으로 먼저 확인하세요.</p>
             </div>
             <a
@@ -850,13 +850,13 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
                   </button>
                   <button type="button" className="block min-h-[128px] w-full bg-white px-5 py-4 text-left" onClick={() => openNews(item)}>
                     <div className="flex items-center justify-between gap-3">
-                      <time className="shrink-0 text-[13px] font-black tracking-[0.12em] text-[#c9252f]">{formatNewsDate(item.date)}</time>
-                      <span className="min-w-0 rounded-full bg-white px-2.5 py-1 text-[11px] font-black text-slate-500 shadow-[inset_0_0_0_1px_rgba(226,232,240,0.85)]">
+                      <time className="shrink-0 text-[13px] font-bold tracking-[0.1em] text-[#c9252f]">{formatNewsDate(item.date)}</time>
+                      <span className="min-w-0 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold text-slate-500 shadow-[inset_0_0_0_1px_rgba(226,232,240,0.85)]">
                         {item.sourceLabel || '외부 뉴스'}
                       </span>
                     </div>
                     <strong
-                      className="mt-3 block text-[1.08rem] font-black leading-[1.38] text-slate-900"
+                      className="mt-3 block text-[1rem] font-bold leading-[1.42] text-slate-900"
                     >
                       {item.title}
                     </strong>
@@ -867,7 +867,7 @@ export function HomeView({ isActive, isShopSite = false, bannerImages, onNavigat
           ) : (
             <div className="grid min-h-[260px] place-items-center rounded-[22px] bg-white px-6 text-center shadow-sm">
               <div>
-                <strong className="text-lg font-black text-slate-900">등록된 뉴스가 없습니다.</strong>
+                <strong className="text-lg font-bold text-slate-900">등록된 뉴스가 없습니다.</strong>
                 <p className="mt-2 text-sm font-semibold text-slate-500">관리자에서 링크를 등록하면 이 영역에 최신 뉴스가 표시됩니다.</p>
               </div>
             </div>

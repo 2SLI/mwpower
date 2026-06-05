@@ -1423,21 +1423,21 @@ export function ProductsView({
       <aside className="self-start rounded-xl bg-white">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#d53232]">{isShopSite ? 'Purchase' : 'Quote'}</p>
-            <p className="m-0 mt-1 text-[22px] font-black text-slate-950">{isShopSite ? '구매 정보' : '견적 요청'}</p>
+            <p className="m-0 text-[11px] font-bold uppercase tracking-[0.08em] text-[#d53232]">{isShopSite ? 'Purchase' : 'Quote'}</p>
+            <p className="m-0 mt-1 text-[20px] font-bold text-slate-950">{isShopSite ? '구매 정보' : '견적 요청'}</p>
           </div>
           {canAddSelectedModel ? (
             <div className="flex shrink-0 items-center gap-2">
               <button
                 type="button"
-                className="inline-flex h-7 items-center justify-center rounded-full bg-[#d53232] px-3 text-[11px] font-black uppercase tracking-[0.04em] text-white transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+                className="inline-flex h-7 items-center justify-center rounded-full bg-[#d53232] px-3 text-[11px] font-bold uppercase tracking-[0.04em] text-white transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
                 onClick={handleScrollToPdfSection}
                 disabled={!selectedModelCard?.asset?.pdfUrl}
                 aria-label="PDF 섹션으로 이동"
               >
                 PDF
               </button>
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-black text-slate-700">
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-bold text-slate-700">
                 {orderQuantity} EA
               </span>
             </div>
@@ -1450,7 +1450,7 @@ export function ProductsView({
 
         <div className="mt-4 grid gap-3">
           <label className="grid gap-1.5">
-            <span className="text-[13px] font-extrabold text-slate-800">추가 옵션</span>
+            <span className="text-[13px] font-bold text-slate-800">추가 옵션</span>
             <select
               className="h-14 rounded-lg border border-slate-200 bg-white px-4 text-[15px] font-semibold text-slate-800 outline-none transition focus:border-[#d53232] focus:shadow-[0_0_0_3px_#f8d8dc] disabled:bg-slate-100 disabled:text-slate-400"
               value={selectedOptionModel}
@@ -1474,11 +1474,11 @@ export function ProductsView({
           {canAddSelectedModel ? (
             <>
               <label className="grid gap-1.5">
-                <span className="text-[13px] font-extrabold text-slate-800">수량</span>
+                <span className="text-[13px] font-bold text-slate-800">수량</span>
                 <div className="grid w-[170px] grid-cols-[44px_minmax(0,1fr)_44px] items-center rounded-lg border border-slate-200 bg-white">
                   <button
                     type="button"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-l-lg border-r border-slate-200 text-lg font-black text-slate-500 transition hover:bg-slate-50"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-l-lg border-r border-slate-200 text-lg font-bold text-slate-500 transition hover:bg-slate-50"
                     onClick={() => setSelectedQuoteQuantity((prev) => Math.max(1, clampRequestedQuantityForModel(inventoryTargetModel, prev) - 1))}
                     aria-label="수량 감소"
                   >
@@ -1491,12 +1491,12 @@ export function ProductsView({
                     max={Number.isFinite(stockLimit) ? stockLimit : undefined}
                     value={orderQuantity}
                     onChange={(event) => setSelectedQuoteQuantity(clampRequestedQuantityForModel(inventoryTargetModel, event.target.value))}
-                    className="h-11 min-w-0 border-0 bg-transparent px-2 text-center text-[17px] font-black text-slate-900 outline-none"
+                    className="h-11 min-w-0 border-0 bg-transparent px-2 text-center text-[16px] font-bold text-slate-900 outline-none"
                   />
                   <button
                     type="button"
                     disabled={!canIncreaseQuantity}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-r-lg border-l border-slate-200 text-lg font-black text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-300"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-r-lg border-l border-slate-200 text-lg font-bold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-300"
                     onClick={() => setSelectedQuoteQuantity((prev) => clampRequestedQuantityForModel(inventoryTargetModel, normalizeRequestedQuoteQuantity(prev, 1) + 1))}
                     aria-label="수량 증가"
                   >
@@ -1508,14 +1508,14 @@ export function ProductsView({
               {isShopSite ? (
                 <div className="rounded-xl border border-slate-200 bg-slate-50">
                   <div className="p-4">
-                    <p className="m-0 break-all text-[15px] font-black leading-6 text-slate-900">
+                    <p className="m-0 break-all text-[15px] font-bold leading-6 text-slate-900">
                     {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
                     </p>
                     <div className="mt-2 flex flex-wrap items-center gap-2">
-                      <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-black ${inventoryToneClass}`}>
+                      <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-bold ${inventoryToneClass}`}>
                         {inventoryText}
                       </span>
-                      <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-black text-emerald-700">
+                      <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-bold text-emerald-700">
                         {priceText}
                       </span>
                     </div>
@@ -1533,15 +1533,15 @@ export function ProductsView({
                     ) : null}
                   </div>
                   <div className="flex items-center justify-between border-t border-slate-200 bg-white px-4 py-4">
-                    <span className="text-sm font-black text-slate-900">총 {orderQuantity.toLocaleString('ko-KR')}개</span>
-                    <span className="text-sm font-black text-slate-500">
-                      총 금액 <strong className="ml-2 text-[24px] text-[#d6001c]">{totalPriceText}</strong>
+                    <span className="text-sm font-bold text-slate-900">총 {orderQuantity.toLocaleString('ko-KR')}개</span>
+                    <span className="text-sm font-bold text-slate-500">
+                      총 금액 <strong className="ml-2 text-[20px] font-extrabold text-[#d6001c]">{totalPriceText}</strong>
                     </span>
                   </div>
                 </div>
               ) : (
                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="m-0 break-all text-[15px] font-black leading-6 text-slate-900">
+                  <p className="m-0 break-all text-[15px] font-bold leading-6 text-slate-900">
                     {selectedOptionModel || (requiresOptionSelection ? '옵션 모델을 선택해주세요' : selectedModelCard.modelName)}
                   </p>
                   <p className={`m-0 mt-2 text-[12px] font-semibold ${isAddToQuoteDisabled ? 'text-[#b4262e]' : 'text-slate-500'}`}>
@@ -1555,7 +1555,7 @@ export function ProductsView({
                 <button
                   type="button"
                   disabled={isAddToOrderDisabled}
-                  className={`inline-flex h-14 w-full items-center justify-center rounded-xl px-4 text-base font-black text-white transition ${
+                  className={`inline-flex h-[52px] w-full items-center justify-center rounded-xl px-4 text-[15px] font-bold text-white transition ${
                     isAddToOrderDisabled
                       ? 'cursor-not-allowed bg-slate-300 text-slate-100'
                       : 'bg-[#d53232] hover:bg-[#bd2929]'
@@ -1567,7 +1567,7 @@ export function ProductsView({
                 <button
                   type="button"
                   disabled={isAddToOrderDisabled}
-                  className={`inline-flex h-14 w-full items-center justify-center rounded-xl border px-4 text-base font-black transition ${
+                  className={`inline-flex h-[52px] w-full items-center justify-center rounded-xl border px-4 text-[15px] font-bold transition ${
                     isAddToOrderDisabled
                       ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300'
                       : 'border-slate-300 bg-white text-slate-900 hover:border-[#d53232] hover:text-[#d53232]'
@@ -1600,7 +1600,7 @@ export function ProductsView({
                   <button
                     type="button"
                     disabled={isAddToQuoteDisabled}
-                    className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-extrabold transition ${
+                    className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-bold transition ${
                       isAddToQuoteDisabled
                         ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300'
                         : 'border-transparent bg-slate-100 text-slate-800 hover:bg-rose-50 hover:text-[#d53232]'
@@ -1629,7 +1629,7 @@ export function ProductsView({
                 ) : null}
                 <button
                   type="button"
-                  className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-extrabold transition ${
+                  className={`inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-bold transition ${
                     !selectedModelCard?.asset?.pdfUrl
                       ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-300'
                       : 'border-[#d53232] bg-[#d53232] text-white shadow-[0_10px_20px_rgba(213,50,50,0.16)] hover:border-[#bd2929] hover:bg-[#bd2929]'
@@ -1798,7 +1798,7 @@ export function ProductsView({
             <button
               key={item.modelName}
               type="button"
-              className={`inline-flex min-h-9 max-w-full appearance-none items-center gap-1.5 rounded-full border px-3 py-1.5 text-left text-[13px] font-extrabold leading-5 shadow-none transition ${
+              className={`inline-flex min-h-9 max-w-full appearance-none items-center gap-1.5 rounded-full border px-3 py-1.5 text-left text-[13px] font-bold leading-5 shadow-none transition ${
                 isCurrentModel
                   ? 'border-[#c9252f] bg-[#c9252f] text-white'
                   : 'border-slate-300 bg-white text-slate-800 hover:border-[#c9252f] hover:bg-[#fff5f6] hover:text-[#c9252f]'
@@ -1808,16 +1808,16 @@ export function ProductsView({
               <span className="truncate">{item.modelName}</span>
               {isShopSite ? (
                 <>
-                  <span className={`shrink-0 text-[10px] font-black ${inventoryClass}`}>
+                  <span className={`shrink-0 text-[10px] font-bold ${inventoryClass}`}>
                     {formatInventoryText(item.modelName)}
                   </span>
-                  <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/85' : 'text-emerald-700'}`}>
+                  <span className={`shrink-0 text-[10px] font-bold ${isCurrentModel ? 'text-white/85' : 'text-emerald-700'}`}>
                     {formatProductPriceText(item.modelName)}
                   </span>
                 </>
               ) : null}
-              {isCurrentModel ? <span className="shrink-0 text-[10px] font-black opacity-90">선택</span> : null}
-              {!hasPdfAsset(item.asset) ? <span className={`shrink-0 text-[10px] font-black ${isCurrentModel ? 'text-white/80' : 'text-slate-400'}`}>PDF 준비중</span> : null}
+              {isCurrentModel ? <span className="shrink-0 text-[10px] font-bold opacity-90">선택</span> : null}
+              {!hasPdfAsset(item.asset) ? <span className={`shrink-0 text-[10px] font-bold ${isCurrentModel ? 'text-white/80' : 'text-slate-400'}`}>PDF 준비중</span> : null}
             </button>
           )
         })}
@@ -1845,7 +1845,7 @@ export function ProductsView({
         </div>
 
         <div className="grid content-start gap-3">
-          <h4 className="m-0 text-[34px] font-black leading-tight tracking-[-0.01em] text-slate-900 max-[640px]:text-[28px]">{record.leaf}</h4>
+          <h4 className="m-0 text-[26px] font-bold leading-tight text-slate-900 max-[640px]:text-[22px]">{record.leaf}</h4>
           <div className="grid gap-1.5 text-[15px] text-slate-700">
             <p className="m-0">
               <strong>Wattage:</strong> {record.wattage || '정보 없음'}
@@ -2091,7 +2091,7 @@ export function ProductsView({
       <div className="mx-auto mt-8 max-w-[1160px] px-3 max-[980px]:mt-6">
         <div className="product-main min-w-0">
           <div className="rounded-xl border border-slate-300 bg-white px-5 py-5 max-[640px]:px-3.5">
-            <h1 className="mb-0 mt-0 text-[clamp(34px,2.3vw,44px)] font-black leading-tight tracking-[-0.02em] text-slate-800 max-[980px]:text-[32px] max-[640px]:text-[26px]">
+            <h1 className="mb-0 mt-0 text-[clamp(28px,2vw,36px)] font-bold leading-tight text-slate-800 max-[980px]:text-[28px] max-[640px]:text-[23px]">
               Product Information
             </h1>
             <p className="mb-0 mt-2 text-[14px] text-slate-500">{pageDescription}</p>
@@ -2129,8 +2129,8 @@ export function ProductsView({
             <div className="mb-4 rounded-2xl border border-[#efc8cd] bg-[linear-gradient(135deg,#fff7f7_0%,#fff1f2_100%)] px-4 py-3.5 shadow-[0_10px_24px_rgba(185,37,45,0.08)]">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="m-0 text-[11px] font-black uppercase tracking-[0.08em] text-[#b4262e]">{isShopSite ? 'Order List' : 'Quote List'}</p>
-                  <p className="m-0 mt-1 text-sm font-extrabold text-slate-900">
+                  <p className="m-0 text-[11px] font-bold uppercase tracking-[0.08em] text-[#b4262e]">{isShopSite ? 'Order List' : 'Quote List'}</p>
+                  <p className="m-0 mt-1 text-sm font-bold text-slate-900">
                     {isShopSite ? `현재 주문목록 ${orderItemCount}개 / 견적목록 ${quoteItemCount}개 수량이 담겨 있습니다.` : `현재 견적목록 ${quoteItemCount}개 수량이 담겨 있습니다.`}
                   </p>
                   <p className="m-0 mt-1 text-[13px] font-semibold text-slate-600">
@@ -2143,7 +2143,7 @@ export function ProductsView({
 
           {hasSearchInput && modelShortcutList.length > 0 ? (
             <div className="mb-3 rounded-xl border border-[#efc9cf] bg-[#fff8f9] px-3.5 py-3">
-              <p className="mb-2 mt-0 text-[12px] font-black uppercase tracking-[0.06em] text-[#b22b37]">바로가기</p>
+              <p className="mb-2 mt-0 text-[12px] font-bold uppercase tracking-[0.06em] text-[#b22b37]">바로가기</p>
               <div className="flex flex-wrap gap-2">
                 {modelShortcutList.map((shortcut) => (
                   <button
@@ -2162,7 +2162,7 @@ export function ProductsView({
           <p className="mb-8 min-h-[18px] text-[13px] text-slate-500 max-[980px]:mb-6" aria-live="polite">{searchMetaText}</p>
 
           {showMajorTitle ? (
-            <h2 className="mb-4 mt-0 text-[clamp(38px,2.2vw,46px)] font-black leading-tight tracking-[-0.02em] text-slate-900 max-[980px]:text-[32px] max-[640px]:text-[26px]">{majorTitle}</h2>
+            <h2 className="mb-4 mt-0 text-[clamp(28px,2vw,36px)] font-bold leading-tight text-slate-900 max-[980px]:text-[28px] max-[640px]:text-[23px]">{majorTitle}</h2>
           ) : null}
 
           <div className="category-grid grid gap-3 rounded-[12px] bg-slate-100 p-1">
@@ -2221,16 +2221,16 @@ export function ProductsView({
                         )}
                       </div>
                       <div className="flex items-center justify-between gap-3 bg-[#4a4a4a] px-6 py-4 text-white max-[640px]:px-4">
-                        <span className="inline-flex h-12 w-20 items-center justify-center rounded-sm bg-[#d71920] text-xl font-black italic leading-none">MW</span>
-                        <strong className="min-w-0 flex-1 truncate text-center text-[28px] font-black max-[640px]:text-[20px]">
+                        <span className="inline-flex h-11 w-[72px] items-center justify-center rounded-sm bg-[#d71920] text-lg font-extrabold italic leading-none">MW</span>
+                        <strong className="min-w-0 flex-1 truncate text-center text-[22px] font-bold max-[640px]:text-[18px]">
                           {selectedModelCard.modelName} {leafView.wattage || ''}
                         </strong>
-                        <span className="rounded-full bg-black/45 px-3 py-1 text-xs font-black">1/2</span>
+                        <span className="rounded-full bg-black/45 px-3 py-1 text-xs font-bold">1/2</span>
                       </div>
                     </div>
 
                     <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="mb-3 mt-0 text-[15px] font-black text-slate-800">Model</p>
+                      <p className="mb-3 mt-0 text-[15px] font-bold text-slate-800">Model</p>
                       {renderModelActionList({
                         items: modelCards,
                         onSelectModel: (item) => handleModelClick(item.modelName),
@@ -2239,7 +2239,7 @@ export function ProductsView({
 
                     {isShopSite ? (
                       <div className="rounded-xl border border-slate-200 bg-white p-4">
-                        <p className="mb-2 mt-0 text-[15px] font-black text-slate-800">Features</p>
+                        <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Features</p>
                         {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
                           <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
                             {leafView.features.map((feature) => (
@@ -2261,7 +2261,7 @@ export function ProductsView({
                       {!isShopSite ? (
                         <button
                           type="button"
-                          className="inline-flex h-10 shrink-0 items-center rounded-full bg-[#d53232] px-4 text-xs font-black text-white shadow-[0_10px_20px_rgba(213,50,50,0.18)] transition hover:bg-[#bd2929]"
+                          className="inline-flex h-10 shrink-0 items-center rounded-full bg-[#d53232] px-4 text-xs font-bold text-white shadow-[0_10px_20px_rgba(213,50,50,0.18)] transition hover:bg-[#bd2929]"
                           onClick={() =>
                             onOpenStoreProductPreset?.({
                               majorId: activeMajorId,
@@ -2277,11 +2277,11 @@ export function ProductsView({
                         </button>
                       ) : null}
                     </div>
-                    <h4 className="m-0 mt-3 text-[26px] font-black leading-snug text-slate-950 max-[640px]:text-[22px]">
+                    <h4 className="m-0 mt-3 text-[22px] font-bold leading-snug text-slate-950 max-[640px]:text-[20px]">
                       민웰 SMPS {selectedOptionModel || selectedModelCard.modelName} {leafView.wattage || ''} 파워서플라이
                     </h4>
                     {isShopSite ? (
-                      <p className="m-0 mt-4 text-[36px] font-black leading-none text-[#d6001c]">
+                      <p className="m-0 mt-4 text-[30px] font-extrabold leading-none text-[#d6001c]">
                         {formatProductPriceText(selectedOptionModel || selectedModelCard.modelName, { aggregate: !selectedOptionModel })}
                       </p>
                     ) : null}
@@ -2309,7 +2309,7 @@ export function ProductsView({
                     </div>
                     {!isShopSite ? (
                       <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
-                        <p className="mb-2 mt-0 text-[15px] font-black text-slate-800">Features</p>
+                        <p className="mb-2 mt-0 text-[15px] font-bold text-slate-800">Features</p>
                         {Array.isArray(leafView.features) && leafView.features.length > 0 ? (
                           <ul className="m-0 grid gap-1 pl-5 text-[14px] leading-6 text-slate-700">
                             {leafView.features.map((feature) => (
@@ -2395,7 +2395,7 @@ export function ProductsView({
                   </div>
 
                   <div className="grid content-start gap-3">
-                    <h4 className="m-0 text-[34px] font-black leading-tight tracking-[-0.01em] text-slate-900 max-[640px]:text-[28px]">{activeLeaf}</h4>
+                    <h4 className="m-0 text-[26px] font-bold leading-tight text-slate-900 max-[640px]:text-[22px]">{activeLeaf}</h4>
                     <div className="grid gap-1.5 text-[15px] text-slate-700">
                       <p className="m-0">
                         <strong>Wattage:</strong> {leafView.wattage || '정보 없음'}
@@ -2427,7 +2427,7 @@ export function ProductsView({
           </div>
 
           <div className={`product-new-head mt-14 flex items-center justify-between max-[980px]:mt-10 ${showNewProducts ? '' : 'is-hidden'}`}>
-            <h2 className="m-0 text-[clamp(38px,2.2vw,46px)] font-black leading-tight tracking-[-0.02em] text-slate-900 max-[980px]:text-[32px] max-[640px]:text-[26px]">New Products</h2>
+            <h2 className="m-0 text-[clamp(28px,2vw,36px)] font-bold leading-tight text-slate-900 max-[980px]:text-[28px] max-[640px]:text-[23px]">New Products</h2>
             <a href="#" className="text-sm font-bold text-[#bf2222]">View all</a>
           </div>
 
@@ -2436,7 +2436,7 @@ export function ProductsView({
               <div className="grid h-[96px] w-full place-items-center rounded-lg bg-slate-100 text-[#c12b2b]"><i className="fa-solid fa-microchip text-2xl" aria-hidden="true"></i></div>
               <div>
                 <span className="inline-block rounded-full bg-[#d31f1f] px-2 py-[3px] text-[11px] font-bold text-white">NEW</span>
-                <h3 className="mb-1 mt-2 text-[26px] font-black tracking-[-0.01em] text-slate-900 max-[640px]:text-[22px]">DX1 Controller</h3>
+                <h3 className="mb-1 mt-2 text-[22px] font-bold text-slate-900 max-[640px]:text-[20px]">DX1 Controller</h3>
                 <p className="m-0 text-[14px] text-slate-500">카테고리 탐색 기준으로 새로 등록될 제품군의 자리입니다.</p>
               </div>
             </article>

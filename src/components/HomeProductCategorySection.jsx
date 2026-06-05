@@ -68,8 +68,8 @@ export function HomeProductCategorySection({ onNavigate, onOpenProductPreset, va
       <div className="mx-auto w-full max-w-[1540px] px-5 md:px-8">
         <header className="mb-6 flex items-end justify-between gap-4">
           <div>
-            <p className="m-0 text-[11px] font-black uppercase tracking-[0.14em] text-[#d7322a]">Product Category</p>
-            <h2 className="mt-2 text-[clamp(2rem,2.6vw,3.1rem)] font-black tracking-tight text-slate-900">인기 상품 카테고리</h2>
+            <p className="m-0 text-[11px] font-bold uppercase tracking-[0.14em] text-[#d7322a]">Product Category</p>
+            <h2 className="mt-2 text-[clamp(1.55rem,2.1vw,2.35rem)] font-bold text-slate-900">인기 상품 카테고리</h2>
             <p className="mt-2 text-sm font-semibold text-slate-500">자주 찾는 MEAN WELL 전원공급장치 시리즈를 바로 확인하세요.</p>
           </div>
           <button
@@ -93,9 +93,9 @@ export function HomeProductCategorySection({ onNavigate, onOpenProductPreset, va
                 <img src={series.image} alt="" className="max-h-[82px] max-w-[88px] object-contain" loading="lazy" />
               </span>
               <span className="min-w-0">
-                <span className="block text-[18px] font-black leading-tight text-slate-900 group-hover:text-[#e5332a]">{series.label}</span>
+                <span className="block text-[17px] font-bold leading-tight text-slate-900 group-hover:text-[#e5332a]">{series.label}</span>
                 <span className="mt-2 block text-[13px] font-semibold leading-5 text-slate-500">{series.description}</span>
-                <span className="mt-4 inline-flex items-center text-[12px] font-black text-[#e5332a]">
+                <span className="mt-4 inline-flex items-center text-[12px] font-bold text-[#e5332a]">
                   제품 보기
                   <i className="fa-solid fa-angle-right ml-1 text-[11px]" aria-hidden="true"></i>
                 </span>

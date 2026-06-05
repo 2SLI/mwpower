@@ -7,7 +7,7 @@ export function Footer({ isShopSite = false }) {
     >
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 max-[980px]:flex-col max-[980px]:items-start">
         <div className="flex min-w-0 items-center gap-3.5 max-[640px]:flex-wrap max-[640px]:gap-2">
-          <p className="m-0 text-[clamp(28px,1.8vw,40px)] font-black uppercase tracking-[0.08em] text-[#c7332b]">
+          <p className="m-0 text-[clamp(22px,1.4vw,30px)] font-extrabold uppercase tracking-[0.06em] text-[#c7332b]">
             MWPOWER
           </p>
         </div>
@@ -16,20 +16,20 @@ export function Footer({ isShopSite = false }) {
       <div className="mx-auto mt-3 flex max-w-[1240px] items-start justify-between gap-6 max-[980px]:flex-col max-[980px]:items-start">
         <dl className="m-0 grid gap-1">
           <div className="grid grid-cols-[128px_1fr] items-start gap-2 max-[980px]:grid-cols-[92px_1fr] max-[640px]:grid-cols-[84px_1fr] max-[640px]:gap-1.5">
-            <dt className="m-0 text-[clamp(18px,0.95vw,22px)] font-bold text-slate-800 max-[640px]:text-sm">주소</dt>
-            <dd className="m-0 text-[clamp(18px,0.95vw,22px)] leading-[1.45] text-slate-600 max-[640px]:text-sm">
+            <dt className="m-0 text-[clamp(15px,0.85vw,17px)] font-bold text-slate-800 max-[640px]:text-sm">주소</dt>
+            <dd className="m-0 text-[clamp(15px,0.85vw,17px)] leading-[1.45] text-slate-600 max-[640px]:text-sm">
               충청남도 천안시 서북구 미라16길 33-4 비 102호 (우 : 31167)
             </dd>
           </div>
           <div className="grid grid-cols-[128px_1fr] items-start gap-2 max-[980px]:grid-cols-[92px_1fr] max-[640px]:grid-cols-[84px_1fr] max-[640px]:gap-1.5">
-            <dt className="m-0 text-[clamp(18px,0.95vw,22px)] font-bold text-slate-800 max-[640px]:text-sm">이메일</dt>
-            <dd className="m-0 text-[clamp(18px,0.95vw,22px)] leading-[1.45] text-slate-600 max-[640px]:text-sm">hclee@l-light.co.kr</dd>
+            <dt className="m-0 text-[clamp(15px,0.85vw,17px)] font-bold text-slate-800 max-[640px]:text-sm">이메일</dt>
+            <dd className="m-0 text-[clamp(15px,0.85vw,17px)] leading-[1.45] text-slate-600 max-[640px]:text-sm">hclee@l-light.co.kr</dd>
           </div>
         </dl>
 
         <div className="pt-1 text-right max-[980px]:pt-0.5 max-[980px]:text-left">
-          <span className="mb-0.5 block text-[clamp(20px,1vw,24px)] text-slate-600 max-[640px]:text-[15px]">상담문의</span>
-          <a href="tel:01063583144" className="text-[clamp(44px,2.4vw,58px)] font-extrabold tracking-[0.8px] text-[#c7332b] max-[980px]:text-[clamp(34px,7vw,42px)] max-[640px]:text-[32px]">
+          <span className="mb-0.5 block text-[clamp(15px,0.85vw,17px)] text-slate-600 max-[640px]:text-[14px]">상담문의</span>
+          <a href="tel:01063583144" className="text-[clamp(28px,1.8vw,36px)] font-bold tracking-[0.3px] text-[#c7332b] max-[980px]:text-[clamp(26px,6vw,32px)] max-[640px]:text-[26px]">
             010-6358-3144
           </a>
         </div>
