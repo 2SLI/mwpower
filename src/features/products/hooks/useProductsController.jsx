@@ -13,6 +13,7 @@ import {
   buildSearchKeywords,
   decodeAssetUrl,
   getSingleSearchToken,
+  isProductsRoutePath,
 } from '../productViewUtils'
 import {
   useLoadCatalog,
