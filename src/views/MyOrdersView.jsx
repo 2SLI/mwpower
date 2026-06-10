@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ORDER_STATUS_LABELS, PAYMENT_STATUS_LABELS, formatOrderDate, formatOrderPrice, loadUserOrders } from '../features/orderService'
+import { BANK_ACCOUNT, ORDER_STATUS_LABELS, PAYMENT_STATUS_LABELS, formatOrderDate, formatOrderPrice, loadUserOrders } from '../features/orderService'
 
 export function MyOrdersView({ isActive, authUser = null, onNavigateLogin }) {
   const [orders, setOrders] = useState([])
@@ -92,14 +92,14 @@ export function MyOrdersView({ isActive, authUser = null, onNavigateLogin }) {
                         <dt className="font-bold text-slate-500">금액</dt>
                         <dd className="m-0 font-black text-[#0aa04f]">{formatOrderPrice(order.totalPrice)}</dd>
                       </div>
-                      {order.nicepay?.vbank || order.paymentVbank ? (
-                        <div className="grid gap-1 border-t border-slate-100 pt-3">
-                          <dt className="font-bold text-slate-500">입금계좌</dt>
-                          <dd className="m-0 font-bold leading-6 text-slate-800">
-                            {(order.nicepay?.vbank || order.paymentVbank).vbankName} {(order.nicepay?.vbank || order.paymentVbank).vbankNumber}
-                          </dd>
-                        </div>
-                      ) : null}
+                      <div className="grid gap-1 border-t border-slate-100 pt-3">
+                        <dt className="font-bold text-slate-500">입금계좌</dt>
+                        <dd className="m-0 font-bold leading-6 text-slate-800">
+                          {order.nicepay?.vbank || order.paymentVbank
+                            ? `${(order.nicepay?.vbank || order.paymentVbank).vbankName} ${(order.nicepay?.vbank || order.paymentVbank).vbankNumber}`
+                            : `${BANK_ACCOUNT.bank} ${BANK_ACCOUNT.accountNumber} / ${BANK_ACCOUNT.holder}`}
+                        </dd>
+                      </div>
                     </dl>
                   </article>
                 ))}

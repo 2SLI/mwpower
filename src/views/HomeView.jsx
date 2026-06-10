@@ -354,7 +354,7 @@ export function HomeView({
       />
       <HomeProductCategorySection onNavigate={onNavigate} onOpenProductPreset={onOpenProductPreset} />
       <ProductFocusSection onNavigate={onNavigate} />
-      <NewsPreviewSection visibleNews={visibleNews} newsPreviewError={newsPreviewError} onNavigate={onNavigate} onOpenNews={openNews} />
+      <NewsPreviewSection newsItems={newsItems} newsPreviewError={newsPreviewError} onNavigate={onNavigate} onOpenNews={openNews} />
     </div>
   )
 }

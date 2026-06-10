@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { createGuestOrderFromItems, formatOrderPrice, normalizePhoneForOrder, resolveProductForOrder, validateOrderPayload } from '../features/orderService'
-import { requestNicepayVbankPayment } from '../features/nicepayService'
+import { BANK_ACCOUNT, createGuestOrderFromItems, formatOrderPrice, normalizePhoneForOrder, resolveProductForOrder, validateOrderPayload } from '../features/orderService'
 import { getQuoteItemSummary, normalizeQuoteItems } from '../features/quoteCart'
 
 const INITIAL_FORM = {
@@ -93,11 +92,11 @@ export function OrderCheckoutView({ isActive, items, authUser = null, onNavigate
         userEmail: authUser?.email || '',
         userDisplayName: authUser?.displayName || form.customerName,
       })
-      await requestNicepayVbankPayment(order)
       onClearItems?.()
+      onOrderComplete?.(order.orderNumber)
     } catch (error) {
       setErrors(error.validationErrors ?? {})
-      setSubmitError(error.message || '주문 또는 결제 진행 중 오류가 발생했습니다.')
+      setSubmitError(error.message || '주문 접수 중 오류가 발생했습니다.')
     } finally {
       setIsSubmitting(false)
     }
@@ -205,7 +204,7 @@ export function OrderCheckoutView({ isActive, items, authUser = null, onNavigate
               {submitError ? <p className="m-0 rounded-xl bg-[#fff1f2] px-4 py-3 text-sm font-bold text-[#b42323]">{submitError}</p> : null}
 
               <button type="submit" disabled={isSubmitting || overStockItems.length > 0} className="h-13 rounded-2xl bg-[#d53232] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#bd2929] disabled:cursor-not-allowed disabled:bg-slate-300">
-                {isSubmitting ? '결제창 준비 중...' : '무통장입금 결제하기'}
+                {isSubmitting ? '주문 접수 중...' : '무통장입금 주문하기'}
               </button>
             </form>
           )}
@@ -227,8 +226,13 @@ export function OrderCheckoutView({ isActive, items, authUser = null, onNavigate
               <dd className="m-0 text-xl font-black text-[#0aa04f]">{formatOrderPrice(orderTotalPrice)}</dd>
             </div>
           </dl>
+          <div className="mt-4 rounded-xl bg-slate-50 px-4 py-3 ring-1 ring-slate-100">
+            <p className="m-0 text-xs font-black text-slate-500">입금계좌</p>
+            <p className="m-0 mt-1 text-sm font-black text-slate-950">{BANK_ACCOUNT.bank} {BANK_ACCOUNT.accountNumber}</p>
+            <p className="m-0 mt-1 text-xs font-bold text-slate-500">예금주: {BANK_ACCOUNT.holder}</p>
+          </div>
           <p className="m-0 mt-4 rounded-xl bg-[#fff7e6] px-4 py-3 text-sm font-bold leading-6 text-[#8a5a00]">
-            나이스페이 가상계좌를 발급받아 입금합니다. 입금 확인 후 상품 준비가 시작됩니다.
+            주문 접수 후 위 계좌로 정확한 금액을 입금해주세요. 입금 확인 후 상품 준비가 시작됩니다.
           </p>
         </aside>
       </div>
