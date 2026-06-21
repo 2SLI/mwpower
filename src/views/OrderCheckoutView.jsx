@@ -11,7 +11,6 @@ const INITIAL_FORM = {
   customerName: '',
   phone: '',
   email: '',
-  postalCode: '',
   address: '',
   detailAddress: '',
   deliveryMemo: '',
@@ -114,7 +113,7 @@ export function OrderCheckoutView({ isActive, items, authUser = null, onNavigate
           <OrderPageHeader
             eyebrow="Order Checkout"
             title="주문서 작성"
-            description={authUser ? '주문 완료 후 내 주문내역에서 바로 확인할 수 있습니다.' : '로그인 후 주문할 수 있습니다.'}
+            description={authUser ? '주문 완료 후 마이페이지에서 바로 확인할 수 있습니다.' : '로그인 후 주문할 수 있습니다.'}
           />
 
           {normalizedItems.length === 0 ? (

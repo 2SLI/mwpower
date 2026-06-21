@@ -7,6 +7,9 @@ export function OrderCustomerForm({ form, errors = {}, onChange }) {
       </div>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <p className="m-0 rounded-xl bg-slate-50 px-4 py-3 text-sm font-bold leading-6 text-slate-700 ring-1 ring-slate-200 sm:col-span-2">
+          택배사 안내: 경동 6,000원(영업소 기입) / 로젠 3,000원
+        </p>
         <label className="grid gap-1.5 text-sm font-bold text-slate-700">
           주문자명 *
           <input value={form.customerName} onChange={(event) => onChange('customerName', event.target.value)} className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
@@ -21,12 +24,7 @@ export function OrderCustomerForm({ form, errors = {}, onChange }) {
           이메일 선택
           <input value={form.email} onChange={(event) => onChange('email', event.target.value)} type="email" placeholder="name@example.com" className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
         </label>
-        <label className="grid gap-1.5 text-sm font-bold text-slate-700">
-          우편번호 *
-          <input value={form.postalCode} onChange={(event) => onChange('postalCode', event.target.value)} className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
-          {errors.postalCode ? <span className="text-xs font-bold text-[#b42323]">{errors.postalCode}</span> : null}
-        </label>
-        <label className="grid gap-1.5 text-sm font-bold text-slate-700">
+        <label className="grid gap-1.5 text-sm font-bold text-slate-700 sm:col-span-2">
           주소 *
           <input value={form.address} onChange={(event) => onChange('address', event.target.value)} className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
           {errors.address ? <span className="text-xs font-bold text-[#b42323]">{errors.address}</span> : null}

@@ -88,7 +88,6 @@ export function validateOrderPayload(payload = {}) {
   if (!normalizeText(payload.customerName)) errors.customerName = '주문자명을 입력해주세요.'
   if (!phone) errors.phone = '연락처를 입력해주세요.'
   if (phone && !/^[\d-]+$/.test(phone)) errors.phone = '연락처는 숫자와 하이픈만 입력해주세요.'
-  if (!normalizeText(payload.postalCode)) errors.postalCode = '우편번호를 입력해주세요.'
   if (!normalizeText(payload.address)) errors.address = '주소를 입력해주세요.'
   if (!normalizeText(payload.detailAddress)) errors.detailAddress = '상세주소를 입력해주세요.'
   if (!Number.isFinite(quantity) || quantity < 1) errors.quantity = '수량은 1개 이상이어야 합니다.'
@@ -257,7 +256,6 @@ export async function createGuestOrder(payload = {}) {
       customerName: normalizeText(payload.customerName),
       phone: normalizePhoneForOrder(payload.phone),
       email: normalizeText(payload.email),
-      postalCode: normalizeText(payload.postalCode),
       address: normalizeText(payload.address),
       detailAddress: normalizeText(payload.detailAddress),
       deliveryMemo: normalizeText(payload.deliveryMemo),
@@ -321,7 +319,6 @@ export async function createGuestOrderFromItems(payload = {}) {
       customerName: normalizeText(payload.customerName),
       phone: normalizePhoneForOrder(payload.phone),
       email: normalizeText(payload.email),
-      postalCode: normalizeText(payload.postalCode),
       address: normalizeText(payload.address),
       detailAddress: normalizeText(payload.detailAddress),
       deliveryMemo: normalizeText(payload.deliveryMemo),

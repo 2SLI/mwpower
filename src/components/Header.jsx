@@ -204,7 +204,7 @@ export function Header({ activeView, isShopSite = true, authUser = null, onNavig
                         }`}
                         onClick={() => handleInternalMenuClick(authUser ? 'my-orders' : 'login')}
                       >
-                        <span>{authUser ? '내 주문내역' : '로그인'}</span>
+                        <span>{authUser ? '마이페이지' : '로그인'}</span>
                         <span aria-hidden="true">›</span>
                       </button>
                     </li>
@@ -279,7 +279,7 @@ export function Header({ activeView, isShopSite = true, authUser = null, onNavig
             ))}
             {isShopSite ? (
               <NavLink
-                item={{ key: authUser ? 'my-orders' : 'login', label: authUser ? '내 주문' : '로그인', view: authUser ? 'my-orders' : 'login' }}
+                item={{ key: authUser ? 'my-orders' : 'login', label: authUser ? '마이페이지' : '로그인', view: authUser ? 'my-orders' : 'login' }}
                 isActive={(authUser ? 'my-orders' : 'login') === activeView}
                 onNavigate={onNavigate}
                 compact={false}

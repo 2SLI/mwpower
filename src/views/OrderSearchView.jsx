@@ -99,7 +99,7 @@ export function OrderSearchView({ isActive }) {
               <div className="grid gap-1 border-t border-slate-100 pt-3">
                 <dt className="font-bold text-slate-500">배송정보</dt>
                 <dd className="m-0 font-bold leading-6 text-slate-800">
-                  [{order.postalCode}] {order.address} {order.detailAddress}
+                  {order.address} {order.detailAddress}
                 </dd>
                 {order.deliveryMemo ? <dd className="m-0 text-sm font-semibold leading-6 text-slate-500">요청사항: {order.deliveryMemo}</dd> : null}
               </div>

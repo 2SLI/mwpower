@@ -10,7 +10,6 @@ const INITIAL_FORM = {
   customerName: '',
   phone: '',
   email: '',
-  postalCode: '',
   address: '',
   detailAddress: '',
   deliveryMemo: '',
@@ -108,7 +107,7 @@ export function GuestOrderView({ isActive, productId, initialQuantity = 1, authU
           <OrderPageHeader
             eyebrow="Member Order"
             title="회원 주문서"
-            description={authUser ? '주문 완료 후 내 주문내역에서 바로 확인할 수 있습니다.' : '로그인 후 주문할 수 있습니다.'}
+            description={authUser ? '주문 완료 후 마이페이지에서 바로 확인할 수 있습니다.' : '로그인 후 주문할 수 있습니다.'}
           />
 
           {!product ? (

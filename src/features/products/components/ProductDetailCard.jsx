@@ -126,18 +126,18 @@ function ProductInfoPanel({ view, actions, routePayload }) {
           </button>
         ) : null}
       </div>
-      <h4 className="m-0 mt-3 text-[22px] font-bold leading-snug text-slate-950 max-[640px]:text-[20px]">
+      <h4 className="m-0 mt-3 text-[22px] font-bold leading-snug text-slate-950 max-[640px]:mt-2 max-[640px]:text-[17px]">
         민웰 SMPS {selectedModelName} {view.leafView.wattage || ''} 파워서플라이
       </h4>
       {view.isShopSite ? (
-        <p className="m-0 mt-4 text-[30px] font-extrabold leading-none text-[#d6001c]">
+        <p className="m-0 mt-4 text-[30px] font-extrabold leading-none text-[#d6001c] max-[640px]:mt-3 max-[640px]:text-[25px]">
           {formatProductPriceText(selectedModelName, view.inventoryContext, { aggregate: !view.selectedOptionModel })}
         </p>
       ) : null}
-      <div className="mt-5 grid gap-3 border-y border-slate-200 py-5 text-[15px] text-slate-700">
+      <div className="mt-5 grid gap-3 border-y border-slate-200 py-5 text-[15px] text-slate-700 max-[640px]:mt-4 max-[640px]:gap-2.5 max-[640px]:py-4 max-[640px]:text-[14px]">
         {view.isShopSite ? (
           <>
-            <p className="m-0 flex justify-between gap-4"><strong className="text-slate-500">배송</strong><span className="text-right font-bold">3,000원</span></p>
+            <p className="m-0 flex justify-between gap-4"><strong className="text-slate-500">배송</strong><span className="text-right font-bold">경동 6,000원(영업소 기입) / 로젠 3,000원</span></p>
             <p className="m-0 flex justify-between gap-4"><strong className="text-slate-500">재고</strong><span className="text-right font-bold">{formatInventoryText(selectedModelName, view.inventoryContext, { aggregate: !view.selectedOptionModel })}</span></p>
           </>
         ) : null}

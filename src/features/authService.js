@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase'
 
@@ -13,6 +13,8 @@ function getAuthErrorMessage(error) {
   if (code.includes('auth/email-already-in-use')) return '이미 가입된 이메일입니다.'
   if (code.includes('auth/weak-password')) return '비밀번호는 6자 이상으로 입력해주세요.'
   if (code.includes('auth/invalid-email')) return '이메일 형식이 올바르지 않습니다.'
+  if (code.includes('auth/missing-email')) return '이메일을 입력해주세요.'
+  if (code.includes('auth/too-many-requests')) return '요청이 너무 많습니다. 잠시 후 다시 시도해주세요.'
   if (code.includes('auth/operation-not-allowed')) return 'Firebase Authentication에서 이메일/비밀번호 로그인을 활성화해주세요.'
   return error?.message || '로그인 처리 중 오류가 발생했습니다.'
 }
@@ -51,6 +53,25 @@ export async function ensureUserProfile(user, profile = {}) {
   return { id: user.uid, ...payload }
 }
 
+export async function loadUserProfile(user) {
+  if (!user?.uid) return null
+
+  const userRef = doc(db, 'users', user.uid)
+  const snapshot = await getDoc(userRef)
+  if (!snapshot.exists()) return ensureUserProfile(user)
+  return { id: snapshot.id, ...snapshot.data() }
+}
+
+export async function updateUserProfile({ user = auth.currentUser, displayName = '', phone = '' } = {}) {
+  if (!user?.uid) throw new Error('로그인이 필요합니다.')
+
+  const name = normalizeText(displayName)
+  const normalizedPhone = normalizeText(phone)
+  await updateProfile(user, { displayName: name })
+  await ensureUserProfile(user, { displayName: name, phone: normalizedPhone })
+  return { displayName: name, phone: normalizedPhone }
+}
+
 export async function registerWithEmail({ email = '', password = '', displayName = '', phone = '' }) {
   try {
     const credential = await createUserWithEmailAndPassword(auth, normalizeText(email), password)
@@ -68,6 +89,14 @@ export async function loginWithEmail({ email = '', password = '' }) {
     const credential = await signInWithEmailAndPassword(auth, normalizeText(email), password)
     await ensureUserProfile(credential.user)
     return credential.user
+  } catch (error) {
+    throw new Error(getAuthErrorMessage(error))
+  }
+}
+
+export async function requestPasswordReset(email = '') {
+  try {
+    await sendPasswordResetEmail(auth, normalizeText(email))
   } catch (error) {
     throw new Error(getAuthErrorMessage(error))
   }

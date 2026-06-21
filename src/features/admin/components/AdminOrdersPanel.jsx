@@ -322,7 +322,7 @@ export function AdminOrdersPanel({ pathname }) {
 
               <div className="rounded-xl bg-slate-50 p-3 text-sm leading-6">
                 <p className="m-0 font-black text-slate-800">배송 정보</p>
-                <p className="m-0 mt-1">[{activeOrder.postalCode || '-'}] {activeOrder.address || '-'} {activeOrder.detailAddress || ''}</p>
+                <p className="m-0 mt-1">{activeOrder.address || '-'} {activeOrder.detailAddress || ''}</p>
                 <p className="m-0 mt-1 text-slate-500">요청사항: {activeOrder.deliveryMemo || '-'}</p>
               </div>
             </div>

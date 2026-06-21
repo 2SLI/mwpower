@@ -41,7 +41,7 @@ const VIEW_PATHS = {
   'order-complete': '/order-complete',
   'order-search': '/order-search',
   login: '/login',
-  'my-orders': '/my-orders',
+  'my-orders': '/mypage',
   'quote-request': '/quote-request',
   'contact-product': '/contact/product',
   'contact-tech': '/contact/tech',
@@ -56,6 +56,7 @@ const PATH_VIEW_ALIASES = {
   '/order-search': 'order-search',
   '/order-checkout': 'order-checkout',
   '/login': 'login',
+  '/mypage': 'my-orders',
   '/my-orders': 'my-orders',
   '/quote': 'quote-request',
   '/quote-request': 'quote-request',
@@ -368,8 +369,8 @@ export default function App() {
         description: 'MWPOWER 회원 로그인과 회원가입을 진행합니다.',
       },
       'my-orders': {
-        title: '내 주문내역 | MWPOWER Store',
-        description: '로그인한 계정의 MWPOWER Store 주문내역을 확인합니다.',
+        title: '마이페이지 | MWPOWER Store',
+        description: '로그인한 계정의 회원 정보와 MWPOWER Store 주문내역을 확인합니다.',
       },
       'quote-request': {
         title: 'B2B 견적요청 | MWPOWER',

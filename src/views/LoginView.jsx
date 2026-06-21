@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { loginWithEmail, registerWithEmail } from '../features/authService'
+import { loginWithEmail, registerWithEmail, requestPasswordReset } from '../features/authService'
 import { normalizePhoneForOrder } from '../features/orderService'
 
 const INITIAL_FORM = {
@@ -13,16 +13,20 @@ export function LoginView({ isActive, authUser = null, onNavigateMyOrders }) {
   const [mode, setMode] = useState('login')
   const [form, setForm] = useState(INITIAL_FORM)
   const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isResettingPassword, setIsResettingPassword] = useState(false)
 
   useEffect(() => {
     if (!isActive) return
     setError('')
+    setMessage('')
   }, [isActive, mode])
 
   const handleChange = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: key === 'phone' ? normalizePhoneForOrder(value) : value }))
     if (error) setError('')
+    if (message) setMessage('')
   }
 
   const handleSubmit = async (event) => {
@@ -45,13 +49,28 @@ export function LoginView({ isActive, authUser = null, onNavigateMyOrders }) {
     }
   }
 
+  const handlePasswordReset = async () => {
+    if (isResettingPassword) return
+    setIsResettingPassword(true)
+    setError('')
+    setMessage('')
+    try {
+      await requestPasswordReset(form.email)
+      setMessage('비밀번호 재설정 메일을 보냈습니다. 메일함을 확인해주세요.')
+    } catch (resetError) {
+      setError(resetError.message || '비밀번호 재설정 메일을 보내지 못했습니다.')
+    } finally {
+      setIsResettingPassword(false)
+    }
+  }
+
   return (
     <section className={`${isActive ? '' : 'is-hidden'} bg-[#f3f5f8] px-4 py-10 text-slate-800`} id="login-page">
       <div className="mx-auto grid max-w-[520px] gap-5">
         <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
           <p className="m-0 text-[12px] font-black uppercase tracking-[0.08em] text-[#d53232]">Account</p>
           <h1 className="m-0 mt-2 text-[32px] font-black tracking-[-0.02em] text-slate-950">{mode === 'signup' ? '회원가입' : '로그인'}</h1>
-          <p className="m-0 mt-2 text-sm font-bold text-slate-500">로그인하면 주문번호 없이 내 주문내역을 확인할 수 있습니다.</p>
+          <p className="m-0 mt-2 text-sm font-bold text-slate-500">로그인하면 마이페이지에서 계정 정보와 주문내역을 확인할 수 있습니다.</p>
         </div>
 
         {authUser ? (
@@ -59,7 +78,7 @@ export function LoginView({ isActive, authUser = null, onNavigateMyOrders }) {
             <p className="m-0 text-sm font-bold text-slate-500">이미 로그인되어 있습니다.</p>
             <p className="m-0 text-lg font-black text-slate-950">{authUser.email}</p>
             <button type="button" onClick={onNavigateMyOrders} className="h-12 rounded-xl bg-slate-950 px-4 text-sm font-black text-white">
-              내 주문내역 보기
+              마이페이지 보기
             </button>
           </div>
         ) : (
@@ -94,8 +113,19 @@ export function LoginView({ isActive, authUser = null, onNavigateMyOrders }) {
               비밀번호
               <input type="password" value={form.password} onChange={(event) => handleChange('password', event.target.value)} className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
             </label>
+            {mode === 'login' ? (
+              <button
+                type="button"
+                onClick={handlePasswordReset}
+                disabled={isResettingPassword}
+                className="justify-self-end text-sm font-black text-slate-500 underline-offset-4 hover:text-[#d53232] hover:underline disabled:text-slate-300"
+              >
+                {isResettingPassword ? '메일 발송 중...' : '비밀번호 찾기'}
+              </button>
+            ) : null}
 
             {error ? <p className="m-0 rounded-xl bg-[#fff1f2] px-3 py-2 text-sm font-bold text-[#b42323]">{error}</p> : null}
+            {message ? <p className="m-0 rounded-xl bg-[#ecfdf3] px-3 py-2 text-sm font-bold text-[#087443]">{message}</p> : null}
 
             <button type="submit" disabled={isSubmitting} className="h-12 rounded-xl bg-[#d53232] px-4 text-sm font-black text-white disabled:bg-slate-300">
               {isSubmitting ? '처리 중...' : mode === 'signup' ? '회원가입' : '로그인'}

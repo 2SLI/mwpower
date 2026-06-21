@@ -3,18 +3,12 @@ import { defaultMajorCategories } from '../../../data/defaultMajorCategories'
 import { modelOptionWattageMap } from '../../../data/modelOptionWattageMap'
 import { inventoryOptionModelsByBaseKey, productInventoryByModelKey, productInventorySummary } from '../../../data/productInventory'
 import { productPriceByModelKey } from '../../../data/productPrices'
-import { compareModelLabelsByInventory, findModelOptionKey, getInventoryOptionModels, getInventoryTone } from '../../inventory/inventoryUtils'
-import { buildCombinedOptionModelLabels, collectUniqueOptionValues } from '../../productOptions/productOptionUtils'
 import { findMatchingLabel, getLeafChips, getLeafView, normalizeLabel } from '../../productCatalogService'
 import { ProductCatalogModel } from '../ProductCatalogModel'
-import { QuoteItemFactory } from '../QuoteItemFactory'
-import {
-  ProductHistoryState,
-  buildSearchKeywords,
-  decodeAssetUrl,
-  getSingleSearchToken,
-  isProductsRoutePath,
-} from '../productViewUtils'
+import { useProductOrderActions } from './useProductOrderActions'
+import { useProductRouteState } from './useProductRouteState'
+import { useProductSearchShortcuts } from './useProductSearchShortcuts'
+import { useProductSelection } from './useProductSelection'
 import {
   useLoadCatalog,
   useRouteEffects,
@@ -71,11 +65,6 @@ export function useProductsController({
     []
   )
   const defaultMajorId = majorCategories[0]?.id ?? defaultMajorCategories[0]?.id ?? ''
-  const historyState = useMemo(() => new ProductHistoryState({ majorCategories, defaultMajorId }), [majorCategories, defaultMajorId])
-  const searchInput = String(search ?? '').trim()
-  const singleSearchToken = getSingleSearchToken(searchInput)
-  const searchKeywords = buildSearchKeywords(searchInput)
-  const hasSearch = searchKeywords.length > 0
   const activeMajor = useMemo(() => majorCategories.find((item) => item.id === activeMajorId) ?? majorCategories[0] ?? null, [majorCategories, activeMajorId])
   const subcategories = useMemo(() => (Array.isArray(activeMajor?.subcategories) ? activeMajor.subcategories : []), [activeMajor])
   const selectableLeafChips = useMemo(() => getLeafChips(activeMajor?.name, activeSubcategory, { includeFallback: true }), [activeMajor?.name, activeSubcategory])
@@ -101,57 +90,42 @@ export function useProductsController({
   const modelCards = useMemo(() => catalogModel.toModelCards(visibleModels, leafView?.modelAssetsByKey), [catalogModel, visibleModels, leafView])
   const pdfReadyModelCount = useMemo(() => modelCards.filter((item) => String(item.asset?.pdfUrl ?? '').trim()).length, [modelCards])
   const modelRouteIndex = useMemo(() => catalogModel.buildRouteIndex(), [catalogModel])
+  const { searchInput, searchKeywords, hasSearch, modelShortcutList } = useProductSearchShortcuts({ catalogModel, modelRouteIndex, search })
   const majorAllLeafRecords = useMemo(() => catalogModel.getMajorLeafRecords({ activeMajor, activeSubcategory, hasSearch, activeLeaf }), [catalogModel, activeMajor, activeSubcategory, hasSearch, activeLeaf])
   const searchLeafRecords = useMemo(() => catalogModel.getSearchLeafRecords({ hasSearch, searchKeywords }), [catalogModel, hasSearch, searchKeywords])
-  const modelShortcutList = useMemo(() => catalogModel.getModelShortcuts({ singleSearchToken, modelRouteIndex }), [catalogModel, singleSearchToken, modelRouteIndex])
-  const selectedModelCard = useMemo(() => modelCards.find((item) => normalizeLabel(item.modelName) === normalizeLabel(activeModel)) ?? null, [modelCards, activeModel])
-  const selectedModelOptions = useMemo(() => {
-    const optionKey = findModelOptionKey(selectedModelCard?.modelName, inventoryContext)
-    if (!optionKey) return []
-    const options = Array.isArray(inventoryContext.modelOptionWattageMap[optionKey]) ? inventoryContext.modelOptionWattageMap[optionKey] : []
-    return options.filter((item) => String(item?.model ?? '').trim())
-  }, [selectedModelCard?.modelName, inventoryContext])
-  const selectedCombinedOptionModels = useMemo(() => {
-    const labels = buildCombinedOptionModelLabels({ options: selectedModelOptions, selectedModel: selectedModelCard?.modelName })
-    const inventoryLabels = getInventoryOptionModels(selectedModelCard?.modelName, inventoryContext)
-    return collectUniqueOptionValues([...labels, ...inventoryLabels]).sort((a, b) => compareModelLabelsByInventory(a, b, inventoryContext))
-  }, [selectedModelOptions, selectedModelCard?.modelName, inventoryContext])
-  const selectedPdfUrl = useMemo(() => decodeAssetUrl(selectedModelCard?.asset?.pdfUrl), [selectedModelCard?.asset?.pdfUrl])
-  const mobilePdfPageWidth = useMemo(() => {
-    const width = mobilePdfViewportWidth - 16
-    if (!Number.isFinite(width) || width <= 0) return null
-    return Math.max(260, width)
-  }, [mobilePdfViewportWidth])
+  const { selectedModelCard, selectedCombinedOptionModels, selectedPdfUrl, mobilePdfPageWidth } = useProductSelection({
+    activeModel,
+    inventoryContext,
+    mobilePdfViewportWidth,
+    modelCards,
+  })
 
   const closePanels = () => setPanelState({ major: false, sub: false, leaf: false, model: false })
   const setExclusivePanel = (panelName) => setPanelState((prev) => ({ major: false, sub: false, leaf: false, model: false, [panelName]: !prev[panelName] }))
   const markHistoryReplace = () => { historyActionRef.current = 'replace' }
   const requestProductDetailTopScroll = () => { pendingProductDetailScrollRef.current = true }
-  const resolveProductRouteState = (rawState) => historyState.resolve(rawState)
-  const buildCurrentProductRouteState = (overrides = {}) =>
-    resolveProductRouteState({ majorId: activeMajorId || defaultMajorId, subcategory: activeSubcategory, leaf: activeLeaf, groupName: activeGroup, model: activeModel, optionModel: selectedOptionModel, search, ...overrides })
-  const buildHistoryProductState = (rawState = null) => historyState.buildSnapshot(rawState)
-  const applyProductRouteState = (rawState = null, { history = 'replace' } = {}) => {
-    const resolved = resolveProductRouteState(rawState)
-    historyActionRef.current = history
-    setActiveMajorId(resolved.majorId || defaultMajorId)
-    setActiveSubcategory(resolved.subcategory)
-    setActiveLeaf(resolved.leaf)
-    setActiveGroup(resolved.groupName)
-    setActiveModel(resolved.model)
-    setSelectedOptionModel(resolved.optionModel)
-    setSearch(resolved.search)
-    closePanels()
-  }
-  const pushProductHistorySnapshot = (rawState = null) => {
-    if (typeof window === 'undefined' || !isProductsRoutePath(window.location.pathname)) return
-    const currentHistoryState = window.history.state && typeof window.history.state === 'object' ? window.history.state : {}
-    const nextHistoryState = { ...currentHistoryState, view: 'products' }
-    const nextProductState = buildHistoryProductState(rawState)
-    if (nextProductState) nextHistoryState.productState = nextProductState
-    else if ('productState' in nextHistoryState) delete nextHistoryState.productState
-    window.history.pushState(nextHistoryState, '', `${window.location.pathname}${window.location.search}${window.location.hash}`)
-  }
+  const { buildCurrentProductRouteState, buildHistoryProductState, applyProductRouteState, pushProductHistorySnapshot } = useProductRouteState({
+    majorCategories,
+    defaultMajorId,
+    activeMajorId,
+    activeSubcategory,
+    activeLeaf,
+    activeGroup,
+    activeModel,
+    selectedOptionModel,
+    search,
+    historyActionRef,
+    closePanels,
+    setters: {
+      setActiveMajorId,
+      setActiveSubcategory,
+      setActiveLeaf,
+      setActiveGroup,
+      setActiveModel,
+      setSelectedOptionModel,
+      setSearch,
+    },
+  })
 
   useLoadCatalog({ setMajorCategories, setLeafTreeMap, setActiveMajorId })
   useViewportAndPanelEffects({ categoryCrumbRef, panelState, closePanels, isMobileViewport, setIsMobileViewport })
@@ -242,24 +216,20 @@ export function useProductsController({
     if (baseRouteState.leaf) pushProductHistorySnapshot({ ...baseRouteState, model: null, optionModel: '' })
     applyProductRouteState({ ...baseRouteState, model: shortcut.model || null, optionModel: shortcut.optionModel || '' }, { history: 'push' })
   }
-  const onAddLineItem = (payload, target = 'order') => {
-    const factory = new QuoteItemFactory({ inventoryContext, routeContext: { activeMajor, activeMajorId, activeSubcategory, activeLeaf, activeGroup, selectedGroupName, defaultMajorId, majorIdByName } })
-    const nextItem = factory.create(payload)
-    if (!nextItem) return
-    if (target === 'order' && getInventoryTone(nextItem.optionModel || nextItem.displayModel || nextItem.baseModel, inventoryContext) === 'out-of-stock') {
-      setQuoteFeedback(`${nextItem.displayModel}은 현재 재고가 없어 주문목록에 담을 수 없습니다. 견적목록으로 문의해주세요.`)
-      return
-    }
-    if (target === 'quote' || !isShopSite) {
-      onAddQuoteItem?.(nextItem)
-      setQuoteFeedback(`${nextItem.displayModel} ${nextItem.quantity}개가 견적목록에 추가되었습니다.`)
-    } else {
-      onAddOrderItem?.(nextItem)
-      setQuoteFeedback(`${nextItem.displayModel} ${nextItem.quantity}개가 주문목록에 추가되었습니다.`)
-    }
-    setSelectedQuoteQuantity(1)
-  }
-  const onOpenStorePreset = () => onOpenStoreProductPreset?.({ majorId: activeMajorId, subcategory: activeSubcategory, leaf: activeLeaf, groupName: selectedGroupName ?? activeGroup, model: selectedModelCard.modelName, optionModel: selectedOptionModel })
+  const orderActions = useProductOrderActions({
+    isShopSite,
+    inventoryContext,
+    selectedModelCard,
+    selectedOptionModel,
+    selectedQuoteQuantity,
+    onAddOrderItem,
+    onAddQuoteItem,
+    onStartGuestOrder,
+    onOpenStoreProductPreset,
+    setQuoteFeedback,
+    setSelectedQuoteQuantity,
+    routeContext: { activeMajor, activeMajorId, activeSubcategory, activeLeaf, activeGroup, selectedGroupName, defaultMajorId, majorIdByName },
+  })
 
   const showMajorAggregateView = !hasSearch && !activeLeaf && majorAllLeafRecords.length > 0
   const showNewProducts = !hasSearch && !activeLeaf && !showMajorAggregateView
@@ -324,9 +294,9 @@ export function useProductsController({
     onLeafRecordModelClick,
     onShortcutModelClick,
     onSearchChange: (value) => { markHistoryReplace(); setSearch(value) },
-    onAddLineItem,
-    onStartGuestOrder,
-    onOpenStoreProductPreset: onOpenStorePreset,
+    onAddLineItem: orderActions.onAddLineItem,
+    onStartGuestOrder: orderActions.onStartGuestOrder,
+    onOpenStoreProductPreset: orderActions.onOpenStoreProductPreset,
     onScrollToPdfSection: () => pdfSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
   }
   const refs = { categoryCrumbRef, productDetailRef, pdfSectionRef, mobilePdfViewportRef }

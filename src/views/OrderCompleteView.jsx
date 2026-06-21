@@ -71,7 +71,7 @@ export function OrderCompleteView({ isActive, orderNumber, onNavigateOrderSearch
             </section>
 
             <button type="button" onClick={onNavigateOrderSearch} className="h-12 rounded-2xl bg-slate-900 px-4 text-sm font-black text-white">
-              내 주문내역 보기
+              마이페이지 보기
             </button>
           </>
         ) : null}
