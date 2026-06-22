@@ -1,46 +1,22 @@
 import { useEffect, useState } from 'react'
-import { loginWithEmail, registerWithEmail, requestPasswordReset } from '../features/authService'
-import { normalizePhoneForOrder } from '../features/orderService'
-
-const INITIAL_FORM = {
-  email: '',
-  password: '',
-  displayName: '',
-  phone: '',
-}
+import { loginWithGoogle } from '../features/authService'
 
 export function LoginView({ isActive, authUser = null, onNavigateMyOrders }) {
-  const [mode, setMode] = useState('login')
-  const [form, setForm] = useState(INITIAL_FORM)
   const [error, setError] = useState('')
-  const [message, setMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isResettingPassword, setIsResettingPassword] = useState(false)
 
   useEffect(() => {
     if (!isActive) return
     setError('')
-    setMessage('')
-  }, [isActive, mode])
+  }, [isActive])
 
-  const handleChange = (key, value) => {
-    setForm((prev) => ({ ...prev, [key]: key === 'phone' ? normalizePhoneForOrder(value) : value }))
-    if (error) setError('')
-    if (message) setMessage('')
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  const handleSubmit = async () => {
     if (isSubmitting) return
 
     setIsSubmitting(true)
     setError('')
     try {
-      if (mode === 'signup') {
-        await registerWithEmail(form)
-      } else {
-        await loginWithEmail(form)
-      }
+      await loginWithGoogle()
       onNavigateMyOrders?.()
     } catch (submitError) {
       setError(submitError.message || '로그인 처리 중 오류가 발생했습니다.')
@@ -49,28 +25,13 @@ export function LoginView({ isActive, authUser = null, onNavigateMyOrders }) {
     }
   }
 
-  const handlePasswordReset = async () => {
-    if (isResettingPassword) return
-    setIsResettingPassword(true)
-    setError('')
-    setMessage('')
-    try {
-      await requestPasswordReset(form.email)
-      setMessage('비밀번호 재설정 메일을 보냈습니다. 메일함을 확인해주세요.')
-    } catch (resetError) {
-      setError(resetError.message || '비밀번호 재설정 메일을 보내지 못했습니다.')
-    } finally {
-      setIsResettingPassword(false)
-    }
-  }
-
   return (
     <section className={`${isActive ? '' : 'is-hidden'} bg-[#f3f5f8] px-4 py-10 text-slate-800`} id="login-page">
       <div className="mx-auto grid max-w-[520px] gap-5">
         <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
           <p className="m-0 text-[12px] font-black uppercase tracking-[0.08em] text-[#d53232]">Account</p>
-          <h1 className="m-0 mt-2 text-[32px] font-black tracking-[-0.02em] text-slate-950">{mode === 'signup' ? '회원가입' : '로그인'}</h1>
-          <p className="m-0 mt-2 text-sm font-bold text-slate-500">로그인하면 마이페이지에서 계정 정보와 주문내역을 확인할 수 있습니다.</p>
+          <h1 className="m-0 mt-2 text-[32px] font-black tracking-[-0.02em] text-slate-950">로그인</h1>
+          <p className="m-0 mt-2 text-sm font-bold text-slate-500">Google 계정으로 간편하게 로그인하고 주문내역을 확인하세요.</p>
         </div>
 
         {authUser ? (
@@ -82,55 +43,19 @@ export function LoginView({ isActive, authUser = null, onNavigateMyOrders }) {
             </button>
           </div>
         ) : (
-          <form className="grid gap-4 rounded-2xl bg-white p-5 shadow-sm" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-100 p-1">
-              <button type="button" onClick={() => setMode('login')} className={`h-10 rounded-lg text-sm font-black ${mode === 'login' ? 'bg-white text-slate-950 shadow-sm' : 'text-slate-500'}`}>
-                로그인
-              </button>
-              <button type="button" onClick={() => setMode('signup')} className={`h-10 rounded-lg text-sm font-black ${mode === 'signup' ? 'bg-white text-slate-950 shadow-sm' : 'text-slate-500'}`}>
-                회원가입
-              </button>
-            </div>
-
-            {mode === 'signup' ? (
-              <>
-                <label className="grid gap-1.5 text-sm font-bold text-slate-700">
-                  이름
-                  <input value={form.displayName} onChange={(event) => handleChange('displayName', event.target.value)} className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
-                </label>
-                <label className="grid gap-1.5 text-sm font-bold text-slate-700">
-                  연락처
-                  <input value={form.phone} onChange={(event) => handleChange('phone', event.target.value)} placeholder="010-0000-0000" className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
-                </label>
-              </>
-            ) : null}
-
-            <label className="grid gap-1.5 text-sm font-bold text-slate-700">
-              이메일
-              <input type="email" value={form.email} onChange={(event) => handleChange('email', event.target.value)} className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
-            </label>
-            <label className="grid gap-1.5 text-sm font-bold text-slate-700">
-              비밀번호
-              <input type="password" value={form.password} onChange={(event) => handleChange('password', event.target.value)} className="h-11 rounded-xl bg-slate-50 px-3 text-sm outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-[#f0b7bd]" />
-            </label>
-            {mode === 'login' ? (
-              <button
-                type="button"
-                onClick={handlePasswordReset}
-                disabled={isResettingPassword}
-                className="justify-self-end text-sm font-black text-slate-500 underline-offset-4 hover:text-[#d53232] hover:underline disabled:text-slate-300"
-              >
-                {isResettingPassword ? '메일 발송 중...' : '비밀번호 찾기'}
-              </button>
-            ) : null}
-
+          <div className="grid gap-4 rounded-2xl bg-white p-5 shadow-sm">
             {error ? <p className="m-0 rounded-xl bg-[#fff1f2] px-3 py-2 text-sm font-bold text-[#b42323]">{error}</p> : null}
-            {message ? <p className="m-0 rounded-xl bg-[#ecfdf3] px-3 py-2 text-sm font-bold text-[#087443]">{message}</p> : null}
-
-            <button type="submit" disabled={isSubmitting} className="h-12 rounded-xl bg-[#d53232] px-4 text-sm font-black text-white disabled:bg-slate-300">
-              {isSubmitting ? '처리 중...' : mode === 'signup' ? '회원가입' : '로그인'}
+            <button type="button" onClick={handleSubmit} disabled={isSubmitting} className="flex h-12 items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 text-sm font-black text-slate-800 shadow-sm hover:bg-slate-50 disabled:bg-slate-100 disabled:text-slate-400">
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 shrink-0">
+                <path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.4-.18-2.07H12v3.91h5.38a4.6 4.6 0 0 1-2 3.02v2.54h3.24c1.9-1.75 2.98-4.33 2.98-7.4Z" />
+                <path fill="#34A853" d="M12 22c2.7 0 4.98-.9 6.63-2.37l-3.24-2.54c-.9.6-2.05.96-3.39.96-2.61 0-4.82-1.76-5.61-4.13H3.04v2.62A10 10 0 0 0 12 22Z" />
+                <path fill="#FBBC05" d="M6.39 13.92A6.02 6.02 0 0 1 6.07 12c0-.67.12-1.31.32-1.92V7.46H3.04A10 10 0 0 0 2 12c0 1.63.39 3.17 1.04 4.54l3.35-2.62Z" />
+                <path fill="#EA4335" d="M12 5.95c1.47 0 2.79.5 3.82 1.5l2.88-2.88A9.66 9.66 0 0 0 12 2a10 10 0 0 0-8.96 5.46l3.35 2.62C7.18 7.71 9.39 5.95 12 5.95Z" />
+              </svg>
+              {isSubmitting ? 'Google 로그인 중...' : 'Google 계정으로 로그인'}
             </button>
-          </form>
+            <p className="m-0 text-center text-xs font-bold leading-5 text-slate-400">별도의 회원가입 없이 Google 계정으로 바로 이용할 수 있습니다.</p>
+          </div>
         )}
       </div>
     </section>

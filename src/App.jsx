@@ -366,7 +366,7 @@ export default function App() {
       },
       login: {
         title: '로그인 | MWPOWER',
-        description: 'MWPOWER 회원 로그인과 회원가입을 진행합니다.',
+        description: 'Google 계정으로 MWPOWER에 로그인합니다.',
       },
       'my-orders': {
         title: '마이페이지 | MWPOWER Store',

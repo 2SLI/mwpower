@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { loadUserProfile, requestPasswordReset, updateUserProfile } from '../features/authService'
+import { loadUserProfile, updateUserProfile } from '../features/authService'
 import { BANK_ACCOUNT, ORDER_STATUS_LABELS, PAYMENT_STATUS_LABELS, formatOrderDate, formatOrderPrice, loadUserOrders, normalizePhoneForOrder } from '../features/orderService'
 
 export function MyOrdersView({ isActive, authUser = null, onNavigateLogin }) {
@@ -11,7 +11,6 @@ export function MyOrdersView({ isActive, authUser = null, onNavigateLogin }) {
   const [profileMessage, setProfileMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isProfileSaving, setIsProfileSaving] = useState(false)
-  const [isResettingPassword, setIsResettingPassword] = useState(false)
 
   const refreshOrders = async () => {
     if (!authUser?.uid) return
@@ -77,21 +76,6 @@ export function MyOrdersView({ isActive, authUser = null, onNavigateLogin }) {
     }
   }
 
-  const handlePasswordReset = async () => {
-    if (!authUser?.email || isResettingPassword) return
-    setIsResettingPassword(true)
-    setProfileError('')
-    setProfileMessage('')
-    try {
-      await requestPasswordReset(authUser.email)
-      setProfileMessage('비밀번호 재설정 메일을 보냈습니다.')
-    } catch (resetError) {
-      setProfileError(resetError.message || '비밀번호 재설정 메일을 보내지 못했습니다.')
-    } finally {
-      setIsResettingPassword(false)
-    }
-  }
-
   return (
     <section className={`${isActive ? '' : 'is-hidden'} bg-[#f3f5f8] px-4 py-10 text-slate-800`} id="my-orders-page">
       <div className="mx-auto grid max-w-[960px] gap-5">
@@ -118,19 +102,9 @@ export function MyOrdersView({ isActive, authUser = null, onNavigateLogin }) {
         ) : (
           <>
             <section className="grid gap-4 rounded-2xl bg-white p-5 shadow-sm">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <p className="m-0 text-[12px] font-black uppercase tracking-[0.08em] text-[#d53232]">Account</p>
-                  <h2 className="m-0 mt-1 text-2xl font-black text-slate-950">회원 정보</h2>
-                </div>
-                <button
-                  type="button"
-                  onClick={handlePasswordReset}
-                  disabled={isResettingPassword}
-                  className="rounded-xl bg-slate-950 px-4 py-2 text-sm font-black text-white disabled:bg-slate-300"
-                >
-                  {isResettingPassword ? '메일 발송 중...' : '비밀번호 재설정'}
-                </button>
+              <div>
+                <p className="m-0 text-[12px] font-black uppercase tracking-[0.08em] text-[#d53232]">Account</p>
+                <h2 className="m-0 mt-1 text-2xl font-black text-slate-950">회원 정보</h2>
               </div>
 
               <div className="grid gap-3 rounded-xl bg-slate-50 p-4 text-sm font-bold text-slate-700 sm:grid-cols-2">
